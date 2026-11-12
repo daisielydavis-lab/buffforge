@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://buffforge.com/sitemap.xml
