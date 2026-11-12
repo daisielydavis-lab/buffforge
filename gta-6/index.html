@@ -11,28 +11,35 @@
 <meta property="og:url" content="https://buffforge.com/gta-6/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>">
 <style>
-  :root { --bg:#0f1115; --card:#171a21; --line:#262b36; --text:#e8eaf0; --muted:#9aa3b2; --accent:#f5b942; --pink:#ff2d78; }
+  :root {
+    --bg:#FFF9F1; --card:#FFFFFF; --line:#F0E2D3; --text:#23262F; --muted:#6B7280;
+    --pink:#FF2E7E; --orange:#FF7A1A; --amber:#FFB020;
+    --shadow:0 1px 2px rgba(35,38,47,.06), 0 10px 28px rgba(255,122,26,.10);
+  }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6; }
-  .wrap { max-width:860px; margin:0 auto; padding:0 20px; }
-  header { border-bottom:1px solid var(--line); padding:18px 0; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 24px; }
+  header { background:rgba(255,249,241,.92); border-bottom:1px solid var(--line); padding:18px 0; position:sticky; top:0; z-index:10; backdrop-filter:blur(6px); }
   header .wrap { display:flex; align-items:center; justify-content:space-between; }
   .logo { font-size:22px; font-weight:800; letter-spacing:.5px; text-decoration:none; color:var(--text); }
   .logo span { color:var(--pink); }
-  nav a { color:var(--muted); text-decoration:none; margin-left:22px; font-size:15px; }
-  nav a:hover { color:var(--text); }
-  h1 { font-size:36px; line-height:1.2; letter-spacing:-.5px; margin:36px 0 12px; }
-  .sub { color:var(--muted); font-size:17px; max-width:640px; margin-bottom:28px; }
-  h2 { font-size:22px; margin:36px 0 18px; }
-  .card { display:block; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px; text-decoration:none; color:var(--text); margin-bottom:14px; }
-  .card:hover { border-color:var(--pink); }
+  nav a { color:var(--muted); text-decoration:none; margin-left:22px; font-size:15px; font-weight:600; transition:color .15s; }
+  nav a:hover { color:var(--pink); }
+  .hero { background:linear-gradient(115deg,#FFE0EC 0%,#FFF0D9 52%,#DDF8F2 100%); background-size:200% 200%; animation:drift 14s ease-in-out infinite; border:1px solid var(--line); border-radius:22px; padding:40px 36px; margin-top:32px; }
+  @keyframes drift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+  h1 { font-size:40px; line-height:1.15; letter-spacing:-.5px; }
+  .sub { color:#4B5563; font-size:18px; max-width:720px; margin-top:14px; }
+  h2 { font-size:23px; margin:40px 0 18px; letter-spacing:-.3px; }
+  .card { display:block; background:var(--card); border:1.5px solid var(--line); border-radius:18px; padding:28px; text-decoration:none; color:var(--text); margin-bottom:14px; box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+  .card:hover { transform:translateY(-3px); border-color:var(--pink); box-shadow:0 14px 34px rgba(255,46,126,.16); }
   .card .tag { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--pink); }
-  .card h3 { font-size:20px; margin:8px 0 6px; }
+  .card h3 { font-size:21px; margin:8px 0 6px; }
   .card p { color:var(--muted); font-size:15px; }
-  .card .go { display:inline-block; margin-top:14px; color:var(--pink); font-weight:700; font-size:15px; }
-  .soon { background:var(--card); border:1px dashed var(--line); border-radius:14px; padding:24px; color:var(--muted); font-size:15px; }
-  footer { border-top:1px solid var(--line); padding:22px 0 40px; margin-top:48px; color:var(--muted); font-size:13px; }
-  @media (max-width:600px){ h1{font-size:28px;} }
+  .card .go { display:inline-block; margin-top:14px; color:var(--pink); font-weight:700; font-size:15px; transition:transform .18s ease; }
+  .card:hover .go { transform:translateX(4px); }
+  .soon { background:var(--card); border:1.5px dashed var(--line); border-radius:18px; padding:28px; color:var(--muted); font-size:15px; }
+  footer { border-top:1px solid var(--line); padding:24px 0 44px; margin-top:52px; color:var(--muted); font-size:13px; }
+  @media (max-width:760px){ h1{font-size:30px;} .hero{padding:28px 22px;} }
 </style>
 </head>
 <body>
@@ -44,8 +51,10 @@
 </header>
 
 <main class="wrap">
-  <h1>GTA 6</h1>
-  <p class="sub">Grand Theft Auto VI — PS5 and Xbox Series X|S, launching Nov 19, 2026. No PC version at launch. Tools and guides for Leonida, built from confirmed pre-release information and updated with verified in-game data after launch.</p>
+  <section class="hero">
+    <h1>GTA 6</h1>
+    <p class="sub">Grand Theft Auto VI — PS5 and Xbox Series X|S, launching Nov 19, 2026. No PC version at launch. Tools and guides for Leonida, built from confirmed pre-release information and updated with verified in-game data after launch.</p>
+  </section>
 
   <h2>Tools</h2>
   <a class="card" href="/gta-6/wanted-evidence-helper/">

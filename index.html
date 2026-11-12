@@ -11,38 +11,43 @@
 <meta property="og:url" content="https://buffforge.com/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒️</text></svg>">
 <style>
-  :root { --bg:#0f1115; --card:#171a21; --line:#262b36; --text:#e8eaf0; --muted:#9aa3b2; --accent:#f5b942; --green:#3fb97f; }
+  :root {
+    --bg:#FFF9F1; --card:#FFFFFF; --line:#F0E2D3; --text:#23262F; --muted:#6B7280;
+    --pink:#FF2E7E; --orange:#FF7A1A; --amber:#FFB020; --teal:#0E9F8A; --teal-soft:#E6F7F3;
+    --shadow:0 1px 2px rgba(35,38,47,.06), 0 10px 28px rgba(255,122,26,.10);
+  }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6; }
-  .wrap { max-width:860px; margin:0 auto; padding:0 20px; }
-  header { border-bottom:1px solid var(--line); padding:18px 0; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 24px; }
+  header { background:rgba(255,249,241,.92); border-bottom:1px solid var(--line); padding:18px 0; position:sticky; top:0; z-index:10; backdrop-filter:blur(6px); }
   header .wrap { display:flex; align-items:center; justify-content:space-between; }
   .logo { font-size:22px; font-weight:800; letter-spacing:.5px; text-decoration:none; color:var(--text); }
-  .logo span { color:var(--accent); }
-  nav a { color:var(--muted); text-decoration:none; margin-left:22px; font-size:15px; }
-  nav a:hover { color:var(--text); }
-  .hero { padding:64px 0 40px; }
-  .hero h1 { font-size:40px; line-height:1.2; letter-spacing:-.5px; margin-bottom:16px; }
-  .hero h1 span { color:var(--accent); }
-  .hero p { color:var(--muted); font-size:18px; max-width:640px; }
-  .live { display:inline-block; background:#12281d; color:var(--green); border:1px solid #1e4d33; border-radius:999px; padding:3px 12px; font-size:13px; font-weight:700; margin-bottom:18px; }
+  .logo span { color:var(--pink); }
+  nav a { color:var(--muted); text-decoration:none; margin-left:22px; font-size:15px; font-weight:600; transition:color .15s; }
+  nav a:hover { color:var(--pink); }
+  .hero { padding:72px 0 44px; }
+  .hero h1 { font-size:44px; line-height:1.15; letter-spacing:-.5px; margin-bottom:16px; }
+  .hero h1 span { background:linear-gradient(90deg,var(--pink),var(--orange)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero p { color:var(--muted); font-size:18px; max-width:680px; }
+  .live { display:inline-block; background:var(--teal-soft); color:var(--teal); border:1px solid #BFE9E0; border-radius:999px; padding:4px 14px; font-size:13px; font-weight:700; margin-bottom:20px; }
   .tools { padding:16px 0 48px; }
-  .tools h2 { font-size:22px; margin-bottom:18px; }
-  .card { display:block; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px; text-decoration:none; color:var(--text); }
-  .card:hover { border-color:var(--accent); }
-  .card .tag { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--green); }
-  .card h3 { font-size:20px; margin:8px 0 6px; }
+  .tools h2 { font-size:23px; margin-bottom:18px; letter-spacing:-.3px; }
+  .card { display:block; background:var(--card); border:1.5px solid var(--line); border-radius:18px; padding:28px; text-decoration:none; color:var(--text); box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+  .card:hover { transform:translateY(-3px); border-color:var(--pink); box-shadow:0 14px 34px rgba(255,46,126,.16); }
+  .card .tag { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--teal); }
+  .card h3 { font-size:21px; margin:8px 0 6px; }
   .card p { color:var(--muted); font-size:15px; }
-  .card .go { display:inline-block; margin-top:14px; color:var(--accent); font-weight:700; font-size:15px; }
-  .how { border-top:1px solid var(--line); padding:40px 0; }
-  .how h2 { font-size:22px; margin-bottom:18px; }
+  .card .go { display:inline-block; margin-top:14px; color:var(--pink); font-weight:700; font-size:15px; transition:transform .18s ease; }
+  .card:hover .go { transform:translateX(4px); }
+  .how { border-top:1px solid var(--line); padding:44px 0; }
+  .how h2 { font-size:23px; margin-bottom:18px; letter-spacing:-.3px; }
   .how ol { margin-left:20px; color:var(--muted); font-size:16px; }
   .how li { margin-bottom:10px; }
   .how li b { color:var(--text); }
-  .next { border-top:1px solid var(--line); padding:40px 0 56px; color:var(--muted); font-size:16px; }
-  .next h2 { font-size:22px; color:var(--text); margin-bottom:12px; }
-  footer { border-top:1px solid var(--line); padding:22px 0 40px; color:var(--muted); font-size:13px; }
-  @media (max-width:600px){ .hero h1{font-size:30px;} .hero{padding:44px 0 28px;} }
+  .next { border-top:1px solid var(--line); padding:44px 0 60px; color:var(--muted); font-size:16px; }
+  .next h2 { font-size:23px; color:var(--text); margin-bottom:12px; letter-spacing:-.3px; }
+  footer { border-top:1px solid var(--line); padding:24px 0 44px; color:var(--muted); font-size:13px; }
+  @media (max-width:760px){ .hero h1{font-size:32px;} .hero{padding:48px 0 30px;} }
 </style>
 </head>
 <body>
@@ -68,7 +73,7 @@
       <p>Live countdowns to the daily reset (07:00 UTC) and the Wednesday weekly reset. Duty missions, Odyle Energy, Ludra attempts, Abyss time — tick them off, they clear themselves at reset. Plus countdowns to the Nov 17 events, Ludra Hunt and Season 1.</p>
       <span class="go">Open the tracker →</span>
     </a>
-    <a class="card" href="/gta-6/wanted-evidence-helper/" style="margin-top:14px">
+    <a class="card" href="/gta-6/wanted-evidence-helper/" style="margin-top:16px">
       <span class="tag">GTA 6 · PS5 &amp; Xbox Series X|S</span>
       <h3>Wanted Evidence Helper</h3>
       <p>Six-star wanted, six kinds of evidence. Tick what the police have on you — face, clothes, CCTV, the duo, your car, your weapon — and get a plan to go cold. Launches Nov 19, 2026.</p>
