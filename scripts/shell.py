@@ -82,8 +82,8 @@ def head(lang, title, desc, canon_path, alternates=None, jsonld=None):
 
 def org_website_jsonld(lang):
     desc = {
-        "en": "Small, honest tools and guides by game: reset trackers, official-spec checkers, and calculators. No login, no ads. Every number cites its source and review date.",
-        "ru": "Инструменты и гайды по играм: трекер сброса AION 2 (10:00 МСК), проверка места под GTA 6, сравнение изданий. Без регистрации и рекламы. У каждой цифры — источник и дата проверки.",
+        "en": "Free game tools, trackers and calculators, organized by game. Every number cites its source and review date. No login, no ads.",
+        "ru": "Бесплатные игровые инструменты, трекеры и калькуляторы. У каждой цифры — источник и дата проверки. Без регистрации и рекламы.",
     }[lang]
     return [
         {"@context": "https://schema.org", "@type": "Organization",

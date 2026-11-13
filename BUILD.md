@@ -16,6 +16,10 @@ python3 scripts/transform_legacy.py # AION 2 tracker + GTA 6 Wanted Evidence Hel
 - `data/site.json` — games, tools, featured picks per language, guides.
   Home and hub pages are rendered from this file. To add a game: add the
   game + its tools here, re-run the scripts, then add the tool pages.
+- Homepage Title / H1 and hub copy follow BuffForge SEO plan v2 §5
+  (`workspace/user/files/buffforge-seo-plan-v2.md`): home = brand + broad
+  category, never a game name; hubs = game name + tools and guides.
+  The implementation spec's §8 homepage copy is superseded by v2.
 - `assets/site.css` — the one shared visual shell (light theme, system fonts).
 - `scripts/shell.py` — shared header / footer / head tags / JSON-LD.
 

@@ -56,23 +56,40 @@ def tool_url(lang, tool):
     return "%s/%s/%s/" % (base, tool["game"], tool["slug"])
 
 
-def badge(tool):
+def badge(lang, tool):
     if tool["status"] == "pre-launch":
-        return '<span class="badge prelaunch">Pre-launch</span>'
-    return '<span class="badge live">Live</span>'
+        label = "Pre-launch" if lang == "en" else "До выхода"
+        return '<span class="badge prelaunch">%s</span>' % label
+    label = "Live" if lang == "en" else "Доступно"
+    return '<span class="badge live">%s</span>' % label
+
+
+def game_anchor(lang, game):
+    if lang == "en":
+        return "%s tools and guides" % game["name"][lang]
+    return "инструменты и гайды по %s" % game["name"][lang]
 
 
 # ---------------------------------------------------------------- home
 HOME_COPY = {
     "en": {
-        "title": "BuffForge — Game tools, checked against the patch notes",
-        "desc": "Small, honest tools and guides by game: reset trackers, official-spec checkers, and calculators. No login, no ads. Every number cites its source and review date.",
-        "h1": 'Game tools and guides, <span>organized by game.</span>',
-        "lede": "Reset trackers, official-spec checkers, and short guides for the games you actually play. No login, no ads. <b>Every number cites its source and review date.</b>",
+        "title": "BuffForge — game tools, trackers and calculators",
+        "desc": "Free game tools, trackers and calculators, organized by game. Every number cites its source and review date. No login, no ads.",
+        "h1": "Game tools, trackers and calculators",
+        "lede": "BuffForge is a free collection of game tools, trackers and calculators. Every number cites a public source and a review date. There is no login and no advertising. Tools are organized by game: open a game to find its trackers, checkers and (when we have sourced figures) guides. BuffForge is an independent fan project, not affiliated with any publisher. Written guides are added only when we can source the numbers — today the live work is the tools.",
         "secondary": "How we check our numbers",
         "featured_h": "Featured tools",
         "games_h": "Games",
-        "view_all": "View all for this game",
+        "games_intro": 'Games on BuffForge today: <a href="/aion-2/">AION 2 tools and guides</a> and <a href="/gta-6/">GTA 6 tools and guides</a>.',
+        "how_h": "How we check every number",
+        "faq_h": "Frequently asked questions",
+        "faq": [
+            ("What is BuffForge?", "A free site of game tools, trackers and calculators. Every number has a source and a review date."),
+            ("Do I need an account?", "No."),
+            ("Is BuffForge official?", "No. BuffForge is an independent fan project, not affiliated with any publisher."),
+            ("Which games are covered?", "See the Games section below. We add a game only when we can source the numbers."),
+            ("How do you check numbers?", "Public sources only. Every tool shows its data version, sources, and review date. Corrections are welcome — see About."),
+        ],
         "open": "Open the tool",
         "trust": [
             ("Public sources only", "Numbers come from official notes, official wikis, and public APIs."),
@@ -82,14 +99,23 @@ HOME_COPY = {
         "reviewed": "Data reviewed Nov 13, 2026",
     },
     "ru": {
-        "title": "BuffForge — игровые инструменты с проверенными цифрами",
-        "desc": "Инструменты и гайды по играм: трекер сброса AION 2 (10:00 МСК), проверка места под GTA 6, сравнение изданий. Без регистрации и рекламы. У каждой цифры — источник и дата проверки.",
-        "h1": "Инструменты и гайды <span>по играм.</span>",
-        "lede": "Сброс AION 2 в 10:00 по Москве, место на диске и время выхода GTA 6 — по официальным данным, без выдуманных «системных требований». Без регистрации и рекламы. <b>Каждая цифра — с источником и датой проверки.</b>",
+        "title": "BuffForge — игровые инструменты, трекеры и калькуляторы",
+        "desc": "Бесплатные игровые инструменты, трекеры и калькуляторы. У каждой цифры — источник и дата проверки. Без регистрации и рекламы.",
+        "h1": "Игровые инструменты, трекеры и калькуляторы",
+        "lede": "BuffForge — бесплатные игровые инструменты, трекеры и калькуляторы. У каждой цифры есть открытый источник и дата проверки. Регистрации и рекламы нет. Инструменты сгруппированы по играм: откройте игру, чтобы найти трекеры, проверки и — когда появятся проверенные цифры — гайды. BuffForge — независимый фанатский проект, не связанный с издателями. Текстовые гайды выходят только после проверки цифр; сейчас в центре — сами инструменты.",
         "secondary": "Как мы проверяем цифры",
         "featured_h": "Главные инструменты",
         "games_h": "Игры",
-        "view_all": "Все инструменты и гайды игры",
+        "games_intro": 'Игры на BuffForge сегодня: <a href="/ru/gta-6/">инструменты и гайды по GTA 6</a> и <a href="/ru/aion-2/">инструменты и гайды по AION 2</a>.',
+        "how_h": "Как мы проверяем каждую цифру",
+        "faq_h": "Частые вопросы",
+        "faq": [
+            ("Что такое BuffForge?", "Бесплатный сайт игровых инструментов, трекеров и калькуляторов. У каждой цифры — источник и дата проверки."),
+            ("Нужна ли регистрация?", "Нет."),
+            ("Это официальный сайт?", "Нет. BuffForge — независимый фанатский проект, не связанный с издателями."),
+            ("По каким играм есть инструменты?", "Смотрите раздел «Игры» ниже. Игра добавляется, только когда мы можем проверить цифры."),
+            ("Как вы проверяете цифры?", "Только открытые источники. У каждого инструмента — версия данных, источники и дата проверки. Об ошибках можно написать нам — смотрите «О проекте»."),
+        ],
         "open": "Открыть",
         "trust": [
             ("Только открытые источники", "Цифры только из официальных заметок, официальных вики и публичных API."),
@@ -124,14 +150,15 @@ def game_block(lang, game):
             '<div class="tool-row"><div><a class="t-name" href="%s">%s</a>%s'
             '<div class="t-blurb">%s</div></div>'
             '<a class="t-go" href="%s">%s &rarr;</a></div>'
-            % (tool_url(lang, t), t["title"][lang], badge(t), t["blurb"][lang],
+            % (tool_url(lang, t), t["title"][lang], badge(lang, t), t["blurb"][lang],
                tool_url(lang, t), c["open"]))
     hub = game["hub"] if "hub" in game else {"en": "/%s/" % game["slug"], "ru": "/ru/%s/" % game["slug"]}
     return (
         '<article class="game-block"><div class="head"><div>'
-        '<h2>%s</h2><p class="tagline">%s</p></div>'
+        '<h3>%s</h3><p class="tagline">%s</p></div>'
         '<a class="view-all" href="%s">%s &rarr;</a></div>%s</article>'
-        % (game["name"][lang], game["tagline"][lang], hub[lang], c["view_all"], "".join(rows))
+        % (game["name"][lang], game["tagline"][lang], hub[lang],
+           game_anchor(lang, game), "".join(rows))
     )
 
 
@@ -146,16 +173,19 @@ def home_page(lang):
     about_url = "/about/" if lang == "en" else "/ru/about/"
     blocks = "".join(game_block(lang, g) for g in game_order(lang))
     trust_items = "".join("<li><b>%s</b>%s</li>" % (t, d) for t, d in c["trust"])
+    faq_items = "".join("<h3>%s</h3><p>%s</p>" % (q, a) for q, a in c["faq"])
     body = (
         '<main class="wrap">'
         '<section class="hero"><h1>%s</h1><p class="lede">%s</p>'
         '<div class="cta">%s<a class="btn btn-secondary" href="%s">%s</a></div></section>'
         '<section class="block"><h2>%s</h2><div class="%s">%s</div></section>'
-        '<section class="block"><h2>%s</h2>%s</section>'
-        '<section class="trust"><ol>%s</ol></section>'
+        '<section class="block"><h2>%s</h2><p class="intro">%s</p>%s</section>'
+        '<section class="trust"><h2><a href="%s">%s</a></h2><ol>%s</ol></section>'
+        '<section class="block prose faq"><h2>%s</h2>%s</section>'
         '</main>'
         % (c["h1"], c["lede"], primary, about_url, c["secondary"],
-           c["featured_h"], grid_cls, cards, c["games_h"], blocks, trust_items)
+           c["featured_h"], grid_cls, cards, c["games_h"], c["games_intro"], blocks,
+           about_url, c["how_h"], trust_items, c["faq_h"], faq_items)
     )
     canon = "/" if lang == "en" else "/ru/"
     alt = {"en": "/", "ru": "/ru/"}
@@ -229,67 +259,196 @@ def about_page(lang):
 HUB_COPY = {
     "aion-2": {
         "en": {
-            "title": "AION 2 Tools & Guides | BuffForge",
-            "desc": "BuffForge's AION 2 hub: the daily and weekly tracker for global servers. Daily reset 07:00 UTC, weekly reset Wednesday 07:00 UTC.",
-            "h1": "AION 2",
-            "lede": "Global service, launched Oct 5, 2026. NC America reported more than 400,000 concurrent players after launch. This hub tracks the global servers only — Korea and Taiwan reset at a different hour.",
+            "title": "AION 2 tools and guides — BuffForge",
+            "desc": "AION 2 tools and guides: daily and weekly tracker, reset times (07:00 UTC), and sourced checklists for global servers. No login, no ads.",
+            "h1": "AION 2 tools and guides",
+            "lede": "This is the BuffForge hub for AION 2 tools and guides on the global servers. The live tool is a daily and weekly tracker: tick duties off and watch the countdown to the 07:00 UTC daily reset and the Wednesday weekly reset. Reset times and any figures we publish cite public sources and a review date. Guides will appear here only when we can source them. BuffForge is an independent fan project, not affiliated with NC. No login, no ads.",
             "tools_h": "Tools", "guides_h": "Guides",
         },
         "ru": {
-            "title": "AION 2 — инструменты и гайды | BuffForge",
-            "desc": "Хаб AION 2 на BuffForge: трекер ежедневных и еженедельных заданий для глобальных серверов. Сброс каждый день в 10:00 по Москве, еженедельный — в среду в 10:00 МСК.",
-            "h1": "AION 2",
-            "lede": "Глобальный сервис, запуск 5 октября 2026 года. По данным NC America, после запуска онлайн превышал 400 000 игроков одновременно. Этот хаб — только для глобальных серверов: Корея и Тайвань сбрасываются в другое время.",
+            "title": "AION 2: трекер и гайды, сброс 10:00 МСК — BuffForge",
+            "desc": "Инструменты и гайды по AION 2: трекер ежедневных заданий, время сброса 10:00 МСК, чек-листы для глобальных серверов. Без регистрации и рекламы.",
+            "h1": "Инструменты и гайды по AION 2",
+            "lede": "Это хаб BuffForge с инструментами и гайдами по AION 2 для глобальных серверов. Живой инструмент — трекер ежедневных и еженедельных заданий: отмечайте задания и следите за обратным отсчётом до сброса в 10:00 по Москве и еженедельного сброса в среду в 10:00 МСК. Время сброса и все цифры мы публикуем с указанием открытых источников и даты проверки. Гайды появятся здесь, только когда мы сможем проверить цифры. BuffForge — независимый фанатский проект, не связанный с NC. Без регистрации и рекламы.",
             "tools_h": "Инструменты", "guides_h": "Гайды",
         },
     },
     "gta-6": {
         "en": {
-            "title": "GTA 6 Tools & Guides | BuffForge",
-            "desc": "BuffForge's GTA 6 hub: storage check, launch countdown, editions compared, and console compatibility for PS5 and Xbox Series X|S. Launches Nov 19, 2026.",
-            "h1": "GTA 6",
-            "lede": "Grand Theft Auto VI launches Nov 19, 2026 on PS5 (including Pro) and Xbox Series X|S. There is no PC version at launch and no PS4 version. Tools here use official facts only; pre-launch mechanics are labelled and re-checked after release.",
-            "tools_h": "Tools", "guides_h": "Guides",
+            "title": "GTA 6 tools and guides — BuffForge",
+            "desc": "GTA 6 tools and guides: storage check (at least 212 GB), Nov 19 unlock time, Standard vs Ultimate, and console compatibility. Official public figures only.",
+            "h1": "GTA 6 tools and guides",
+            "lede": "This is the BuffForge hub for GTA 6 tools and guides. Four tools use official facts only: a storage check (at least 212 GB), a Nov 19 launch countdown by store region, a Standard vs Ultimate comparison ($79.99 vs $99.99, US MSRP from Take-Two), and a console compatibility check. There is no officially announced PC version. BuffForge is an independent fan project, not affiliated with Rockstar Games or Take-Two Interactive. No login, no ads.",
+            "tools_h": "Tools — official facts", "guides_h": "Guides",
         },
         "ru": {
-            "title": "GTA 6 — инструменты и гайды | BuffForge",
-            "desc": "Хаб GTA 6 на BuffForge: проверка места на диске, обратный отсчёт до выхода, сравнение изданий и совместимость с консолями PS5 и Xbox Series X|S. Выход — 19 ноября 2026 года.",
-            "h1": "GTA 6",
-            "lede": "Grand Theft Auto VI выходит 19 ноября 2026 года на PS5 (включая Pro) и Xbox Series X|S. Версии для ПК на старте нет, версии для PS4 — тоже. Инструменты здесь — только по официальным данным; механики до выхода помечены и перепроверяются после релиза.",
-            "tools_h": "Инструменты", "guides_h": "Гайды",
+            "title": "GTA 6 инструменты и гайды: 212 ГБ, 19 ноября — BuffForge",
+            "desc": "Инструменты и гайды по GTA 6: сколько весит (не менее 212 ГБ), во сколько выйдет 19 ноября, издания и совместимость. Только официальные цифры.",
+            "h1": "Инструменты и гайды по GTA 6",
+            "lede": "Это хаб BuffForge с инструментами и гайдами по GTA 6. Четыре инструмента — только по официальным цифрам: проверка места (не менее 212 ГБ), обратный отсчёт до 19 ноября по региону магазина, сравнение изданий Standard и Ultimate ($79.99 и $99.99, рекомендованные цены Take-Two в США) и проверка совместимости консолей. Версия для ПК официально не анонсирована. BuffForge — независимый фанатский проект, не связанный с Rockstar Games и Take-Two Interactive. Без регистрации и рекламы.",
+            "tools_h": "Инструменты — официальные данные", "guides_h": "Гайды",
         },
     },
 }
 
 
+HUB_BODY = {
+    "aion-2": {
+        "en": {
+            "reset_h": "Reset times for global servers",
+            "reset": [
+                ("Daily reset — 07:00 UTC", "The daily checklist clears at 07:00 UTC every day."),
+                ("Weekly reset — Wednesday 07:00 UTC", "The weekly checklist clears every Wednesday at 07:00 UTC."),
+            ],
+            "guides_h": "Guides",
+            "guides_note": "No guides published yet. Guides appear here only when we can source the numbers — nothing is listed until then.",
+            "planned_h": "Planned tools and guides",
+            "planned": [
+                "Short explainers for the daily and weekly duties behind the tracker.",
+                "Later, if sources allow: an Odyle Energy calculator and class starter guides.",
+                "No tier-list ranking site, and no guides for bypassing regional restrictions.",
+            ],
+            "faq_h": "Frequently asked questions",
+            "faq": [
+                ("What time is the AION 2 daily reset?", "07:00 UTC, every day."),
+                ("When is the weekly reset?", "Wednesday at 07:00 UTC."),
+                ("Is there an official NC tracker?", "No. NCSoft does not publish an official daily and weekly tracker — this one is built from public sources and community trackers, with a review date on the page."),
+                ("Do I need an account?", "No. The tracker runs in your browser and saves your checkmarks locally."),
+            ],
+            "other_h": "Other games on BuffForge",
+            "other": [("GTA 6 tools and guides", "/gta-6/"),
+                      ("BuffForge game tools and trackers", "/")],
+        },
+        "ru": {
+            "reset_h": "Время сброса для глобальных серверов",
+            "reset": [
+                ("Ежедневный сброс — 10:00 МСК", "Список ежедневных заданий сбрасывается каждый день в 10:00 по Москве (07:00 UTC)."),
+                ("Еженедельный сброс — среда, 10:00 МСК", "Список еженедельных заданий сбрасывается каждую среду в 10:00 по Москве (07:00 UTC)."),
+            ],
+            "guides_h": "Гайды",
+            "guides_note": "Гайдов пока нет. Гайды появятся здесь, только когда мы сможем проверить цифры, — до тех пор ничего не публикуется.",
+            "planned_h": "Запланированные инструменты и гайды",
+            "planned": [
+                "Короткие объяснения ежедневных и еженедельных заданий из трекера.",
+                "Позже, если появятся источники: калькулятор эфирной энергии (Odyle Energy) и стартовые гайды по классам.",
+                "Никаких рейтинговых tier list без источников и гайдов по обходу региональных ограничений.",
+            ],
+            "faq_h": "Частые вопросы",
+            "faq": [
+                ("Во сколько ежедневный сброс в AION 2?", "В 10:00 по Москве (07:00 UTC), каждый день."),
+                ("Когда еженедельный сброс?", "В среду в 10:00 по Москве (07:00 UTC)."),
+                ("AION 2 официально доступна в России?", "Нет. По данным на ноябрь 2026 года, официальная глобальная версия не распространяется в России и Беларуси: NC включает их в список стран с ограничениями. Русскоязычный интерфейс в глобальной версии есть, отдельного русского сервера нет. При этом ряд других стран СНГ входит в список обслуживаемых регионов. Никаких инструкций по обходу ограничений здесь нет."),
+                ("Нужна ли регистрация?", "Нет. Трекер работает в браузере, а отметки сохраняются локально."),
+            ],
+            "other_h": "Другие игры на BuffForge",
+            "other": [("инструменты и гайды по GTA 6", "/ru/gta-6/"),
+                      ("игровые инструменты и трекеры BuffForge", "/ru/")],
+        },
+    },
+    "gta-6": {
+        "en": {
+            "prelaunch_h": "Pre-launch tool",
+            "prelaunch_note": "Based on pre-release previews. Mechanics will be verified in-game after launch on Nov 19, 2026. This tool is not featured and is not in the sitemap.",
+            "guides_h": "Guides",
+            "guides_note": "No guides published yet. Guides appear here only when we can source the numbers — nothing is listed until then.",
+            "planned_h": "Planned tools and guides",
+            "planned": [
+                "After launch, the same four tools are updated from official patches — storage, countdown, editions, and compatibility.",
+                "Gameplay guides only when we can cite official or verifiable sources.",
+                "No PC spec table until Rockstar officially announces a PC version. No buying guides.",
+            ],
+            "faq_h": "Frequently asked questions",
+            "faq": [
+                ("How big is GTA 6?", "At least 212 GB of free space, according to PlayStation. Check your console with the storage check."),
+                ("When does GTA 6 come out?", "Nov 19, 2026, at local midnight in your store region — see the launch countdown for your time zone."),
+                ("Standard or Ultimate — what is the difference?", "Standard is $79.99 and Ultimate is $99.99 (US MSRP from Take-Two). See the editions comparison for what each one includes."),
+                ("Can I play GTA 6 on PC?", "There is no officially announced PC version, and no official PC system requirements. Do not trust spec tables you see online — they are not from Rockstar."),
+                ("Can I play on PS4 or Xbox One?", "No. GTA 6 launches on PS5 (including Pro) and Xbox Series X|S only."),
+            ],
+            "other_h": "Other games on BuffForge",
+            "other": [("AION 2 tools and guides", "/aion-2/"),
+                      ("BuffForge game tools and trackers", "/")],
+        },
+        "ru": {
+            "prelaunch_h": "Инструмент до выхода",
+            "prelaunch_note": "По материалам превью до выхода. После 19 ноября 2026 года сверим механику с игрой. Инструмент не входит в главный блок и не входит в sitemap.",
+            "guides_h": "Гайды",
+            "guides_note": "Гайдов пока нет. Гайды появятся здесь, только когда мы сможем проверить цифры, — до тех пор ничего не публикуется.",
+            "planned_h": "Запланированные инструменты и гайды",
+            "planned": [
+                "После выхода те же четыре инструмента обновляются по официальным патчам: место, отсчёт, издания и совместимость.",
+                "Гайды по игре — только когда можно сослаться на официальные или проверяемые источники.",
+                "Таблицы системных требований для ПК — только после официального анонса ПК-версии. Гайдов по покупке не будет.",
+            ],
+            "faq_h": "Частые вопросы",
+            "faq": [
+                ("Сколько весит GTA 6?", "Не менее 212 ГБ свободного места по данным PlayStation. Проверьте свою консоль на странице проверки места."),
+                ("Во сколько выйдет GTA 6 19 ноября по Москве?", "Выход — в местную полночь 19 ноября по региону магазина. Точное время для вашего региона — на странице обратного отсчёта."),
+                ("Какие системные требования на ПК?", "Версия для ПК официально не анонсирована, официальных системных требований нет. Таблицы из интернета — не данные Rockstar, мы их не публикуем."),
+                ("Можно ли купить GTA 6 в официальном магазине в России?", "По состоянию на ноябрь 2026 года купить игру в российском PlayStation Store или через Microsoft Store в России по официальным каналам нельзя."),
+                ("Standard или Ultimate — что выбрать?", "Standard — $79.99, Ultimate — $99.99 (рекомендованные цены Take-Two в США). Что входит в каждое издание — на странице сравнения."),
+            ],
+            "other_h": "Другие игры на BuffForge",
+            "other": [("инструменты и гайды по AION 2", "/ru/aion-2/"),
+                      ("игровые инструменты и трекеры BuffForge", "/ru/")],
+        },
+    },
+}
+
+
+def hub_card(lang, game, t):
+    status = "Live" if t["status"] == "live" else "Pre-launch"
+    if lang == "ru":
+        status = "Доступно" if t["status"] == "live" else "До выхода"
+    return (
+        '<a class="card" href="%s"><span class="tag">%s &middot; %s</span>'
+        '<h3>%s</h3><p>%s</p>'
+        '<span class="go">%s &rarr;</span>'
+        '<div class="meta">%s</div></a>'
+        % (tool_url(lang, t), game["name"][lang], status,
+           t["title"][lang], t["blurb"][lang],
+           HOME_COPY[lang]["open"], HOME_COPY[lang]["reviewed"])
+    )
+
+
 def hub_page(game_id, lang):
     c = HUB_COPY[game_id][lang]
+    b = HUB_BODY[game_id][lang]
     game = GAMES_DATA[game_id]
     tools = tools_for(game_id)
-    cards = []
-    for t in tools:
-        cards.append(
-            '<a class="card" href="%s"><span class="tag">%s &middot; %s</span>'
-            '<h3>%s</h3><p>%s</p>'
-            '<span class="go">%s &rarr;</span>'
-            '<div class="meta">%s</div></a>'
-            % (tool_url(lang, t), game["name"][lang],
-               "Live" if t["status"] == "live" else "Pre-launch",
-               t["title"][lang],
-               t["blurb"][lang],
-               HOME_COPY[lang]["open"],
-               HOME_COPY[lang]["reviewed"]))
+    live_cards = "".join(hub_card(lang, game, t) for t in tools if t["status"] == "live")
+    pre_cards = "".join(hub_card(lang, game, t) for t in tools if t["status"] == "pre-launch")
     hub_path = "/%s/" % game_id if lang == "en" else "/ru/%s/" % game_id
     alt = {"en": "/%s/" % game_id, "ru": "/ru/%s/" % game_id}
     home_label = "Home" if lang == "en" else "Главная"
     home_path = "/" if lang == "en" else "/ru/"
+    secs = ['<h2 class="sec">%s</h2>%s' % (c["tools_h"], live_cards)]
+    if pre_cards:
+        secs.append('<h2 class="sec">%s</h2><p class="intro-note">%s</p>%s'
+                    % (b["prelaunch_h"], b["prelaunch_note"], pre_cards))
+    if "reset" in b:
+        reset_rows = "".join("<h3>%s</h3><p>%s</p>" % (h, p) for h, p in b["reset"])
+        secs.append('<section class="block prose"><h2 class="sec">%s</h2>%s</section>'
+                    % (b["reset_h"], reset_rows))
+    secs.append('<section class="block prose"><h2 class="sec">%s</h2><p>%s</p></section>'
+                % (b["guides_h"], b["guides_note"]))
+    planned_items = "".join("<li>%s</li>" % p for p in b["planned"])
+    secs.append('<section class="block prose"><h2 class="sec">%s</h2><ul>%s</ul></section>'
+                % (b["planned_h"], planned_items))
+    faq_items = "".join("<h3>%s</h3><p>%s</p>" % (q, a) for q, a in b["faq"])
+    secs.append('<section class="block prose faq"><h2 class="sec">%s</h2>%s</section>'
+                % (b["faq_h"], faq_items))
+    other_links = " &middot; ".join('<a href="%s">%s</a>' % (href, label)
+                                     for label, href in b["other"])
+    secs.append('<section class="block"><h2 class="sec">%s</h2><p>%s</p></section>'
+                % (b["other_h"], other_links))
     body = (
         '<main class="wrap">%s'
         '<section class="tool-hero"><h1>%s</h1><p class="sub">%s</p></section>'
-        '<h2 class="sec">%s</h2>%s'
+        '%s'
         '</main>'
         % (crumbs_html(lang, [(home_label, home_path), (game["name"][lang], None)]),
-           c["h1"], c["lede"], c["tools_h"], "".join(cards))
+           c["h1"], c["lede"], "".join(secs))
     )
     jl = breadcrumb_jsonld(lang, [(home_label, home_path), (game["name"][lang], hub_path)])
     return page(lang, c["title"], c["desc"], hub_path, alt, body,

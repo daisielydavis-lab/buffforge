@@ -87,7 +87,7 @@ section.block > p.intro { color:var(--muted); font-size:16px; max-width:72ch; ma
 .game-block { background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius);
   padding:28px; margin-bottom:16px; box-shadow:var(--shadow); }
 .game-block .head { display:flex; justify-content:space-between; align-items:baseline; gap:14px; flex-wrap:wrap; }
-.game-block h2 { margin-bottom:4px; }
+.game-block h2, .game-block h3 { margin-bottom:4px; font-size:21px; }
 .game-block .tagline { color:var(--muted); font-size:15px; margin-bottom:18px; }
 .tool-row { display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;
   padding:14px 0; border-top:1px solid var(--line); }
@@ -100,6 +100,9 @@ section.block > p.intro { color:var(--muted); font-size:16px; max-width:72ch; ma
 
 /* trust bar */
 .trust { border-top:1px solid var(--line); padding:40px 0; }
+.trust h2 { font-size:23px; margin-bottom:18px; letter-spacing:-.3px; }
+.trust h2 a { color:var(--text); text-decoration:none; }
+.trust h2 a:hover { color:var(--pink); }
 .trust ol { list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .trust li { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px;
   font-size:15px; color:var(--muted); }
@@ -131,6 +134,10 @@ section.block > p.intro { color:var(--muted); font-size:16px; max-width:72ch; ma
 h2.sec { font-size:23px; margin:36px 0 14px; letter-spacing:-.3px; }
 .prose p { color:var(--muted); font-size:16px; margin-bottom:12px; max-width:72ch; }
 .prose p b, .prose li b { color:var(--text); }
+.faq h3 { font-size:18px; margin:20px 0 6px; }
+.faq h3:first-of-type { margin-top:0; }
+.faq h2 { margin-bottom:6px; }
+.intro-note { color:var(--muted); font-size:15px; max-width:72ch; margin:-6px 0 16px; }
 .prose ul, .prose ol { margin:0 0 14px 20px; color:var(--muted); font-size:16px; }
 .prose li { margin-bottom:8px; }
 .note-box { background:var(--card); border:1px solid var(--line); border-left:5px solid var(--pink);
