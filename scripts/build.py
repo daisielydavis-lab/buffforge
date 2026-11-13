@@ -76,9 +76,9 @@ def game_anchor(lang, game):
 # ---------------------------------------------------------------- home
 HOME_COPY = {
     "en": {
-        "title": "BuffForge — game tools, trackers and calculators",
+        "title": "BuffForge — Game Tools, Calculators & Guides",
         "desc": "Free game tools, trackers and calculators, organized by game. Every number cites its source and review date. No login, no ads.",
-        "h1": "Game tools, trackers and calculators",
+        "h1": "Game Tools, Calculators & Guides",
         "lede": "BuffForge is a free collection of game tools, trackers and calculators. Every number cites a public source and a review date. There is no login and no advertising. Tools are organized by game: open a game to find its trackers, checkers and (when we have sourced figures) guides. BuffForge is an independent fan project, not affiliated with any publisher. Written guides are added only when we can source the numbers — today the live work is the tools.",
         "kicker": "Sourced, dated, by game",
         "primary": "Browse featured tools",
@@ -110,9 +110,9 @@ HOME_COPY = {
         "reviewed": "Data reviewed Nov 13, 2026",
     },
     "ru": {
-        "title": "BuffForge — игровые инструменты, трекеры и калькуляторы",
+        "title": "BuffForge — игровые инструменты, калькуляторы и гайды",
         "desc": "Бесплатные игровые инструменты, трекеры и калькуляторы. У каждой цифры — источник и дата проверки. Без регистрации и рекламы.",
-        "h1": "Игровые инструменты, трекеры и калькуляторы",
+        "h1": "Игровые инструменты, калькуляторы и гайды",
         "lede": "BuffForge — бесплатные игровые инструменты, трекеры и калькуляторы. У каждой цифры есть открытый источник и дата проверки. Регистрации и рекламы нет. Инструменты сгруппированы по играм: откройте игру, чтобы найти трекеры, проверки и — когда появятся проверенные цифры — гайды. BuffForge — независимый фанатский проект, не связанный с издателями. Текстовые гайды выходят только после проверки цифр; сейчас в центре — сами инструменты.",
         "kicker": "С источником и датой, по играм",
         "primary": "К избранным инструментам",
