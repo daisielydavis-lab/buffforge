@@ -58,7 +58,7 @@
      H3    --fs-h3:    20px, lh 1.35  (18px at <=600px)  (card / panel titles)
      H4    --fs-h4:    17px, lh 1.4                     (small titles)
      Lede  --fs-lede:  17px, lh 1.7                     (hero / page ledes)
-     Body  --fs-body:  15px, lh 1.7                     (prose, answers, results)
+     Body  --fs-body:  16px, lh 1.7                     (prose, answers, results)
      Card  --fs-card:  14px, lh 1.65                    (card blurbs, section subs, descriptions)
      Small --fs-small: 13px, lh 1.6                     (notes, captions, footer, form hints)
      Meta  --fs-meta:  12px                             (UPPERCASE kickers / labels ONLY)
@@ -73,7 +73,7 @@
   --fs-h3: 20px;
   --fs-h4: 17px;
   --fs-lede: 17px;
-  --fs-body: 15px;
+  --fs-body: 16px;
   --fs-card: 14px;
   --fs-small: 13px;
   --fs-meta: 12px;
