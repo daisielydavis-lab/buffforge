@@ -188,10 +188,12 @@ def crumbs_html(lang, items):
 
 
 def footer_html(lang, games):
-    """Four-column footer: brand, Site, Games, Language; legal lines name
-    each game's rights holders and the data-review date."""
+    """Four-column footer: brand, Site, Games, Language.
+    No legal/trademark block: the per-game trademark lines and the
+    site-wide review line were removed 2026-11-13 (user decision).
+    The GAMES tm / COPY affil / review_line data stays defined in case
+    it is needed again, but nothing renders it."""
     c = COPY[lang]
-    tms = "".join("<p>%s</p>" % GAMES[g]["tm"][lang] for g in games)
     game_links = "".join(
         '<a href="%s">%s</a>' % (GAMES[g]["hub"][lang], GAMES[g]["name"])
         for g in ("desktop-pension-squad", "aion-2", "gta-6"))
@@ -209,12 +211,11 @@ def footer_html(lang, games):
         '<div><h2>%s</h2><div class="links">%s</div></div>'
         '<div><h2>%s</h2><div class="links">%s</div></div>'
         '</div>'
-        '<div class="legal">%s<p>%s</p><p>%s</p></div></div></footer>'
+        '</div></footer>'
         % (ANVIL_SVG, c["tagline"], "Site" if lang == "en" else "Сайт",
            c["home_url"], c["home"],
            c["about_url"], c["about"], EMAIL, c["report"],
-           c["games"], game_links, "Language" if lang == "en" else "Язык", lang_items,
-           tms, c["affil"], c["review_line"])
+           c["games"], game_links, "Language" if lang == "en" else "Язык", lang_items)
     )
 
 

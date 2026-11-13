@@ -358,7 +358,6 @@ ABOUT_COPY = {
             ("Report a mistake",
              "Found a wrong number? Email <a href=\"mailto:%s\">%s</a> with the page URL and what is wrong. We correct verified mistakes and update the review date on the page." % (EMAIL, EMAIL)),
         ],
-        "tm": "AION 2 is a trademark of NCSOFT. Grand Theft Auto and Rockstar Games are trademarks of Take-Two Interactive. DPS: Desktop Pension Squad is developed by detailgames and published by storytaco. BuffForge is not affiliated with, endorsed by, or sponsored by NCSOFT, Rockstar Games, Take-Two Interactive, detailgames, storytaco, or Valve Corporation.",
     },
     "ru": {
         "title": "О проекте BuffForge — как мы проверяем цифры",
@@ -379,7 +378,6 @@ ABOUT_COPY = {
             ("Почему есть русская версия",
              "Официальный глобальный сайт AION 2 по русскому адресу перенаправляет на английскую версию, поэтому наши русские страницы написаны под вопросы русскоязычных игроков — а не как перевод английских."),
         ],
-        "tm": "AION 2 — торговая марка NCSOFT. Grand Theft Auto и Rockstar Games — торговые марки Take-Two Interactive. Desktop Pension Squad разработана detailgames и издаётся storytaco. BuffForge не связан с NCSOFT, Rockstar Games, Take-Two Interactive, detailgames, storytaco и Valve Corporation и не одобрен ими.",
     },
 }
 
@@ -391,9 +389,8 @@ def about_page(lang):
         for h, p in c["sections"])
     body = (
         '<main id="main" class="wrap narrow">%s'
-        '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>%s'
-        '<p class="data-line">%s</p></main>'
-        % (crumbs_html(lang, [(c["h1"], None)]), c["h1"], c["lede"], secs, c["tm"])
+        '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>%s</main>'
+        % (crumbs_html(lang, [(c["h1"], None)]), c["h1"], c["lede"], secs)
     )
     canon = "/about/" if lang == "en" else "/ru/about/"
     alt = {"en": "/about/", "ru": "/ru/about/"}
@@ -627,8 +624,14 @@ def hub_page(game_id, lang):
         reset_rows = "".join("<h3>%s</h3><p>%s</p>" % (h, p) for h, p in b["reset"])
         secs.append('<section class="block prose"><h2 class="sec">%s</h2>%s</section>'
                     % (b["reset_h"], reset_rows))
-    secs.append('<section class="block prose"><h2 class="sec">%s</h2><p>%s</p></section>'
-                % (b["guides_h"], b["guides_note"]))
+    # Guides section only exists once a game actually has guides
+    # (data/site.json top-level "guides"; an entry counts only when its
+    # "game" field equals this game's id). Until then the hub shows no
+    # Guides block at all. When guides land, render the list here
+    # instead of the placeholder note.
+    if [g for g in GUIDES if g.get("game") == game_id]:
+        secs.append('<section class="block prose"><h2 class="sec">%s</h2><p>%s</p></section>'
+                    % (b["guides_h"], b["guides_note"]))
     planned_items = "".join("<li>%s</li>" % p for p in b["planned"])
     secs.append('<section class="block prose"><h2 class="sec">%s</h2><ul>%s</ul></section>'
                 % (b["planned_h"], planned_items))

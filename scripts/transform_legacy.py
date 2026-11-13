@@ -291,6 +291,8 @@ def wanted_body_en():
     main = main.replace('<section class="hero">', '<section class="tool-hero">')
     main = main.replace('<section class="how">', '<section class="how-box">')
     main = main.replace('<section class="plan">', '<section class="plan-box">')
+    main = main.replace('<h2>What evidence do they have on you?</h2>',
+                        '<h2 class="sec">What evidence do they have on you?</h2>')
     main = main.replace('<button class="reset" ', '<button class="reset-btn" ')
     return main
 
