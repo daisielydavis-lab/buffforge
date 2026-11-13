@@ -40,6 +40,15 @@ GAMES = {
             "ru": "Grand Theft Auto и GTA — товарные знаки Take-Two Interactive. Rockstar Games — товарный знак Take-Two Interactive.",
         },
     },
+    "rob-run": {
+        "name": "ROB RUN",
+        "short": "ROB RUN",
+        "hub": {"en": "/rob-run/", "ru": "/ru/rob-run/"},
+        "tm": {
+            "en": "ROB RUN is developed and published by Kefir.",
+            "ru": "ROB RUN разработана и издаётся Kefir.",
+        },
+    },
 }
 
 ANVIL_SVG = (
@@ -59,7 +68,7 @@ COPY = {
         "tagline": "Game tools, trackers and calculators. Every number cites a public source.",
         "review_line": "Every number cites a public source. We recheck official sources before publishing. Last data review: 13 November 2026.",
         "affil": ("BuffForge is an independent fan project, not affiliated with, endorsed by, or sponsored "
-                  "by detailgames, storytaco, NCSOFT, Rockstar Games, Take-Two Interactive, or Valve Corporation."),
+                  "by detailgames, storytaco, NCSOFT, Rockstar Games, Take-Two Interactive, Kefir, or Valve Corporation."),
     },
     "ru": {
         "home": "Главная", "games": "Игры", "about": "О проекте",
@@ -70,7 +79,7 @@ COPY = {
         "tagline": "Игровые инструменты, трекеры и калькуляторы. У каждой цифры — открытый источник.",
         "review_line": "У каждой цифры — открытый источник. Мы перепроверяем официальные источники перед публикацией. Последняя проверка данных: 13 ноября 2026.",
         "affil": ("BuffForge — независимый фанатский проект, не связанный с detailgames, storytaco, NCSOFT, "
-                  "Rockstar Games, Take-Two Interactive или Valve Corporation и не одобренный ими."),
+                  "Rockstar Games, Take-Two Interactive, Kefir или Valve Corporation и не одобренный ими."),
     },
 }
 
@@ -166,11 +175,12 @@ def header_html(lang, current_path, switch_path):
         "desktop-pension-squad": "dps",
         "aion-2": "aion",
         "gta-6": "gta",
+        "rob-run": "rob",
     }
     games_links = "".join(
         '<a href="%s"><span class="dot dot-%s"></span>%s</a>'
         % (GAMES[g]["hub"][lang], dots[g], GAMES[g]["name"])
-        for g in ("desktop-pension-squad", "aion-2", "gta-6"))
+        for g in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run"))
     en_href = current_path if lang == "en" else switch_path
     ru_href = switch_path if lang == "en" else current_path
     return (
@@ -213,7 +223,7 @@ def footer_html(lang, games):
     c = COPY[lang]
     game_links = "".join(
         '<a href="%s">%s</a>' % (GAMES[g]["hub"][lang], GAMES[g]["name"])
-        for g in ("desktop-pension-squad", "aion-2", "gta-6"))
+        for g in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run"))
     if lang == "en":
         lang_items = ('<a href="/" class="current" aria-current="true">English</a>'
                       '<a href="/ru/">Русская версия</a>')

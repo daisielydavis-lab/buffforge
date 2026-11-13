@@ -36,6 +36,9 @@
   --dps: #0C706C;
   --dps-wash: #DCEEEC;
   --dps-deep: #0A4543;
+  --rob: #7A3E32;
+  --rob-wash: #F8E8E4;
+  --rob-deep: #5A2C24;
 
   --r-sm: 6px;
   --r: 10px;
@@ -66,7 +69,7 @@
      Floors: no sentence or paragraph text below 13px; 12px only for short
      uppercase labels; 11px only for pills/badges. 10px is deleted everywhere.
      Kept as-is (not reading text): the 404 giant number, hub stat watermarks
-     (VI / 2 / DPS), countdown / tracker display figures, icon glyphs, and
+     (VI / 2 / DPS / ROB), countdown / tracker display figures, icon glyphs, and
      .checker inputs (16px -- iOS Safari zooms on focus below 16px). */
   --fs-h1: clamp(32px, 4vw, 44px);
   --fs-h2: 28px;
@@ -189,6 +192,7 @@ h4 { line-height: 1.4; }
 .dot-aion { background: var(--aion); }
 .dot-gta { background: var(--gta); }
 .dot-dps { background: var(--dps); }
+.dot-rob { background: var(--rob); }
 .lang {
   display: inline-flex; align-items: center;
   margin-left: 10px;
@@ -388,6 +392,7 @@ h1 {
 .fcard-media.aion { background: linear-gradient(160deg, #F7F0DA 0%, #E8D7A4 55%, #D4BC6A 100%); }
 .fcard-media.gta { background: linear-gradient(160deg, #DCEFED 0%, #B7DDD8 50%, #7EB8B2 100%); }
 .fcard-media.dps { background: linear-gradient(160deg, #D5EEEC 0%, #B5DAD7 45%, #7EBAB6 100%); }
+.fcard-media.rob { background: linear-gradient(160deg, #F8E8E4 0%, #E7C9C2 50%, #C4897C 100%); }
 .fcard-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .fcard-feature .fcard-body { justify-content: center; padding: 36px 40px; }
 .fcard-body .tag {
@@ -397,6 +402,7 @@ h1 {
 .fcard-body .tag.aion { color: var(--aion); }
 .fcard-body .tag.gta { color: var(--gta); }
 .fcard-body .tag.dps { color: var(--teal-deep); }
+.fcard-body .tag.rob { color: var(--rob-deep); }
 .fcard-body h3 { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -.02em; line-height: 1.35; color: var(--ink); }
 .fcard-feature .fcard-body h3 { font-size: var(--fs-h2); letter-spacing: -.03em; }
 .fcard-body p { font-size: var(--fs-card); color: var(--body); line-height: 1.65; flex: 1; }
@@ -432,6 +438,7 @@ h1 {
 .game-cover.aion { background: linear-gradient(180deg, #F4EBD2 0%, #E5D19A 100%); }
 .game-cover.gta { background: linear-gradient(180deg, #DCEFED 0%, #B5D9D5 100%); }
 .game-cover.dps { background: linear-gradient(180deg, #DCEEEC 0%, #B4D6D3 100%); }
+.game-cover.rob { background: linear-gradient(180deg, #F8E8E4 0%, #E4C4BB 100%); }
 /* Bottom scrim so the white cover labels stay readable over real game art. */
 .game-cover::after {
   content: ""; position: absolute; inset: 0; z-index: 0;
@@ -861,7 +868,21 @@ h2.sec { font-size: var(--fs-h2); line-height: 1.25; font-weight: 600; letter-sp
 /* checker / results (storage, countdown, compatibility) */
 .checker { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 26px 28px; box-shadow: var(--shadow); margin: 20px 0; }
 .checker label { display: block; font-weight: 600; font-size: var(--fs-small); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-.checker input[type="number"], .checker input[type="text"], .checker select { width: 100%; max-width: 420px; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--paper); color: var(--ink); }
+.checker input[type="number"], .checker input[type="text"], .checker input[type="date"], .checker input[type="time"], .checker input[type="datetime-local"], .checker select { width: 100%; max-width: 420px; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--paper); color: var(--ink); }
+.checker .field-row input, .checker .field-row select, .checker .player-row input { max-width: none; }
+.field-row { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, .8fr) minmax(0, .7fr); gap: 10px; align-items: end; }
+.keep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.keep-grid .note-box ul { margin: 0 0 0 1.15em; color: var(--body); font-size: var(--fs-body); }
+.keep-grid .note-box li { margin: 0 0 6px; }
+.line-list { margin-top: 14px; }
+.line-item { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: var(--fs-body); }
+.line-item span { min-width: 0; overflow-wrap: anywhere; }
+.players { margin-top: 8px; max-height: 420px; overflow: auto; }
+.player-row { display: grid; grid-template-columns: minmax(0, 1fr) 96px; gap: 8px; margin-top: 8px; }
+.players.equal .player-row { grid-template-columns: minmax(0, 1fr); }
+.players.equal .w { display: none; }
+.mode-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.mode-row button[aria-pressed="true"] { border-color: var(--teal); background: var(--teal-dim); color: var(--teal-deep); }
 .checker input:focus, .checker select:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-dim); }
 .checker .hint { font-size: var(--fs-card); color: var(--muted); margin-top: 8px; }
 .checker .quick { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
@@ -1042,6 +1063,7 @@ h2.sec { font-size: var(--fs-h2); line-height: 1.25; font-weight: 600; letter-sp
 .hub-stat.wm-vi::after { content: "VI"; font-size: 175px; letter-spacing: -15px; }
 .hub-stat.wm-2::after { content: "2"; font-size: 200px; letter-spacing: -10px; }
 .hub-stat.wm-dps::after { content: "DPS"; font-size: 110px; letter-spacing: -8px; }
+.hub-stat.wm-rob::after { content: "ROB"; font-size: 110px; letter-spacing: -8px; }
 .hub-pill {
   background: var(--teal-dim); border: 1px solid #C4E5DC;
   padding: 6px 10px; border-radius: 99px;
@@ -1123,6 +1145,7 @@ h2.sec { font-size: var(--fs-h2); line-height: 1.25; font-weight: 600; letter-sp
 .hub-side-item strong { display: block; font-size: var(--fs-small); color: var(--ink); font-weight: 600; }
 .hub-side-item span { display: block; font-size: var(--fs-small); color: var(--muted); margin-top: 3px; line-height: 1.6; }
 .hub-explore { display: grid; grid-template-columns: 1.25fr .75fr; gap: 16px; }
+.hub-explore > *, .hub-workspace > * { min-width: 0; }
 .hub-browse { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 25px; }
 .hub-browse h3 { margin: 0; font-size: var(--fs-h3); color: var(--ink); font-weight: 600; }
 .hub-searchbox { display: flex; gap: 8px; margin-top: 20px; }
@@ -1164,6 +1187,7 @@ a.hub-result-item:hover { color: var(--teal-deep); }
   .hub-stat { min-height: 220px; }
 }
 @media (max-width: 640px) {
+  .field-row, .keep-grid { grid-template-columns: 1fr; }
   .hub-hero-main { padding: 28px 24px; min-height: auto; }
   .hub-stat { padding: 23px; }
   .hub-jump { margin-bottom: 25px; }
@@ -1172,6 +1196,9 @@ a.hub-result-item:hover { color: var(--teal-deep); }
   .hub-tool { min-height: 170px; padding: 22px; }
   .hub-form-row { grid-template-columns: 1fr; }
   .hub-calc, .hub-side, .hub-browse, .hub-suggest { padding: 22px; }
+  .hub-searchbox button, .hub-suggest .btn, .hub-more { white-space: normal; }
+  .hub-suggest .btn { height: auto; min-height: 46px; padding-top: 10px; padding-bottom: 10px; }
+  .hub-result strong { white-space: normal; overflow-wrap: anywhere; }
 }
 
 /* ——— About + 404 (demo layouts, Daylight Forge tokens) ——— */

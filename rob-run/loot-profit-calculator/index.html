@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROB RUN loot profit calculator — BuffForge</title>
+<meta name="description" content="Add ROB RUN loot, subtract gear and other costs, and see net cash and the return. Every amount is one you type.">
+<link rel="canonical" href="https://buffforge.com/rob-run/loot-profit-calculator/">
+<meta property="og:title" content="ROB RUN loot profit calculator — BuffForge">
+<meta property="og:description" content="Add ROB RUN loot, subtract gear and other costs, and see net cash and the return. Every amount is one you type.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://buffforge.com/rob-run/loot-profit-calculator/">
+<meta property="og:image" content="https://buffforge.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="alternate" hreflang="en" href="https://buffforge.com/rob-run/loot-profit-calculator/">
+<link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/rob-run/loot-profit-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://buffforge.com/rob-run/loot-profit-calculator/">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://buffforge.com/"}, {"@type": "ListItem", "position": 2, "name": "ROB RUN", "item": "https://buffforge.com/rob-run/"}, {"@type": "ListItem", "position": 3, "name": "Loot profit calculator", "item": "https://buffforge.com/rob-run/loot-profit-calculator/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "Loot profit calculator", "url": "https://buffforge.com/rob-run/loot-profit-calculator/", "inLanguage": "en", "description": "Add ROB RUN loot, subtract gear and other costs, and see net cash and the return. Every amount is one you type.", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}]</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  (function () {
+    if (window.location.hostname !== 'buffforge.com') return;
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtm.js?id=GTM-PQNKG4CV";
+    document.head.appendChild(s);
+  })();
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap nav"><a class="logo" href="/"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0C706C"/><path d="M8 13.5h16v2.2H19.5V23h-7V15.7H8V13.5zm4.2-5.2h7.6l1.6 3.4H10.6l1.6-3.4z" fill="#FFFFFF"/></svg><span class="word">BuffForge</span></a><nav class="site-nav" aria-label="Primary"><details class="navdrop"><summary>Games<svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></summary><div class="drop"><a href="/desktop-pension-squad/"><span class="dot dot-dps"></span>Desktop Pension Squad</a><a href="/aion-2/"><span class="dot dot-aion"></span>AION 2</a><a href="/gta-6/"><span class="dot dot-gta"></span>GTA 6</a><a href="/rob-run/"><span class="dot dot-rob"></span>ROB RUN</a></div></details><a href="/about/">About</a><span class="lang"><a href="/rob-run/loot-profit-calculator/" class="current" aria-current="true">English</a><a href="/ru/rob-run/loot-profit-calculator/" >Русский</a></span></nav></div></header>
+<main id="main" class="wrap narrow"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/rob-run/">ROB RUN</a><span class="sep">›</span><span aria-current="page">Loot profit calculator</span></nav><h1 class="page-h1">Loot profit calculator</h1><p class="page-lede">List the haul, then subtract gear and other costs. The net and the return use only the numbers you type — this page has no price list.</p><div class="checker"><div class="field-row"><div class="grow"><label for="itemName">Item</label><input id="itemName" type="text" autocomplete="off" placeholder="Name"></div><div><label for="itemPrice">Unit price (cash)</label><input id="itemPrice" type="number" inputmode="decimal" value="0"></div><div><label for="itemQty">Qty</label><input id="itemQty" type="number" inputmode="decimal" value="1"></div></div><div class="actions"><button type="button" class="btn btn-primary" id="addItem">Add item</button><button type="button" class="btn btn-secondary" id="clearItems">Clear list</button></div><p class="hint" id="addNote"></p><div class="line-list" id="itemList"></div><div class="field-row" style="margin-top:18px"><div><label for="gear">Gear (cash)</label><input id="gear" type="number" inputmode="decimal" value="0"></div><div><label for="other">Other costs (cash)</label><input id="other" type="number" inputmode="decimal" value="0"></div></div><div class="stats" style="margin-top:16px"><div class="stat"><em>Haul</em><strong id="haulOut">0</strong><span>cash</span></div><div class="stat"><em>Costs</em><strong id="costOut">0</strong><span>cash</span></div><div class="stat"><em>Net</em><strong id="netOut">0</strong><span>cash</span></div><div class="stat"><em>Return</em><strong id="ratioOut">—</strong><span>Haul ÷ costs</span></div></div><p class="hint">Kefir’s help pages call the in-game money cash. No currency symbol is shown here because none is published on those pages.</p></div><p class="data-line">You enter every amount. Wording for cash: Kefir FAQ “How do I make money?” and “Can my money be stolen?”. Reviewed 13 Nov 2026.</p></main>
+<script>
+(function () {
+  var STR = {"locale": "en-US", "empty": "No items yet.", "needName": "Add a name first.", "remove": "Remove"};
+  var items = [];
+  var nameEl = document.getElementById('itemName');
+  var priceEl = document.getElementById('itemPrice');
+  var qtyEl = document.getElementById('itemQty');
+  var list = document.getElementById('itemList');
+  var note = document.getElementById('addNote');
+  var gearEl = document.getElementById('gear');
+  var otherEl = document.getElementById('other');
+  function num(v) {
+    var n = parseFloat(v);
+    return isFinite(n) ? n : 0;
+  }
+  function fmt(n) {
+    return n.toLocaleString(STR.locale, {maximumFractionDigits: 2});
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (ch) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch];
+    });
+  }
+  function render() {
+    var haul = 0;
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var line = items[i].price * items[i].qty;
+      haul += line;
+      html += '<div class="line-item"><span>' + esc(items[i].name) + ' × ' + fmt(items[i].qty) +
+        '</span><b>' + fmt(line) + ' <button type="button" class="btn btn-ghost" data-i="' + i + '">' +
+        STR.remove + '</button></b></div>';
+    }
+    list.innerHTML = html || '<p class="hint">' + STR.empty + '</p>';
+    var costs = num(gearEl.value) + num(otherEl.value);
+    var net = haul - costs;
+    document.getElementById('haulOut').textContent = fmt(haul);
+    document.getElementById('costOut').textContent = fmt(costs);
+    document.getElementById('netOut').textContent = fmt(net);
+    document.getElementById('netOut').style.color = net < 0 ? 'var(--danger)' : 'var(--ink)';
+    document.getElementById('ratioOut').textContent = costs === 0 ? '—' :
+      ((haul / costs).toLocaleString(STR.locale, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '×');
+    list.querySelectorAll('button[data-i]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        items.splice(+btn.getAttribute('data-i'), 1);
+        render();
+      });
+    });
+  }
+  document.getElementById('addItem').addEventListener('click', function () {
+    var name = nameEl.value.trim();
+    if (!name) { note.textContent = STR.needName; nameEl.focus(); return; }
+    note.textContent = '';
+    items.push({name: name, price: num(priceEl.value), qty: num(qtyEl.value)});
+    nameEl.value = '';
+    render();
+    nameEl.focus();
+  });
+  document.getElementById('clearItems').addEventListener('click', function () {
+    items = [];
+    note.textContent = '';
+    render();
+  });
+  gearEl.addEventListener('input', render);
+  otherEl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<footer class="site-footer"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0C706C"/><path d="M8 13.5h16v2.2H19.5V23h-7V15.7H8V13.5zm4.2-5.2h7.6l1.6 3.4H10.6l1.6-3.4z" fill="#FFFFFF"/></svg><div class="word">BuffForge</div><p>Game tools, trackers and calculators. Every number cites a public source.</p></div><div><h2>Site</h2><div class="links"><a href="/">Home</a><a href="/about/">About</a><a href="mailto:feedback@buffforge.com">Report a mistake</a></div></div><div><h2>Games</h2><div class="links"><a href="/desktop-pension-squad/">Desktop Pension Squad</a><a href="/aion-2/">AION 2</a><a href="/gta-6/">GTA 6</a><a href="/rob-run/">ROB RUN</a></div></div><div><h2>Language</h2><div class="links"><a href="/" class="current" aria-current="true">English</a><a href="/ru/">Русская версия</a></div></div></div></div></footer>
+<script>document.querySelectorAll(".navdrop summary").forEach(function(s){s.addEventListener("click",function(){document.querySelectorAll(".navdrop").forEach(function(d){if(d!==s.parentElement){d.removeAttribute("open");}});});});</script>
+</body>
+</html>

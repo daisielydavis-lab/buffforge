@@ -57,6 +57,7 @@ Game accents (hub identity colors):
 | AION 2 (`--aion`) | `#8A6710` | `#F4EBD2` | `#5C4A18` |
 | GTA 6 (`--gta`) | `#0E7A72` | `#DCEFED` | `#0B4F4A` |
 | Desktop Pension Squad (`--dps`) | `#0C706C` | `#DCEEEC` | `#0A4543` |
+| ROB RUN (`--rob`) | `#7A3E32` | `#F8E8E4` | `#5A2C24` |
 
 Rarity dots (DPS fusion calculator; visual only, not official colors):
 
@@ -93,7 +94,7 @@ for pills/badges. 10px is deleted everywhere.
 | `--fs-badge` | 11px | inherits | Pills / badges ONLY |
 
 Kept as-is (not reading text): the 404 giant number, hub stat watermarks
-(VI / 2 / DPS), countdown / tracker display figures, icon glyphs, and
+(VI / 2 / DPS / ROB), countdown / tracker display figures, icon glyphs, and
 `.checker` inputs (16px — iOS Safari zooms on focus below 16px).
 
 ## Fonts
