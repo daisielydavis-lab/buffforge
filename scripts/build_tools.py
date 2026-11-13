@@ -3,7 +3,7 @@
 
 Run:  cd <repo root> && python3 scripts/build_tools.py
 Uses only verified official facts (see spec section 10.2):
-- launch Nov 19, 2026, PS5 (+Pro) and Xbox Series X|S; no PC version at launch;
+- launch Nov 19, 2026, PS5 (+Pro) and Xbox Series X|S; PC version not officially announced;
 - PlayStation lists at least 212 GB free space;
 - Standard $79.99 / Ultimate $99.99 (Take-Two US MSRP);
 - Vintage Vice City Pack for purchases before Nov 20, 2026; one month GTA+
@@ -194,7 +194,7 @@ COUNTDOWN = {
         "released_p": "GTA 6 is out in this region. Go play.",
         "note_h": "What is confirmed — and what is not",
         "notes": [
-            "<b>Confirmed:</b> launch date Nov 19, 2026; PS5 (including Pro) and Xbox Series X|S; no PC version at launch (Rockstar).",
+            "<b>Confirmed:</b> launch date Nov 19, 2026; PS5 (including Pro) and Xbox Series X|S; PC version not officially announced (Rockstar).",
             "<b>Not a single global moment:</b> because unlock is local midnight per region, the Moscow time differs by region. Any site quoting one Moscow unlock time for everyone is guessing.",
             "<b>Preload:</b> PS5 digital preload starts at local midnight for your account's region. Xbox preload time is shown in the Xbox store.",
         ],
@@ -214,7 +214,7 @@ COUNTDOWN = {
         "released_p": "В этом регионе GTA 6 уже доступна. Можно играть.",
         "note_h": "Что подтверждено, а что нет",
         "notes": [
-            "<b>Подтверждено:</b> дата выхода 19 ноября 2026 года; PS5 (включая Pro) и Xbox Series X|S; версии для ПК на старте нет (Rockstar).",
+            "<b>Подтверждено:</b> дата выхода 19 ноября 2026 года; PS5 (включая Pro) и Xbox Series X|S; версия для ПК официально не анонсирована (Rockstar).",
             "<b>Не единый момент для всех:</b> раз выход — в местную полночь для каждого региона, московское время для разных регионов разное. Сайт, называющий одно московское время для всех, просто гадает.",
             "<b>Предзагрузка:</b> на PS5 цифровая предзагрузка начинается в местную полночь для региона вашего аккаунта. Время предзагрузки на Xbox указано в магазине Xbox.",
         ],
@@ -321,7 +321,7 @@ def countdown_page(lang):
 EDITIONS = {
     "en": {
         "title": "GTA 6 Editions Compared — Standard vs Ultimate | BuffForge",
-        "desc": "GTA 6 Standard $79.99 vs Ultimate $99.99 — only what Take-Two and the official stores actually say. No PC edition at launch.",
+        "desc": "GTA 6 Standard $79.99 vs Ultimate $99.99 — only what Take-Two and the official stores actually say. PC edition not officially announced.",
         "h1": "GTA 6 Editions Compared",
         "lede": "Two editions, both on PS5 and Xbox Series X|S. Prices below are the US suggested retail prices announced by Take-Two. Regional prices differ — check your store.",
         "rows": [
@@ -329,7 +329,7 @@ EDITIONS = {
             ("Platforms", "PS5, PS5 Pro, Xbox Series X|S", "PS5, PS5 Pro, Xbox Series X|S"),
             ("Pre-order bonus", "Vintage Vice City Pack when you buy before Nov 20, 2026", "Vintage Vice City Pack when you buy before Nov 20, 2026"),
             ("Digital pre-order", "One month of GTA+ (per official announcement)", "One month of GTA+ (per official announcement)"),
-            ("PC version", "No PC version at launch", "No PC version at launch"),
+            ("PC version", "PC version not officially announced", "PC version not officially announced"),
         ],
         "warn_h": "About the Ultimate edition",
         "warn": "Take-Two has not published a full, itemised list of everything in the Ultimate edition that we can verify here, so we do not invent one. Before you pay the extra $20, open the official PlayStation or Xbox store page and read the edition contents there.",
@@ -338,7 +338,7 @@ EDITIONS = {
     },
     "ru": {
         "title": "Сравнение изданий GTA 6 — Standard и Ultimate | BuffForge",
-        "desc": "GTA 6 Standard за $79.99 и Ultimate за $99.99 — только то, что официально объявили Take-Two и магазины. Версии для ПК на старте нет.",
+        "desc": "GTA 6 Standard за $79.99 и Ultimate за $99.99 — только то, что официально объявили Take-Two и магазины. Версия для ПК официально не анонсирована.",
         "h1": "Сравнение изданий GTA 6",
         "lede": "Два издания — оба на PS5 и Xbox Series X|S. Цены ниже — рекомендованные цены для США, объявленные Take-Two. В других регионах цены отличаются — смотрите свой магазин.",
         "rows": [
@@ -346,7 +346,7 @@ EDITIONS = {
             ("Платформы", "PS5, PS5 Pro, Xbox Series X|S", "PS5, PS5 Pro, Xbox Series X|S"),
             ("Бонус предзаказа", "Набор Vintage Vice City Pack при покупке до 20 ноября 2026 года", "Набор Vintage Vice City Pack при покупке до 20 ноября 2026 года"),
             ("Цифровой предзаказ", "Месяц GTA+ (по официальному объявлению)", "Месяц GTA+ (по официальному объявлению)"),
-            ("Версия для ПК", "На старте версии для ПК нет", "На старте версии для ПК нет"),
+            ("Версия для ПК", "Версия для ПК официально не анонсирована", "Версия для ПК официально не анонсирована"),
         ],
         "warn_h": "Про издание Ultimate",
         "warn": "Take-Two не опубликовала полный детализированный список содержимого Ultimate, который мы могли бы проверить, поэтому мы его не выдумываем. Прежде чем доплачивать $20, откройте официальную страницу издания в PlayStation Store или Xbox и прочитайте состав там.",
@@ -385,43 +385,49 @@ DEVICES = [
     ("xss", "Xbox Series S", "Xbox Series S", "yes"),
     ("ps4", "PlayStation 4", "PlayStation 4", "no"),
     ("ps4pro", "PlayStation 4 Pro", "PlayStation 4 Pro", "no"),
-    ("xone", "Xbox One", "Xbox One", "no"),
-    ("xonex", "Xbox One X", "Xbox One X", "no"),
+    ("xone", "Xbox One", "Xbox One", "cloud"),
+    ("xonex", "Xbox One X", "Xbox One X", "cloud"),
     ("pc", "PC", "ПК", "pc"),
 ]
 
 COMPAT = {
     "en": {
         "title": "Can My Console Run GTA 6? — BuffForge",
-        "desc": "GTA 6 runs on PS5, PS5 Pro, and Xbox Series X|S. No PS4 or Xbox One version, and no PC version has been officially announced.",
+        "desc": "GTA 6 runs on PS5, PS5 Pro, and Xbox Series X|S. No PS4 version. Xbox One plays it via Xbox Cloud Gaming (Xbox Wire, Nov 10, 2026). PC version not officially announced.",
         "h1": "Can My Console Run GTA 6?",
-        "lede": "Pick your device. GTA 6 launches Nov 19, 2026 on PS5 (including Pro) and Xbox Series X|S only.",
+        "lede": "Pick your device. GTA 6 launches Nov 19, 2026 on PS5 (including Pro) and Xbox Series X|S; Xbox One plays it through Xbox Cloud Gaming.",
         "yes": "Yes — it runs.",
         "yes_p": "%s is a launch platform for GTA 6. You can buy the Standard ($79.99) or Ultimate ($99.99) edition.",
         "no": "No — there is no version for it.",
-        "no_p": "Rockstar has not released GTA 6 for %s. There is no PS4 or Xbox One version (PlayStation official).",
-        "pc": "No PC version has been announced.",
+        "no_p": "Rockstar has not released GTA 6 for %s. There is no PS4 version (PlayStation official).",
+        "pc": "PC version not officially announced.",
         "pc_p": "Rockstar has not announced a PC version of GTA 6, and there is no official PC system requirement. System requirement tables circulating online are not Rockstar's — do not treat them as official.",
+        "cloud": "Yes — via Xbox Cloud Gaming.",
+        "cloud_p": "No native Xbox One version, but Xbox says GTA 6 will be playable on day one through Xbox Cloud Gaming on Xbox One, starting at 1am ET on Nov 19, 2026, using Xbox Series S graphics settings. The game must be purchased separately; cloud playtime can be bought without a Game Pass subscription in supported markets (from Nov 11). Source: Xbox Wire, Nov 10, 2026.",
         "table_h": "All devices at a glance",
         "th_dev": "Device", "th_verdict": "Verdict",
         "v_yes": "Playable", "v_no": "Not playable", "v_pc": "Not announced",
-        "sources": "Sources: Rockstar Games official newswire, PlayStation official support, checked Nov 13, 2026.",
+        "v_cloud": "Playable via cloud",
+        "sources": "Sources: Rockstar Games official newswire, PlayStation official support, Xbox Wire (Nov 10, 2026, cloud gaming), checked Nov 13, 2026.",
     },
     "ru": {
         "title": "На чём можно играть в GTA 6? — BuffForge",
-        "desc": "GTA 6 работает на PS5, PS5 Pro и Xbox Series X|S. Версии для PS4 и Xbox One нет, а версия для ПК официально не анонсирована.",
+        "desc": "GTA 6 работает на PS5, PS5 Pro и Xbox Series X|S. Версии для PS4 нет. На Xbox One — через Xbox Cloud Gaming (Xbox Wire, 10 ноября 2026). Версия для ПК официально не анонсирована.",
         "h1": "На чём можно играть в GTA 6?",
-        "lede": "Выберите своё устройство. GTA 6 выходит 19 ноября 2026 года только на PS5 (включая Pro) и Xbox Series X|S.",
+        "lede": "Выберите своё устройство. GTA 6 выходит 19 ноября 2026 года на PS5 (включая Pro) и Xbox Series X|S, а на Xbox One — через Xbox Cloud Gaming.",
         "yes": "Да, игра работает.",
         "yes_p": "%s — платформа запуска GTA 6. Можно купить издание Standard ($79.99) или Ultimate ($99.99).",
         "no": "Нет, версии для неё нет.",
-        "no_p": "Rockstar не выпускала GTA 6 для %s. Версий для PS4 и Xbox One нет (официально, PlayStation).",
-        "pc": "Версия для ПК не анонсирована.",
+        "no_p": "Rockstar не выпускала GTA 6 для %s. Версии для PS4 нет (официально, PlayStation).",
+        "pc": "Версия для ПК официально не анонсирована.",
         "pc_p": "Rockstar не анонсировала версию GTA 6 для ПК, официальных системных требований нет. Таблицы требований, которые ходят по интернету, — не от Rockstar, не считайте их официальными.",
+        "cloud": "Да, через Xbox Cloud Gaming.",
+        "cloud_p": "Нативной версии для Xbox One нет, но Xbox сообщает, что в GTA 6 можно будет играть с первого дня через Xbox Cloud Gaming на Xbox One с 1:00 ET 19 ноября 2026 года, с настройками графики Xbox Series S. Игру нужно купить отдельно; облачное время можно купить без подписки Game Pass на поддерживаемых рынках (с 11 ноября). Источник: Xbox Wire, 10 ноября 2026 года.",
         "table_h": "Все устройства — одной таблицей",
         "th_dev": "Устройство", "th_verdict": "Вердикт",
         "v_yes": "Играть можно", "v_no": "Играть нельзя", "v_pc": "Не анонсирована",
-        "sources": "Источники: официальный ньюсвайр Rockstar Games, официальная поддержка PlayStation, проверено 13 ноября 2026 года.",
+        "v_cloud": "Можно через облако",
+        "sources": "Источники: официальный ньюсвайр Rockstar Games, официальная поддержка PlayStation, Xbox Wire (10 ноября 2026, облачный гейминг), проверено 13 ноября 2026 года.",
     },
 }
 
@@ -434,13 +440,13 @@ def compat_page(lang):
     buttons = "".join(
         '<button type="button" class="dev" data-v="%s" data-name="%s"><b>%s</b><span>%s</span></button>'
         % (v, n_en if lang == "en" else n_ru, n_en if lang == "en" else n_ru,
-           {"yes": c["v_yes"], "no": c["v_no"], "pc": c["v_pc"]}[v])
+           {"yes": c["v_yes"], "no": c["v_no"], "pc": c["v_pc"], "cloud": c["v_cloud"]}[v])
         for _, n_en, n_ru, v in DEVICES)
     rows = "".join(
         "<tr><th>%s</th><td>%s</td></tr>"
         % (n_en if lang == "en" else n_ru,
            {"yes": "<b>%s</b>" % c["v_yes"], "no": "<b>%s</b>" % c["v_no"],
-            "pc": "<b>%s</b>" % c["v_pc"]}[v])
+            "pc": "<b>%s</b>" % c["v_pc"], "cloud": "<b>%s</b>" % c["v_cloud"]}[v])
         for _, n_en, n_ru, v in DEVICES)
     body = (
         '<main id="main" class="wrap narrow">%s'
@@ -464,17 +470,17 @@ def compat_page(lang):
       b.classList.add('sel');
       var v = b.getAttribute('data-v');
       var name = b.getAttribute('data-name');
-      var cls = v === 'yes' ? 'ok' : (v === 'pc' ? 'warn' : 'bad');
-      var head = v === 'yes' ? STR.yes : (v === 'pc' ? STR.pc : STR.no);
-      var txt = (v === 'yes' ? STR.yes_p : (v === 'pc' ? STR.pc_p : STR.no_p)).replace('%%s', name);
+      var cls = v === 'yes' ? 'ok' : (v === 'pc' || v === 'cloud' ? 'warn' : 'bad');
+      var head = v === 'yes' ? STR.yes : (v === 'pc' ? STR.pc : (v === 'cloud' ? STR.cloud : STR.no));
+      var txt = (v === 'yes' ? STR.yes_p : (v === 'pc' ? STR.pc_p : (v === 'cloud' ? STR.cloud_p : STR.no_p))).replace('%%s', name);
       result.className = 'result ' + cls + ' show';
       result.innerHTML = '<b class="big">' + head + '</b><p>' + txt + '</p>';
     });
   });
 })();
 </script>
-""" % ('{"yes": "%s", "yes_p": "%s", "no": "%s", "no_p": "%s", "pc": "%s", "pc_p": "%s"}'
-       % (c["yes"], c["yes_p"], c["no"], c["no_p"], c["pc"], c["pc_p"]))
+""" % ('{"yes": "%s", "yes_p": "%s", "no": "%s", "no_p": "%s", "pc": "%s", "pc_p": "%s", "cloud": "%s", "cloud_p": "%s"}'
+       % (c["yes"], c["yes_p"], c["no"], c["no_p"], c["pc"], c["pc_p"], c["cloud"], c["cloud_p"]))
     jl = [breadcrumb_jsonld(lang, [(home, home_path), ("GTA 6", hub_path), (c["h1"], "/gta-6/compatibility/" if lang == "en" else "/ru/gta-6/compatibility/")]),
           webapp_jsonld(lang, c["h1"], "/gta-6/compatibility/" if lang == "en" else "/ru/gta-6/compatibility/", c["desc"])]
     return tool_page(lang, "gta-6", "compatibility", c["title"], c["desc"], body + js,

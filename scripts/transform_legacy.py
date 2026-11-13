@@ -170,6 +170,11 @@ def tracker_ru_script():
     script = script.replace("'<span class=\"unit\">m left</span>'", "'<span class=\"unit\">мин осталось</span>'")
     script = script.replace("'<span class=\"unit\">h</span>' + pad(m) + '<span class=\"unit\">m left</span>'",
                             "'<span class=\"unit\">ч</span>' + pad(m) + '<span class=\"unit\">мин осталось</span>'")
+    script = script.replace("'<span class=\"unit\">s left</span>'", "'<span class=\"unit\">с осталось</span>'")
+    script = script.replace("'<span class=\"unit\">d</span>'", "'<span class=\"unit\">д</span>'")
+    script = script.replace("'<span class=\"unit\">h</span>'", "'<span class=\"unit\">ч</span>'")
+    script = script.replace("'<span class=\"unit\">m</span>'", "'<span class=\"unit\">мин</span>'")
+    script = script.replace("'<span class=\"unit\">s</span>'", "'<span class=\"unit\">с</span>'")
     return script
 
 
@@ -235,7 +240,7 @@ def tracker_ru_body():
           <ul>
             <li><a href="https://timesaver.gg" target="_blank" rel="noopener">timesaver.gg</a> — гайд по сбросам</li>
             <li><a href="https://metabot.gg" target="_blank" rel="noopener">metabot.gg</a> — эндгейм-гайд</li>
-            <li><a href="https://aion2.gg" target="_blank" rel="noopener">aion2.gg</a> — гайд по рутине</li>
+            <li><a href="https://www.ncsoft.com/en/games/aion2" target="_blank" rel="noopener">официальный сайт AION 2</a> — официальная страница игры</li>
             <li><a href="https://game8.co" target="_blank" rel="noopener">Game8</a> — гайд по сбросам</li>
           </ul>
         </div>
@@ -460,7 +465,8 @@ def wanted_page(lang):
     body = ('<main id="main" class="wrap">%s%s</main>'
             % (crumbs_html(lang, [("GTA 6", hub_path), (name, None)]), inner))
     return page(lang, title, desc, canon, alt, body, jsonld=jl,
-                games=("gta-6",), tail="<script>%s</script>\n" % script)
+                games=("gta-6",), tail="<script>%s</script>\n" % script,
+                noindex=True)
 
 
 def main():

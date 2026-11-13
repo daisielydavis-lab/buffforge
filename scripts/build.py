@@ -76,9 +76,9 @@ def game_anchor(lang, game):
 # ---------------------------------------------------------------- home
 HOME_COPY = {
     "en": {
-        "title": "BuffForge — game tools, trackers and calculators",
+        "title": "BuffForge — Game Tools, Trackers & Calculators",
         "desc": "Free game tools, trackers and calculators, organized by game. Every number cites its source and review date. No login, no ads.",
-        "h1": "Game tools, trackers and calculators",
+        "h1": "Game Tools, Trackers & Calculators",
         "lede": "BuffForge is a free collection of game tools, trackers and calculators. Every number cites a public source and a review date. There is no login and no advertising. Tools are organized by game: open a game to find its trackers, checkers and (when we have sourced figures) guides. BuffForge is an independent fan project, not affiliated with any publisher. Written guides are added only when we can source the numbers — today the live work is the tools.",
         "kicker": "Sourced, dated, by game",
         "primary": "Browse featured tools",
@@ -86,18 +86,19 @@ HOME_COPY = {
         "secondary": "How we check our numbers",
         "featured_h": "Featured tools",
         "featured_label": "Featured",
-        "games_h": "Games",
-        "games_label": "The roster",
-        "games_intro": 'Games on BuffForge today: <a href="/desktop-pension-squad/">Desktop Pension Squad tools and guides</a>, <a href="/aion-2/">AION 2 tools and guides</a> and <a href="/gta-6/">GTA 6 tools and guides</a>.',
+        "featured_sub": "Discover calculators, trackers, and checkers that help you plan ahead, track progress, and make better in-game decisions.",
+        "games_h": "Explore games",
+        "games_label": "Explore games",
+        "games_intro": "Find dedicated game hubs with calculators, trackers, and checkers — all organized by game.",
         "how_h": "How we check every number",
         "how_label": "The method",
         "faq_h": "Frequently asked questions",
         "faq_label": "Questions",
         "faq": [
-            ("What is BuffForge?", "A free site of game tools, trackers and calculators. Every number has a source and a review date."),
-            ("Do I need an account?", "No."),
-            ("Is BuffForge official?", "No. BuffForge is an independent fan project, not affiliated with any publisher."),
-            ("Which games are covered?", "See the Games section. We add a game only when we can source the numbers. AION 2 and GTA 6 were the first; Desktop Pension Squad is the newest addition."),
+            ("I play MMOs — which tools are actually useful?", "The ones that track what resets. In AION 2, daily duties reset at 07:00 UTC and weekly duties every Wednesday — miss a reset and that day is gone. The AION 2 tracker on this site lists your duties and counts down to each reset, so you can see what is still open before you log off."),
+            ("I play idle games — how do I stop wasting items?", "Check the odds before you commit. In Desktop Pension Squad, nine items go into one fusion and the game never shows the odds. Our calculator uses the real odds from the game client (v1.0.2, build 26611958) and compares fusing against selling, so you can see which one pays off before you spend the batch."),
+            ("I play single-player games — what should I check before launch?", "Four things: disk space, unlock time, edition, and console. For GTA 6 (November 19, 2026) this site has a storage check (at least 212 GB), a countdown by store region, a Standard vs Ultimate comparison ($79.99 vs $99.99), and a console compatibility check — all from official facts only."),
+            ("What about FPS games?", "The tools FPS players ask for most are a sensitivity converter, a crosshair overlay, and an FPS/ping monitor — they keep your aim consistent and tell you whether a bad round is you or your connection. BuffForge does not list one yet: we only add tools whose numbers can be sourced and checked."),
             ("How do you check numbers?", "Public sources only. Every tool shows its data version, sources, and review date. Corrections are welcome — see About."),
         ],
         "open": "Open the tool",
@@ -119,18 +120,19 @@ HOME_COPY = {
         "secondary": "Как мы проверяем цифры",
         "featured_h": "Избранные инструменты",
         "featured_label": "Избранное",
-        "games_h": "Игры",
-        "games_label": "Состав",
-        "games_intro": 'Сейчас на BuffForge: <a href="/ru/desktop-pension-squad/">инструменты и гайды по Desktop Pension Squad</a>, <a href="/ru/aion-2/">инструменты и гайды по AION 2</a> и <a href="/ru/gta-6/">инструменты и гайды по GTA 6</a>.',
+        "featured_sub": "Калькуляторы, трекеры и проверки, которые помогают планировать заранее, следить за прогрессом и принимать лучшие решения в игре.",
+        "games_h": "Обзор игр",
+        "games_label": "По играм",
+        "games_intro": "Хабы по играм с калькуляторами, трекерами и проверками — всё собрано по играм.",
         "how_h": "Как мы проверяем каждую цифру",
         "how_label": "Метод",
         "faq_h": "Частые вопросы",
         "faq_label": "Вопросы",
         "faq": [
-            ("Что такое BuffForge?", "Бесплатный сайт игровых инструментов, трекеров и калькуляторов. У каждой цифры — источник и дата проверки."),
-            ("Нужна ли регистрация?", "Нет."),
-            ("Это официальный сайт?", "Нет. BuffForge — независимый фанатский проект, не связанный с издателями."),
-            ("По каким играм есть инструменты?", "Смотрите раздел «Игры». Игру добавляем только когда можем подтвердить цифры. Первыми были AION 2 и GTA 6; Desktop Pension Squad — последняя добавленная."),
+            ("Играю в MMO — какие инструменты правда полезны?", "Те, что следят за сбросами. В AION 2 ежедневные задания сбрасываются в 10:00 по Москве, еженедельные — в среду в 10:00: пропустил сброс — и день потерян. Трекер на этом сайте показывает ваши задания и считает время до каждого сброса, так что перед выходом из игры видно, что ещё не сделано."),
+            ("Играю в idle-игры — как не тратить предметы зря?", "Проверяйте шансы до того, как потратить предметы. В Desktop Pension Squad девять предметов уходят в одно слияние, а шансы игра не показывает. Наш калькулятор использует настоящие шансы из клиента игры (v1.0.2, сборка 26611958) и сравнивает слияние с продажей — видно, что выгоднее, до того как потратить партию."),
+            ("Играю в одиночные игры — что проверить перед запуском?", "Четыре вещи: место на диске, время открытия, издание и консоль. Для GTA 6 (19 ноября 2026 года) на сайте есть проверка места (минимум 212 ГБ), обратный отсчёт по региону магазина, сравнение Standard и Ultimate ($79.99 и $99.99) и проверка совместимости консолей — только по официальным фактам."),
+            ("А что с FPS-играми?", "Чаще всего игроки в FPS просят конвертер чувствительности, прицел-оверлей и монитор FPS и пинга: они держат прицеливание стабильным и показывают, виноваты ли вы или соединение. На BuffForge такого инструмента пока нет: мы добавляем только то, чьи цифры можно подтвердить и проверить."),
             ("Как вы проверяете цифры?", "Только открытые источники. У каждого инструмента видны версия, источники и дата проверки. Исправления приветствуются — см. «О проекте»."),
         ],
         "open": "Открыть",
@@ -313,7 +315,7 @@ def home_page(lang):
         '<div class="chips" aria-label="%s">%s</div>'
         '</div>%s</div></section>'
         '<section class="block" id="featured"><div class="wrap">'
-        '<p class="sec-label">%s</p><div class="sec-head"><h2>%s</h2></div>'
+        '<p class="sec-label">%s</p><div class="sec-head"><h2>%s</h2></div><p class="sec-sub">%s</p>'
         '<div class="featured-layout">%s<div class="featured-secondary">%s</div></div>'
         '</div></section>'
         '<section class="block" id="games"><div class="wrap">'
@@ -325,7 +327,7 @@ def home_page(lang):
         '</main>'
         % (c["kicker"], c["h1"], lead, rest_text, c["primary"], ARROW_SVG,
            c["secondary"], "At a glance" if lang == "en" else "Кратко", chips,
-           HERO_VISUAL[lang], c["featured_label"], c["featured_h"],
+           HERO_VISUAL[lang], c["featured_label"], c["featured_h"], c["featured_sub"],
            feature_html, secondary_html,
            c["games_label"], c["games_h"], c["games_intro"], blocks,
            c["how_label"], c["how_h"], trust_items,
@@ -655,14 +657,14 @@ HUB_COPY = {
             "title": "Desktop Pension Squad tools and guides — BuffForge",
             "desc": "Desktop Pension Squad tools and guides: fuse or salvage calculator with sourced odds from the game client (v1.0.2, build 26611958). Free to play on Steam.",
             "h1": "Desktop Pension Squad tools and guides",
-            "lede": "This is the BuffForge hub for Desktop Pension Squad tools and guides. The live tool is a fuse or salvage calculator: nine-item fusion odds for every level bracket, plus a Soul comparison when you enter sell prices. The odds are transcribed from DPSquad Wiki, which reads them from the game client (v1.0.2, Steam build 26611958, reviewed Nov 12, 2026 Pacific Time). The game is free to play on Steam Early Access. BuffForge is an independent fan project, not affiliated with detailgames or storytaco. No login, no ads.",
+            "lede": "Desktop Pension Squad is an idle RPG where nine items go into one fusion, and one wrong call can waste a whole batch. The game never shows you the odds — they sit in the client data — so most players guess. The calculator on this hub uses the real odds from the client (v1.0.2, Steam build 26611958): enter your items and Soul sell prices, and it shows whether fusing or salvaging pays off, and what you are likely to get. The game is free to play on Steam Early Access.",
             "tools_h": "Tools", "guides_h": "Guides",
         },
         "ru": {
             "title": "Desktop Pension Squad: инструменты и гайды — BuffForge",
             "desc": "Инструменты и гайды по Desktop Pension Squad: калькулятор слияния и разбора с шансами из клиента игры (v1.0.2, сборка 26611958). Игра бесплатна в Steam.",
             "h1": "Инструменты и гайды по Desktop Pension Squad",
-            "lede": "Это хаб BuffForge с инструментами и гайдами по Desktop Pension Squad. Живой инструмент — калькулятор слияния и разбора: шансы слияния девяти предметов для каждого диапазона уровней и сравнение Soul при введённых ценах продажи. Шансы переписаны из DPSquad Wiki, которая читает их из клиента игры (v1.0.2, сборка Steam 26611958, проверка 12 ноября 2026, тихоокеанское время). Игра бесплатна в раннем доступе Steam. BuffForge — независимый фанатский проект, не связанный с detailgames и storytaco. Без регистрации и рекламы.",
+            "lede": "Desktop Pension Squad — idle-RPG, в которой девять предметов уходят в одно слияние, и один неверный шаг может стоить целой партии. Сама игра шансы не показывает — они лежат в данных клиента, поэтому большинство игроков действуют наугад. Калькулятор на этой странице использует настоящие шансы из клиента (v1.0.2, сборка Steam 26611958): введите предметы и цены продажи Soul, и он покажет, что выгоднее — слияние или продажа, — и что вы, скорее всего, получите. Игра бесплатна в раннем доступе Steam.",
             "tools_h": "Инструменты", "guides_h": "Гайды",
         },
     },
@@ -671,14 +673,14 @@ HUB_COPY = {
             "title": "AION 2 tools and guides — BuffForge",
             "desc": "AION 2 tools and guides: daily and weekly tracker, reset times (07:00 UTC), and sourced checklists for global servers. No login, no ads.",
             "h1": "AION 2 tools and guides",
-            "lede": "This is the BuffForge hub for AION 2 tools and guides on the global servers. The live tool is a daily and weekly tracker: tick duties off and watch the countdown to the 07:00 UTC daily reset and the Wednesday weekly reset. Reset times and any figures we publish cite public sources and a review date. Guides will appear here only when we can source them. BuffForge is an independent fan project, not affiliated with NC. No login, no ads.",
+            "lede": "AION 2 runs on daily and weekly resets — miss one and a day of duties is gone. The tracker on this hub lists the global servers' duties and counts down to the 07:00 UTC daily reset and the Wednesday weekly reset, so you can see at a glance what is still open and how long you have left. Tick duties off as you finish them; your checkmarks stay in your browser. Reset times cite public sources and a review date.",
             "tools_h": "Tools", "guides_h": "Guides",
         },
         "ru": {
             "title": "AION 2: трекер и гайды, сброс 10:00 МСК — BuffForge",
             "desc": "Инструменты и гайды по AION 2: трекер ежедневных заданий, время сброса 10:00 МСК, чек-листы для глобальных серверов. Без регистрации и рекламы.",
             "h1": "Инструменты и гайды по AION 2",
-            "lede": "Это хаб BuffForge с инструментами и гайдами по AION 2 для глобальных серверов. Живой инструмент — трекер ежедневных и еженедельных заданий: отмечайте задания и следите за обратным отсчётом до сброса в 10:00 по Москве и еженедельного сброса в среду в 10:00 МСК. Время сброса и все цифры мы публикуем с указанием открытых источников и даты проверки. Гайды появятся здесь, только когда мы сможем проверить цифры. BuffForge — независимый фанатский проект, не связанный с NC. Без регистрации и рекламы.",
+            "lede": "В AION 2 всё завязано на ежедневные и еженедельные сбросы: пропустил — и день заданий потерян. Трекер на этой странице показывает задания глобальных серверов и считает время до сброса — ежедневно в 10:00 по Москве, еженедельно — в среду в 10:00, — чтобы сразу было видно, что ещё не сделано и сколько времени осталось. Отмечайте задания по мере выполнения: отметки хранятся в вашем браузере. Время сбросов указано с открытыми источниками и датой проверки.",
             "tools_h": "Инструменты", "guides_h": "Гайды",
         },
     },
@@ -687,14 +689,14 @@ HUB_COPY = {
             "title": "GTA 6 tools and guides — BuffForge",
             "desc": "GTA 6 tools and guides: storage check (at least 212 GB), Nov 19 unlock time, Standard vs Ultimate, and console compatibility. Official public figures only.",
             "h1": "GTA 6 tools and guides",
-            "lede": "This is the BuffForge hub for GTA 6 tools and guides. Four tools use official facts only: a storage check (at least 212 GB), a Nov 19 launch countdown by store region, a Standard vs Ultimate comparison ($79.99 vs $99.99, US MSRP from Take-Two), and a console compatibility check. There is no officially announced PC version. BuffForge is an independent fan project, not affiliated with Rockstar Games or Take-Two Interactive. No login, no ads.",
+            "lede": "GTA 6 launches November 19, 2026, and launch week is all questions: will 212 GB fit on your drive, when exactly does it unlock in your region, is Ultimate worth $20 more than Standard, and does your console run it at all? This hub answers all four from official facts only: a storage check, a countdown by store region, a Standard vs Ultimate comparison ($79.99 vs $99.99, US MSRP from Take-Two), and a console compatibility check — including the Xbox One cloud-gaming route. There is no officially announced PC version.",
             "tools_h": "Tools — official facts", "guides_h": "Guides",
         },
         "ru": {
             "title": "GTA 6 инструменты и гайды: 212 ГБ, 19 ноября — BuffForge",
             "desc": "Инструменты и гайды по GTA 6: сколько весит (не менее 212 ГБ), во сколько выйдет 19 ноября, издания и совместимость. Только официальные цифры.",
             "h1": "Инструменты и гайды по GTA 6",
-            "lede": "Это хаб BuffForge с инструментами и гайдами по GTA 6. Четыре инструмента — только по официальным цифрам: проверка места (не менее 212 ГБ), обратный отсчёт до 19 ноября по региону магазина, сравнение изданий Standard и Ultimate ($79.99 и $99.99, рекомендованные цены Take-Two в США) и проверка совместимости консолей. Версия для ПК официально не анонсирована. BuffForge — независимый фанатский проект, не связанный с Rockstar Games и Take-Two Interactive. Без регистрации и рекламы.",
+            "lede": "GTA 6 выходит 19 ноября 2026 года, и перед запуском у всех одни и те же вопросы: влезут ли 212 ГБ на диск, во сколько игра откроется именно в вашем регионе, стоит ли Ultimate своих $20 сверху и запустится ли игра на вашей консоли? На этой странице — ответы на все четыре вопроса и только по официальным фактам: проверка места на диске, обратный отсчёт по региону магазина, сравнение Standard и Ultimate ($79.99 и $99.99, цены Take-Two в США) и проверка совместимости консолей, включая облачный вариант для Xbox One. Версия для ПК официально не анонсирована.",
             "tools_h": "Инструменты — официальные данные", "guides_h": "Гайды",
         },
     },
@@ -821,7 +823,7 @@ HUB_BODY = {
                 ("When does GTA 6 come out?", "Nov 19, 2026, at local midnight in your store region — see the launch countdown for your time zone."),
                 ("Standard or Ultimate — what is the difference?", "Standard is $79.99 and Ultimate is $99.99 (US MSRP from Take-Two). See the editions comparison for what each one includes."),
                 ("Can I play GTA 6 on PC?", "There is no officially announced PC version, and no official PC system requirements. Do not trust spec tables you see online — they are not from Rockstar."),
-                ("Can I play on PS4 or Xbox One?", "No. GTA 6 launches on PS5 (including Pro) and Xbox Series X|S only."),
+                ("Can I play on PS4 or Xbox One?", "PS4: no. Xbox One: no native version, but playable through Xbox Cloud Gaming from Nov 19 (Xbox Wire, Nov 10, 2026)."),
             ],
             "other_h": "Other games on BuffForge",
             "other": [("Desktop Pension Squad tools and guides", "/desktop-pension-squad/"),
@@ -844,6 +846,7 @@ HUB_BODY = {
                 ("Сколько весит GTA 6?", "Не менее 212 ГБ свободного места по данным PlayStation. Проверьте свою консоль на странице проверки места."),
                 ("Во сколько выйдет GTA 6 19 ноября по Москве?", "Выход — в местную полночь 19 ноября по региону магазина. Точное время для вашего региона — на странице обратного отсчёта."),
                 ("Какие системные требования на ПК?", "Версия для ПК официально не анонсирована, официальных системных требований нет. Таблицы из интернета — не данные Rockstar, мы их не публикуем."),
+                ("Можно ли играть на PS4 или Xbox One?", "PS4: нет. Xbox One: нативной версии нет, но можно играть через Xbox Cloud Gaming с 19 ноября (Xbox Wire, 10 ноября 2026 года)."),
                 ("Можно ли купить GTA 6 в официальном магазине в России?", "По состоянию на ноябрь 2026 года купить игру в российском PlayStation Store или через Microsoft Store в России по официальным каналам нельзя."),
                 ("Standard или Ultimate — что выбрать?", "Standard — $79.99, Ultimate — $99.99 (рекомендованные цены Take-Two в США). Что входит в каждое издание — на странице сравнения."),
             ],
@@ -1594,9 +1597,9 @@ def hub_page(game_id, lang):
 # hubs, the six live tools). The pre-launch Wanted Helper is excluded
 # (not featured), and there are no wiki/guide pages to list.
 NF_HUB_CARDS = {
-    "desktop-pension-squad": ("▦", "fuse or salvage calculator"),
-    "aion-2": ("✦", "daily & weekly tracker"),
-    "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility"),
+    "desktop-pension-squad": ("▦", "fuse or salvage calculator", "калькулятор слияния и разбора"),
+    "aion-2": ("✦", "daily & weekly tracker", "трекер ежедневных и еженедельных заданий"),
+    "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility", "проверка места, обратный отсчёт, издания, совместимость"),
 }
 
 NF_SEARCH_JS = """
@@ -1619,7 +1622,7 @@ NF_SEARCH_JS = """
       ? hits.map(function (i) {
           return '<a href="' + i.href + '"><span>' + i.name + '</span><small>' + i.type + ' \\u2197</small></a>';
         }).join('')
-      : '<p>No matches. Try \\u201CGTA\\u201D, \\u201Ctracker\\u201D, or \\u201Ccalculator\\u201D.</p>';
+      : '<p>__NO_MATCHES__</p>';
     results.classList.add('show');
   }
   input.addEventListener('input', render);
@@ -1633,74 +1636,139 @@ NF_SEARCH_JS = """
 """
 
 
-def not_found_entries():
+NF_COPY = {
+    "en": {
+        "home_name": "BuffForge — home", "home_type": "Page",
+        "home_key": "home buffforge game tools trackers calculators",
+        "about_name": "About BuffForge", "about_type": "Info",
+        "about_key": "about mission numbers sources contact feedback",
+        "hub_type": "Game hub", "tool_type": "Tool",
+        "no_matches": "No matches. Try “GTA”, “tracker”, or “calculator”.",
+        "eyebrow": "Lost in the game world?",
+        "h1": "Looks like a wrong turn.",
+        "lead": ("This page might have moved, or the link may be broken. "
+                 "Your next useful tool is only a click away."),
+        "back": "↖ Back to home", "about_btn": "About BuffForge ↗",
+        "other_lang": 'Russian version: <a href="/ru/">BuffForge на русском</a>.',
+        "search_ph": "Search tools, hubs, and pages...",
+        "search_label": "Search BuffForge", "search_btn": "Search →",
+        "sec_eyebrow": "Find your way", "sec_h2": "Where would you like to go?",
+        "sec_sub": "Pick up where you left off, or discover something useful.",
+        "open_hub": "Open the hub ↗",
+        "banner_h": "Something not working?",
+        "banner_p": "Broken links and outdated pages happen.",
+        "banner_btn": "Get in touch ↗",
+        "title": "Page Not Found — BuffForge",
+        "desc": "This page does not exist on BuffForge.",
+    },
+    "ru": {
+        "home_name": "BuffForge — главная", "home_type": "Страница",
+        "home_key": "главная buffforge игровые инструменты трекеры калькуляторы",
+        "about_name": "О проекте BuffForge", "about_type": "Инфо",
+        "about_key": "о проекте миссия цифры источники контакты обратная связь",
+        "hub_type": "Хаб игры", "tool_type": "Инструмент",
+        "no_matches": "Ничего не найдено. Попробуйте «GTA», «трекер» или «калькулятор».",
+        "eyebrow": "Заблудились в игровом мире?",
+        "h1": "Похоже, вы свернули не туда.",
+        "lead": ("Возможно, страница переехала или ссылка сломана. "
+                 "Нужный инструмент — в одном клике."),
+        "back": "↖ На главную", "about_btn": "О проекте ↗",
+        "other_lang": 'English version: <a href="/">BuffForge in English</a>.',
+        "search_ph": "Искать инструменты, хабы и страницы...",
+        "search_label": "Поиск по BuffForge", "search_btn": "Найти →",
+        "sec_eyebrow": "Найдите дорогу", "sec_h2": "Куда вы хотите попасть?",
+        "sec_sub": "Продолжите с того места, где остановились, или найдите что-то полезное.",
+        "open_hub": "Открыть хаб ↗",
+        "banner_h": "Что-то не работает?",
+        "banner_p": "Сломанные ссылки и устаревшие страницы случаются.",
+        "banner_btn": "Напишите нам ↗",
+        "title": "Страница не найдена — BuffForge",
+        "desc": "Такой страницы на BuffForge нет.",
+    },
+}
+
+
+def not_found_entries(lang):
+    c = NF_COPY[lang]
+    prefix = "" if lang == "en" else "ru/"
     entries = [
-        {"name": "BuffForge — home", "type": "Page", "href": "/",
-         "key": "home buffforge game tools trackers calculators"},
-        {"name": "About BuffForge", "type": "Info", "href": "/about/",
-         "key": "about mission numbers sources contact feedback"},
+        {"name": c["home_name"], "type": c["home_type"], "href": "/" + prefix,
+         "key": c["home_key"]},
+        {"name": c["about_name"], "type": c["about_type"], "href": "/%sabout/" % prefix,
+         "key": c["about_key"]},
     ]
     for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
         live = [t for t in tools_for(gid) if t["status"] == "live"]
         entries.append({
-            "name": HUB_COPY[gid]["en"]["h1"], "type": "Game hub",
-            "href": "/%s/" % gid,
-            "key": (GAMES_DATA[gid]["name"]["en"] + " hub tools guides "
-                    + " ".join(t["title"]["en"] for t in live)).lower(),
+            "name": HUB_COPY[gid][lang]["h1"], "type": c["hub_type"],
+            "href": "/%s%s/" % (prefix, gid),
+            "key": (GAMES_DATA[gid]["name"][lang] + " hub tools guides "
+                    + " ".join(t["title"][lang] for t in live)).lower(),
         })
         for t in live:
             entries.append({
-                "name": t["title"]["en"], "type": "Tool",
-                "href": "/%s/%s/" % (gid, t["slug"]),
-                "key": (t["title"]["en"] + " " + t["blurb"]["en"]).lower(),
+                "name": t["title"][lang], "type": c["tool_type"],
+                "href": "/%s%s/%s/" % (prefix, gid, t["slug"]),
+                "key": (t["title"][lang] + " " + t["blurb"][lang]).lower(),
             })
     return entries
 
 
-def not_found_page():
+def not_found_page(lang="en"):
+    c = NF_COPY[lang]
+    prefix = "" if lang == "en" else "ru/"
     cards = ""
     for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
         live = [t for t in tools_for(gid) if t["status"] == "live"]
         n = len(live)
-        icon, labels = NF_HUB_CARDS[gid]
-        line = "%s — %d live tool%s" % (labels, n, "" if n == 1 else "s")
+        icon, labels_en, labels_ru = NF_HUB_CARDS[gid]
+        labels = labels_en if lang == "en" else labels_ru
+        if lang == "en":
+            line = "%s — %d live tool%s" % (labels, n, "" if n == 1 else "s")
+        else:
+            word = ("инструмент" if n == 1 else
+                    "инструмента" if n in (2, 3, 4) else "инструментов")
+            line = "%s — %d %s" % (labels, n, word)
         cards += (
-            '<a class="nf-card" href="/%s/"><div class="nf-icon">%s</div>'
-            '<h3>%s</h3><p>%s.</p><span>Open the hub &nbsp;↗</span></a>'
-            % (gid, icon, GAMES_DATA[gid]["name"]["en"], line))
+            '<a class="nf-card" href="/%s%s/"><div class="nf-icon">%s</div>'
+            '<h3>%s</h3><p>%s.</p><span>%s</span></a>'
+            % (prefix, gid, icon, GAMES_DATA[gid]["name"][lang], line, c["open_hub"]))
     script = ("<script>\n" + NF_SEARCH_JS.replace(
-        "__ENTRIES__", json.dumps(not_found_entries(), ensure_ascii=False)) + "\n</script>")
+        "__ENTRIES__", json.dumps(not_found_entries(lang), ensure_ascii=False)).replace(
+        "__NO_MATCHES__", c["no_matches"]) + "\n</script>")
     body = (
         '<main id="main" class="wrap">%s'
-        '<section class="nf-hero"><p class="nf-eyebrow">Lost in the game world?</p>'
+        '<section class="nf-hero"><p class="nf-eyebrow">%s</p>'
         '<div class="nf-num" aria-hidden="true">404</div>'
-        '<h1>Looks like a wrong turn.</h1>'
-        '<p class="nf-lead">This page might have moved, or the link may be broken. '
-        'Your next useful tool is only a click away.</p>'
-        '<div class="nf-actions"><a class="btn btn-primary" href="/">↖ &nbsp;Back to home</a>'
-        '<a class="btn btn-secondary" href="/about/">About BuffForge &nbsp;↗</a></div>'
-        '<p class="nf-ru">Russian version: <a href="/ru/">BuffForge на русском</a>.</p>'
+        '<h1>%s</h1>'
+        '<p class="nf-lead">%s</p>'
+        '<div class="nf-actions"><a class="btn btn-primary" href="/%s">%s</a>'
+        '<a class="btn btn-secondary" href="/%sabout/">%s</a></div>'
+        '<p class="nf-ru">%s</p>'
         '<form class="nf-search" id="nf-search-form" role="search">'
         '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#829993" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>'
-        '<input type="search" id="nf-query" placeholder="Search tools, hubs, and pages..." aria-label="Search BuffForge" autocomplete="off">'
-        '<button class="btn btn-primary" type="submit">Search →</button></form>'
+        '<input type="search" id="nf-query" placeholder="%s" aria-label="%s" autocomplete="off">'
+        '<button class="btn btn-primary" type="submit">%s</button></form>'
         '<div class="nf-results" id="nf-results" aria-live="polite"></div></section>'
         '<section class="nf-section"><div class="about-sec-top"><div>'
-        '<p class="about-eyebrow">Find your way</p><h2>Where would you like to go?</h2>'
-        '<p class="about-sub">Pick up where you left off, or discover something useful.</p></div></div>'
+        '<p class="about-eyebrow">%s</p><h2>%s</h2>'
+        '<p class="about-sub">%s</p></div></div>'
         '<div class="nf-cards">%s</div></section>'
-        '<aside class="nf-banner"><div><h3>Something not working?</h3>'
-        '<p>Broken links and outdated pages happen.</p></div>'
-        '<a class="btn btn-secondary" href="/about/#contact">Get in touch ↗</a></aside></main>'
-        % (crumbs_html("en", [("404", None)]), cards)
+        '<aside class="nf-banner"><div><h3>%s</h3>'
+        '<p>%s</p></div>'
+        '<a class="btn btn-secondary" href="/%sabout/#contact">%s</a></aside></main>'
+        % (crumbs_html(lang, [("404", None)]), c["eyebrow"], c["h1"], c["lead"],
+           prefix, c["back"], prefix, c["about_btn"], c["other_lang"],
+           c["search_ph"], c["search_label"], c["search_btn"],
+           c["sec_eyebrow"], c["sec_h2"], c["sec_sub"], cards,
+           c["banner_h"], c["banner_p"], prefix, c["banner_btn"])
     )
-    # 404 page: no hreflang pair, noindex, canonical to itself.
-    html = ('<!DOCTYPE html>\n<html lang="en">\n<head>\n%s\n</head>\n<body>\n%s\n%s\n%s\n%s\n</body>\n</html>\n'
-            % (head("en", "Page Not Found — BuffForge",
-                    "This page does not exist on BuffForge.",
-                    "/404.html", None, None),
-               header_html("en", "/404.html", "/ru/"),
-               body, footer_html("en", ("desktop-pension-squad", "aion-2", "gta-6")), script))
+    # 404 page: no hreflang pair, noindex, no canonical.
+    switch = "/ru/" if lang == "en" else "/"
+    html = ('<!DOCTYPE html>\n<html lang="%s">\n<head>\n%s\n</head>\n<body>\n%s\n%s\n%s\n%s\n</body>\n</html>\n'
+            % (lang, head(lang, c["title"], c["desc"], None, None, None, noindex=True),
+               header_html(lang, "/%s404.html" % prefix, switch),
+               body, footer_html(lang, ("desktop-pension-squad", "aion-2", "gta-6")), script))
     return html
 
 
@@ -1746,7 +1814,8 @@ def main():
     for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
         write("%s/index.html" % gid, hub_page(gid, "en"))
         write("ru/%s/index.html" % gid, hub_page(gid, "ru"))
-    write("404.html", not_found_page())
+    write("404.html", not_found_page("en"))
+    write("ru/404.html", not_found_page("ru"))
     write("sitemap.xml", sitemap_xml())
     write("robots.txt", "User-agent: *\nAllow: /\nSitemap: https://buffforge.com/sitemap.xml\n")
     write("_headers",

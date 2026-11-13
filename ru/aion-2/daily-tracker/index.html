@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex">
 <title>Трекер ежедневных и еженедельных заданий AION 2 — BuffForge</title>
 <meta name="description" content="Живой обратный отсчёт до ежедневного сброса (10:00 МСК) и еженедельного сброса в среду для глобальных серверов AION 2. Отмечайте задания — галочки сбрасываются сами.">
 <link rel="canonical" href="https://buffforge.com/ru/aion-2/daily-tracker/">
@@ -22,12 +21,15 @@
 <link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/aion-2/daily-tracker/">
 <link rel="alternate" hreflang="x-default" href="https://buffforge.com/aion-2/daily-tracker/">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://buffforge.com/ru/"}, {"@type": "ListItem", "position": 2, "name": "AION 2", "item": "https://buffforge.com/ru/aion-2/"}, {"@type": "ListItem", "position": 3, "name": "Трекер ежедневных и еженедельных заданий", "item": "https://buffforge.com/ru/aion-2/daily-tracker/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "Трекер ежедневных и еженедельных заданий", "url": "https://buffforge.com/ru/aion-2/daily-tracker/", "inLanguage": "ru", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0"}}]</script>
-<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PQNKG4CV"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-MV0P0LF5YM');
+  (function () {
+    if (window.location.hostname !== 'buffforge.com') return;
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtm.js?id=GTM-PQNKG4CV";
+    document.head.appendChild(s);
+  })();
 </script>
 </head>
 <body>
@@ -94,7 +96,7 @@
           <ul>
             <li><a href="https://timesaver.gg" target="_blank" rel="noopener">timesaver.gg</a> — гайд по сбросам</li>
             <li><a href="https://metabot.gg" target="_blank" rel="noopener">metabot.gg</a> — эндгейм-гайд</li>
-            <li><a href="https://aion2.gg" target="_blank" rel="noopener">aion2.gg</a> — гайд по рутине</li>
+            <li><a href="https://www.ncsoft.com/en/games/aion2" target="_blank" rel="noopener">официальный сайт AION 2</a> — официальная страница игры</li>
             <li><a href="https://game8.co" target="_blank" rel="noopener">Game8</a> — гайд по сбросам</li>
           </ul>
         </div>
@@ -318,10 +320,10 @@
           var m = Math.floor((totalSec % 3600) / 60);
           var s = totalSec % 60;
           if (withDays && days > 0) {
-            return days + '<span class="unit">d</span>' + pad(h) + '<span class="unit">h</span>' + pad(m) + '<span class="unit">m</span>' + pad(s) + '<span class="unit">s</span>';
+            return days + '<span class="unit">д</span>' + pad(h) + '<span class="unit">ч</span>' + pad(m) + '<span class="unit">мин</span>' + pad(s) + '<span class="unit">с</span>';
           }
           var totalH = Math.floor(totalSec / 3600);
-          return pad(totalH) + '<span class="unit">h</span>' + pad(m) + '<span class="unit">m</span>' + pad(s) + '<span class="unit">s</span>';
+          return pad(totalH) + '<span class="unit">ч</span>' + pad(m) + '<span class="unit">мин</span>' + pad(s) + '<span class="unit">с</span>';
         }
         function fmtEventCountdown(ms) {
           var totalSec = Math.floor(ms / 1000);
@@ -329,9 +331,9 @@
           var h = Math.floor((totalSec % 86400) / 3600);
           var m = Math.floor((totalSec % 3600) / 60);
           var s = totalSec % 60;
-          if (days > 0) return days + '<span class="unit">d</span>' + h + '<span class="unit">ч осталось</span>';
-          if (h > 0) return h + '<span class="unit">h</span>' + pad(m) + '<span class="unit">мин осталось</span>';
-          return m + '<span class="unit">m</span>' + pad(s) + '<span class="unit">s left</span>';
+          if (days > 0) return days + '<span class="unit">д</span>' + h + '<span class="unit">ч осталось</span>';
+          if (h > 0) return h + '<span class="unit">ч</span>' + pad(m) + '<span class="unit">мин осталось</span>';
+          return m + '<span class="unit">мин</span>' + pad(s) + '<span class="unit">с осталось</span>';
         }
         function localResetLabel(date, weekly) {
           try {

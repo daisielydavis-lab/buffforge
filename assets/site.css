@@ -10,8 +10,8 @@
   --paper-2: #F7F8FA;
   --ink: #14181F;
   --body: #3A4250;
-  --muted: #5A6472;
-  --faint: #5A6472; /* AA on white; do not lighten for running text */
+  --muted: #3A4250;
+  --faint: #3A4250; /* AA on white; do not lighten for running text */
   --line: #E2E6ED;
   --line-strong: #CDD3DC;
   --teal: #0C706C;
@@ -352,6 +352,7 @@ h1 {
   color: var(--ink);
 }
 .intro { color: var(--body); margin: 8px 0 28px; max-width: 48em; }
+.sec-sub { color: var(--body); margin: 8px 0 0; max-width: 48em; }
 
 /* ——— Featured: asymmetric, not a uniform 3-grid ——— */
 .featured-layout { display: grid; gap: 18px; margin-top: 24px; }
