@@ -160,9 +160,6 @@ PLANNED_HOME = {
     "desktop-pension-squad": {
         "en": "More tools for this game — craft odds, an engraving Soul planner, and a drop finder — are planned.",
         "ru": "Планируются и другие инструменты: шансы крафта, планировщик рун (Soul) и поиск дропа."},
-    "aion-2": {
-        "en": "Guides for AION 2 will appear here when we have sourced numbers.",
-        "ru": "Гайды по AION 2 появятся здесь, когда появятся подтверждённые цифры."},
 }
 GO_LABELS = {
     "dps-fuse-salvage-calculator": {"en": "Open the calculator", "ru": "Открыть калькулятор"},
