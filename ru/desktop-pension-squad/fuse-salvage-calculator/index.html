@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Калькулятор слияния DPS: шансы и разбор на Soul — BuffForge</title>
+<meta name="description" content="Бесплатный калькулятор слияния Desktop Pension Squad. Проверьте шансы слияния девяти предметов для каждого диапазона уровней и сравните ожидаемый Soul от слияния и от разбора. Шансы — из клиента игры v1.0.2, через DPSquad Wiki.">
+<link rel="canonical" href="https://buffforge.com/ru/desktop-pension-squad/fuse-salvage-calculator/">
+<meta property="og:title" content="Калькулятор слияния DPS: шансы и разбор на Soul — BuffForge">
+<meta property="og:description" content="Бесплатный калькулятор слияния Desktop Pension Squad. Проверьте шансы слияния девяти предметов для каждого диапазона уровней и сравните ожидаемый Soul от слияния и от разбора. Шансы — из клиента игры v1.0.2, через DPSquad Wiki.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://buffforge.com/ru/desktop-pension-squad/fuse-salvage-calculator/">
+<meta property="og:image" content="https://buffforge.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="alternate" hreflang="en" href="https://buffforge.com/desktop-pension-squad/fuse-salvage-calculator/">
+<link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/desktop-pension-squad/fuse-salvage-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://buffforge.com/desktop-pension-squad/fuse-salvage-calculator/">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "Калькулятор слияния DPS: шансы и разбор на Soul — BuffForge", "url": "https://buffforge.com/ru/desktop-pension-squad/fuse-salvage-calculator/", "applicationCategory": "GameApplication", "operatingSystem": "Web browser", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://buffforge.com/ru/"}, {"@type": "ListItem", "position": 2, "name": "Desktop Pension Squad", "item": "https://buffforge.com/ru/desktop-pension-squad/"}, {"@type": "ListItem", "position": 3, "name": "Калькулятор слияния и разбора", "item": "https://buffforge.com/ru/desktop-pension-squad/fuse-salvage-calculator/"}]}]</script>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PQNKG4CV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MV0P0LF5YM');
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header"><div class="wrap nav"><a class="logo" href="/ru/"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0C706C"/><path d="M8 13.5h16v2.2H19.5V23h-7V15.7H8V13.5zm4.2-5.2h7.6l1.6 3.4H10.6l1.6-3.4z" fill="#FFFFFF"/></svg><span class="word">BuffForge</span></a><nav class="site-nav" aria-label="Primary"><details class="navdrop"><summary>Игры<svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></summary><div class="drop"><a href="/ru/desktop-pension-squad/"><span class="dot dot-dps"></span>Desktop Pension Squad</a><a href="/ru/aion-2/"><span class="dot dot-aion"></span>AION 2</a><a href="/ru/gta-6/"><span class="dot dot-gta"></span>GTA 6</a></div></details><a href="/ru/about/">О проекте</a><span class="lang"><a href="/desktop-pension-squad/fuse-salvage-calculator/" >English</a><a href="/ru/desktop-pension-squad/fuse-salvage-calculator/" class="current" aria-current="true">Русский</a></span></nav></div></header>
+<main id="main"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="/ru/">Главная</a><span class="sep">›</span><a href="/ru/desktop-pension-squad/">Desktop Pension Squad</a><span class="sep">›</span><span aria-current="page">Калькулятор слияния и разбора</span></nav>
+
+    <header class="tool-hero">
+      <p class="kicker">Desktop Pension Squad</p>
+      <h1>Калькулятор слияния DPS: шансы против разбора</h1>
+      <p class="lede">Девять предметов одной категории и редкости отправляются в куб мастерской — а выходит один. Калькулятор использует указанные шансы слияния для каждого диапазона уровней и — если ввести цены продажи — сравнивает ожидаемый Soul от слияния и от разбора всего.</p>
+      <div class="data-banner">
+        <span class="source-pill">v1.0.2 · build 26611958</span>
+        <span>Шансы: <a href="https://dpsquad.wiki/workshop" rel="noopener noreferrer">DPSquad Wiki</a> (клиент игры, вики прочитана 12 ноября 2026). Проверка BuffForge: 12 ноября 2026, тихоокеанское время. Указанные проценты округлены, затем нормализованы. <a href="#faq">Примечания об источниках</a>.</span>
+      </div>
+    </header>
+
+    <div class="calc" id="calc">
+      <form class="panel" id="calc-form" action="#" onsubmit="return false;">
+        <div class="panel-title">
+          <h2>Ваша партия</h2>
+        </div>
+        <div class="fields">
+          <div class="field">
+            <label for="bracket">Диапазон уровней</label>
+            <div class="select-wrap">
+              <select id="bracket" name="bracket"></select>
+            </div>
+            <p class="field-help" id="cube-level"></p>
+          </div>
+          <div class="field">
+            <label for="rarity">Редкость входа</label>
+            <div class="select-wrap">
+              <select id="rarity" name="rarity"></select>
+            </div>
+            <p class="field-help">Все девять предметов должны иметь эту редкость, одну категорию и этот диапазон. Сначала снимите их.</p>
+          </div>
+          <div class="field">
+            <label for="stock">Сколько у вас предметов</label>
+            <input type="number" id="stock" name="stock" min="0" max="900000000" step="1" inputmode="numeric" value="90">
+            <div class="presets" role="group" aria-label="Quick counts">
+              <button type="button" class="preset-btn" data-stock="9">9 · одно слияние</button>
+              <button type="button" class="preset-btn" data-stock="27">27</button>
+              <button type="button" class="preset-btn" data-stock="90">90</button>
+              <button type="button" class="preset-btn" data-stock="180">180</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="target">Целевая редкость</label>
+            <div class="select-wrap">
+              <select id="target" name="target"></select>
+            </div>
+            <p class="field-help">Шанс получить эту редкость или выше за слияния, на которые хватает запаса.</p>
+          </div>
+        </div>
+        <p class="caveat" id="recipe-caveat" hidden></p>
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" id="reset" style="height:40px;padding:0 16px;font-size:13px">Сбросить</button>
+          <button type="button" class="btn btn-ghost" id="copy-summary">Скопировать результаты</button>
+        </div>
+        <p class="sr-status" id="action-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="panel" aria-live="polite">
+        <div class="panel-title">
+          <h2>Результаты</h2>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <em>Полных слияний</em>
+            <strong id="fusion-count">—</strong>
+            <span><span id="leftover-count">0</span> осталось предметов</span>
+          </div>
+          <div class="stat">
+            <em>Ожидаемо выпадений</em>
+            <strong id="expected-count">—</strong>
+            <span>В среднем предметов цели или выше</span>
+          </div>
+        </div>
+        <div class="chance-block">
+          <div class="chance-ring" id="chance-circle" aria-hidden="true"><b id="target-chance">—</b></div>
+          <div class="chance-copy">
+            <strong>Хотя бы одно попадание в цель</strong>
+            <p id="target-caption">Задайте партию, чтобы увидеть шанс.</p>
+          </div>
+        </div>
+        <h3 class="sec-label" style="margin-bottom:10px">Возможные исходы</h3>
+        <div class="outcomes" id="outcomes"></div>
+        <p class="field-help" id="probability-footnote" style="margin:10px 0 16px"></p>
+        <h3 class="sec-label" style="margin-bottom:8px">Шанс при большем числе слияний</h3>
+        <div class="curve" id="chance-curve"></div>
+
+        <details class="soul-box">
+          <summary>Необязательно: сравнить Soul (укажите цены продажи)</summary>
+          <p class="field-help" style="margin-bottom:10px">Разбор даёт Soul, равный цене продажи предмета. Единой официальной «таблицы Soul» нет — если не знаете цену, оставьте поле пустым. Пустое поле — неизвестно, а не ноль.</p>
+          <div class="field" style="margin-bottom:10px">
+            <label for="input-soul">Soul за один входной предмет</label>
+            <input type="number" id="input-soul" min="0" step="any" inputmode="decimal" placeholder="Цена продажи">
+          </div>
+          <div class="value-grid" id="outcome-values"></div>
+          <div class="comparison">
+            <div class="comparison-box">
+              <em>Разобрать всё</em>
+              <strong id="salvage-total">Введите цену входа</strong>
+            </div>
+            <div class="comparison-box">
+              <em>Слить, потом разобрать</em>
+              <strong id="fuse-total">Введите цены выходов</strong>
+            </div>
+            <div class="comparison-box">
+              <em>Разница</em>
+              <strong id="value-diff">—</strong>
+            </div>
+          </div>
+          <div class="decision" id="decision">
+            <span class="decision-icon" aria-hidden="true">i</span>
+            <div>Введите Soul входа и Soul каждого исхода, чтобы сравнить. Полезность предметов и цены Steam не учитываются.</div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <section class="faq" id="faq" style="padding-top:0">
+      <p class="sec-label">Вопросы</p>
+      <h2>Частые вопросы</h2>
+      <details>
+        <summary><h3>Как работает слияние?</h3><span class="plus" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 1v10M1 6h10"/></svg></span></summary>
+        <p>Заполните девять слотов куба предметами без экипировки одной категории, одной редкости и нужного уровня в выбранном диапазоне. Они расходуются, а выходит один предмет из списка рецепта. Важны только категория, редкость и диапазон — не тир и не характеристики самих предметов. Для более высоких диапазонов нужен более высокий уровень куба. Источник: DPSquad Wiki / Workshop.</p>
+      </details>
+      <details>
+        <summary><h3>Откуда берутся эти шансы?</h3><span class="plus" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 1v10M1 6h10"/></svg></span></summary>
+        <p>Они переписаны из таблицы Workshop на DPSquad Wiki, которая ссылается на клиент игры, полную сборку 26611958 (v1.0.2), прочитанную 12 ноября 2026 года. BuffForge сверил эту таблицу 12 ноября 2026 года. Цифры — округлённые проценты самой игры; мы нормализуем их, чтобы сумма одного броска была 100%. Некоторые старые базы эпохи демо (например, заметки X1X) дают другие, более простые результаты — Unique и выше всегда становятся Epic. Мы следуем дампу клиента полной игры и обновим данные, если игра изменится. Мы никогда не выдумываем строки, которых нет в источнике.</p>
+      </details>
+      <details>
+        <summary><h3>Когда разбор выгоден?</h3><span class="plus" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 1v10M1 6h10"/></svg></span></summary>
+        <p>Разбор превращает 1–9 предметов без экипировки с ценой продажи в Soul, равный сумме этих цен. «Слить, потом разобрать» выигрывает по Soul, только если ожидаемая цена продажи выхода больше девяти цен входа. Даже если нет, слияние может стоить того, если нужен сам предмет более высокой редкости. Сравнение Soul здесь необязательно и использует только введённые вами цены.</p>
+      </details>
+      <details>
+        <summary><h3>Как считается шанс «хотя бы раз»?</h3><span class="plus" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 1v10M1 6h10"/></svg></span></summary>
+        <p>Если каждое слияние с вероятностью p даёт цель или выше, то n полных слияний дают шанс 1 − (1 − p)<sup>n</sup> хотя бы одного попадания при независимых бросках и без pity. И вики, и сторонний разбор эпохи демо говорят, что pity нет. Ожидаемые попадания — n × p.</p>
+      </details>
+    </section>
+
+    <section class="related">
+      <h2>Другие инструменты по Desktop Pension Squad</h2>
+      <div class="related-grid">
+        <div class="rel">
+          <b>Калькулятор шансов крафта (производства)</b>
+          <span>Рецепты Forgestone и их распределение по грейдам. Запланировано — вики уже публикует эти таблицы.</span>
+          <div class="soon">ЗАПЛАНИРОВАНО</div>
+        </div>
+        <div class="rel">
+          <b>Планировщик рун (Soul)</b>
+          <span>Сколько Soul (и Soul Stone) стоит дерево рун и что осталось купить.</span>
+          <div class="soon">ЗАПЛАНИРОВАНО</div>
+        </div>
+        <div class="rel">
+          <b>Поиск дропа</b>
+          <span>Из каких сундуков этапов может выпасть предмет, по сложности.</span>
+          <div class="soon">ЗАПЛАНИРОВАНО</div>
+        </div>
+      </div>
+    </section>
+  </div></main><script>
+(() => {
+  'use strict';
+  /* Fusion recipes transcribed from https://dpsquad.wiki/workshop
+     Source on that page: "Game client, full game build 26611958 (read 2026-11-12)".
+     BuffForge review: 2026-11-12 (America/Los_Angeles).
+     Values are the game's rounded listed percentages. Do not invent rows. */
+
+  const grades = ['Common','Uncommon','Rare','Unique','Epic','Legendary','Immortal','Ascendant','Primordial','Mythic'];
+  const colors = {
+    Common:'#AEB8C9', Uncommon:'#83D59B', Rare:'#72A7FF', Unique:'#AE8DFF', Epic:'#D18DFF',
+    Legendary:'#FFCD7B', Immortal:'#FF9279', Ascendant:'#90EBE2', Primordial:'#F9A5E8', Mythic:'#FAE8A3'
+  };
+  const brackets = [
+    {min:1,  label:'Lv. 1–5',   tier:'T1–2',  cube:null},
+    {min:5,  label:'Lv. 5–10',  tier:'T2–3',  cube:5},
+    {min:10, label:'Lv. 10–15', tier:'T3–4',  cube:10},
+    {min:15, label:'Lv. 15–20', tier:'T4–5',  cube:15},
+    {min:20, label:'Lv. 20–30', tier:'T5–6',  cube:20},
+    {min:30, label:'Lv. 30–40', tier:'T6–7',  cube:30},
+    {min:40, label:'Lv. 40–50', tier:'T7–8',  cube:40},
+    {min:50, label:'Lv. 50–65', tier:'T8–9',  cube:50},
+    {min:65, label:'Lv. 65–80', tier:'T9–10', cube:65},
+    {min:80, label:'Lv. 80+',   tier:'T10',   cube:80}
+  ];
+
+  /* Shared low-rarity rows (identical across every bracket on the wiki). */
+  const LOW = {
+    Common:   [['Uncommon',95.24],['Rare',4.76]],
+    Uncommon: [['Rare',96.15],['Unique',3.85]],
+    Rare:     [['Unique',97.56],['Epic',2.44]]
+  };
+
+  function recipe(index, rarity) {
+    if (LOW[rarity]) return LOW[rarity];
+    if (rarity === 'Unique') {
+      return index < 2 ? [['Epic',100]] : [['Epic',99.01],['Legendary',0.99]];
+    }
+    if (rarity === 'Epic') {
+      if (index < 2)  return [['Epic',100]];
+      if (index === 2) return [['Epic',49.88],['Legendary',50.12]];
+      if (index === 3) return [['Epic',49.88],['Legendary',50.13]];
+      return [['Epic',49.88],['Legendary',49.88],['Immortal',0.25]];
+    }
+    if (rarity === 'Legendary') {
+      if (index < 2) return [];
+      if (index <= 3) return [['Legendary',100]];
+      if (index === 4) return [['Legendary',66.56],['Immortal',33.44]];
+      return [['Legendary',66.56],['Immortal',33.28],['Ascendant',0.17]];
+    }
+    if (rarity === 'Immortal') {
+      if (index < 4) return [];
+      if (index === 4) return [['Immortal',100]];
+      if (index === 5) return [['Immortal',76.84],['Ascendant',23.16]];
+      return [['Immortal',76.84],['Ascendant',23.08],['Primordial',0.08]];
+    }
+    if (rarity === 'Ascendant') {
+      if (index < 5) return [];
+      if (index === 5) return [['Ascendant',100]];
+      if (index === 6) return [['Ascendant',83.29],['Primordial',16.71]];
+      return [['Ascendant',83.29],['Primordial',16.70],['Mythic',0.02]];
+    }
+    if (rarity === 'Primordial') {
+      if (index < 6) return [];
+      if (index === 6) return [['Primordial',100]];
+      return [['Primordial',90.91],['Mythic',9.09]];
+    }
+    return [];
+  }
+
+  function fixedLevelNote(index, rarity) {
+    if (index === 2 && rarity === 'Legendary')
+      return 'Этот рецепт — только для снаряжения Legendary ур. 15, а не для всех предметов диапазона ур. 10–15.';
+    if (index === 4 && rarity === 'Immortal')
+      return 'Этот рецепт — только для снаряжения Immortal ур. 30, а не для всех предметов диапазона ур. 20–30.';
+    if (index === 5 && rarity === 'Ascendant')
+      return 'Этот рецепт — только для снаряжения Ascendant ур. 40, а не для всех предметов диапазона ур. 30–40.';
+    if (index === 6 && rarity === 'Primordial')
+      return 'Этот рецепт — только для снаряжения Primordial ур. 50, а не для всех предметов диапазона ур. 40–50.';
+    return '';
+  }
+
+  const $ = id => document.getElementById(id);
+  const state = {values:{}};
+  const defaultParams = {bracket:4, rarity:'Epic', stock:90, target:'Legendary'};
+  const bracketEl = $('bracket'), rarityEl = $('rarity'), stockEl = $('stock'), targetEl = $('target');
+
+  const format = num => new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(num);
+  const percent = num => num >= 99.995 ? '100%' : (num > 0 && num < .01 ? num.toFixed(3) + '%' : num.toFixed(2) + '%');
+  const isNum = value => value !== '' && value !== null && Number.isFinite(Number(value)) && Number(value) >= 0;
+  const clamp = (num,min,max) => Math.min(max, Math.max(min, num));
+  const safeNum = value => clamp(Number(value) || 0, 0, 9e8);
+
+  function raritiesFor(index) {
+    return grades.filter(g => recipe(index, g).length > 0);
+  }
+
+  /* Fill bracket select once. */
+  bracketEl.replaceChildren(...brackets.map((b, i) => new Option(b.label + ' · ' + b.tier, String(i), false, i === defaultParams.bracket)));
+
+  function refreshRarities(prefer) {
+    const options = raritiesFor(+bracketEl.value);
+    const selected = options.includes(prefer) ? prefer : (options.includes('Epic') ? 'Epic' : options[options.length - 1]);
+    rarityEl.replaceChildren(...options.map(g => new Option(g, g, false, g === selected)));
+    refreshTargets();
+  }
+  function refreshTargets() {
+    const raw = recipe(+bracketEl.value, rarityEl.value);
+    const current = targetEl.value;
+    const names = raw.map(([g]) => g);
+    const selected = names.includes(current) ? current : (names.includes('Legendary') ? 'Legendary' : names[names.length - 1]);
+    targetEl.replaceChildren(...names.map(g => new Option(g + ' или выше', g, false, g === selected)));
+    refreshValueFields();
+  }
+  function refreshValueFields() {
+    const entries = recipe(+bracketEl.value, rarityEl.value);
+    const host = $('outcome-values');
+    host.replaceChildren(...entries.map(([g]) => {
+      const row = document.createElement('div');
+      row.className = 'value-item';
+      const text = document.createElement('span');
+      text.textContent = 'Soul за один ' + g + ' на выходе';
+      const input = document.createElement('input');
+      input.type = 'number'; input.min = '0'; input.step = 'any'; input.inputMode = 'decimal';
+      input.placeholder = 'Цена продажи'; input.id = 'value-' + g; input.dataset.grade = g;
+      input.setAttribute('aria-label', 'Soul за разбор одного ' + g + ' на выходе');
+      if (state.values[g] !== undefined) input.value = state.values[g];
+      row.append(text, input);
+      return row;
+    }));
+  }
+
+  function calculate() {
+    const index = +bracketEl.value, rarity = rarityEl.value;
+    const raw = recipe(index, rarity);
+    const sum = raw.reduce((a, v) => a + v[1], 0);
+    const dist = raw.map(([grade, weight]) => ({grade, display: weight, prob: weight / sum}));
+    const stock = Math.floor(safeNum(stockEl.value));
+    const attempts = Math.floor(stock / 9), leftover = stock % 9;
+    const target = targetEl.value;
+    const targetIndex = grades.indexOf(target);
+    const p = dist.reduce((acc, o) => acc + (grades.indexOf(o.grade) >= targetIndex ? o.prob : 0), 0);
+    const totalChance = p === 1 && attempts > 0 ? 1 : (attempts === 0 ? 0 : -Math.expm1(attempts * Math.log1p(-p)));
+    const expected = attempts * p;
+    const b = brackets[index];
+    $('cube-level').textContent = b.cube == null ? 'Для первого диапазона уровень куба не нужен.' : ('Нужен куб ур. ' + b.cube + '. Тир выхода: ' + b.tier + '.');
+    const note = fixedLevelNote(index, rarity);
+    const cave = $('recipe-caveat');
+    if (note) { cave.hidden = false; cave.textContent = note; }
+    else { cave.hidden = true; cave.textContent = ''; }
+    $('fusion-count').textContent = format(attempts);
+    $('leftover-count').textContent = format(leftover);
+    $('expected-count').textContent = format(expected);
+    $('target-chance').textContent = percent(totalChance * 100);
+    $('target-caption').textContent = 'Шанс получить ' + target + ' или выше за ' + format(attempts) + ' слияний. Шанс за одно слияние: ' + percent(p * 100) + '.';
+    $('chance-circle').style.background = 'conic-gradient(var(--teal) 0 ' + (totalChance * 100) + '%, #DDE3EA ' + (totalChance * 100) + '% 100%)';
+    $('probability-footnote').textContent = format(stock) + ' входных предметов → ' + format(attempts) + ' полных слияний по девять предметов. Независимые броски; указанные шансы нормализованы. Pity не учитывается.';
+    $('outcomes').innerHTML = dist.map(o => {
+      const listed = percent(o.display);
+      const norm = percent(o.prob * 100);
+      const showNorm = listed !== norm;
+      return '<div class="outcome-row"><div class="outcome-meta"><span class="rarity-label"><i class="rarity-dot" style="--swatch:' + colors[o.grade] + '"></i>' + o.grade + '</span><strong>' + listed + (showNorm ? ' <small>норм. ' + norm + '</small>' : '') + '</strong></div><div class="meter"><div class="meter-inner" style="--swatch:' + colors[o.grade] + ';--pct:' + (o.prob * 100) + '%"></div></div><div class="outcome-detail">Ожидается в этой партии: ' + format(attempts * o.prob) + '</div></div>';
+    }).join('');
+    const counts = [...new Set([1, 5, 10, Math.max(1, attempts), 50])].sort((a,b) => a - b).slice(0, 5);
+    $('chance-curve').innerHTML = counts.map(n => {
+      const ch = p === 1 ? 1 : -Math.expm1(n * Math.log1p(-p));
+      return '<div class="curve-item"><div class="curve-height"><div class="curve-fill" style="height:' + (ch * 100) + '%"></div></div><strong>' + percent(ch * 100) + '</strong><span>' + format(n) + ' раз' + '</span></div>';
+    }).join('');
+    computeValues(dist, stock, attempts, leftover);
+    return {index, rarity, stock, attempts, leftover, target, p, totalChance, expected, dist};
+  }
+
+  function computeValues(dist, stock, attempts, leftover) {
+    const input = $('input-soul').value;
+    const hasInput = isNum(input);
+    const inputValue = hasInput ? Number(input) : 0;
+    const readyOutputs = dist.every(o => isNum(state.values[o.grade]));
+    const totalSalvage = hasInput ? stock * inputValue : null;
+    const totalFuse = readyOutputs && (hasInput || leftover === 0)
+      ? attempts * dist.reduce((a, o) => a + o.prob * Number(state.values[o.grade]), 0) + leftover * inputValue
+      : (readyOutputs && leftover > 0 && !hasInput ? null : (readyOutputs && leftover === 0 ? attempts * dist.reduce((a, o) => a + o.prob * Number(state.values[o.grade]), 0) : null));
+    const delta = totalSalvage !== null && totalFuse !== null ? totalFuse - totalSalvage : null;
+    $('salvage-total').textContent = totalSalvage === null ? 'Введите цену входа' : format(totalSalvage) + ' Soul';
+    $('fuse-total').textContent = totalFuse === null ? 'Введите цены выходов' : format(totalFuse) + ' Soul';
+    $('value-diff').textContent = delta === null ? '—' : ((delta > 0 ? '+' : '') + format(delta) + ' Soul');
+    const decision = $('decision');
+    let msg = 'Введите Soul входа и Soul каждого исхода, чтобы сравнить. Пустые поля — неизвестно, а не ноль. Полезность предметов и цены Steam не учитываются.';
+    if (delta !== null) {
+      if (attempts === 0) msg = 'Меньше девяти предметов: слияние пока невозможно, моделируется только разбор.';
+      else if (Math.abs(delta) < 1e-9) msg = '<strong>Ожидаемый Soul равен.</strong> Полезность не учитывается — сливайте, если нужен предмет более высокой редкости.';
+      else if (delta > 0) msg = '<strong>Слияние впереди на ' + format(delta) + ' ожидаемого Soul.</strong> Это среднее значение, а не гарантия. Полезность и цены Steam не учитываются.';
+      else msg = '<strong>Прямой разбор впереди в среднем на ' + format(Math.abs(delta)) + ' Soul.</strong> Слияние всё равно может стоить того, если нужно снаряжение более высокой редкости, а не только Soul.';
+    }
+    decision.innerHTML = '<span class="decision-icon" aria-hidden="true">i</span><div>' + msg + '</div>';
+  }
+
+  function reset() {
+    state.values = {};
+    bracketEl.value = defaultParams.bracket;
+    stockEl.value = defaultParams.stock;
+    $('input-soul').value = '';
+    refreshRarities(defaultParams.rarity);
+    targetEl.value = defaultParams.target;
+    calculate();
+    $('action-status').textContent = 'Калькулятор сброшен.';
+  }
+
+  async function copyResults() {
+    const r = calculate();
+    const lines = [
+      'DPS: Desktop Pension Squad — Калькулятор слияния и разбора (BuffForge)',
+      'Диапазон: ' + brackets[r.index].label + ' | Редкость входа: ' + r.rarity + ' | Предметов: ' + r.stock,
+      'Слияний: ' + r.attempts + ' | Осталось: ' + r.leftover,
+      'Цель: ' + r.target + ' или выше',
+      'За одно слияние: ' + percent(r.p * 100) + ' | Хотя бы раз: ' + percent(r.totalChance * 100) + ' | Ожидаемо выпадений: ' + format(r.expected),
+      ...r.dist.map(o => o.grade + ': ' + percent(o.display) + ' указано'),
+      'Разобрать всё: ' + $('salvage-total').textContent + ' | Слить, потом разобрать: ' + $('fuse-total').textContent,
+      'Источник: dpsquad.wiki/workshop (клиент игры v1.0.2, сборка 26611958). Независимые броски, без pity. Проверка 12 ноября 2026.'
+    ];
+    const text = lines.join('\n');
+    try {
+      if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(text);
+      else {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        if (!document.execCommand('copy')) throw Error('Copy unavailable');
+        ta.remove();
+      }
+      $('action-status').textContent = 'Результаты скопированы.';
+    } catch (err) {
+      $('action-status').textContent = 'Копирование заблокировано в этом браузере; выделите и скопируйте результаты вручную.';
+    }
+  }
+
+  bracketEl.addEventListener('change', () => { refreshRarities(rarityEl.value); calculate(); });
+  rarityEl.addEventListener('change', () => { refreshTargets(); calculate(); });
+  targetEl.addEventListener('change', calculate);
+  stockEl.addEventListener('input', calculate);
+  $('input-soul').addEventListener('input', calculate);
+  $('outcome-values').addEventListener('input', e => {
+    if (e.target.dataset.grade) { state.values[e.target.dataset.grade] = e.target.value; calculate(); }
+  });
+  document.querySelectorAll('[data-stock]').forEach(btn => btn.addEventListener('click', () => {
+    stockEl.value = btn.dataset.stock; calculate();
+  }));
+  $('reset').addEventListener('click', reset);
+  $('copy-summary').addEventListener('click', copyResults);
+  refreshRarities(defaultParams.rarity);
+  targetEl.value = defaultParams.target;
+  calculate();
+})();
+</script>
+<footer class="site-footer"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0C706C"/><path d="M8 13.5h16v2.2H19.5V23h-7V15.7H8V13.5zm4.2-5.2h7.6l1.6 3.4H10.6l1.6-3.4z" fill="#FFFFFF"/></svg><div class="word">BuffForge</div><p>Игровые инструменты, трекеры и калькуляторы. У каждой цифры — открытый источник.</p></div><div><h2>Сайт</h2><div class="links"><a href="/ru/">Главная</a><a href="/ru/about/">О проекте</a><a href="mailto:feedback@buffforge.com">Сообщить об ошибке</a></div></div><div><h2>Игры</h2><div class="links"><a href="/ru/desktop-pension-squad/">Desktop Pension Squad</a><a href="/ru/aion-2/">AION 2</a><a href="/ru/gta-6/">GTA 6</a></div></div><div><h2>Язык</h2><div class="links"><a href="/">English version</a><a href="/ru/" class="current" aria-current="true">Русский</a></div></div></div><div class="legal"><p>Desktop Pension Squad разработана detailgames и издаётся storytaco. DPSquad Wiki — фанатская вики, не официальный ресурс.</p><p>AION 2 — товарный знак NCSOFT.</p><p>Grand Theft Auto и GTA — товарные знаки Take-Two Interactive. Rockstar Games — товарный знак Take-Two Interactive.</p><p>BuffForge — независимый фанатский проект, не связанный с detailgames, storytaco, NCSOFT, Rockstar Games, Take-Two Interactive или Valve Corporation и не одобренный ими.</p><p>У каждой цифры — открытый источник. Мы перепроверяем официальные источники перед публикацией. Последняя проверка данных: 13 ноября 2026.</p></div></div></footer>
+<script>document.querySelectorAll(".navdrop summary").forEach(function(s){s.addEventListener("click",function(){document.querySelectorAll(".navdrop").forEach(function(d){if(d!==s.parentElement){d.removeAttribute("open");}});});});</script>
+</body>
+</html>

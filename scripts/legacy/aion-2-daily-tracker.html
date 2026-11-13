@@ -1,0 +1,612 @@
+<!-- Legacy source: pre-shell AION 2 tracker artifact (git 92c3234).
+     Build input only — never served as a page. The original <head>
+     Google Fonts links were removed here; the shell provides
+     self-hosted IBM Plex fonts. Only the body + script are extracted. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>AION 2 Daily &amp; Weekly Tracker</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #e9ebe4;
+        --bg-deep: #dfe2d6;
+        --surface: #fbfbf7;
+        --surface-2: #f1f2ea;
+        --ink: #1d211a;
+        --muted: #5b6152;
+        --faint: #838a79;
+        --line: #d3d7c6;
+        --line-strong: #b9bfa6;
+        --gold: #8a6a14;
+        --gold-bright: #a97f16;
+        --gold-soft: #f3e9c8;
+        --gold-ink: #4d3d08;
+        --done: #4c7240;
+        --done-soft: #e3edda;
+        --warn: #9a4a12;
+        --warn-soft: #f7e3d2;
+        --shadow: 0 1px 2px rgba(29, 33, 26, .06), 0 10px 28px -18px rgba(29, 33, 26, .35);
+        --radius: 14px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --bg: #0e110c;
+          --bg-deep: #080a07;
+          --surface: #171b14;
+          --surface-2: #1e231a;
+          --ink: #edeade;
+          --muted: #a8ad9c;
+          --faint: #7d8272;
+          --line: #2b3124;
+          --line-strong: #3d4433;
+          --gold: #e0b84e;
+          --gold-bright: #f0cb63;
+          --gold-soft: #2e2a16;
+          --gold-ink: #f0d488;
+          --done: #93c07e;
+          --done-soft: #22301c;
+          --warn: #eda26a;
+          --warn-soft: #38220f;
+          --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.8);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+        background-attachment: fixed;
+        color: var(--ink);
+        line-height: 1.5;
+      }
+      .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 56px; }
+
+      /* ---------- header ---------- */
+      header { margin-bottom: 26px; }
+      .kicker {
+        font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+        color: var(--gold); margin: 0 0 8px;
+      }
+      h1 {
+        font-family: "Marcellus", Georgia, serif; font-weight: 400;
+        font-size: clamp(2rem, 6vw, 3rem); line-height: 1.08; margin: 0 0 10px;
+        letter-spacing: .01em;
+      }
+      .lede { font-size: 1.02rem; color: var(--muted); max-width: 56ch; margin: 0 0 14px; }
+      .stamp {
+        display: inline-block; font-size: .8rem; font-weight: 600; color: var(--gold-ink);
+        background: var(--gold-soft); border: 1px solid var(--line-strong);
+        padding: 5px 11px; border-radius: 999px;
+      }
+
+      /* ---------- countdown cards ---------- */
+      .resets { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 30px; }
+      @media (max-width: 620px) { .resets { grid-template-columns: 1fr; } }
+      .reset-card {
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        box-shadow: var(--shadow); padding: 20px 22px 18px;
+      }
+      .reset-card .label {
+        font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+        color: var(--muted); margin: 0 0 6px; display: flex; align-items: center; gap: 8px;
+      }
+      .reset-card .label::before {
+        content: ""; width: 8px; height: 8px; border-radius: 50%;
+        background: var(--gold-bright); box-shadow: 0 0 0 3px var(--gold-soft); flex: none;
+      }
+      .count {
+        font-size: clamp(2rem, 7vw, 2.7rem); font-weight: 800; line-height: 1.05;
+        font-variant-numeric: tabular-nums; letter-spacing: .01em; margin: 0 0 8px;
+      }
+      .count .unit { font-size: .42em; font-weight: 700; color: var(--faint); margin: 0 .18em 0 .05em; }
+      .reset-meta { font-size: .88rem; color: var(--muted); margin: 0; }
+      .reset-meta strong { color: var(--ink); font-weight: 600; }
+      .maint-note { font-size: .82rem; color: var(--faint); margin-top: 8px; }
+
+      /* ---------- sections ---------- */
+      section { margin-bottom: 34px; }
+      .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 6px; flex-wrap: wrap; }
+      h2 {
+        font-family: "Marcellus", Georgia, serif; font-weight: 400;
+        font-size: 1.55rem; margin: 0; letter-spacing: .01em;
+      }
+      .progress-text { font-size: .92rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--muted); }
+      .progress-text b { color: var(--gold); font-size: 1.05rem; }
+      .progress-bar { height: 7px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; margin: 8px 0 14px; }
+      .progress-fill { height: 100%; width: 0%; background: var(--gold-bright); border-radius: 999px; transition: width .35s ease; }
+      .section-note { font-size: .88rem; color: var(--muted); margin: 0 0 14px; max-width: 62ch; }
+
+      /* ---------- checklist ---------- */
+      .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+      .task {
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+      .task label {
+        display: flex; gap: 13px; align-items: flex-start;
+        padding: 14px 16px; min-height: 52px; cursor: pointer; border-radius: var(--radius);
+      }
+      .task input[type="checkbox"] {
+        appearance: none; -webkit-appearance: none; flex: none;
+        width: 26px; height: 26px; margin: 2px 0 0; border-radius: 8px;
+        border: 2px solid var(--line-strong); background: var(--surface-2);
+        display: grid; place-content: center; cursor: pointer;
+        transition: background .15s ease, border-color .15s ease;
+      }
+      .task input[type="checkbox"]::before {
+        content: ""; width: 13px; height: 13px; transform: scale(0);
+        background: currentColor; color: var(--surface);
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        transition: transform .15s ease;
+      }
+      .task input[type="checkbox"]:checked { background: var(--done); border-color: var(--done); color: var(--surface); }
+      .task input[type="checkbox"]:checked::before { transform: scale(1); }
+      .task input[type="checkbox"]:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
+      .task-body { flex: 1; min-width: 0; }
+      .task-name { font-weight: 700; font-size: 1rem; line-height: 1.3; }
+      .task-detail { font-size: .88rem; color: var(--muted); margin-top: 2px; }
+      .task-detail strong { color: var(--ink); font-weight: 600; }
+      .task.is-done .task-name { color: var(--faint); text-decoration: line-through; text-decoration-thickness: 1px; }
+      .task.is-done { opacity: .72; }
+      .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+      .chip {
+        font-size: .74rem; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+        background: var(--surface-2); border: 1px solid var(--line); color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+      .chip.scope { color: var(--gold-ink); background: var(--gold-soft); border-color: var(--line-strong); }
+      .chip.verify { color: var(--warn); background: var(--warn-soft); border-color: var(--warn); font-weight: 700; }
+      .chip.nobank { color: var(--warn); background: var(--warn-soft); border-color: var(--warn); font-weight: 700; }
+
+      /* ---------- events ---------- */
+      .events { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+      .event {
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        box-shadow: var(--shadow); padding: 15px 17px;
+        display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap;
+      }
+      .event-name { font-weight: 700; font-size: 1rem; line-height: 1.3; }
+      .event-detail { font-size: .88rem; color: var(--muted); margin-top: 2px; }
+      .event-count { text-align: right; flex: none; }
+      .event-count .t {
+        font-size: 1.22rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.15;
+      }
+      .event-count .t .unit { font-size: .62em; font-weight: 700; color: var(--faint); margin: 0 .15em 0 .04em; }
+      .event-count .ends { font-size: .8rem; color: var(--faint); }
+      .event.ended { opacity: .6; }
+      .event.ended .t { font-size: 1rem; color: var(--faint); }
+      .event.soon .t { color: var(--warn); }
+
+      /* ---------- footer ---------- */
+      footer { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 8px; }
+      .footnotes { font-size: .86rem; color: var(--muted); display: grid; gap: 8px; margin: 0 0 16px; }
+      .footnotes p { margin: 0; max-width: 68ch; }
+      .sources { font-size: .86rem; color: var(--muted); }
+      .sources p { margin: 0 0 6px; font-weight: 700; color: var(--ink); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+      .sources ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
+      a { color: var(--gold); font-weight: 600; text-underline-offset: 2px; }
+      .disclaimer {
+        margin-top: 16px; font-size: .86rem; color: var(--muted);
+        background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 13px 16px; max-width: 72ch;
+      }
+      .disclaimer strong { color: var(--ink); }
+      @media (prefers-reduced-motion: reduce) {
+        .progress-fill, .task input[type="checkbox"], .task input[type="checkbox"]::before { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+      <header>
+        <p class="kicker">Global servers · NA / EU / SA / Asia</p>
+        <h1>AION 2 Daily &amp; Weekly Tracker</h1>
+        <p class="lede">Every daily and weekly counter that matters at level 45, with live reset countdowns. Tick things off as you finish them — your ticks are saved on this device and clear themselves when the reset passes.</p>
+        <span class="stamp">Data as of Nov 12, 2026 · global build after Nov 11 patch</span>
+      </header>
+
+      <div class="resets">
+        <div class="reset-card">
+          <p class="label">Next daily reset</p>
+          <p class="count" id="daily-count">—</p>
+          <p class="reset-meta">Resets <strong>07:00 UTC</strong> daily · your time: <strong id="daily-local">—</strong></p>
+        </div>
+        <div class="reset-card">
+          <p class="label">Next weekly reset</p>
+          <p class="count" id="weekly-count">—</p>
+          <p class="reset-meta">Resets <strong>Wednesday 07:00 UTC</strong> · your time: <strong id="weekly-local">—</strong></p>
+          <p class="maint-note">Weekly maintenance starts about 30 minutes before the Wednesday reset.</p>
+        </div>
+      </div>
+
+      <section aria-labelledby="daily-h">
+        <div class="section-head">
+          <h2 id="daily-h">Daily checklist</h2>
+          <span class="progress-text"><b id="daily-done">0</b> of 8 done</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-label="Daily progress" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="daily-bar-wrap"><div class="progress-fill" id="daily-bar"></div></div>
+        <p class="section-note">All counters below reset at 07:00 UTC. Caps are for a level 45 character, from client-data trackers — where trackers disagree, the row is tagged so you can check in-game.</p>
+        <ul class="list" id="daily-list"></ul>
+      </section>
+
+      <section aria-labelledby="weekly-h">
+        <div class="section-head">
+          <h2 id="weekly-h">Weekly checklist</h2>
+          <span class="progress-text"><b id="weekly-done">0</b> of 8 done</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-label="Weekly progress" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="weekly-bar-wrap"><div class="progress-fill" id="weekly-bar"></div></div>
+        <p class="section-note">Everything here resets Wednesday 07:00 UTC, at the same moment as that day's daily reset.</p>
+        <ul class="list" id="weekly-list"></ul>
+      </section>
+
+      <section aria-labelledby="events-h">
+        <div class="section-head">
+          <h2 id="events-h">Live events</h2>
+        </div>
+        <p class="section-note">End dates per NC announcements. These campaign countdowns run to 07:00 UTC on the listed end date — the daily reset — except Ludra Hunt, which ends at the maintenance. That is separate from the in-game attendance/event-day rollover at 08:00 UTC noted below.</p>
+        <ul class="events" id="event-list"></ul>
+      </section>
+
+      <footer>
+        <div class="footnotes">
+          <p><strong>Attendance rolls over later.</strong> NC has never published one master reset time: dungeon and content counters reset at 07:00 UTC, but NC's own attendance and event day rolls over an hour later, at <strong>08:00 UTC</strong>.</p>
+          <p><strong>Other regions differ.</strong> Korea and Taiwan servers reset at a different hour (05:00 server time). This page tracks the global service only.</p>
+        </div>
+        <div class="sources">
+          <p>Sources</p>
+          <ul>
+            <li><a href="https://timesaver.gg" target="_blank" rel="noopener">timesaver.gg</a> — reset guide</li>
+            <li><a href="https://metabot.gg" target="_blank" rel="noopener">metabot.gg</a> — endgame guide</li>
+            <li><a href="https://aion2.gg" target="_blank" rel="noopener">aion2.gg</a> — routine guide</li>
+            <li><a href="https://game8.co" target="_blank" rel="noopener">Game8</a> — reset guide</li>
+          </ul>
+        </div>
+        <p class="disclaimer"><strong>Disclaimer:</strong> Counters come from client-data trackers, not an NC statement. NC has never published one master reset time — always confirm in-game. Attendance/event day rolls over at 08:00 UTC, one hour after content counters.</p>
+      </footer>
+
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* ---------------- data (verified 2026-11-12) ---------------- */
+        var DAILY = [
+          { id: "duty", name: "Duty Missions",
+            detail: "<strong>5</strong> paid completions per day. The one counter that <strong>cannot be banked</strong> — use them or lose them.",
+            chips: [["scope", "Per server"], ["refill", "Refills at daily reset"], ["nobank", "No banking"]] },
+          { id: "odyl", name: "Odyle Energy",
+            detail: "Regenerates <strong>+15 every 3 hours</strong> (120/day). Spent on dungeon cubes at <strong>40 per claim</strong>.",
+            chips: [["cap", "Cap 560 · 840 with Membership"]] },
+          { id: "nightmare-daily", name: "Nightmare",
+            detail: "<strong>2 attempts</strong> per day, and unused attempts bank up.",
+            chips: [["cap", "Banks up to 14"]] },
+          { id: "shugo", name: "Shugo Festival keys",
+            detail: "<strong>+3 keys</strong> per day.",
+            chips: [["scope", "Per server"], ["cap", "Cap 12 · 21 with Membership"], ["verify", "Verify in-game — trackers disagree (another lists 28/56)"]] },
+          { id: "invasion", name: "Dimensional Invasion",
+            detail: "<strong>1 reward key</strong> per day.",
+            chips: [["scope", "Shared per server"], ["cap", "Banks up to 7"]] },
+          { id: "conquest-daily", name: "Conquest reward count",
+            detail: "Regenerates <strong>+1 every 8 hours</strong>.",
+            chips: [["cap", "Cap 21"], ["verify", "Verify in-game — trackers disagree (another lists 2/day, cap 14)"]] },
+          { id: "transcendence-daily", name: "Transcendence reward count",
+            detail: "Regenerates <strong>+1 every 12 hours</strong>.",
+            chips: [["cap", "Cap 14"]] },
+          { id: "gathering", name: "Gathering",
+            detail: "<strong>1,000 gathers</strong> per day.",
+            chips: [["scope", "Per server"]] }
+        ];
+
+        var WEEKLY = [
+          { id: "ludra", name: "Abyssal Forge — Ludra",
+            detail: "Sanctuary raid, 10 players. <strong>4 attempts</strong>, <strong>1 rewarded kill</strong> per character. Item level <strong>2,800</strong> normal / <strong>3,000</strong> hard. Chest costs <strong>40 Odyle Energy</strong>. Time limit 2 hours (Nov 11 patch).",
+            chips: [["scope", "Per character"]] },
+          { id: "ascension", name: "Ascension Trial",
+            detail: "<strong>3 entries</strong> per week.",
+            chips: [] },
+          { id: "abyss-time", name: "Abyss time",
+            detail: "<strong>7 hours</strong> Lower Reshanta · <strong>7 hours</strong> Middle Reshanta · <strong>3 hours</strong> Outer Reshanta.",
+            chips: [] },
+          { id: "boss-kills", name: "Conquest & Transcendence final-boss kills",
+            detail: "Conquest: <strong>35 kills</strong> per week. Transcendence: <strong>28 kills</strong> per week.",
+            chips: [] },
+          { id: "fissure", name: "Daily Dungeon — Unknown Fissure",
+            detail: "<strong>14 entries</strong> per week.",
+            chips: [["scope", "Shared per server"]] },
+          { id: "nightmare-shop", name: "Nightmare shop",
+            detail: "Soul Codex <strong>×5</strong> per week · Soul Codex: Reset <strong>×3</strong> per week.",
+            chips: [] },
+          { id: "sync-stones", name: "Weekly quests — Sync Stones",
+            detail: "Max <strong>3 Sync Stones</strong> per week (Nov 11 patch).",
+            chips: [] },
+          { id: "unclaimed", name: "Unclaimed dungeon runs",
+            detail: "<strong>10</strong> per week. Leaving a dungeon without claiming a cube consumes one.",
+            chips: [["scope", "Per server"]] }
+        ];
+
+        var EVENTS = [
+          { name: "Ludra check-in", detail: "7 rewards spread over 14 days.", endsLabel: "Ends Nov 17, 2026",
+            end: Date.UTC(2026, 10, 17, 7, 0, 0) },
+          { name: "Twitch Drops", detail: "Watch-to-earn campaign.", endsLabel: "Ends Nov 17, 2026",
+            end: Date.UTC(2026, 10, 17, 7, 0, 0) },
+          { name: "Daeva Bootcamp", detail: "Server milestone event.", endsLabel: "Ends Nov 17, 2026",
+            end: Date.UTC(2026, 10, 17, 7, 0, 0) },
+          { name: "Ludra Hunt", detail: "Defeat Ludra before the maintenance.", endsLabel: "Ends at maintenance · Nov 24 (PST) / Nov 25 (CET), 2026",
+            end: Date.UTC(2026, 10, 25, 6, 30, 0) },
+          { name: "Season 1", detail: "First season of the global service.", endsLabel: "Ends Dec 16, 2026",
+            end: Date.UTC(2026, 11, 16, 7, 0, 0) }
+        ];
+
+        /* ---------------- reset math (all from UTC) ---------------- */
+        function nextDailyReset(now) {
+          var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0, 0));
+          if (d.getTime() <= now.getTime()) d.setUTCDate(d.getUTCDate() + 1);
+          return d;
+        }
+        function nextWeeklyReset(now) {
+          // Wednesday = UTC day 3, at 07:00 UTC
+          var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0, 0));
+          var add = (3 - d.getUTCDay() + 7) % 7;
+          d.setUTCDate(d.getUTCDate() + add);
+          if (d.getTime() <= now.getTime()) d.setUTCDate(d.getUTCDate() + 7);
+          return d;
+        }
+        // Period key = the most recent reset, so stored ticks expire when it changes.
+        function dailyPeriodKey(now) {
+          var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0, 0));
+          if (d.getTime() > now.getTime()) d.setUTCDate(d.getUTCDate() - 1);
+          return "d-" + d.toISOString().slice(0, 10);
+        }
+        function weeklyPeriodKey(now) {
+          var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0, 0));
+          if (d.getTime() > now.getTime()) d.setUTCDate(d.getUTCDate() - 1);
+          var back = (d.getUTCDay() - 3 + 7) % 7;
+          d.setUTCDate(d.getUTCDate() - back);
+          return "w-" + d.toISOString().slice(0, 10);
+        }
+
+        /* ---------------- persistence ---------------- */
+        var store = {
+          get: function (key) {
+            try {
+              var raw = localStorage.getItem(key);
+              return raw ? JSON.parse(raw) : null;
+            } catch (e) { return null; }
+          },
+          set: function (key, val) {
+            try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* private mode */ }
+          }
+        };
+
+        function loadChecked(storageKey, periodKey, validIds) {
+          var saved = store.get(storageKey);
+          if (!saved || saved.period !== periodKey || !Array.isArray(saved.checked)) return {};
+          var out = {};
+          saved.checked.forEach(function (id) { if (validIds[id]) out[id] = true; });
+          return out;
+        }
+        function saveChecked(storageKey, periodKey, checkedMap) {
+          var ids = Object.keys(checkedMap).filter(function (id) { return checkedMap[id]; });
+          store.set(storageKey, { period: periodKey, checked: ids });
+        }
+
+        /* ---------------- checklist rendering ---------------- */
+        function buildList(ul, items) {
+          items.forEach(function (item) {
+            var li = document.createElement("li");
+            li.className = "task";
+            li.id = "task-" + item.id;
+            var label = document.createElement("label");
+            var box = document.createElement("input");
+            box.type = "checkbox";
+            box.setAttribute("data-id", item.id);
+            var body = document.createElement("div");
+            body.className = "task-body";
+            var name = document.createElement("div");
+            name.className = "task-name";
+            name.textContent = item.name;
+            var detail = document.createElement("div");
+            detail.className = "task-detail";
+            detail.innerHTML = item.detail;
+            body.appendChild(name);
+            body.appendChild(detail);
+            if (item.chips && item.chips.length) {
+              var chips = document.createElement("div");
+              chips.className = "chips";
+              item.chips.forEach(function (c) {
+                var s = document.createElement("span");
+                s.className = "chip " + c[0];
+                s.textContent = c[1];
+                chips.appendChild(s);
+              });
+              body.appendChild(chips);
+            }
+            label.appendChild(box);
+            label.appendChild(body);
+            li.appendChild(label);
+            ul.appendChild(li);
+          });
+        }
+
+        function wireChecklist(opts) {
+          var validIds = {};
+          opts.items.forEach(function (i) { validIds[i.id] = true; });
+          var state = { period: opts.periodFn(new Date()), checked: null };
+          state.checked = loadChecked(opts.storageKey, state.period, validIds);
+
+          var boxes = opts.ul.querySelectorAll('input[type="checkbox"]');
+          function refresh() {
+            var done = 0;
+            boxes.forEach(function (box) {
+              var id = box.getAttribute("data-id");
+              var on = !!state.checked[id];
+              box.checked = on;
+              document.getElementById("task-" + id).classList.toggle("is-done", on);
+              if (on) done++;
+            });
+            opts.doneEl.textContent = done;
+            opts.barEl.style.width = (done / opts.items.length * 100) + "%";
+            opts.barWrap.setAttribute("aria-valuenow", done);
+          }
+          boxes.forEach(function (box) {
+            box.addEventListener("change", function () {
+              // If a reset passed while the page sat open, start the new period clean.
+              var current = opts.periodFn(new Date());
+              if (current !== state.period) {
+                state.period = current;
+                state.checked = {};
+              }
+              state.checked[box.getAttribute("data-id")] = box.checked;
+              saveChecked(opts.storageKey, state.period, state.checked);
+              refresh();
+            });
+          });
+          refresh();
+          return {
+            // Called once a second: when the reset passes, ticks clear on their own.
+            tick: function (now) {
+              var current = opts.periodFn(now);
+              if (current !== state.period) {
+                state.period = current;
+                state.checked = {};
+                saveChecked(opts.storageKey, state.period, state.checked);
+                refresh();
+              }
+            }
+          };
+        }
+
+        var dailyList = document.getElementById("daily-list");
+        var weeklyList = document.getElementById("weekly-list");
+        buildList(dailyList, DAILY);
+        buildList(weeklyList, WEEKLY);
+
+        var dailyCtl = wireChecklist({
+          ul: dailyList, items: DAILY, storageKey: "aion2-tracker-daily-v1",
+          periodFn: dailyPeriodKey,
+          doneEl: document.getElementById("daily-done"),
+          barEl: document.getElementById("daily-bar"),
+          barWrap: document.getElementById("daily-bar-wrap")
+        });
+        var weeklyCtl = wireChecklist({
+          ul: weeklyList, items: WEEKLY, storageKey: "aion2-tracker-weekly-v1",
+          periodFn: weeklyPeriodKey,
+          doneEl: document.getElementById("weekly-done"),
+          barEl: document.getElementById("weekly-bar"),
+          barWrap: document.getElementById("weekly-bar-wrap")
+        });
+
+        /* ---------------- events rendering ---------------- */
+        var eventList = document.getElementById("event-list");
+        var eventEls = EVENTS.map(function (ev) {
+          var li = document.createElement("li");
+          li.className = "event";
+          var left = document.createElement("div");
+          var nm = document.createElement("div");
+          nm.className = "event-name";
+          nm.textContent = ev.name;
+          var dt = document.createElement("div");
+          dt.className = "event-detail";
+          dt.textContent = ev.detail;
+          left.appendChild(nm);
+          left.appendChild(dt);
+          var right = document.createElement("div");
+          right.className = "event-count";
+          var t = document.createElement("div");
+          t.className = "t";
+          var ends = document.createElement("div");
+          ends.className = "ends";
+          ends.textContent = ev.endsLabel;
+          right.appendChild(t);
+          right.appendChild(ends);
+          li.appendChild(left);
+          li.appendChild(right);
+          eventList.appendChild(li);
+          return { ev: ev, li: li, t: t };
+        });
+
+        /* ---------------- formatting + ticking ---------------- */
+        function pad(n) { return (n < 10 ? "0" : "") + n; }
+        function fmtCountdown(ms, withDays) {
+          if (ms < 0) ms = 0;
+          var totalSec = Math.floor(ms / 1000);
+          var days = Math.floor(totalSec / 86400);
+          var h = Math.floor((totalSec % 86400) / 3600);
+          var m = Math.floor((totalSec % 3600) / 60);
+          var s = totalSec % 60;
+          if (withDays && days > 0) {
+            return days + '<span class="unit">d</span>' + pad(h) + '<span class="unit">h</span>' + pad(m) + '<span class="unit">m</span>' + pad(s) + '<span class="unit">s</span>';
+          }
+          var totalH = Math.floor(totalSec / 3600);
+          return pad(totalH) + '<span class="unit">h</span>' + pad(m) + '<span class="unit">m</span>' + pad(s) + '<span class="unit">s</span>';
+        }
+        function fmtEventCountdown(ms) {
+          var totalSec = Math.floor(ms / 1000);
+          var days = Math.floor(totalSec / 86400);
+          var h = Math.floor((totalSec % 86400) / 3600);
+          var m = Math.floor((totalSec % 3600) / 60);
+          var s = totalSec % 60;
+          if (days > 0) return days + '<span class="unit">d</span>' + h + '<span class="unit">h left</span>';
+          if (h > 0) return h + '<span class="unit">h</span>' + pad(m) + '<span class="unit">m left</span>';
+          return m + '<span class="unit">m</span>' + pad(s) + '<span class="unit">s left</span>';
+        }
+        function localResetLabel(date, weekly) {
+          try {
+            var opts = weekly
+              ? { weekday: "short", hour: "numeric", minute: "2-digit", timeZoneName: "short" }
+              : { hour: "numeric", minute: "2-digit", timeZoneName: "short" };
+            return date.toLocaleString(undefined, opts);
+          } catch (e) {
+            return date.toLocaleString();
+          }
+        }
+
+        var dailyCountEl = document.getElementById("daily-count");
+        var weeklyCountEl = document.getElementById("weekly-count");
+        var dailyLocalEl = document.getElementById("daily-local");
+        var weeklyLocalEl = document.getElementById("weekly-local");
+        var lastDailyTarget = 0, lastWeeklyTarget = 0;
+
+        function tick() {
+          var now = new Date();
+          var nd = nextDailyReset(now);
+          var nw = nextWeeklyReset(now);
+          dailyCountEl.innerHTML = fmtCountdown(nd.getTime() - now.getTime(), false);
+          weeklyCountEl.innerHTML = fmtCountdown(nw.getTime() - now.getTime(), true);
+          if (nd.getTime() !== lastDailyTarget) {
+            lastDailyTarget = nd.getTime();
+            dailyLocalEl.textContent = localResetLabel(nd, false);
+          }
+          if (nw.getTime() !== lastWeeklyTarget) {
+            lastWeeklyTarget = nw.getTime();
+            weeklyLocalEl.textContent = localResetLabel(nw, true);
+          }
+          dailyCtl.tick(now);
+          weeklyCtl.tick(now);
+          eventEls.forEach(function (rec) {
+            var left = rec.ev.end - now.getTime();
+            if (left <= 0) {
+              rec.li.classList.add("ended");
+              rec.li.classList.remove("soon");
+              rec.t.textContent = "Ended";
+            } else {
+              rec.t.innerHTML = fmtEventCountdown(left);
+              rec.li.classList.toggle("soon", left < 48 * 3600 * 1000);
+            }
+          });
+        }
+        tick();
+        setInterval(tick, 1000);
+      })();
+    </script>
+  </body>
+</html>

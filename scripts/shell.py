@@ -1,7 +1,10 @@
-# BuffForge shared shell — used by scripts/build.py and scripts/transform_legacy.py.
-# Every page built from here gets: system-font CSS, temporary noindex meta
-# (user decision 2026-11-13: keep noindex until content is complete),
-# canonical without www, hreflang only for real counterparts, JSON-LD.
+# BuffForge shared shell — used by scripts/build.py, scripts/build_tools.py,
+# scripts/transform_legacy.py and scripts/build_dps.py.
+# Daylight Forge visual system (design spec, 2026-11-13): light shell,
+# 68px translucent white header, teal anvil mark, 4-column footer.
+# Every page built from here gets: self-hosted IBM Plex fonts, temporary
+# noindex meta (user decision 2026-11-13: keep noindex until content is
+# complete), canonical without www, hreflang only for real counterparts, JSON-LD.
 import json
 
 BASE = "https://buffforge.com"
@@ -10,23 +13,41 @@ REVIEWED_EN = "Nov 13, 2026"
 REVIEWED_RU = "13 ноября 2026 года"
 
 GAMES = {
+    "desktop-pension-squad": {
+        "name": "Desktop Pension Squad",
+        "short": "DPS",
+        "hub": {"en": "/desktop-pension-squad/", "ru": "/ru/desktop-pension-squad/"},
+        "tm": {
+            "en": "DPS: Desktop Pension Squad is developed by detailgames and published by storytaco. DPSquad Wiki is a fan wiki, not an official publication.",
+            "ru": "Desktop Pension Squad разработана detailgames и издаётся storytaco. DPSquad Wiki — фанатская вики, не официальный ресурс.",
+        },
+    },
     "aion-2": {
         "name": "AION 2",
+        "short": "AION 2",
         "hub": {"en": "/aion-2/", "ru": "/ru/aion-2/"},
         "tm": {
-            "en": "AION 2 is a trademark of NCSOFT. Not affiliated with or endorsed by NCSOFT.",
-            "ru": "AION 2 — торговая марка NCSOFT. Сайт не связан с NCSOFT и не одобрен компанией.",
+            "en": "AION 2 is a trademark of NCSOFT.",
+            "ru": "AION 2 — товарный знак NCSOFT.",
         },
     },
     "gta-6": {
         "name": "GTA 6",
+        "short": "GTA 6",
         "hub": {"en": "/gta-6/", "ru": "/ru/gta-6/"},
         "tm": {
-            "en": "Not affiliated with, endorsed by, or sponsored by Rockstar Games or Take-Two Interactive.",
-            "ru": "Сайт не связан с Rockstar Games и Take-Two Interactive и не одобрен ими.",
+            "en": "Grand Theft Auto and GTA are trademarks of Take-Two Interactive. Rockstar Games is a trademark of Take-Two Interactive.",
+            "ru": "Grand Theft Auto и GTA — товарные знаки Take-Two Interactive. Rockstar Games — товарный знак Take-Two Interactive.",
         },
     },
 }
+
+ANVIL_SVG = (
+    '<svg class="mark" viewBox="0 0 32 32" aria-hidden="true">'
+    '<rect width="32" height="32" rx="8" fill="#0C706C"/>'
+    '<path d="M8 13.5h16v2.2H19.5V23h-7V15.7H8V13.5zm4.2-5.2h7.6l1.6 3.4'
+    'H10.6l1.6-3.4z" fill="#FFFFFF"/></svg>'
+)
 
 COPY = {
     "en": {
@@ -35,6 +56,10 @@ COPY = {
         "fan": "BuffForge is an independent fan project.",
         "report": "Report a mistake",
         "home_url": "/", "about_url": "/about/",
+        "tagline": "Game tools, trackers and calculators. Every number cites a public source.",
+        "review_line": "Every number cites a public source. We recheck official sources before publishing. Last data review: 13 November 2026.",
+        "affil": ("BuffForge is an independent fan project, not affiliated with, endorsed by, or sponsored "
+                  "by detailgames, storytaco, NCSOFT, Rockstar Games, Take-Two Interactive, or Valve Corporation."),
     },
     "ru": {
         "home": "Главная", "games": "Игры", "about": "О проекте",
@@ -42,6 +67,10 @@ COPY = {
         "fan": "BuffForge — независимый фанатский проект.",
         "report": "Сообщить об ошибке",
         "home_url": "/ru/", "about_url": "/ru/about/",
+        "tagline": "Игровые инструменты, трекеры и калькуляторы. У каждой цифры — открытый источник.",
+        "review_line": "У каждой цифры — открытый источник. Мы перепроверяем официальные источники перед публикацией. Последняя проверка данных: 13 ноября 2026.",
+        "affil": ("BuffForge — независимый фанатский проект, не связанный с detailgames, storytaco, NCSOFT, "
+                  "Rockstar Games, Take-Two Interactive или Valve Corporation и не одобренный ими."),
     },
 }
 
@@ -53,7 +82,6 @@ def _esc(s):
 
 def head(lang, title, desc, canon_path, alternates=None, jsonld=None):
     """alternates: dict like {'en': '/path/', 'ru': '/ru/path/'} for real counterparts only."""
-    c = COPY[lang]
     lines = [
         '<meta charset="UTF-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
@@ -68,7 +96,9 @@ def head(lang, title, desc, canon_path, alternates=None, jsonld=None):
         '<meta property="og:image" content="%s/assets/og.png">' % BASE,
         '<meta property="og:image:width" content="1200">',
         '<meta property="og:image:height" content="630">',
+        '<meta property="og:locale" content="%s">' % ("en_US" if lang == "en" else "ru_RU"),
         '<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">',
+        '<link rel="stylesheet" href="/assets/fonts.css">',
         '<link rel="stylesheet" href="/assets/site.css">',
     ]
     if alternates:
@@ -77,6 +107,12 @@ def head(lang, title, desc, canon_path, alternates=None, jsonld=None):
         lines.append('<link rel="alternate" hreflang="x-default" href="%s%s">' % (BASE, alternates["en"]))
     if jsonld:
         lines.append('<script type="application/ld+json">%s</script>' % json.dumps(jsonld, ensure_ascii=False))
+    # Google Tag Manager (user request 2026-11-13; container GTM-PQNKG4CV).
+    lines.append('<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PQNKG4CV"></script>')
+    lines.append('<script>\n  window.dataLayer = window.dataLayer || [];\n'
+                 '  function gtag(){dataLayer.push(arguments);}\n'
+                 "  gtag('js', new Date());\n"
+                 "  gtag('config', 'G-MV0P0LF5YM');\n</script>")
     return "\n".join(lines)
 
 
@@ -106,25 +142,36 @@ def breadcrumb_jsonld(lang, items):
 
 
 def header_html(lang, current_path, switch_path):
+    """68px translucent white header: teal anvil mark + near-black wordmark,
+    Games dropdown, About, language switch (current item teal bg, white text)."""
     c = COPY[lang]
-    home = c["home_url"]
+    dots = {
+        "desktop-pension-squad": "dps",
+        "aion-2": "aion",
+        "gta-6": "gta",
+    }
     games_links = "".join(
-        '<a href="%s">%s</a>' % (GAMES[g]["hub"][lang], GAMES[g]["name"])
-        for g in ("aion-2", "gta-6"))
+        '<a href="%s"><span class="dot dot-%s"></span>%s</a>'
+        % (GAMES[g]["hub"][lang], dots[g], GAMES[g]["name"])
+        for g in ("desktop-pension-squad", "aion-2", "gta-6"))
     en_href = current_path if lang == "en" else switch_path
     ru_href = switch_path if lang == "en" else current_path
     return (
-        '<header class="site-header"><div class="wrap">'
-        '<a class="logo" href="%s">Buff<span>Forge</span></a>'
-        '<nav class="site-nav" aria-label="Main">'
-        '<details class="navdrop"><summary>%s</summary><div class="drop">%s</div></details>'
+        '<header class="site-header"><div class="wrap nav">'
+        '<a class="logo" href="%s">%s<span class="word">BuffForge</span></a>'
+        '<nav class="site-nav" aria-label="Primary">'
+        '<details class="navdrop"><summary>%s<svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true">'
+        '<path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></summary>'
+        '<div class="drop">%s</div></details>'
         '<a href="%s">%s</a>'
-        '<span class="lang-switch" aria-label="Language">'
-        '<a href="%s" %s>EN</a><span class="sep">|</span><a href="%s" %s>RU</a>'
+        '<span class="lang">'
+        '<a href="%s" %s>English</a><a href="%s" %s>Русский</a>'
         '</span></nav></div></header>'
-        % (home, c["games"], games_links, c["about_url"], c["about"],
-           en_href, 'aria-current="page"' if lang == "en" else "",
-           ru_href, 'aria-current="page"' if lang == "ru" else "")
+        % (c["home_url"], ANVIL_SVG, c["games"], games_links, c["about_url"],
+           c["about"], en_href,
+           'class="current" aria-current="true"' if lang == "en" else "",
+           ru_href,
+           'class="current" aria-current="true"' if lang == "ru" else "")
     )
 
 
@@ -141,28 +188,52 @@ def crumbs_html(lang, items):
 
 
 def footer_html(lang, games):
+    """Four-column footer: brand, Site, Games, Language; legal lines name
+    each game's rights holders and the data-review date."""
     c = COPY[lang]
-    other_home = "/ru/" if lang == "en" else "/"
-    tms = "<br>".join(GAMES[g]["tm"][lang] for g in games)
+    tms = "".join("<p>%s</p>" % GAMES[g]["tm"][lang] for g in games)
+    game_links = "".join(
+        '<a href="%s">%s</a>' % (GAMES[g]["hub"][lang], GAMES[g]["name"])
+        for g in ("desktop-pension-squad", "aion-2", "gta-6"))
+    if lang == "en":
+        lang_items = ('<a href="/" class="current" aria-current="true">English</a>'
+                      '<a href="/ru/">Русская версия</a>')
+    else:
+        lang_items = ('<a href="/">English version</a>'
+                      '<a href="/ru/" class="current" aria-current="true">Русский</a>')
     return (
         '<footer class="site-footer"><div class="wrap">'
-        '<div class="links"><a href="%s">%s</a><a href="%s">%s</a>'
-        '<a href="mailto:%s">%s</a><a href="%s">%s</a></div>'
-        '<p>%s %s</p><p>%s</p>'
-        '</div></footer>'
-        % (c["home_url"], c["home"], c["about_url"], c["about"], EMAIL, c["report"],
-           other_home, "Русская версия" if lang == "en" else "English version",
-           c["fan"], tms, c["data_line"])
+        '<div class="foot-grid">'
+        '<div class="foot-brand">%s<div class="word">BuffForge</div><p>%s</p></div>'
+        '<div><h2>%s</h2><div class="links"><a href="%s">%s</a><a href="%s">%s</a><a href="mailto:%s">%s</a></div></div>'
+        '<div><h2>%s</h2><div class="links">%s</div></div>'
+        '<div><h2>%s</h2><div class="links">%s</div></div>'
+        '</div>'
+        '<div class="legal">%s<p>%s</p><p>%s</p></div></div></footer>'
+        % (ANVIL_SVG, c["tagline"], "Site" if lang == "en" else "Сайт",
+           c["home_url"], c["home"],
+           c["about_url"], c["about"], EMAIL, c["report"],
+           c["games"], game_links, "Language" if lang == "en" else "Язык", lang_items,
+           tms, c["affil"], c["review_line"])
     )
 
 
-def page(lang, title, desc, canon_path, alternates, body_html, jsonld=None, switch_path=None, games=("aion-2", "gta-6"), tail=""):
+def page(lang, title, desc, canon_path, alternates, body_html, jsonld=None, switch_path=None, games=("desktop-pension-squad", "aion-2", "gta-6"), tail=""):
     if switch_path is None:
         switch_path = alternates.get("ru") if lang == "en" else alternates.get("en")
         if switch_path is None:
             switch_path = "/ru/" if lang == "en" else "/"
+    skip = "Skip to content" if lang == "en" else "Перейти к содержимому"
+    navdrop_js = (
+        '<script>document.querySelectorAll(".navdrop summary").forEach(function(s){'
+        's.addEventListener("click",function(){'
+        'document.querySelectorAll(".navdrop").forEach(function(d){'
+        'if(d!==s.parentElement){d.removeAttribute("open");}});});});</script>'
+    )
     return (
-        '<!DOCTYPE html>\n<html lang="%s">\n<head>\n%s\n</head>\n<body>\n%s\n%s\n%s\n%s\n</body>\n</html>\n'
-        % (lang, head(lang, title, desc, canon_path, alternates, jsonld),
-           header_html(lang, canon_path, switch_path), body_html, footer_html(lang, games), tail)
+        '<!DOCTYPE html>\n<html lang="%s">\n<head>\n%s\n</head>\n<body>\n'
+        '<a class="skip" href="#main">%s</a>\n%s\n%s\n%s\n%s\n%s</body>\n</html>\n'
+        % (lang, head(lang, title, desc, canon_path, alternates, jsonld), skip,
+           header_html(lang, canon_path, switch_path), body_html,
+           footer_html(lang, games), navdrop_js, tail)
     )

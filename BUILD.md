@@ -9,6 +9,7 @@ serves the files in this repo as-is.
 python3 scripts/build.py            # home, about, hubs, 404, sitemap, robots, _headers, _redirects
 python3 scripts/build_tools.py      # 4 GTA 6 official-facts tools, EN + RU
 python3 scripts/transform_legacy.py # AION 2 tracker + GTA 6 Wanted Evidence Helper, EN + RU
+python3 scripts/build_dps.py        # DPS fuse-or-salvage calculator, EN + RU (from the Daylight Forge prototype)
 ```
 
 ## Sources of truth
@@ -20,8 +21,13 @@ python3 scripts/transform_legacy.py # AION 2 tracker + GTA 6 Wanted Evidence Hel
   (`workspace/user/files/buffforge-seo-plan-v2.md`): home = brand + broad
   category, never a game name; hubs = game name + tools and guides.
   The implementation spec's §8 homepage copy is superseded by v2.
-- `assets/site.css` — the one shared visual shell (light theme, system fonts).
+- `assets/site.css` — the one shared visual shell: Daylight Forge light
+  system, self-hosted IBM Plex fonts (`assets/fonts/`, `assets/fonts.css`).
+  No Google Fonts anywhere.
 - `scripts/shell.py` — shared header / footer / head tags / JSON-LD.
+  Also the single place for the site-wide GTM + GA4 snippet
+  (GTM-PQNKG4CV, G-MV0P0LF5YM, added 2026-11-13): every page built from
+  `head()` carries it; verify with `grep -r GTM-PQNKG4CV --include='*.html' .`.
 
 ## Rules that must survive any rebuild
 

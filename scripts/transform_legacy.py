@@ -20,8 +20,10 @@ from shell import (EMAIL, breadcrumb_jsonld, crumbs_html, page)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-TRACKER_SRC = os.path.join(ROOT, "aion-2", "daily-tracker", "index.html")
-WANTED_SRC = os.path.join(ROOT, "gta-6", "wanted-evidence-helper", "index.html")
+TRACKER_SRC = os.path.join(ROOT, "scripts", "legacy", "aion-2-daily-tracker.html")
+WANTED_SRC = os.path.join(ROOT, "scripts", "legacy", "gta-6-wanted-evidence-helper.html")
+# NOTE: these are the pre-shell artifact originals (git 92c3234). The transform
+# reads them, never the generated pages — so re-running is idempotent.
 
 
 def read(p):
@@ -38,13 +40,14 @@ def write(rel, content):
 
 
 def extract_script(html):
-    m = re.search(r"<script>(.*?)</script>", html, re.S)
-    assert m, "no inline script found"
-    return m.group(1)
+    # Longest inline script wins: the tool JS, not the small shell helpers.
+    scripts = re.findall(r"<script>(.*?)</script>", html, re.S)
+    assert scripts, "no inline script found"
+    return max(scripts, key=len)
 
 
 def extract_main(html):
-    m = re.search(r"<main class=\"wrap\">(.*?)</main>", html, re.S)
+    m = re.search(r"<main[^>]*>(.*?)</main>", html, re.S)
     assert m, "no <main> found"
     return m.group(1)
 
@@ -266,7 +269,7 @@ def tracker_page(lang):
            "name": name, "url": "https://buffforge.com" + canon, "inLanguage": lang,
            "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser",
            "offers": {"@type": "Offer", "price": "0"}}]
-    body = ('<main class="wrap">%s<div class="tracker">%s</div></main>'
+    body = ('<main id="main" class="wrap">%s<div class="tracker">%s</div></main>'
             % (crumbs_html(lang, [(home, home_path), ("AION 2", hub_path), (name, None)]), body_inner))
     return page(lang, title, desc, canon, alt, body, jsonld=jl,
                 games=("aion-2",), tail="<script>%s</script>\n" % script)
@@ -452,7 +455,7 @@ def wanted_page(lang):
            "name": name, "url": "https://buffforge.com" + canon, "inLanguage": lang,
            "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser",
            "offers": {"@type": "Offer", "price": "0"}}]
-    body = ('<main class="wrap">%s%s</main>'
+    body = ('<main id="main" class="wrap">%s%s</main>'
             % (crumbs_html(lang, [(home, home_path), ("GTA 6", hub_path), (name, None)]), inner))
     return page(lang, title, desc, canon, alt, body, jsonld=jl,
                 games=("gta-6",), tail="<script>%s</script>\n" % script)

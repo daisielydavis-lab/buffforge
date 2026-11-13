@@ -104,7 +104,7 @@ def storage_page(lang):
     hub_path = "/gta-6/" if lang == "en" else "/ru/gta-6/"
     preload = "".join("<li>%s</li>" % x for x in c["preload"])
     body = (
-        '<main class="wrap narrow">%s'
+        '<main id="main" class="wrap narrow">%s'
         '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>'
         '<div class="checker"><form id="storageForm">'
         '<label for="freeGb">%s</label>'
@@ -232,7 +232,7 @@ def countdown_page(lang):
                    [(r[0], r[1] if lang == "en" else r[2], r[2]) for r in REGIONS])
     notes = "".join("<li>%s</li>" % x for x in c["notes"])
     body = (
-        '<main class="wrap narrow">%s'
+        '<main id="main" class="wrap narrow">%s'
         '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>'
         '<div class="checker"><label for="region">%s</label>'
         '<select id="region">%s</select>'
@@ -363,7 +363,7 @@ def editions_page(lang):
     hub_path = "/gta-6/" if lang == "en" else "/ru/gta-6/"
     rows = "".join("<tr><th>%s</th><td>%s</td><td>%s</td></tr>" % r for r in c["rows"])
     body = (
-        '<main class="wrap narrow">%s'
+        '<main id="main" class="wrap narrow">%s'
         '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>'
         '<table class="fact-table"><tr><th></th><th>%s</th><th>%s</th></tr>%s</table>'
         '<div class="note-box amber"><h3>%s</h3><p>%s</p></div>'
@@ -443,7 +443,7 @@ def compat_page(lang):
             "pc": "<b>%s</b>" % c["v_pc"]}[v])
         for _, n_en, n_ru, v in DEVICES)
     body = (
-        '<main class="wrap narrow">%s'
+        '<main id="main" class="wrap narrow">%s'
         '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>'
         '<div class="dev-grid" id="devGrid">%s</div>'
         '<div class="result" id="compatResult" role="status"></div>'
