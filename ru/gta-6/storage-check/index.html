@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Проверка места под GTA 6 — BuffForge</title>
+<meta name="description" content="PlayStation указывает: для GTA 6 нужно не менее 212 ГБ свободного места. Введите, сколько свободно у вас, и узнайте, хватит ли места до предзагрузки.">
+<link rel="canonical" href="https://buffforge.com/ru/gta-6/storage-check/">
+<meta property="og:title" content="Проверка места под GTA 6 — BuffForge">
+<meta property="og:description" content="PlayStation указывает: для GTA 6 нужно не менее 212 ГБ свободного места. Введите, сколько свободно у вас, и узнайте, хватит ли места до предзагрузки.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://buffforge.com/ru/gta-6/storage-check/">
+<meta property="og:image" content="https://buffforge.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="alternate" hreflang="en" href="https://buffforge.com/gta-6/storage-check/">
+<link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/gta-6/storage-check/">
+<link rel="alternate" hreflang="x-default" href="https://buffforge.com/gta-6/storage-check/">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://buffforge.com/ru/"}, {"@type": "ListItem", "position": 2, "name": "GTA 6", "item": "https://buffforge.com/ru/gta-6/"}, {"@type": "ListItem", "position": 3, "name": "Проверка места под GTA 6", "item": "https://buffforge.com/ru/gta-6/storage-check/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "Проверка места под GTA 6", "url": "https://buffforge.com/ru/gta-6/storage-check/", "inLanguage": "ru", "description": "PlayStation указывает: для GTA 6 нужно не менее 212 ГБ свободного места. Введите, сколько свободно у вас, и узнайте, хватит ли места до предзагрузки.", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0"}}]</script>
+</head>
+<body>
+<header class="site-header"><div class="wrap"><a class="logo" href="/ru/">Buff<span>Forge</span></a><nav class="site-nav" aria-label="Main"><details class="navdrop"><summary>Игры</summary><div class="drop"><a href="/ru/aion-2/">AION 2</a><a href="/ru/gta-6/">GTA 6</a></div></details><a href="/ru/about/">О проекте</a><span class="lang-switch" aria-label="Language"><a href="/gta-6/storage-check/" >EN</a><span class="sep">|</span><a href="/ru/gta-6/storage-check/" aria-current="page">RU</a></span></nav></div></header>
+<main class="wrap narrow"><nav class="crumbs" aria-label="Breadcrumb"><a href="/ru/">Главная</a><span class="sep">›</span><a href="/ru/">Главная</a><span class="sep">›</span><a href="/ru/gta-6/">GTA 6</a><span class="sep">›</span><span aria-current="page">Проверка места под GTA 6</span></nav><h1 class="page-h1">Проверка места под GTA 6</h1><p class="page-lede">GTA 6 занимает много места на диске. На официальной странице поддержки PlayStation указано: нужно <b>не менее 212 ГБ свободного места</b>. Проверьте заранее — а не когда загрузка оборвётся.</p><div class="checker"><form id="storageForm"><label for="freeGb">Сколько свободного места у вас? (ГБ)</label><input type="number" id="freeGb" min="0" max="100000" step="1" value="500" inputmode="numeric"><p class="hint">На PS5: Настройки → Хранилище. На Xbox: Мои игры и приложения → Управление → Освободить место.</p><label for="platform" style="margin-top:18px">Ваша консоль</label><select id="platform"><option value="ps5">PlayStation 5 / PS5 Pro</option><option value="xbox">Xbox Series X|S</option></select><div class="quick"><button type="button" data-gb="250">250 GB</button><button type="button" data-gb="500">500 GB</button><button type="button" data-gb="1000">1 TB</button><button type="button" data-gb="2000">2 TB</button></div><p style="margin-top:18px"><button class="btn btn-primary" type="submit">Проверить место</button></p></form><div class="result" id="storageResult" role="status"></div></div><section class="prose"><h2 class="sec">Предзагрузка: что подтверждено</h2><ul><li><b>PS5:</b> цифровая предзагрузка начинается в местную полночь для региона вашего аккаунта. Точный момент зависит от региона магазина, а не от единого мирового времени.</li><li><b>Xbox:</b> время начала предзагрузки указано в магазине Xbox / на консоли для вашего региона. Смотрите карточку в магазине — непроверенное московское время мы не публикуем.</li><li><b>212 ГБ</b> — это свободное место, которое указывает PlayStation. Итоговый размер загрузки Rockstar отдельно не подтверждала.</li></ul></section><p class="data-line">Источники: официальная поддержка PlayStation (GTA VI), проверено 13 ноября 2026 года. Всегда сверяйтесь с магазином и игрой.</p></main>
+<script>
+(function () {
+  var NEED = 212;
+  var form = document.getElementById('storageForm');
+  var input = document.getElementById('freeGb');
+  var result = document.getElementById('storageResult');
+  var STR = {"fits": "Места хватает.", "fits_p": "212 ГБ помещаются в ваши %s ГБ — после установки останется около %s ГБ. Оставьте запас: обновлениям и патчам тоже нужно место.", "short": "Пока не хватает места.", "short_p": "Чтобы набрать 212 ГБ, нужно освободить ещё %s ГБ. Удалите пару игр или перенесите их на внешний накопитель, если консоль это позволяет.", "exact": "Хватает ровно впритык.", "exact_p": "У вас ровно 212 ГБ. Формально хватает, но оставьте запас под патч первого дня.", "invalid": "Введите число, например 500"};
+  function check() {
+    var free = parseFloat(input.value);
+    if (isNaN(free) || free < 0) { result.className = 'result warn show';
+      result.innerHTML = '<b class="big">' + STR.invalid + '</b>'; return; }
+    var remain = free - NEED;
+    if (remain > 0) { result.className = 'result ok show';
+      result.innerHTML = '<b class="big">' + STR.fits + '</b><p>' +
+        STR.fits_p.replace('%s', free).replace('%s', Math.round(remain)) + '</p>' +
+        '<div class="bar"><i style="width:' + Math.min(100, NEED / free * 100) + '%"></i></div>';
+    } else if (remain === 0) { result.className = 'result warn show';
+      result.innerHTML = '<b class="big">' + STR.exact + '</b><p>' + STR.exact_p + '</p>';
+    } else { result.className = 'result bad show';
+      result.innerHTML = '<b class="big">' + STR.short + '</b><p>' +
+        STR.short_p.replace('%s', Math.round(-remain)) + '</p>';
+    }
+  }
+  document.querySelectorAll('.quick button').forEach(function (b) {
+    b.addEventListener('click', function () { input.value = b.getAttribute('data-gb'); check(); });
+  });
+  form.addEventListener('submit', function (e) { e.preventDefault(); check(); });
+  input.addEventListener('input', check);
+  check();
+})();
+</script>
+
+<footer class="site-footer"><div class="wrap"><div class="links"><a href="/ru/">Главная</a><a href="/ru/about/">О проекте</a><a href="mailto:feedback@buffforge.com">Сообщить об ошибке</a><a href="/">English version</a></div><p>BuffForge — независимый фанатский проект. Сайт не связан с Rockstar Games и Take-Two Interactive и не одобрен ими.</p><p>Данные сверены с официальными объявлениями и указанными источниками по состоянию на 13 ноября 2026 года. Всегда сверяйте в игре.</p></div></footer>
+
+</body>
+</html>

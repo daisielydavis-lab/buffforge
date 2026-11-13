@@ -1,209 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="color-scheme" content="light dark" />
-    <link rel="icon" href="data:," />
-    <title>AION 2 Daily &amp; Weekly Tracker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <style>
-      :root {
-        color-scheme: light;
-        --bg: #e9ebe4;
-        --bg-deep: #dfe2d6;
-        --surface: #fbfbf7;
-        --surface-2: #f1f2ea;
-        --ink: #1d211a;
-        --muted: #5b6152;
-        --faint: #838a79;
-        --line: #d3d7c6;
-        --line-strong: #b9bfa6;
-        --gold: #8a6a14;
-        --gold-bright: #a97f16;
-        --gold-soft: #f3e9c8;
-        --gold-ink: #4d3d08;
-        --done: #4c7240;
-        --done-soft: #e3edda;
-        --warn: #9a4a12;
-        --warn-soft: #f7e3d2;
-        --shadow: 0 1px 2px rgba(29, 33, 26, .06), 0 10px 28px -18px rgba(29, 33, 26, .35);
-        --radius: 14px;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          color-scheme: dark;
-          --bg: #0e110c;
-          --bg-deep: #080a07;
-          --surface: #171b14;
-          --surface-2: #1e231a;
-          --ink: #edeade;
-          --muted: #a8ad9c;
-          --faint: #7d8272;
-          --line: #2b3124;
-          --line-strong: #3d4433;
-          --gold: #e0b84e;
-          --gold-bright: #f0cb63;
-          --gold-soft: #2e2a16;
-          --gold-ink: #f0d488;
-          --done: #93c07e;
-          --done-soft: #22301c;
-          --warn: #eda26a;
-          --warn-soft: #38220f;
-          --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.8);
-        }
-      }
-      * { box-sizing: border-box; }
-      html { -webkit-text-size-adjust: 100%; }
-      body {
-        margin: 0;
-        font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
-        background-attachment: fixed;
-        color: var(--ink);
-        line-height: 1.5;
-      }
-      .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 56px; }
-
-      /* ---------- header ---------- */
-      header { margin-bottom: 26px; }
-      .kicker {
-        font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-        color: var(--gold); margin: 0 0 8px;
-      }
-      h1 {
-        font-family: "Marcellus", Georgia, serif; font-weight: 400;
-        font-size: clamp(2rem, 6vw, 3rem); line-height: 1.08; margin: 0 0 10px;
-        letter-spacing: .01em;
-      }
-      .lede { font-size: 1.02rem; color: var(--muted); max-width: 56ch; margin: 0 0 14px; }
-      .stamp {
-        display: inline-block; font-size: .8rem; font-weight: 600; color: var(--gold-ink);
-        background: var(--gold-soft); border: 1px solid var(--line-strong);
-        padding: 5px 11px; border-radius: 999px;
-      }
-
-      /* ---------- countdown cards ---------- */
-      .resets { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 30px; }
-      @media (max-width: 620px) { .resets { grid-template-columns: 1fr; } }
-      .reset-card {
-        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-        box-shadow: var(--shadow); padding: 20px 22px 18px;
-      }
-      .reset-card .label {
-        font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-        color: var(--muted); margin: 0 0 6px; display: flex; align-items: center; gap: 8px;
-      }
-      .reset-card .label::before {
-        content: ""; width: 8px; height: 8px; border-radius: 50%;
-        background: var(--gold-bright); box-shadow: 0 0 0 3px var(--gold-soft); flex: none;
-      }
-      .count {
-        font-size: clamp(2rem, 7vw, 2.7rem); font-weight: 800; line-height: 1.05;
-        font-variant-numeric: tabular-nums; letter-spacing: .01em; margin: 0 0 8px;
-      }
-      .count .unit { font-size: .42em; font-weight: 700; color: var(--faint); margin: 0 .18em 0 .05em; }
-      .reset-meta { font-size: .88rem; color: var(--muted); margin: 0; }
-      .reset-meta strong { color: var(--ink); font-weight: 600; }
-      .maint-note { font-size: .82rem; color: var(--faint); margin-top: 8px; }
-
-      /* ---------- sections ---------- */
-      section { margin-bottom: 34px; }
-      .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 6px; flex-wrap: wrap; }
-      h2 {
-        font-family: "Marcellus", Georgia, serif; font-weight: 400;
-        font-size: 1.55rem; margin: 0; letter-spacing: .01em;
-      }
-      .progress-text { font-size: .92rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--muted); }
-      .progress-text b { color: var(--gold); font-size: 1.05rem; }
-      .progress-bar { height: 7px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; margin: 8px 0 14px; }
-      .progress-fill { height: 100%; width: 0%; background: var(--gold-bright); border-radius: 999px; transition: width .35s ease; }
-      .section-note { font-size: .88rem; color: var(--muted); margin: 0 0 14px; max-width: 62ch; }
-
-      /* ---------- checklist ---------- */
-      .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
-      .task {
-        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-      .task label {
-        display: flex; gap: 13px; align-items: flex-start;
-        padding: 14px 16px; min-height: 52px; cursor: pointer; border-radius: var(--radius);
-      }
-      .task input[type="checkbox"] {
-        appearance: none; -webkit-appearance: none; flex: none;
-        width: 26px; height: 26px; margin: 2px 0 0; border-radius: 8px;
-        border: 2px solid var(--line-strong); background: var(--surface-2);
-        display: grid; place-content: center; cursor: pointer;
-        transition: background .15s ease, border-color .15s ease;
-      }
-      .task input[type="checkbox"]::before {
-        content: ""; width: 13px; height: 13px; transform: scale(0);
-        background: currentColor; color: var(--surface);
-        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-        transition: transform .15s ease;
-      }
-      .task input[type="checkbox"]:checked { background: var(--done); border-color: var(--done); color: var(--surface); }
-      .task input[type="checkbox"]:checked::before { transform: scale(1); }
-      .task input[type="checkbox"]:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
-      .task-body { flex: 1; min-width: 0; }
-      .task-name { font-weight: 700; font-size: 1rem; line-height: 1.3; }
-      .task-detail { font-size: .88rem; color: var(--muted); margin-top: 2px; }
-      .task-detail strong { color: var(--ink); font-weight: 600; }
-      .task.is-done .task-name { color: var(--faint); text-decoration: line-through; text-decoration-thickness: 1px; }
-      .task.is-done { opacity: .72; }
-      .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-      .chip {
-        font-size: .74rem; font-weight: 600; padding: 3px 9px; border-radius: 999px;
-        background: var(--surface-2); border: 1px solid var(--line); color: var(--muted);
-        font-variant-numeric: tabular-nums;
-      }
-      .chip.scope { color: var(--gold-ink); background: var(--gold-soft); border-color: var(--line-strong); }
-      .chip.verify { color: var(--warn); background: var(--warn-soft); border-color: var(--warn); font-weight: 700; }
-      .chip.nobank { color: var(--warn); background: var(--warn-soft); border-color: var(--warn); font-weight: 700; }
-
-      /* ---------- events ---------- */
-      .events { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
-      .event {
-        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-        box-shadow: var(--shadow); padding: 15px 17px;
-        display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap;
-      }
-      .event-name { font-weight: 700; font-size: 1rem; line-height: 1.3; }
-      .event-detail { font-size: .88rem; color: var(--muted); margin-top: 2px; }
-      .event-count { text-align: right; flex: none; }
-      .event-count .t {
-        font-size: 1.22rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.15;
-      }
-      .event-count .t .unit { font-size: .62em; font-weight: 700; color: var(--faint); margin: 0 .15em 0 .04em; }
-      .event-count .ends { font-size: .8rem; color: var(--faint); }
-      .event.ended { opacity: .6; }
-      .event.ended .t { font-size: 1rem; color: var(--faint); }
-      .event.soon .t { color: var(--warn); }
-
-      /* ---------- footer ---------- */
-      footer { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 8px; }
-      .footnotes { font-size: .86rem; color: var(--muted); display: grid; gap: 8px; margin: 0 0 16px; }
-      .footnotes p { margin: 0; max-width: 68ch; }
-      .sources { font-size: .86rem; color: var(--muted); }
-      .sources p { margin: 0 0 6px; font-weight: 700; color: var(--ink); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
-      .sources ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
-      a { color: var(--gold); font-weight: 600; text-underline-offset: 2px; }
-      .disclaimer {
-        margin-top: 16px; font-size: .86rem; color: var(--muted);
-        background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius);
-        padding: 13px 16px; max-width: 72ch;
-      }
-      .disclaimer strong { color: var(--ink); }
-      @media (prefers-reduced-motion: reduce) {
-        .progress-fill, .task input[type="checkbox"], .task input[type="checkbox"]::before { transition: none; }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>AION 2 Daily &amp; Weekly Tracker — BuffForge</title>
+<meta name="description" content="Live countdowns to the daily reset (07:00 UTC) and the Wednesday weekly reset for AION 2 global servers. Tick duties off — they clear themselves at reset.">
+<link rel="canonical" href="https://buffforge.com/aion-2/daily-tracker/">
+<meta property="og:title" content="AION 2 Daily &amp; Weekly Tracker — BuffForge">
+<meta property="og:description" content="Live countdowns to the daily reset (07:00 UTC) and the Wednesday weekly reset for AION 2 global servers. Tick duties off — they clear themselves at reset.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://buffforge.com/aion-2/daily-tracker/">
+<meta property="og:image" content="https://buffforge.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="alternate" hreflang="en" href="https://buffforge.com/aion-2/daily-tracker/">
+<link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/aion-2/daily-tracker/">
+<link rel="alternate" hreflang="x-default" href="https://buffforge.com/aion-2/daily-tracker/">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://buffforge.com/"}, {"@type": "ListItem", "position": 2, "name": "AION 2", "item": "https://buffforge.com/aion-2/"}, {"@type": "ListItem", "position": 3, "name": "Daily & Weekly Tracker", "item": "https://buffforge.com/aion-2/daily-tracker/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "Daily & Weekly Tracker", "url": "https://buffforge.com/aion-2/daily-tracker/", "inLanguage": "en", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0"}}]</script>
+</head>
+<body>
+<header class="site-header"><div class="wrap"><a class="logo" href="/">Buff<span>Forge</span></a><nav class="site-nav" aria-label="Main"><details class="navdrop"><summary>Games</summary><div class="drop"><a href="/aion-2/">AION 2</a><a href="/gta-6/">GTA 6</a></div></details><a href="/about/">About</a><span class="lang-switch" aria-label="Language"><a href="/aion-2/daily-tracker/" aria-current="page">EN</a><span class="sep">|</span><a href="/ru/aion-2/daily-tracker/" >RU</a></span></nav></div></header>
+<main class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/">Home</a><span class="sep">›</span><a href="/aion-2/">AION 2</a><span class="sep">›</span><span aria-current="page">Daily &amp; Weekly Tracker</span></nav><div class="tracker">
 
       <header>
         <p class="kicker">Global servers · NA / EU / SA / Asia</p>
@@ -268,12 +88,13 @@
             <li><a href="https://game8.co" target="_blank" rel="noopener">Game8</a> — reset guide</li>
           </ul>
         </div>
+        <p><strong>Spotted a wrong number?</strong> Email <a href="mailto:feedback@buffforge.com">feedback@buffforge.com</a> with the page and the number.</p>
         <p class="disclaimer"><strong>Disclaimer:</strong> Counters come from client-data trackers, not an NC statement. NC has never published one master reset time — always confirm in-game. Attendance/event day rolls over at 08:00 UTC, one hour after content counters.</p>
       </footer>
 
-    </div>
-
-    <script>
+</div></main>
+<footer class="site-footer"><div class="wrap"><div class="links"><a href="/">Home</a><a href="/about/">About</a><a href="mailto:feedback@buffforge.com">Report a mistake</a><a href="/ru/">Русская версия</a></div><p>BuffForge is an independent fan project. AION 2 is a trademark of NCSOFT. Not affiliated with or endorsed by NCSOFT.</p><p>Data on this site is checked against official announcements and cited community sources as of Nov 13, 2026. Always confirm in-game.</p></div></footer>
+<script>
       (function () {
         "use strict";
 
@@ -607,5 +428,6 @@
         setInterval(tick, 1000);
       })();
     </script>
-  </body>
+
+</body>
 </html>

@@ -1,0 +1,4 @@
+# Canonical host: www -> bare domain (verify in Cloudflare dashboard too).
+https://www.buffforge.com/* https://buffforge.com/:splat 301
+# Default Pages domain -> canonical domain.
+https://buffforge.pages.dev/* https://buffforge.com/:splat 301

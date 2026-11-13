@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Трекер ежедневных и еженедельных заданий AION 2 — BuffForge</title>
+<meta name="description" content="Живой обратный отсчёт до ежедневного сброса (10:00 МСК) и еженедельного сброса в среду для глобальных серверов AION 2. Отмечайте задания — галочки сбрасываются сами.">
+<link rel="canonical" href="https://buffforge.com/ru/aion-2/daily-tracker/">
+<meta property="og:title" content="Трекер ежедневных и еженедельных заданий AION 2 — BuffForge">
+<meta property="og:description" content="Живой обратный отсчёт до ежедневного сброса (10:00 МСК) и еженедельного сброса в среду для глобальных серверов AION 2. Отмечайте задания — галочки сбрасываются сами.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://buffforge.com/ru/aion-2/daily-tracker/">
+<meta property="og:image" content="https://buffforge.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="alternate" hreflang="en" href="https://buffforge.com/aion-2/daily-tracker/">
+<link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/aion-2/daily-tracker/">
+<link rel="alternate" hreflang="x-default" href="https://buffforge.com/aion-2/daily-tracker/">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://buffforge.com/ru/"}, {"@type": "ListItem", "position": 2, "name": "AION 2", "item": "https://buffforge.com/ru/aion-2/"}, {"@type": "ListItem", "position": 3, "name": "Трекер ежедневных и еженедельных заданий", "item": "https://buffforge.com/ru/aion-2/daily-tracker/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "Трекер ежедневных и еженедельных заданий", "url": "https://buffforge.com/ru/aion-2/daily-tracker/", "inLanguage": "ru", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0"}}]</script>
+</head>
+<body>
+<header class="site-header"><div class="wrap"><a class="logo" href="/ru/">Buff<span>Forge</span></a><nav class="site-nav" aria-label="Main"><details class="navdrop"><summary>Игры</summary><div class="drop"><a href="/ru/aion-2/">AION 2</a><a href="/ru/gta-6/">GTA 6</a></div></details><a href="/ru/about/">О проекте</a><span class="lang-switch" aria-label="Language"><a href="/aion-2/daily-tracker/" >EN</a><span class="sep">|</span><a href="/ru/aion-2/daily-tracker/" aria-current="page">RU</a></span></nav></div></header>
+<main class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="/ru/">Главная</a><span class="sep">›</span><a href="/ru/">Главная</a><span class="sep">›</span><a href="/ru/aion-2/">AION 2</a><span class="sep">›</span><span aria-current="page">Трекер ежедневных и еженедельных заданий</span></nav><div class="tracker">
+      <header>
+        <p class="kicker">Глобальные серверы · NA / EU / SA / Азия</p>
+        <h1>Трекер ежедневных и еженедельных заданий AION 2</h1>
+        <p class="lede">Все ежедневные и еженедельные счётчики, важные на 45 уровне, с живым обратным отсчётом до сброса. Отмечайте выполненное — галочки сохраняются на этом устройстве и сами сбрасываются после сброса.</p>
+        <span class="stamp">Данные на 13 ноября 2026 · глобальная сборка после патча 11 ноября</span>
+      </header>
+
+      <div class="resets">
+        <div class="reset-card">
+          <p class="label">До ежедневного сброса</p>
+          <p class="count" id="daily-count">—</p>
+          <p class="reset-meta">Сброс <strong>в 10:00 МСК (07:00 UTC)</strong> каждый день · ваше время: <strong id="daily-local">—</strong></p>
+        </div>
+        <div class="reset-card">
+          <p class="label">До еженедельного сброса</p>
+          <p class="count" id="weekly-count">—</p>
+          <p class="reset-meta">Сброс <strong>в среду в 10:00 МСК (07:00 UTC)</strong> · ваше время: <strong id="weekly-local">—</strong></p>
+          <p class="maint-note">Еженедельное техобслуживание начинается примерно за 30 минут до сброса в среду.</p>
+        </div>
+      </div>
+
+      <section aria-labelledby="daily-h">
+        <div class="section-head">
+          <h2 id="daily-h">Ежедневные задания</h2>
+          <span class="progress-text"><b id="daily-done">0</b> из 8 выполнено</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-label="Прогресс за день" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="daily-bar-wrap"><div class="progress-fill" id="daily-bar"></div></div>
+        <p class="section-note">Все счётчики ниже сбрасываются в 10:00 МСК (07:00 UTC). Лимиты — для персонажа 45 уровня, по данным трекеров из клиента; где трекеры расходятся, строка помечена, чтобы вы сверились в игре.</p>
+        <ul class="list" id="daily-list"></ul>
+      </section>
+
+      <section aria-labelledby="weekly-h">
+        <div class="section-head">
+          <h2 id="weekly-h">Еженедельные задания</h2>
+          <span class="progress-text"><b id="weekly-done">0</b> из 8 выполнено</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-label="Прогресс за неделю" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="weekly-bar-wrap"><div class="progress-fill" id="weekly-bar"></div></div>
+        <p class="section-note">Всё здесь сбрасывается в среду в 10:00 МСК (07:00 UTC) — в тот же момент, что и ежедневный сброс этого дня.</p>
+        <ul class="list" id="weekly-list"></ul>
+      </section>
+
+      <section aria-labelledby="events-h">
+        <div class="section-head">
+          <h2 id="events-h">Активные события</h2>
+        </div>
+        <p class="section-note">Даты окончания — по объявлениям NC. Обратный отсчёт идёт до 10:00 МСК (07:00 UTC) в день окончания — до ежедневного сброса, кроме «Охоты на Лудру», которая заканчивается с техобслуживанием. Это отдельно от внутриигрового дня посещаемости и событий, который меняется в 11:00 МСК (08:00 UTC), — см. ниже.</p>
+        <ul class="events" id="event-list"></ul>
+      </section>
+
+      <footer>
+        <div class="footnotes">
+          <p><strong>Посещаемость меняется позже.</strong> NC никогда не публиковала единого времени сброса: счётчики подземелий и контента сбрасываются в 10:00 МСК (07:00 UTC), а внутриигровой день посещаемости и событий меняется на час позже — в <strong>11:00 МСК (08:00 UTC)</strong>.</p>
+          <p><strong>В других регионах иначе.</strong> Серверы Кореи и Тайваня сбрасываются в другое время (05:00 по серверному времени). Эта страница отслеживает только глобальный сервис.</p>
+          <p><strong>Нашли неверную цифру?</strong> Напишите на <a href="mailto:feedback@buffforge.com">feedback@buffforge.com</a>, указав страницу и цифру.</p>
+        </div>
+        <div class="sources">
+          <p>Источники</p>
+          <ul>
+            <li><a href="https://timesaver.gg" target="_blank" rel="noopener">timesaver.gg</a> — гайд по сбросам</li>
+            <li><a href="https://metabot.gg" target="_blank" rel="noopener">metabot.gg</a> — эндгейм-гайд</li>
+            <li><a href="https://aion2.gg" target="_blank" rel="noopener">aion2.gg</a> — гайд по рутине</li>
+            <li><a href="https://game8.co" target="_blank" rel="noopener">Game8</a> — гайд по сбросам</li>
+          </ul>
+        </div>
+        <p class="disclaimer"><strong>Дисклеймер:</strong> счётчики — по данным трекеров из клиента, а не по заявлению NC. NC никогда не публиковала единого времени сброса — всегда сверяйтесь в игре. День посещаемости и событий меняется в 11:00 МСК (08:00 UTC), на час позже счётчиков контента.</p>
+      </footer>
+</div></main>
+<footer class="site-footer"><div class="wrap"><div class="links"><a href="/ru/">Главная</a><a href="/ru/about/">О проекте</a><a href="mailto:feedback@buffforge.com">Сообщить об ошибке</a><a href="/">English version</a></div><p>BuffForge — независимый фанатский проект. AION 2 — торговая марка NCSOFT. Сайт не связан с NCSOFT и не одобрен компанией.</p><p>Данные сверены с официальными объявлениями и указанными источниками по состоянию на 13 ноября 2026 года. Всегда сверяйте в игре.</p></div></footer>
+<script>
+      (function () {
+        "use strict";
+
+        /* ---------------- data (verified 2026-11-12) ---------------- */
+        var DAILY = [{"id": "duty", "name": "Ежедневные задания", "detail": "<strong>5</strong> платных выполнений в день. Единственный счётчик, который <strong>нельзя накопить</strong>, — используйте или потеряете.", "chips": [["scope", "На сервер"], ["refill", "Обновляется при сбросе"], ["nobank", "Не копится"]]}, {"id": "odyl", "name": "Эфирная энергия", "detail": "Восстанавливается <strong>+15 каждые 3 часа</strong> (120 в день). Траты на кубы подземелий — <strong>40 за получение</strong>.", "chips": [["cap", "Лимит 560 · 840 с подпиской"]]}, {"id": "nightmare-daily", "name": "Кошмар", "detail": "<strong>2 попытки</strong> в день, неиспользованные попытки накапливаются.", "chips": [["cap", "Копится до 14"]]}, {"id": "shugo", "name": "Ключи фестиваля Шуго", "detail": "<strong>+3 ключа</strong> в день.", "chips": [["scope", "На сервер"], ["cap", "Лимит 12 · 21 с подпиской"], ["verify", "Проверьте в игре — трекеры расходятся (другой указывает 28/56)"]]}, {"id": "invasion", "name": "Вторжение измерений", "detail": "<strong>1 ключ награды</strong> в день.", "chips": [["scope", "Общий на сервер"], ["cap", "Копится до 7"]]}, {"id": "conquest-daily", "name": "Счётчик наград завоевания", "detail": "Восстанавливается <strong>+1 каждые 8 часов</strong>.", "chips": [["cap", "Лимит 21"], ["verify", "Проверьте в игре — трекеры расходятся (другой указывает 2/день, лимит 14)"]]}, {"id": "transcendence-daily", "name": "Счётчик наград превосходства", "detail": "Восстанавливается <strong>+1 каждые 12 часов</strong>.", "chips": [["cap", "Лимит 14"]]}, {"id": "gathering", "name": "Собирательство", "detail": "<strong>1000 сборов</strong> в день.", "chips": [["scope", "На сервер"]]}];
+
+        var WEEKLY = [{"id": "ludra", "name": "Кузница Бездны — Лудра", "detail": "Рейд святилища, 10 игроков. <strong>4 попытки</strong>, <strong>1 награда за убийство</strong> на персонажа. Уровень предметов <strong>2800</strong> обычный / <strong>3000</strong> сложный. Сундук стоит <strong>40 эфирной энергии</strong>. Лимит времени — 2 часа (патч 11 ноября).", "chips": [["scope", "На персонажа"]]}, {"id": "ascension", "name": "Испытание восхождения", "detail": "<strong>3 входа</strong> в неделю.", "chips": []}, {"id": "abyss-time", "name": "Время в Бездне", "detail": "<strong>7 часов</strong> Нижняя Решанта · <strong>7 часов</strong> Средняя Решанта · <strong>3 часа</strong> Внешняя Решанта.", "chips": []}, {"id": "boss-kills", "name": "Финальные боссы завоевания и превосходства", "detail": "Завоевание: <strong>35 убийств</strong> в неделю. Превосходство: <strong>28 убийств</strong> в неделю.", "chips": []}, {"id": "fissure", "name": "Подземелье — Неизвестный разлом", "detail": "<strong>14 входов</strong> в неделю.", "chips": [["scope", "Общий на сервер"]]}, {"id": "nightmare-shop", "name": "Магазин Кошмара", "detail": "Кодекс души <strong>×5</strong> в неделю · Кодекс души: сброс <strong>×3</strong> в неделю.", "chips": []}, {"id": "sync-stones", "name": "Еженедельные задания — камни синхронизации", "detail": "Максимум <strong>3 камня синхронизации</strong> в неделю (патч 11 ноября).", "chips": []}, {"id": "unclaimed", "name": "Незабранные заходы в подземелья", "detail": "<strong>10</strong> в неделю. Выход из подземелья без получения куба тратит один заход.", "chips": [["scope", "На сервер"]]}];
+
+        var EVENTS = [
+          {"name": "Отметки Лудры", "detail": "7 наград за 14 дней.", "endsLabel": "Заканчивается 17 ноября 2026", "end": Date.UTC(2026, 10, 17, 7, 0, 0)},
+          {"name": "Twitch Drops", "detail": "Кампания за просмотры.", "endsLabel": "Заканчивается 17 ноября 2026", "end": Date.UTC(2026, 10, 17, 7, 0, 0)},
+          {"name": "Лагерь дэва", "detail": "Событие-веха сервера.", "endsLabel": "Заканчивается 17 ноября 2026", "end": Date.UTC(2026, 10, 17, 7, 0, 0)},
+          {"name": "Охота на Лудру", "detail": "Победите Лудру до техобслуживания.", "endsLabel": "Заканчивается с техобслуживанием · 24 ноября (PST) / 25 ноября (CET), 2026", "end": Date.UTC(2026, 10, 25, 6, 30, 0)},
+          {"name": "Сезон 1", "detail": "Первый сезон глобального сервиса.", "endsLabel": "Заканчивается 16 декабря 2026", "end": Date.UTC(2026, 11, 16, 7, 0, 0)}
+        ];
+
+        /* ---------------- reset math (all from UTC) ---------------- */
+        function nextDailyReset(now) {
+          var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0, 0));
+          if (d.getTime() <= now.getTime()) d.setUTCDate(d.getUTCDate() + 1);
+          return d;
+        }
+        function nextWeeklyReset(now) {
+          // Wednesday = UTC day 3, at 07:00 UTC
+          var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0, 0));
+          var add = (3 - d.getUTCDay() + 7) % 7;
+          d.setUTCDate(d.getUTCDate() + add);
+          if (d.getTime() <= now.getTime()) d.setUTCDate(d.getUTCDate() + 7);
+          return d;
+        }
+        // Period key = the most recent reset, so stored ticks expire when it changes.
+        function dailyPeriodKey(now) {
+          var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0, 0));
+          if (d.getTime() > now.getTime()) d.setUTCDate(d.getUTCDate() - 1);
+          return "d-" + d.toISOString().slice(0, 10);
+        }
+        function weeklyPeriodKey(now) {
+          var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0, 0));
+          if (d.getTime() > now.getTime()) d.setUTCDate(d.getUTCDate() - 1);
+          var back = (d.getUTCDay() - 3 + 7) % 7;
+          d.setUTCDate(d.getUTCDate() - back);
+          return "w-" + d.toISOString().slice(0, 10);
+        }
+
+        /* ---------------- persistence ---------------- */
+        var store = {
+          get: function (key) {
+            try {
+              var raw = localStorage.getItem(key);
+              return raw ? JSON.parse(raw) : null;
+            } catch (e) { return null; }
+          },
+          set: function (key, val) {
+            try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* private mode */ }
+          }
+        };
+
+        function loadChecked(storageKey, periodKey, validIds) {
+          var saved = store.get(storageKey);
+          if (!saved || saved.period !== periodKey || !Array.isArray(saved.checked)) return {};
+          var out = {};
+          saved.checked.forEach(function (id) { if (validIds[id]) out[id] = true; });
+          return out;
+        }
+        function saveChecked(storageKey, periodKey, checkedMap) {
+          var ids = Object.keys(checkedMap).filter(function (id) { return checkedMap[id]; });
+          store.set(storageKey, { period: periodKey, checked: ids });
+        }
+
+        /* ---------------- checklist rendering ---------------- */
+        function buildList(ul, items) {
+          items.forEach(function (item) {
+            var li = document.createElement("li");
+            li.className = "task";
+            li.id = "task-" + item.id;
+            var label = document.createElement("label");
+            var box = document.createElement("input");
+            box.type = "checkbox";
+            box.setAttribute("data-id", item.id);
+            var body = document.createElement("div");
+            body.className = "task-body";
+            var name = document.createElement("div");
+            name.className = "task-name";
+            name.textContent = item.name;
+            var detail = document.createElement("div");
+            detail.className = "task-detail";
+            detail.innerHTML = item.detail;
+            body.appendChild(name);
+            body.appendChild(detail);
+            if (item.chips && item.chips.length) {
+              var chips = document.createElement("div");
+              chips.className = "chips";
+              item.chips.forEach(function (c) {
+                var s = document.createElement("span");
+                s.className = "chip " + c[0];
+                s.textContent = c[1];
+                chips.appendChild(s);
+              });
+              body.appendChild(chips);
+            }
+            label.appendChild(box);
+            label.appendChild(body);
+            li.appendChild(label);
+            ul.appendChild(li);
+          });
+        }
+
+        function wireChecklist(opts) {
+          var validIds = {};
+          opts.items.forEach(function (i) { validIds[i.id] = true; });
+          var state = { period: opts.periodFn(new Date()), checked: null };
+          state.checked = loadChecked(opts.storageKey, state.period, validIds);
+
+          var boxes = opts.ul.querySelectorAll('input[type="checkbox"]');
+          function refresh() {
+            var done = 0;
+            boxes.forEach(function (box) {
+              var id = box.getAttribute("data-id");
+              var on = !!state.checked[id];
+              box.checked = on;
+              document.getElementById("task-" + id).classList.toggle("is-done", on);
+              if (on) done++;
+            });
+            opts.doneEl.textContent = done;
+            opts.barEl.style.width = (done / opts.items.length * 100) + "%";
+            opts.barWrap.setAttribute("aria-valuenow", done);
+          }
+          boxes.forEach(function (box) {
+            box.addEventListener("change", function () {
+              // If a reset passed while the page sat open, start the new period clean.
+              var current = opts.periodFn(new Date());
+              if (current !== state.period) {
+                state.period = current;
+                state.checked = {};
+              }
+              state.checked[box.getAttribute("data-id")] = box.checked;
+              saveChecked(opts.storageKey, state.period, state.checked);
+              refresh();
+            });
+          });
+          refresh();
+          return {
+            // Called once a second: when the reset passes, ticks clear on their own.
+            tick: function (now) {
+              var current = opts.periodFn(now);
+              if (current !== state.period) {
+                state.period = current;
+                state.checked = {};
+                saveChecked(opts.storageKey, state.period, state.checked);
+                refresh();
+              }
+            }
+          };
+        }
+
+        var dailyList = document.getElementById("daily-list");
+        var weeklyList = document.getElementById("weekly-list");
+        buildList(dailyList, DAILY);
+        buildList(weeklyList, WEEKLY);
+
+        var dailyCtl = wireChecklist({
+          ul: dailyList, items: DAILY, storageKey: "aion2-tracker-daily-v1-ru",
+          periodFn: dailyPeriodKey,
+          doneEl: document.getElementById("daily-done"),
+          barEl: document.getElementById("daily-bar"),
+          barWrap: document.getElementById("daily-bar-wrap")
+        });
+        var weeklyCtl = wireChecklist({
+          ul: weeklyList, items: WEEKLY, storageKey: "aion2-tracker-weekly-v1-ru",
+          periodFn: weeklyPeriodKey,
+          doneEl: document.getElementById("weekly-done"),
+          barEl: document.getElementById("weekly-bar"),
+          barWrap: document.getElementById("weekly-bar-wrap")
+        });
+
+        /* ---------------- events rendering ---------------- */
+        var eventList = document.getElementById("event-list");
+        var eventEls = EVENTS.map(function (ev) {
+          var li = document.createElement("li");
+          li.className = "event";
+          var left = document.createElement("div");
+          var nm = document.createElement("div");
+          nm.className = "event-name";
+          nm.textContent = ev.name;
+          var dt = document.createElement("div");
+          dt.className = "event-detail";
+          dt.textContent = ev.detail;
+          left.appendChild(nm);
+          left.appendChild(dt);
+          var right = document.createElement("div");
+          right.className = "event-count";
+          var t = document.createElement("div");
+          t.className = "t";
+          var ends = document.createElement("div");
+          ends.className = "ends";
+          ends.textContent = ev.endsLabel;
+          right.appendChild(t);
+          right.appendChild(ends);
+          li.appendChild(left);
+          li.appendChild(right);
+          eventList.appendChild(li);
+          return { ev: ev, li: li, t: t };
+        });
+
+        /* ---------------- formatting + ticking ---------------- */
+        function pad(n) { return (n < 10 ? "0" : "") + n; }
+        function fmtCountdown(ms, withDays) {
+          if (ms < 0) ms = 0;
+          var totalSec = Math.floor(ms / 1000);
+          var days = Math.floor(totalSec / 86400);
+          var h = Math.floor((totalSec % 86400) / 3600);
+          var m = Math.floor((totalSec % 3600) / 60);
+          var s = totalSec % 60;
+          if (withDays && days > 0) {
+            return days + '<span class="unit">d</span>' + pad(h) + '<span class="unit">h</span>' + pad(m) + '<span class="unit">m</span>' + pad(s) + '<span class="unit">s</span>';
+          }
+          var totalH = Math.floor(totalSec / 3600);
+          return pad(totalH) + '<span class="unit">h</span>' + pad(m) + '<span class="unit">m</span>' + pad(s) + '<span class="unit">s</span>';
+        }
+        function fmtEventCountdown(ms) {
+          var totalSec = Math.floor(ms / 1000);
+          var days = Math.floor(totalSec / 86400);
+          var h = Math.floor((totalSec % 86400) / 3600);
+          var m = Math.floor((totalSec % 3600) / 60);
+          var s = totalSec % 60;
+          if (days > 0) return days + '<span class="unit">d</span>' + h + '<span class="unit">ч осталось</span>';
+          if (h > 0) return h + '<span class="unit">h</span>' + pad(m) + '<span class="unit">мин осталось</span>';
+          return m + '<span class="unit">m</span>' + pad(s) + '<span class="unit">s left</span>';
+        }
+        function localResetLabel(date, weekly) {
+          try {
+            var opts = weekly
+              ? { weekday: "short", hour: "numeric", minute: "2-digit", timeZoneName: "short" }
+              : { hour: "numeric", minute: "2-digit", timeZoneName: "short" };
+            return date.toLocaleString("ru-RU", opts);
+          } catch (e) {
+            return date.toLocaleString();
+          }
+        }
+
+        var dailyCountEl = document.getElementById("daily-count");
+        var weeklyCountEl = document.getElementById("weekly-count");
+        var dailyLocalEl = document.getElementById("daily-local");
+        var weeklyLocalEl = document.getElementById("weekly-local");
+        var lastDailyTarget = 0, lastWeeklyTarget = 0;
+
+        function tick() {
+          var now = new Date();
+          var nd = nextDailyReset(now);
+          var nw = nextWeeklyReset(now);
+          dailyCountEl.innerHTML = fmtCountdown(nd.getTime() - now.getTime(), false);
+          weeklyCountEl.innerHTML = fmtCountdown(nw.getTime() - now.getTime(), true);
+          if (nd.getTime() !== lastDailyTarget) {
+            lastDailyTarget = nd.getTime();
+            dailyLocalEl.textContent = localResetLabel(nd, false);
+          }
+          if (nw.getTime() !== lastWeeklyTarget) {
+            lastWeeklyTarget = nw.getTime();
+            weeklyLocalEl.textContent = localResetLabel(nw, true);
+          }
+          dailyCtl.tick(now);
+          weeklyCtl.tick(now);
+          eventEls.forEach(function (rec) {
+            var left = rec.ev.end - now.getTime();
+            if (left <= 0) {
+              rec.li.classList.add("ended");
+              rec.li.classList.remove("soon");
+              rec.t.textContent = "Завершено";
+            } else {
+              rec.t.innerHTML = fmtEventCountdown(left);
+              rec.li.classList.toggle("soon", left < 48 * 3600 * 1000);
+            }
+          });
+        }
+        tick();
+        setInterval(tick, 1000);
+      })();
+    </script>
+
+</body>
+</html>

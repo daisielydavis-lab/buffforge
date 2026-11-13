@@ -3,104 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BuffForge — Game Tools, Checked Against the Patch Notes</title>
-<meta name="description" content="BuffForge builds small, honest game tools: live reset timers, daily and weekly checklists, and calculators. No login, no ads. Every number cites its source.">
-<meta property="og:title" content="BuffForge — Game Tools, Checked Against the Patch Notes">
-<meta property="og:description" content="Live reset timers, checklists and calculators for the games you actually play. No login, no ads.">
+<meta name="robots" content="noindex">
+<title>BuffForge — Game tools, checked against the patch notes</title>
+<meta name="description" content="Small, honest tools and guides by game: reset trackers, official-spec checkers, and calculators. No login, no ads. Every number cites its source and review date.">
+<link rel="canonical" href="https://buffforge.com/">
+<meta property="og:title" content="BuffForge — Game tools, checked against the patch notes">
+<meta property="og:description" content="Small, honest tools and guides by game: reset trackers, official-spec checkers, and calculators. No login, no ads. Every number cites its source and review date.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://buffforge.com/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚒️</text></svg>">
-<style>
-  :root {
-    --bg:#FFF9F1; --card:#FFFFFF; --line:#F0E2D3; --text:#23262F; --muted:#6B7280;
-    --pink:#FF2E7E; --orange:#FF7A1A; --amber:#FFB020; --teal:#0E9F8A; --teal-soft:#E6F7F3;
-    --shadow:0 1px 2px rgba(35,38,47,.06), 0 10px 28px rgba(255,122,26,.10);
-  }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6; }
-  .wrap { max-width:1120px; margin:0 auto; padding:0 24px; }
-  header { background:rgba(255,249,241,.92); border-bottom:1px solid var(--line); padding:18px 0; position:sticky; top:0; z-index:10; backdrop-filter:blur(6px); }
-  header .wrap { display:flex; align-items:center; justify-content:space-between; }
-  .logo { font-size:22px; font-weight:800; letter-spacing:.5px; text-decoration:none; color:var(--text); }
-  .logo span { color:var(--pink); }
-  nav a { color:var(--muted); text-decoration:none; margin-left:22px; font-size:15px; font-weight:600; transition:color .15s; }
-  nav a:hover { color:var(--pink); }
-  .hero { padding:72px 0 44px; }
-  .hero h1 { font-size:44px; line-height:1.15; letter-spacing:-.5px; margin-bottom:16px; }
-  .hero h1 span { background:linear-gradient(90deg,var(--pink),var(--orange)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .hero p { color:var(--muted); font-size:18px; max-width:680px; }
-  .live { display:inline-block; background:var(--teal-soft); color:var(--teal); border:1px solid #BFE9E0; border-radius:999px; padding:4px 14px; font-size:13px; font-weight:700; margin-bottom:20px; }
-  .tools { padding:16px 0 48px; }
-  .tools h2 { font-size:23px; margin-bottom:18px; letter-spacing:-.3px; }
-  .card { display:block; background:var(--card); border:1.5px solid var(--line); border-radius:18px; padding:28px; text-decoration:none; color:var(--text); box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
-  .card:hover { transform:translateY(-3px); border-color:var(--pink); box-shadow:0 14px 34px rgba(255,46,126,.16); }
-  .card .tag { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--teal); }
-  .card h3 { font-size:21px; margin:8px 0 6px; }
-  .card p { color:var(--muted); font-size:15px; }
-  .card .go { display:inline-block; margin-top:14px; color:var(--pink); font-weight:700; font-size:15px; transition:transform .18s ease; }
-  .card:hover .go { transform:translateX(4px); }
-  .how { border-top:1px solid var(--line); padding:44px 0; }
-  .how h2 { font-size:23px; margin-bottom:18px; letter-spacing:-.3px; }
-  .how ol { margin-left:20px; color:var(--muted); font-size:16px; }
-  .how li { margin-bottom:10px; }
-  .how li b { color:var(--text); }
-  .next { border-top:1px solid var(--line); padding:44px 0 60px; color:var(--muted); font-size:16px; }
-  .next h2 { font-size:23px; color:var(--text); margin-bottom:12px; letter-spacing:-.3px; }
-  footer { border-top:1px solid var(--line); padding:24px 0 44px; color:var(--muted); font-size:13px; }
-  @media (max-width:760px){ .hero h1{font-size:32px;} .hero{padding:48px 0 30px;} }
-</style>
+<meta property="og:image" content="https://buffforge.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="alternate" hreflang="en" href="https://buffforge.com/">
+<link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/">
+<link rel="alternate" hreflang="x-default" href="https://buffforge.com/">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Organization", "name": "BuffForge", "url": "https://buffforge.com"}, {"@context": "https://schema.org", "@type": "WebSite", "name": "BuffForge", "url": "https://buffforge.com", "inLanguage": "en", "description": "Small, honest tools and guides by game: reset trackers, official-spec checkers, and calculators. No login, no ads. Every number cites its source and review date."}]</script>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <a class="logo" href="/">Buff<span>Forge</span></a>
-    <nav><a href="/">Home</a><a href="/aion-2/daily-tracker/">AION 2 Tracker</a></nav>
-  </div>
-</header>
+<header class="site-header"><div class="wrap"><a class="logo" href="/">Buff<span>Forge</span></a><nav class="site-nav" aria-label="Main"><details class="navdrop"><summary>Games</summary><div class="drop"><a href="/aion-2/">AION 2</a><a href="/gta-6/">GTA 6</a></div></details><a href="/about/">About</a><span class="lang-switch" aria-label="Language"><a href="/" aria-current="page">EN</a><span class="sep">|</span><a href="/ru/" >RU</a></span></nav></div></header>
+<main class="wrap"><section class="hero"><h1>Game tools and guides, <span>organized by game.</span></h1><p class="lede">Reset trackers, official-spec checkers, and short guides for the games you actually play. No login, no ads. <b>Every number cites its source and review date.</b></p><div class="cta"><a class="btn btn-primary" href="/aion-2/daily-tracker/">Daily & Weekly Tracker</a><a class="btn btn-secondary" href="/about/">How we check our numbers</a></div></section><section class="block"><h2>Featured tools</h2><div class="featured-grid"><a class="card" href="/aion-2/daily-tracker/"><span class="tag">AION 2</span><h3>Daily & Weekly Tracker</h3><p>Live countdowns to the daily reset (07:00 UTC) and the Wednesday weekly reset. Tick duties off — they clear themselves at reset.</p><span class="go">Open the tool &rarr;</span><div class="meta">Data reviewed Nov 13, 2026 &middot; AION 2</div></a><a class="card" href="/gta-6/launch-countdown/"><span class="tag">GTA 6</span><h3>GTA 6 Launch Countdown</h3><p>Launches Nov 19, 2026 at local midnight. Pick your store region and see the unlock time in your time zone and in Moscow time.</p><span class="go">Open the tool &rarr;</span><div class="meta">Data reviewed Nov 13, 2026 &middot; GTA 6</div></a></div></section><section class="block"><h2>Games</h2><article class="game-block"><div class="head"><div><h2>AION 2</h2><p class="tagline">Global servers · daily and weekly tracker</p></div><a class="view-all" href="/aion-2/">View all for this game &rarr;</a></div><div class="tool-row"><div><a class="t-name" href="/aion-2/daily-tracker/">Daily & Weekly Tracker</a><span class="badge live">Live</span><div class="t-blurb">Live countdowns to the daily reset (07:00 UTC) and the Wednesday weekly reset. Tick duties off — they clear themselves at reset.</div></div><a class="t-go" href="/aion-2/daily-tracker/">Open the tool &rarr;</a></div></article><article class="game-block"><div class="head"><div><h2>GTA 6</h2><p class="tagline">PS5 and Xbox Series X|S · launches Nov 19, 2026</p></div><a class="view-all" href="/gta-6/">View all for this game &rarr;</a></div><div class="tool-row"><div><a class="t-name" href="/gta-6/launch-countdown/">GTA 6 Launch Countdown</a><span class="badge live">Live</span><div class="t-blurb">Launches Nov 19, 2026 at local midnight. Pick your store region and see the unlock time in your time zone and in Moscow time.</div></div><a class="t-go" href="/gta-6/launch-countdown/">Open the tool &rarr;</a></div><div class="tool-row"><div><a class="t-name" href="/gta-6/storage-check/">GTA 6 Storage & Preload Check</a><span class="badge live">Live</span><div class="t-blurb">PlayStation lists at least 212 GB of free space for GTA 6. Enter your free space and see if it fits — before preload day.</div></div><a class="t-go" href="/gta-6/storage-check/">Open the tool &rarr;</a></div><div class="tool-row"><div><a class="t-name" href="/gta-6/editions/">GTA 6 Editions Compared</a><span class="badge live">Live</span><div class="t-blurb">Standard $79.99 vs Ultimate $99.99 — only what Take-Two and the official stores actually say.</div></div><a class="t-go" href="/gta-6/editions/">Open the tool &rarr;</a></div><div class="tool-row"><div><a class="t-name" href="/gta-6/compatibility/">Can My Console Run GTA 6?</a><span class="badge live">Live</span><div class="t-blurb">PS5, PS5 Pro, Xbox Series X|S — yes. PS4 and Xbox One — no. PC — not officially announced, and there is no official PC spec.</div></div><a class="t-go" href="/gta-6/compatibility/">Open the tool &rarr;</a></div><div class="tool-row"><div><a class="t-name" href="/gta-6/wanted-evidence-helper/">Wanted Evidence Helper</a><span class="badge prelaunch">Pre-launch</span><div class="t-blurb">Tick what the police have on you and get a plan to go cold. Based on pre-release previews — mechanics will be verified in-game after launch.</div></div><a class="t-go" href="/gta-6/wanted-evidence-helper/">Open the tool &rarr;</a></div></article></section><section class="trust"><ol><li><b>Public sources only</b>Numbers come from official notes, official wikis, and public APIs.</li><li><b>Versioned and dated</b>Every tool shows its data version, sources, and review date.</li><li><b>Tell us when we are wrong</b>If we get a number wrong, tell us. We correct it.</li></ol></section></main>
+<footer class="site-footer"><div class="wrap"><div class="links"><a href="/">Home</a><a href="/about/">About</a><a href="mailto:feedback@buffforge.com">Report a mistake</a><a href="/ru/">Русская версия</a></div><p>BuffForge is an independent fan project. AION 2 is a trademark of NCSOFT. Not affiliated with or endorsed by NCSOFT.<br>Not affiliated with, endorsed by, or sponsored by Rockstar Games or Take-Two Interactive.</p><p>Data on this site is checked against official announcements and cited community sources as of Nov 13, 2026. Always confirm in-game.</p></div></footer>
 
-<main class="wrap">
-  <section class="hero">
-    <span class="live">● 2 tools live</span>
-    <h1>Game tools, <span>checked against the patch notes.</span></h1>
-    <p>Reset timers, daily and weekly checklists, and calculators for the games you actually play. No login, no ads — and every number cites its source.</p>
-  </section>
-
-  <section class="tools">
-    <h2>Tools</h2>
-    <a class="card" href="/aion-2/daily-tracker/">
-      <span class="tag">AION 2 · Global servers</span>
-      <h3>Daily &amp; Weekly Tracker</h3>
-      <p>Live countdowns to the daily reset (07:00 UTC) and the Wednesday weekly reset. Duty missions, Odyle Energy, Ludra attempts, Abyss time — tick them off, they clear themselves at reset. Plus countdowns to the Nov 17 events, Ludra Hunt and Season 1.</p>
-      <span class="go">Open the tracker →</span>
-    </a>
-    <a class="card" href="/gta-6/wanted-evidence-helper/" style="margin-top:16px">
-      <span class="tag">GTA 6 · PS5 &amp; Xbox Series X|S</span>
-      <h3>Wanted Evidence Helper</h3>
-      <p>Six-star wanted, six kinds of evidence. Tick what the police have on you — face, clothes, CCTV, the duo, your car, your weapon — and get a plan to go cold. Launches Nov 19, 2026.</p>
-      <span class="go">Open the tool →</span>
-    </a>
-  </section>
-
-  <section class="how">
-    <h2>How BuffForge works</h2>
-    <ol>
-      <li><b>Numbers come from public sources only</b> — official patch notes, official wikis and public APIs. No game files, no datamining, no scraping other sites' databases.</li>
-      <li><b>Every tool shows its data version and sources</b>, so you can check our work — and tell us when we're wrong.</li>
-      <li><b>One game at a time.</b> A tool ships only when its numbers check out. No mass-generated pages.</li>
-    </ol>
-  </section>
-
-  <section class="next">
-    <h2>What&rsquo;s next</h2>
-    <p>More tools ship as new game updates land — one game, one tool, verified before it goes live.</p>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <p>BuffForge is an independent fan project. AION 2 is a trademark of NCSOFT. Not affiliated with or endorsed by NCSOFT.</p>
-    <p>Data on this site is checked against official announcements and community trackers as of Nov 12, 2026. Always confirm in-game.</p>
-  </div>
-</footer>
 </body>
 </html>

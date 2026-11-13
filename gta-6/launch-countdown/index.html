@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>GTA 6 Launch Countdown — BuffForge</title>
+<meta name="description" content="GTA 6 launches Nov 19, 2026 at local midnight. Pick your store region and see the unlock time in your time zone and in Moscow time.">
+<link rel="canonical" href="https://buffforge.com/gta-6/launch-countdown/">
+<meta property="og:title" content="GTA 6 Launch Countdown — BuffForge">
+<meta property="og:description" content="GTA 6 launches Nov 19, 2026 at local midnight. Pick your store region and see the unlock time in your time zone and in Moscow time.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://buffforge.com/gta-6/launch-countdown/">
+<meta property="og:image" content="https://buffforge.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="alternate" hreflang="en" href="https://buffforge.com/gta-6/launch-countdown/">
+<link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/gta-6/launch-countdown/">
+<link rel="alternate" hreflang="x-default" href="https://buffforge.com/gta-6/launch-countdown/">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://buffforge.com/"}, {"@type": "ListItem", "position": 2, "name": "GTA 6", "item": "https://buffforge.com/gta-6/"}, {"@type": "ListItem", "position": 3, "name": "GTA 6 Launch Countdown", "item": "https://buffforge.com/gta-6/launch-countdown/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "GTA 6 Launch Countdown", "url": "https://buffforge.com/gta-6/launch-countdown/", "inLanguage": "en", "description": "GTA 6 launches Nov 19, 2026 at local midnight. Pick your store region and see the unlock time in your time zone and in Moscow time.", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0"}}]</script>
+</head>
+<body>
+<header class="site-header"><div class="wrap"><a class="logo" href="/">Buff<span>Forge</span></a><nav class="site-nav" aria-label="Main"><details class="navdrop"><summary>Games</summary><div class="drop"><a href="/aion-2/">AION 2</a><a href="/gta-6/">GTA 6</a></div></details><a href="/about/">About</a><span class="lang-switch" aria-label="Language"><a href="/gta-6/launch-countdown/" aria-current="page">EN</a><span class="sep">|</span><a href="/ru/gta-6/launch-countdown/" >RU</a></span></nav></div></header>
+<main class="wrap narrow"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/">Home</a><span class="sep">›</span><a href="/gta-6/">GTA 6</a><span class="sep">›</span><span aria-current="page">GTA 6 Launch Countdown</span></nav><h1 class="page-h1">GTA 6 Launch Countdown</h1><p class="page-lede">GTA 6 unlocks <b>Nov 19, 2026 at local midnight</b> — midnight in your store region's time zone. There is no single official Moscow unlock time: it depends on which region your account's store is in.</p><div class="checker"><label for="region">Your store region</label><select id="region"><option value="America/Los_Angeles">Los Angeles (PT)</option><option value="America/New_York">New York (ET)</option><option value="America/Sao_Paulo">São Paulo (BRT)</option><option value="Europe/London">London (GMT)</option><option value="Europe/Paris">Paris / Berlin (CET)</option><option value="Europe/Moscow">Moscow (MSK)</option><option value="Asia/Dubai">Dubai (GST)</option><option value="Asia/Kolkata">Mumbai (IST)</option><option value="Asia/Tokyo">Tokyo (JST)</option><option value="Australia/Sydney">Sydney (AEDT)</option></select><p class="hint" id="localTz"></p><div style="margin-top:22px"><div class="countdown-big" id="cd" aria-live="off">—</div><p class="hint" id="unlockLine" style="font-size:15px"></p><p class="hint" id="mskLine" style="font-size:15px"></p><p class="hint" id="localLine" style="font-size:15px"></p></div></div><section class="prose"><h2 class="sec">What is confirmed — and what is not</h2><ul><li><b>Confirmed:</b> launch date Nov 19, 2026; PS5 (including Pro) and Xbox Series X|S; no PC version at launch (Rockstar).</li><li><b>Not a single global moment:</b> because unlock is local midnight per region, the Moscow time differs by region. Any site quoting one Moscow unlock time for everyone is guessing.</li><li><b>Preload:</b> PS5 digital preload starts at local midnight for your account's region. Xbox preload time is shown in the Xbox store.</li></ul></section><p class="data-line">Sources: Rockstar Games official newswire (launch date), PlayStation official support, checked Nov 13, 2026.</p></main>
+<script>
+(function () {
+  var STR = {"unlocks": "Unlocks Nov 19, 2026, 00:00 in %s", "moscow": "That is %s in Moscow (MSK, UTC+3).", "local": "In your local time: %s.", "released": "Released!", "local_label": "Your time zone", "locale": "en-US"};
+  var sel = document.getElementById('region');
+  var cd = document.getElementById('cd');
+  var unlockLine = document.getElementById('unlockLine');
+  var mskLine = document.getElementById('mskLine');
+  var localLine = document.getElementById('localLine');
+  try {
+    var mine = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    document.getElementById('localTz').textContent = STR.local_label + ': ' + mine;
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === mine) { sel.selectedIndex = i; break; }
+    }
+  } catch (e) {}
+  function tzOffsetMs(tz, utcMs) {
+    // Offset of tz at utcMs, via Intl formatToParts.
+    var dtf = new Intl.DateTimeFormat('en-US', { timeZone: tz, year: 'numeric',
+      month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
+      second: '2-digit', hourCycle: 'h23' });
+    var parts = dtf.formatToParts(new Date(utcMs));
+    var get = function (t) { for (var k = 0; k < parts.length; k++) if (parts[k].type === t) return parseInt(parts[k].value, 10); return 0; };
+    var asUTC = Date.UTC(get('year'), get('month') - 1, get('day'), get('hour'), get('minute'), get('second'));
+    return asUTC - Math.floor(utcMs / 1000) * 1000;
+  }
+  function targetMs(tz) {
+    // Nov 19, 2026 00:00 wall time in tz.
+    var guess = Date.UTC(2026, 10, 19, 0, 0, 0);
+    return guess - tzOffsetMs(tz, guess);
+  }
+  function fmt(ms, tz) {
+    try {
+      return new Intl.DateTimeFormat(STR.locale, { timeZone: tz, weekday: 'short',
+        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        timeZoneName: 'short' }).format(new Date(ms));
+    } catch (e) { return new Date(ms).toString(); }
+  }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function tick() {
+    var tz = sel.value;
+    var target = targetMs(tz);
+    var now = Date.now();
+    var label = sel.options[sel.selectedIndex].textContent;
+    unlockLine.textContent = STR.unlocks.replace('%s', label);
+    mskLine.textContent = STR.moscow.replace('%s', fmt(target, 'Europe/Moscow'));
+    try { localLine.textContent = STR.local.replace('%s', fmt(target)); } catch (e) {}
+    var diff = target - now;
+    if (diff <= 0) { cd.textContent = STR.released; return; }
+    var s = Math.floor(diff / 1000);
+    var d = Math.floor(s / 86400);
+    var h = Math.floor((s % 86400) / 3600);
+    var m = Math.floor((s % 3600) / 60);
+    var sec = s % 60;
+    cd.innerHTML = d + '<span class="unit">d</span>' + pad(h) + '<span class="unit">h</span>' +
+      pad(m) + '<span class="unit">m</span>' + pad(sec) + '<span class="unit">s</span>';
+  }
+  sel.addEventListener('change', tick);
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+
+<footer class="site-footer"><div class="wrap"><div class="links"><a href="/">Home</a><a href="/about/">About</a><a href="mailto:feedback@buffforge.com">Report a mistake</a><a href="/ru/">Русская версия</a></div><p>BuffForge is an independent fan project. Not affiliated with, endorsed by, or sponsored by Rockstar Games or Take-Two Interactive.</p><p>Data on this site is checked against official announcements and cited community sources as of Nov 13, 2026. Always confirm in-game.</p></div></footer>
+
+</body>
+</html>

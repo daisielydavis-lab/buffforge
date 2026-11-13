@@ -3,112 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
 <title>GTA 6 Wanted Evidence Helper — What Do the Cops Know About You? | BuffForge</title>
 <meta name="description" content="Tick the evidence the police hold on you in GTA 6 — face, clothes, CCTV, the duo, your car, your weapon — and get a plan to go cold. Based on confirmed pre-release previews.">
-<meta property="og:title" content="GTA 6 Wanted Evidence Helper — What Do the Cops Know About You?">
-<meta property="og:description" content="Six evidence types. Tick what the cops have on you and get a plan to go cold.">
+<link rel="canonical" href="https://buffforge.com/gta-6/wanted-evidence-helper/">
+<meta property="og:title" content="GTA 6 Wanted Evidence Helper — What Do the Cops Know About You? | BuffForge">
+<meta property="og:description" content="Tick the evidence the police hold on you in GTA 6 — face, clothes, CCTV, the duo, your car, your weapon — and get a plan to go cold. Based on confirmed pre-release previews.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://buffforge.com/gta-6/wanted-evidence-helper/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚨</text></svg>">
-<style>
-  :root {
-    --bg:#FFF9F1; --card:#FFFFFF; --line:#F0E2D3; --text:#23262F; --muted:#6B7280;
-    --pink:#FF2E7E; --pink-soft:#FFF0F5; --orange:#FF7A1A; --amber:#FFB020;
-    --teal:#0E9F8A; --teal-soft:#E6F7F3; --red:#E5484D; --blue:#2E7DFF;
-    --shadow:0 1px 2px rgba(35,38,47,.06), 0 10px 28px rgba(255,122,26,.10);
-  }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6; }
-  .wrap { max-width:1120px; margin:0 auto; padding:0 24px; }
-  header { background:rgba(255,249,241,.92); border-bottom:1px solid var(--line); padding:18px 0; position:sticky; top:0; z-index:10; backdrop-filter:blur(6px); }
-  header .wrap { display:flex; align-items:center; justify-content:space-between; }
-  .logo { font-size:22px; font-weight:800; letter-spacing:.5px; text-decoration:none; color:var(--text); }
-  .logo span { color:var(--pink); }
-  nav a { color:var(--muted); text-decoration:none; margin-left:22px; font-size:15px; font-weight:600; transition:color .15s; }
-  nav a:hover { color:var(--pink); }
-  .hero { background:linear-gradient(115deg,#FFE0EC 0%,#FFF0D9 52%,#DDF8F2 100%); background-size:200% 200%; animation:drift 14s ease-in-out infinite; border:1px solid var(--line); border-radius:22px; padding:40px 36px; margin-top:32px; }
-  @keyframes drift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-  h1 { font-size:40px; line-height:1.15; letter-spacing:-.5px; }
-  h1 span { background:linear-gradient(90deg,var(--pink),var(--orange)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .sub { color:#4B5563; font-size:18px; max-width:720px; margin-top:14px; }
-  h2 { font-size:23px; margin:40px 0 14px; letter-spacing:-.3px; }
-  p { color:var(--muted); font-size:16px; }
-  p b, li b { color:var(--text); }
-  .how { background:var(--card); border:1px solid var(--line); border-left:5px solid var(--pink); border-radius:16px; padding:24px 28px; box-shadow:var(--shadow); margin-top:32px; }
-  .how h2 { margin-top:0; }
-  .how ul { margin-left:20px; color:var(--muted); font-size:15px; }
-  .how li { margin-bottom:8px; }
-  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
-  .ev { display:block; background:var(--card); border:2px solid var(--line); border-radius:16px; padding:20px; cursor:pointer; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease; }
-  .ev:hover { transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--pink); }
-  .ev:active { transform:translateY(-1px) scale(.985); }
-  .ev.on { border-color:var(--pink); background:var(--pink-soft); box-shadow:0 10px 26px rgba(255,46,126,.16); }
-  .ev input { display:none; }
-  .ev .name { font-size:18px; font-weight:700; display:flex; align-items:center; gap:10px; }
-  .ev .emoji { font-size:22px; }
-  .ev .box { width:22px; height:22px; border:2px solid #C9CDD6; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; font-size:15px; color:transparent; flex:none; margin-left:auto; transition:background .15s, border-color .15s; }
-  .ev.on .box { background:var(--pink); border-color:var(--pink); color:#fff; animation:checkpop .3s ease; }
-  @keyframes checkpop { 0%{transform:scale(.5)} 70%{transform:scale(1.25)} 100%{transform:scale(1)} }
-  .ev .desc { color:var(--muted); font-size:14px; margin-top:8px; }
-  .heat { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px 28px; margin-top:24px; box-shadow:var(--shadow); }
-  .heat .top { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; }
-  .stars { display:flex; gap:8px; line-height:1; }
-  .star { font-size:38px; color:#E9DFD2; transition:color .25s ease, transform .25s ease, text-shadow .25s ease; }
-  .star.lit { color:var(--amber); text-shadow:0 0 16px rgba(255,176,32,.55); }
-  .star.pop { animation:starpop .38s ease; }
-  @keyframes starpop { 0%{transform:scale(.5) rotate(-14deg)} 60%{transform:scale(1.3) rotate(7deg)} 100%{transform:scale(1) rotate(0)} }
-  .lights { display:flex; align-items:center; gap:8px; }
-  .light { width:13px; height:13px; border-radius:50%; background:#DDD5C8; transition:background .2s; }
-  .light.red.on { background:var(--red); animation:blink .7s ease-in-out infinite alternate; }
-  .light.blue.on { background:var(--blue); animation:blink .7s ease-in-out infinite alternate .35s; }
-  @keyframes blink { from{opacity:.25; box-shadow:none} to{opacity:1; box-shadow:0 0 12px currentColor} }
-  .light.calm.on { background:var(--teal); box-shadow:0 0 10px rgba(14,159,138,.6); }
-  .heat .row { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-top:18px; }
-  .heat .label { font-size:30px; font-weight:800; letter-spacing:-.5px; transition:color .25s; }
-  .heat .label.clean { color:var(--teal); }
-  .heat .label.warm { color:#D9930D; }
-  .heat .label.hot { color:var(--orange); }
-  .heat .label.burned { color:var(--pink); }
-  .heat .count { color:var(--muted); font-size:15px; font-weight:600; }
-  .bar { height:12px; background:#F3EAE0; border-radius:999px; margin-top:14px; overflow:hidden; }
-  .bar i { display:block; height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--amber),var(--orange),var(--pink)); transition:width .45s cubic-bezier(.22,1,.36,1); }
-  .heat .note { font-size:13px; color:var(--muted); margin-top:12px; }
-  .actions { margin-top:18px; display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
-  .action { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--pink); border-radius:14px; padding:16px 20px; box-shadow:var(--shadow); animation:slideIn .32s ease both; }
-  @keyframes slideIn { from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none} }
-  .action h3 { font-size:17px; margin-bottom:4px; }
-  .action p { font-size:15px; }
-  .plan { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px 28px; margin-top:24px; box-shadow:var(--shadow); }
-  .plan h2 { margin-top:0; }
-  .plan ol { margin-left:20px; color:var(--muted); font-size:16px; }
-  .plan li { margin-bottom:10px; animation:slideIn .3s ease both; }
-  .plan li b { color:var(--text); }
-  .plan .cleanstate { display:flex; align-items:center; gap:14px; }
-  .plan .cleanstate .tick { width:52px; height:52px; flex:none; border-radius:50%; background:var(--teal-soft); color:var(--teal); font-size:28px; display:flex; align-items:center; justify-content:center; animation:checkpop .35s ease; }
-  .reset { margin-top:18px; background:#fff; border:1.5px solid var(--line); color:var(--muted); border-radius:999px; padding:9px 20px; font-size:14px; font-weight:600; cursor:pointer; transition:border-color .15s, color .15s, transform .15s; }
-  .reset:hover { color:var(--pink); border-color:var(--pink); transform:translateY(-1px); }
-  .unknown { border-top:1px solid var(--line); margin-top:44px; padding-top:30px; }
-  .unknown ul { margin-left:20px; color:var(--muted); font-size:15px; }
-  .unknown li { margin-bottom:8px; }
-  footer { border-top:1px solid var(--line); padding:24px 0 44px; margin-top:52px; color:var(--muted); font-size:13px; }
-  @media (max-width:760px){ h1{font-size:30px;} .hero{padding:28px 22px;} .grid{grid-template-columns:1fr;} .actions{grid-template-columns:1fr;} .star{font-size:32px;} }
-</style>
+<meta property="og:image" content="https://buffforge.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="alternate" hreflang="en" href="https://buffforge.com/gta-6/wanted-evidence-helper/">
+<link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/gta-6/wanted-evidence-helper/">
+<link rel="alternate" hreflang="x-default" href="https://buffforge.com/gta-6/wanted-evidence-helper/">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://buffforge.com/"}, {"@type": "ListItem", "position": 2, "name": "GTA 6", "item": "https://buffforge.com/gta-6/"}, {"@type": "ListItem", "position": 3, "name": "Wanted Evidence Helper", "item": "https://buffforge.com/gta-6/wanted-evidence-helper/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "Wanted Evidence Helper", "url": "https://buffforge.com/gta-6/wanted-evidence-helper/", "inLanguage": "en", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0"}}]</script>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <a class="logo" href="/">Buff<span>Forge</span></a>
-    <nav><a href="/">Home</a><a href="/gta-6/">GTA 6</a></nav>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="hero">
+<header class="site-header"><div class="wrap"><a class="logo" href="/">Buff<span>Forge</span></a><nav class="site-nav" aria-label="Main"><details class="navdrop"><summary>Games</summary><div class="drop"><a href="/aion-2/">AION 2</a><a href="/gta-6/">GTA 6</a></div></details><a href="/about/">About</a><span class="lang-switch" aria-label="Language"><a href="/gta-6/wanted-evidence-helper/" aria-current="page">EN</a><span class="sep">|</span><a href="/ru/gta-6/wanted-evidence-helper/" >RU</a></span></nav></div></header>
+<main class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/">Home</a><span class="sep">›</span><a href="/gta-6/">GTA 6</a><span class="sep">›</span><span aria-current="page">Wanted Evidence Helper</span></nav>
+  <section class="tool-hero">
     <h1>GTA 6 Wanted Evidence Helper — <span>what do the cops know about you?</span></h1>
     <p class="sub">GTA 6 brings back six wanted stars, and this time the police act on evidence — six kinds of it. Tick what they have on you and get a plan to go cold.</p>
   </section>
 
-  <section class="how">
+  <div class="note-box amber" style="margin-top:24px"><h3>Pre-launch — based on pre-release previews</h3><p>The heat scale is the tool’s own scale, not an in-game number. Star values and fade speed are not confirmed before launch; this page will be verified against the live game after Nov 19, 2026.</p></div>
+  <section class="how-box">
     <h2>How the evidence system works</h2>
     <ul>
       <li><b>Six stars are back.</b> GTA 5 had five; GTA 6 has six.</li>
@@ -174,10 +96,10 @@
 
   <div class="actions" id="actions"></div>
 
-  <section class="plan">
+  <section class="plan-box">
     <h2>Your go-cold plan</h2>
     <div id="planBody"></div>
-    <button class="reset" id="resetBtn" type="button">Clear all</button>
+    <button class="reset-btn" id="resetBtn" type="button">Clear all</button>
   </section>
 
   <section class="unknown">
@@ -188,15 +110,8 @@
       <li>These will be verified from the live game after launch on Nov 19, 2026, and this page will be updated.</li>
     </ul>
   </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <p>Based on pre-release hands-on previews (Rockstar North, Nov 2026). Mechanics may change at launch. Sources: gta6.how gameplay page; Flow Games preview via gtavice.net. Data version: Nov 12, 2026.</p>
-    <p>BuffForge is an independent fan project. Not affiliated with, endorsed by, or sponsored by Rockstar Games or Take-Two Interactive.</p>
-  </div>
-</footer>
-
+<p class="data-line">Based on pre-release hands-on previews (Rockstar North, Nov 2026). Mechanics may change at launch. Sources: gta6.how gameplay page; Flow Games preview via gtavice.net. Data version: Nov 12, 2026. Spotted a wrong number? Email <a href="mailto:feedback@buffforge.com">feedback@buffforge.com</a>.</p></main>
+<footer class="site-footer"><div class="wrap"><div class="links"><a href="/">Home</a><a href="/about/">About</a><a href="mailto:feedback@buffforge.com">Report a mistake</a><a href="/ru/">Русская версия</a></div><p>BuffForge is an independent fan project. Not affiliated with, endorsed by, or sponsored by Rockstar Games or Take-Two Interactive.</p><p>Data on this site is checked against official announcements and cited community sources as of Nov 13, 2026. Always confirm in-game.</p></div></footer>
 <script>
 (function () {
   var EVIDENCE = {
@@ -322,5 +237,6 @@
   render();
 })();
 </script>
+
 </body>
 </html>
