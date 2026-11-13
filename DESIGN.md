@@ -27,8 +27,8 @@ Text:
 |---|---|---|---|
 | `--ink` | `#14181F` | Headings, near-black | 16.29:1 on `#F3F5F8` |
 | `--body` | `#3A4250` | Primary running text | 9.27:1 on `#F3F5F8` |
-| `--muted` | `#4B5563` | Secondary / description text (ledes, card blurbs, FAQ answers, meta lines, footer) | 6.92:1 on `#F3F5F8`, 7.56:1 on `#FFFFFF` — comfortably above AA (4.5:1) for normal text |
-| `--faint` | `#4B5563` | Same value as `--muted`; currently unused in the CSS. Do not lighten it for running text. | — |
+| `--muted` | `#3A4250` | Secondary / description text (ledes, card blurbs, FAQ answers, meta lines, footer) | 9.27:1 on `#F3F5F8` — same as `--body` |
+| `--faint` | `#3A4250` | Same value as `--muted`; currently unused in the CSS. Do not lighten it for running text. | — |
 
 All description and secondary running text goes through `--muted` or
 `--body`. No lighter gray is used for reading text on the light background.
