@@ -892,7 +892,6 @@ HUB_UI = {
         "suggest_subject": "Suggest a tool for ",
         "faq_kicker": "Quick answers",
         "side_kicker": "At a glance",
-        "tools_meta": "Tools",
         "langs_meta": "Languages",
         "type_tool": "Tool",
         "type_faq": "FAQ",
@@ -928,7 +927,6 @@ HUB_UI = {
         "suggest_subject": "Suggest a tool for ",
         "faq_kicker": "Быстрые ответы",
         "side_kicker": "Кратко",
-        "tools_meta": "Инструменты",
         "langs_meta": "Языка",
         "type_tool": "Инструмент",
         "type_faq": "Вопрос",
@@ -1445,6 +1443,18 @@ def hub_js(game_id, lang):
     return "<script>\n" + js + "\n</script>"
 
 
+def tools_meta_label(lang, n):
+    # Stat-card label must agree with the count: "1 Tool" / "5 Tools";
+    # Russian: 1 инструмент, 2–4 инструмента, 5+ инструментов.
+    if lang == "en":
+        return "Tool" if n == 1 else "Tools"
+    if n == 1:
+        return "Инструмент"
+    if n in (2, 3, 4):
+        return "Инструмента"
+    return "Инструментов"
+
+
 def hub_page(game_id, lang):
     c = HUB_COPY[game_id][lang]
     b = HUB_BODY[game_id][lang]
@@ -1477,7 +1487,7 @@ def hub_page(game_id, lang):
         '<nav class="hub-jump" aria-label="%s">%s</nav>'
         % (ui["eyebrow"], c["h1"], c["lede"], ui["cta_tools"], ui["cta_faq"],
            hero["wm"], hero["pill"], hero["h2"], hero["para"],
-           len(tools), ui["tools_meta"], ui["langs_meta"],
+           len(tools), tools_meta_label(lang, len(tools)), ui["langs_meta"],
            ui["jump_label"], jump)
     )
 

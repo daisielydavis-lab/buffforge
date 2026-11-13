@@ -1000,7 +1000,7 @@ h2.sec { font-size: 23px; font-weight: 600; letter-spacing: -.02em; color: var(-
   justify-content: space-between; position: relative; overflow: hidden;
 }
 .hub-stat::after {
-  position: absolute; right: -8px; top: 13px;
+  position: absolute; right: 6px; top: 13px;
   font-weight: 900; line-height: 1; color: rgba(12, 112, 108, .065);
   pointer-events: none;
 }
