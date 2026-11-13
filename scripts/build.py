@@ -88,15 +88,15 @@ HOME_COPY = {
         "featured_label": "Featured",
         "games_h": "Games",
         "games_label": "The roster",
-        "games_intro": 'Games on BuffForge today: <a href="/desktop-pension-squad/">Desktop Pension Squad tools and guides</a>, <a href="/aion-2/">AION 2 tools and guides</a> and <a href="/gta-6/">GTA 6 tools and guides</a>.',
+        "games_intro": 'Games on BuffForge today: <a href="/desktop-pension-squad/">Desktop Pension Squad</a>, <a href="/aion-2/">AION 2</a> and <a href="/gta-6/">GTA 6</a>.',
         "how_h": "How we check every number",
         "how_label": "The method",
         "faq_h": "Frequently asked questions",
         "faq_label": "Questions",
         "faq": [
             ("What is BuffForge?", "A free site of game tools, trackers and calculators. Every number has a source and a review date."),
-            ("Do I need an account?", "No."),
-            ("Is BuffForge official?", "No. BuffForge is an independent fan project, not affiliated with any publisher."),
+            ("Do I need an account?", "No. Everything works without an account or a login — your tracker checkmarks are stored in your own browser only."),
+            ("Is BuffForge official?", "BuffForge is an independent fan project. It is not affiliated with, endorsed by, or sponsored by NCSOFT, Rockstar Games, Take-Two Interactive, detailgames, or storytaco."),
             ("Which games are covered?", "See the Games section. We add a game only when we can source the numbers. AION 2 and GTA 6 were the first; Desktop Pension Squad is the newest addition."),
             ("How do you check numbers?", "Public sources only. Every tool shows its data version, sources, and review date. Corrections are welcome — see About."),
         ],
@@ -121,15 +121,15 @@ HOME_COPY = {
         "featured_label": "Избранное",
         "games_h": "Игры",
         "games_label": "Состав",
-        "games_intro": 'Сейчас на BuffForge: <a href="/ru/desktop-pension-squad/">инструменты и гайды по Desktop Pension Squad</a>, <a href="/ru/aion-2/">инструменты и гайды по AION 2</a> и <a href="/ru/gta-6/">инструменты и гайды по GTA 6</a>.',
+        "games_intro": 'Сейчас на BuffForge: <a href="/ru/desktop-pension-squad/">Desktop Pension Squad</a>, <a href="/ru/aion-2/">AION 2</a> и <a href="/ru/gta-6/">GTA 6</a>.',
         "how_h": "Как мы проверяем каждую цифру",
         "how_label": "Метод",
         "faq_h": "Частые вопросы",
         "faq_label": "Вопросы",
         "faq": [
             ("Что такое BuffForge?", "Бесплатный сайт игровых инструментов, трекеров и калькуляторов. У каждой цифры — источник и дата проверки."),
-            ("Нужна ли регистрация?", "Нет."),
-            ("Это официальный сайт?", "Нет. BuffForge — независимый фанатский проект, не связанный с издателями."),
+            ("Нужна ли регистрация?", "Нет. Всё работает без регистрации — отметки трекера хранятся только в вашем браузере."),
+            ("Это официальный сайт?", "BuffForge — независимый фанатский проект. Сайт не связан с NCSOFT, Rockstar Games, Take-Two Interactive, detailgames и storytaco и не одобрен ими."),
             ("По каким играм есть инструменты?", "Смотрите раздел «Игры». Игру добавляем только когда можем подтвердить цифры. Первыми были AION 2 и GTA 6; Desktop Pension Squad — последняя добавленная."),
             ("Как вы проверяете цифры?", "Только открытые источники. У каждого инструмента видны версия, источники и дата проверки. Исправления приветствуются — см. «О проекте»."),
         ],
@@ -821,7 +821,7 @@ HUB_BODY = {
                 ("When does GTA 6 come out?", "Nov 19, 2026, at local midnight in your store region — see the launch countdown for your time zone."),
                 ("Standard or Ultimate — what is the difference?", "Standard is $79.99 and Ultimate is $99.99 (US MSRP from Take-Two). See the editions comparison for what each one includes."),
                 ("Can I play GTA 6 on PC?", "There is no officially announced PC version, and no official PC system requirements. Do not trust spec tables you see online — they are not from Rockstar."),
-                ("Can I play on PS4 or Xbox One?", "No. GTA 6 launches on PS5 (including Pro) and Xbox Series X|S only."),
+                ("Can I play on PS4 or Xbox One?", "PS4: no. Xbox One: no native version, but playable through Xbox Cloud Gaming from Nov 19 (Xbox Wire, Nov 10, 2026)."),
             ],
             "other_h": "Other games on BuffForge",
             "other": [("Desktop Pension Squad tools and guides", "/desktop-pension-squad/"),
@@ -844,6 +844,7 @@ HUB_BODY = {
                 ("Сколько весит GTA 6?", "Не менее 212 ГБ свободного места по данным PlayStation. Проверьте свою консоль на странице проверки места."),
                 ("Во сколько выйдет GTA 6 19 ноября по Москве?", "Выход — в местную полночь 19 ноября по региону магазина. Точное время для вашего региона — на странице обратного отсчёта."),
                 ("Какие системные требования на ПК?", "Версия для ПК официально не анонсирована, официальных системных требований нет. Таблицы из интернета — не данные Rockstar, мы их не публикуем."),
+                ("Можно ли играть на PS4 или Xbox One?", "PS4: нет. Xbox One: нативной версии нет, но можно играть через Xbox Cloud Gaming с 19 ноября (Xbox Wire, 10 ноября 2026 года)."),
                 ("Можно ли купить GTA 6 в официальном магазине в России?", "По состоянию на ноябрь 2026 года купить игру в российском PlayStation Store или через Microsoft Store в России по официальным каналам нельзя."),
                 ("Standard или Ultimate — что выбрать?", "Standard — $79.99, Ultimate — $99.99 (рекомендованные цены Take-Two в США). Что входит в каждое издание — на странице сравнения."),
             ],
@@ -1594,9 +1595,9 @@ def hub_page(game_id, lang):
 # hubs, the six live tools). The pre-launch Wanted Helper is excluded
 # (not featured), and there are no wiki/guide pages to list.
 NF_HUB_CARDS = {
-    "desktop-pension-squad": ("▦", "fuse or salvage calculator"),
-    "aion-2": ("✦", "daily & weekly tracker"),
-    "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility"),
+    "desktop-pension-squad": ("▦", "fuse or salvage calculator", "калькулятор слияния и разбора"),
+    "aion-2": ("✦", "daily & weekly tracker", "трекер ежедневных и еженедельных заданий"),
+    "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility", "проверка места, обратный отсчёт, издания, совместимость"),
 }
 
 NF_SEARCH_JS = """
@@ -1619,7 +1620,7 @@ NF_SEARCH_JS = """
       ? hits.map(function (i) {
           return '<a href="' + i.href + '"><span>' + i.name + '</span><small>' + i.type + ' \\u2197</small></a>';
         }).join('')
-      : '<p>No matches. Try \\u201CGTA\\u201D, \\u201Ctracker\\u201D, or \\u201Ccalculator\\u201D.</p>';
+      : '<p>__NO_MATCHES__</p>';
     results.classList.add('show');
   }
   input.addEventListener('input', render);
@@ -1633,74 +1634,139 @@ NF_SEARCH_JS = """
 """
 
 
-def not_found_entries():
+NF_COPY = {
+    "en": {
+        "home_name": "BuffForge — home", "home_type": "Page",
+        "home_key": "home buffforge game tools trackers calculators",
+        "about_name": "About BuffForge", "about_type": "Info",
+        "about_key": "about mission numbers sources contact feedback",
+        "hub_type": "Game hub", "tool_type": "Tool",
+        "no_matches": "No matches. Try “GTA”, “tracker”, or “calculator”.",
+        "eyebrow": "Lost in the game world?",
+        "h1": "Looks like a wrong turn.",
+        "lead": ("This page might have moved, or the link may be broken. "
+                 "Your next useful tool is only a click away."),
+        "back": "↖ Back to home", "about_btn": "About BuffForge ↗",
+        "other_lang": 'Russian version: <a href="/ru/">BuffForge на русском</a>.',
+        "search_ph": "Search tools, hubs, and pages...",
+        "search_label": "Search BuffForge", "search_btn": "Search →",
+        "sec_eyebrow": "Find your way", "sec_h2": "Where would you like to go?",
+        "sec_sub": "Pick up where you left off, or discover something useful.",
+        "open_hub": "Open the hub ↗",
+        "banner_h": "Something not working?",
+        "banner_p": "Broken links and outdated pages happen.",
+        "banner_btn": "Get in touch ↗",
+        "title": "Page Not Found — BuffForge",
+        "desc": "This page does not exist on BuffForge.",
+    },
+    "ru": {
+        "home_name": "BuffForge — главная", "home_type": "Страница",
+        "home_key": "главная buffforge игровые инструменты трекеры калькуляторы",
+        "about_name": "О проекте BuffForge", "about_type": "Инфо",
+        "about_key": "о проекте миссия цифры источники контакты обратная связь",
+        "hub_type": "Хаб игры", "tool_type": "Инструмент",
+        "no_matches": "Ничего не найдено. Попробуйте «GTA», «трекер» или «калькулятор».",
+        "eyebrow": "Заблудились в игровом мире?",
+        "h1": "Похоже, вы свернули не туда.",
+        "lead": ("Возможно, страница переехала или ссылка сломана. "
+                 "Нужный инструмент — в одном клике."),
+        "back": "↖ На главную", "about_btn": "О проекте ↗",
+        "other_lang": 'English version: <a href="/">BuffForge in English</a>.',
+        "search_ph": "Искать инструменты, хабы и страницы...",
+        "search_label": "Поиск по BuffForge", "search_btn": "Найти →",
+        "sec_eyebrow": "Найдите дорогу", "sec_h2": "Куда вы хотите попасть?",
+        "sec_sub": "Продолжите с того места, где остановились, или найдите что-то полезное.",
+        "open_hub": "Открыть хаб ↗",
+        "banner_h": "Что-то не работает?",
+        "banner_p": "Сломанные ссылки и устаревшие страницы случаются.",
+        "banner_btn": "Напишите нам ↗",
+        "title": "Страница не найдена — BuffForge",
+        "desc": "Такой страницы на BuffForge нет.",
+    },
+}
+
+
+def not_found_entries(lang):
+    c = NF_COPY[lang]
+    prefix = "" if lang == "en" else "ru/"
     entries = [
-        {"name": "BuffForge — home", "type": "Page", "href": "/",
-         "key": "home buffforge game tools trackers calculators"},
-        {"name": "About BuffForge", "type": "Info", "href": "/about/",
-         "key": "about mission numbers sources contact feedback"},
+        {"name": c["home_name"], "type": c["home_type"], "href": "/" + prefix,
+         "key": c["home_key"]},
+        {"name": c["about_name"], "type": c["about_type"], "href": "/%sabout/" % prefix,
+         "key": c["about_key"]},
     ]
     for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
         live = [t for t in tools_for(gid) if t["status"] == "live"]
         entries.append({
-            "name": HUB_COPY[gid]["en"]["h1"], "type": "Game hub",
-            "href": "/%s/" % gid,
-            "key": (GAMES_DATA[gid]["name"]["en"] + " hub tools guides "
-                    + " ".join(t["title"]["en"] for t in live)).lower(),
+            "name": HUB_COPY[gid][lang]["h1"], "type": c["hub_type"],
+            "href": "/%s%s/" % (prefix, gid),
+            "key": (GAMES_DATA[gid]["name"][lang] + " hub tools guides "
+                    + " ".join(t["title"][lang] for t in live)).lower(),
         })
         for t in live:
             entries.append({
-                "name": t["title"]["en"], "type": "Tool",
-                "href": "/%s/%s/" % (gid, t["slug"]),
-                "key": (t["title"]["en"] + " " + t["blurb"]["en"]).lower(),
+                "name": t["title"][lang], "type": c["tool_type"],
+                "href": "/%s%s/%s/" % (prefix, gid, t["slug"]),
+                "key": (t["title"][lang] + " " + t["blurb"][lang]).lower(),
             })
     return entries
 
 
-def not_found_page():
+def not_found_page(lang="en"):
+    c = NF_COPY[lang]
+    prefix = "" if lang == "en" else "ru/"
     cards = ""
     for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
         live = [t for t in tools_for(gid) if t["status"] == "live"]
         n = len(live)
-        icon, labels = NF_HUB_CARDS[gid]
-        line = "%s — %d live tool%s" % (labels, n, "" if n == 1 else "s")
+        icon, labels_en, labels_ru = NF_HUB_CARDS[gid]
+        labels = labels_en if lang == "en" else labels_ru
+        if lang == "en":
+            line = "%s — %d live tool%s" % (labels, n, "" if n == 1 else "s")
+        else:
+            word = ("инструмент" if n == 1 else
+                    "инструмента" if n in (2, 3, 4) else "инструментов")
+            line = "%s — %d %s" % (labels, n, word)
         cards += (
-            '<a class="nf-card" href="/%s/"><div class="nf-icon">%s</div>'
-            '<h3>%s</h3><p>%s.</p><span>Open the hub &nbsp;↗</span></a>'
-            % (gid, icon, GAMES_DATA[gid]["name"]["en"], line))
+            '<a class="nf-card" href="/%s%s/"><div class="nf-icon">%s</div>'
+            '<h3>%s</h3><p>%s.</p><span>%s</span></a>'
+            % (prefix, gid, icon, GAMES_DATA[gid]["name"][lang], line, c["open_hub"]))
     script = ("<script>\n" + NF_SEARCH_JS.replace(
-        "__ENTRIES__", json.dumps(not_found_entries(), ensure_ascii=False)) + "\n</script>")
+        "__ENTRIES__", json.dumps(not_found_entries(lang), ensure_ascii=False)).replace(
+        "__NO_MATCHES__", c["no_matches"]) + "\n</script>")
     body = (
         '<main id="main" class="wrap">%s'
-        '<section class="nf-hero"><p class="nf-eyebrow">Lost in the game world?</p>'
+        '<section class="nf-hero"><p class="nf-eyebrow">%s</p>'
         '<div class="nf-num" aria-hidden="true">404</div>'
-        '<h1>Looks like a wrong turn.</h1>'
-        '<p class="nf-lead">This page might have moved, or the link may be broken. '
-        'Your next useful tool is only a click away.</p>'
-        '<div class="nf-actions"><a class="btn btn-primary" href="/">↖ &nbsp;Back to home</a>'
-        '<a class="btn btn-secondary" href="/about/">About BuffForge &nbsp;↗</a></div>'
-        '<p class="nf-ru">Russian version: <a href="/ru/">BuffForge на русском</a>.</p>'
+        '<h1>%s</h1>'
+        '<p class="nf-lead">%s</p>'
+        '<div class="nf-actions"><a class="btn btn-primary" href="/%s">%s</a>'
+        '<a class="btn btn-secondary" href="/%sabout/">%s</a></div>'
+        '<p class="nf-ru">%s</p>'
         '<form class="nf-search" id="nf-search-form" role="search">'
         '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#829993" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>'
-        '<input type="search" id="nf-query" placeholder="Search tools, hubs, and pages..." aria-label="Search BuffForge" autocomplete="off">'
-        '<button class="btn btn-primary" type="submit">Search →</button></form>'
+        '<input type="search" id="nf-query" placeholder="%s" aria-label="%s" autocomplete="off">'
+        '<button class="btn btn-primary" type="submit">%s</button></form>'
         '<div class="nf-results" id="nf-results" aria-live="polite"></div></section>'
         '<section class="nf-section"><div class="about-sec-top"><div>'
-        '<p class="about-eyebrow">Find your way</p><h2>Where would you like to go?</h2>'
-        '<p class="about-sub">Pick up where you left off, or discover something useful.</p></div></div>'
+        '<p class="about-eyebrow">%s</p><h2>%s</h2>'
+        '<p class="about-sub">%s</p></div></div>'
         '<div class="nf-cards">%s</div></section>'
-        '<aside class="nf-banner"><div><h3>Something not working?</h3>'
-        '<p>Broken links and outdated pages happen.</p></div>'
-        '<a class="btn btn-secondary" href="/about/#contact">Get in touch ↗</a></aside></main>'
-        % (crumbs_html("en", [("404", None)]), cards)
+        '<aside class="nf-banner"><div><h3>%s</h3>'
+        '<p>%s</p></div>'
+        '<a class="btn btn-secondary" href="/%sabout/#contact">%s</a></aside></main>'
+        % (crumbs_html(lang, [("404", None)]), c["eyebrow"], c["h1"], c["lead"],
+           prefix, c["back"], prefix, c["about_btn"], c["other_lang"],
+           c["search_ph"], c["search_label"], c["search_btn"],
+           c["sec_eyebrow"], c["sec_h2"], c["sec_sub"], cards,
+           c["banner_h"], c["banner_p"], prefix, c["banner_btn"])
     )
-    # 404 page: no hreflang pair, noindex, canonical to itself.
-    html = ('<!DOCTYPE html>\n<html lang="en">\n<head>\n%s\n</head>\n<body>\n%s\n%s\n%s\n%s\n</body>\n</html>\n'
-            % (head("en", "Page Not Found — BuffForge",
-                    "This page does not exist on BuffForge.",
-                    "/404.html", None, None),
-               header_html("en", "/404.html", "/ru/"),
-               body, footer_html("en", ("desktop-pension-squad", "aion-2", "gta-6")), script))
+    # 404 page: no hreflang pair, noindex, no canonical.
+    switch = "/ru/" if lang == "en" else "/"
+    html = ('<!DOCTYPE html>\n<html lang="%s">\n<head>\n%s\n</head>\n<body>\n%s\n%s\n%s\n%s\n</body>\n</html>\n'
+            % (lang, head(lang, c["title"], c["desc"], None, None, None),
+               header_html(lang, "/%s404.html" % prefix, switch),
+               body, footer_html(lang, ("desktop-pension-squad", "aion-2", "gta-6")), script))
     return html
 
 
@@ -1746,7 +1812,8 @@ def main():
     for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
         write("%s/index.html" % gid, hub_page(gid, "en"))
         write("ru/%s/index.html" % gid, hub_page(gid, "ru"))
-    write("404.html", not_found_page())
+    write("404.html", not_found_page("en"))
+    write("ru/404.html", not_found_page("ru"))
     write("sitemap.xml", sitemap_xml())
     write("robots.txt", "User-agent: *\nAllow: /\nSitemap: https://buffforge.com/sitemap.xml\n")
     write("_headers",

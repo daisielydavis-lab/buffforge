@@ -80,19 +80,26 @@ def _esc(s):
              .replace(">", "&gt;").replace('"', "&quot;"))
 
 
-def head(lang, title, desc, canon_path, alternates=None, jsonld=None):
-    """alternates: dict like {'en': '/path/', 'ru': '/ru/path/'} for real counterparts only."""
+def head(lang, title, desc, canon_path=None, alternates=None, jsonld=None):
+    """alternates: dict like {'en': '/path/', 'ru': '/ru/path/'} for real counterparts only.
+    canon_path=None omits the canonical link and og:url (used by the 404 page)."""
     lines = [
         '<meta charset="UTF-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
         '<meta name="robots" content="noindex">',
         '<title>%s</title>' % _esc(title),
         '<meta name="description" content="%s">' % _esc(desc),
-        '<link rel="canonical" href="%s%s">' % (BASE, canon_path),
+    ]
+    if canon_path is not None:
+        lines.append('<link rel="canonical" href="%s%s">' % (BASE, canon_path))
+    lines += [
         '<meta property="og:title" content="%s">' % _esc(title),
         '<meta property="og:description" content="%s">' % _esc(desc),
         '<meta property="og:type" content="website">',
-        '<meta property="og:url" content="%s%s">' % (BASE, canon_path),
+    ]
+    if canon_path is not None:
+        lines.append('<meta property="og:url" content="%s%s">' % (BASE, canon_path))
+    lines += [
         '<meta property="og:image" content="%s/assets/og.png">' % BASE,
         '<meta property="og:image:width" content="1200">',
         '<meta property="og:image:height" content="630">',
@@ -108,11 +115,17 @@ def head(lang, title, desc, canon_path, alternates=None, jsonld=None):
     if jsonld:
         lines.append('<script type="application/ld+json">%s</script>' % json.dumps(jsonld, ensure_ascii=False))
     # Google Tag Manager (user request 2026-11-13; container GTM-PQNKG4CV).
-    lines.append('<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PQNKG4CV"></script>')
+    # Loads ONLY on buffforge.com — never on preview/staging hosts. No inline
+    # gtag config: GA4 data flows only if a GA4 tag is configured inside the
+    # GTM container itself.
     lines.append('<script>\n  window.dataLayer = window.dataLayer || [];\n'
-                 '  function gtag(){dataLayer.push(arguments);}\n'
-                 "  gtag('js', new Date());\n"
-                 "  gtag('config', 'G-MV0P0LF5YM');\n</script>")
+                 '  (function () {\n'
+                 "    if (window.location.hostname !== 'buffforge.com') return;\n"
+                 '    var s = document.createElement("script");\n'
+                 '    s.async = true;\n'
+                 '    s.src = "https://www.googletagmanager.com/gtm.js?id=GTM-PQNKG4CV";\n'
+                 '    document.head.appendChild(s);\n'
+                 '  })();\n</script>')
     return "\n".join(lines)
 
 
