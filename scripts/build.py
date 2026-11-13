@@ -18,6 +18,7 @@ then add the tool pages. No HTML copy-paste needed for home / hubs.
 import json
 import os
 import sys
+from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from shell import (BASE, EMAIL, GAMES, REVIEWED_EN, REVIEWED_RU, breadcrumb_jsonld,
@@ -379,19 +380,271 @@ ABOUT_COPY = {
 }
 
 
+# About UI strings for the demo-style About layout (hero, statement,
+# three pillars, method, principles, contact). ABOUT_COPY (Title / H1 /
+# lede / description / section texts) is unchanged; the new layout reuses
+# those section texts (see the mapping in about_page) and adds only
+# chrome strings here. No new facts: the statement and method paragraphs
+# are the user-supplied demo copy, translated for RU.
+ABOUT_UI = {
+    "en": {
+        "eyebrow": "About BuffForge",
+        "art_title": "Everything in one game hub",
+        "art_cards": [
+            ("▦", "Interactive tools", "Plan, compare, calculate"),
+            ("◇", "Practical guides", "Clear answers, when sources allow"),
+            ("▤", "Game knowledge", "Structured references, in progress"),
+        ],
+        "cta_hubs": "Explore game hubs ↗",
+        "cta_how": "How it works ↓",
+        "statement_kicker": "Why we are building it",
+        "statement_h": "A home for the useful side of gaming.",
+        "statement_p": ("Game information is often scattered across spreadsheets, forum replies, "
+                        "wikis, videos, and disconnected tools. BuffForge is designed around a simpler "
+                        "idea: start with a game, then bring its most useful resources together in a "
+                        "consistent, easy-to-navigate home."),
+        "offer_kicker": "Built around real player needs",
+        "offer_h": "Three ways to find your answer",
+        "offer_sub": "Each game hub can combine the right mix of interactive tools and reference content.",
+        "offers": [
+            {"icon": "▦", "title": "Tools & calculators",
+             "body": ("Small, focused utilities that help you work something out instead of reading "
+                      "through a long explanation. Every tool shows its data version, its sources, and "
+                      "the date it was last reviewed, so you can check our work."),
+             "items": "CALCULATORS · TRACKERS · COMPARISONS",
+             "status": "Live", "cls": "live", "note": None},
+            {"icon": "▤", "title": "Game wiki",
+             "body": ("Organized reference pages for characters, weapons, skills, locations, systems "
+                      "and other game-specific details — built only from verified sources."),
+             "items": "CHARACTERS · BUILDS · DATABASES",
+             "status": "In progress", "cls": "wip",
+             "note": "No wiki pages published yet — the first ones appear when their facts are verified."},
+            {"icon": "◇", "title": "Guides & explainers",
+             "body": ("Clear, searchable articles for common questions, game mechanics, setup, "
+                      "and troubleshooting."),
+             "items": "HOW-TOS · WALKTHROUGHS · FAQS",
+             "status": "In progress", "cls": "wip",
+             "note": "No guides published yet. Guides appear only when we can source the numbers."},
+        ],
+        "method_kicker": "How BuffForge works",
+        "method_h": "One game. One connected hub.",
+        "method_p": ("Instead of treating every article and calculator as an isolated page, "
+                     "BuffForge groups resources by game. That makes it easier to move between a "
+                     "quick answer and a practical tool without starting your search over."),
+        "method_label": "GAME-FIRST STRUCTURE",
+        "method_steps": [
+            ("Choose a game", "Start at a dedicated hub for the title you play."),
+            ("Find the right resource", "Explore the tools and reference content."),
+            ("Use it and keep exploring", "Move naturally between related answers, calculators and references."),
+        ],
+        "principles_kicker": "Our approach",
+        "principles_h": "Useful by design",
+        "principles_sub": "The principles we want every BuffForge game hub to follow.",
+        "principles": [
+            ("01 / CLARITY", "Answers before noise",
+             "Readable layouts, focused tools and sensible navigation, without burying the information people came to find."),
+            ("02 / ACCURACY", "Separate facts from estimates",
+             "Official announcements first. Community trackers are cited as community sources, never presented as official statements. If a number turns out to be wrong, we fix the page and update the review date."),
+            ("03 / RELEVANCE", "Built for each game",
+             "Different games need different utilities. The hub structure stays familiar, while the content reflects real gameplay needs. We start with one tool per game and expand only when real players use it."),
+        ],
+        "affil": ("BuffForge is an independent fan project and is not affiliated with NCSOFT, "
+                  "Rockstar Games, Take-Two Interactive, detailgames, or storytaco."),
+        "cta_kicker": "Help us make it better",
+        "cta_h": "Have a useful tool idea?",
+        "cta_p": ("We're interested in problems that could be solved with a small calculator, "
+                  "a clearer reference page, or a better game guide."),
+        "cta_report": "Report a mistake ↗",
+        "cta_suggest": "Suggest a tool ↗",
+        "report_subject": "Wrong number on BuffForge",
+        "suggest_subject": "Suggest a tool for BuffForge",
+    },
+    "ru": {
+        "eyebrow": "О проекте BuffForge",
+        "art_title": "Всё в одном хабе игры",
+        "art_cards": [
+            ("▦", "Интерактивные инструменты", "Планируйте, сравнивайте, считайте"),
+            ("◇", "Практичные гайды", "Понятные ответы, когда есть источники"),
+            ("▤", "Знания об игре", "Структурированные справки — в работе"),
+        ],
+        "cta_hubs": "Смотреть хабы игр ↗",
+        "cta_how": "Как это работает ↓",
+        "statement_kicker": "Зачем мы это строим",
+        "statement_h": "Дом для полезной стороны игр.",
+        "statement_p": ("Информация об играх часто разбросана по таблицам, ответам на форумах, вики, "
+                        "видео и разрозненным инструментам. В основе BuffForge — простая идея: начать "
+                        "с игры и собрать её самые полезные ресурсы в одном удобном месте."),
+        "offer_kicker": "С учётом реальных нужд игроков",
+        "offer_h": "Три способа найти ответ",
+        "offer_sub": "Каждый хаб игры сочетает интерактивные инструменты и справочные материалы.",
+        "offers": [
+            {"icon": "▦", "title": "Инструменты и калькуляторы",
+             "body": ("Небольшие точные утилиты, которые помогают посчитать и проверить, а не читать "
+                      "длинное объяснение. У каждого инструмента указаны версия данных, источники и "
+                      "дата последней проверки — чтобы вы могли перепроверить нашу работу."),
+             "items": "КАЛЬКУЛЯТОРЫ · ТРЕКЕРЫ · СРАВНЕНИЯ",
+             "status": "Доступно", "cls": "live", "note": None},
+            {"icon": "▤", "title": "Вики по игре",
+             "body": ("Упорядоченные справки по персонажам, оружию, навыкам, локациям, системам "
+                      "и другим деталям игры — только по проверенным источникам."),
+             "items": "ПЕРСОНАЖИ · СБОРКИ · БАЗЫ ДАННЫХ",
+             "status": "В работе", "cls": "wip",
+             "note": "Пока ни одной страницы вики не опубликовано — первые появятся, когда их факты будут проверены."},
+            {"icon": "◇", "title": "Гайды и объяснения",
+             "body": ("Понятные статьи с ответами на частые вопросы, по механикам игры, настройке "
+                      "и решению проблем."),
+             "items": "КАК СДЕЛАТЬ · ПРОХОЖДЕНИЯ · ВОПРОСЫ",
+             "status": "В работе", "cls": "wip",
+             "note": "Пока гайдов нет. Гайды появляются, только когда мы можем проверить цифры."},
+        ],
+        "method_kicker": "Как работает BuffForge",
+        "method_h": "Одна игра. Один связанный хаб.",
+        "method_p": ("Вместо того чтобы держать каждую статью и калькулятор отдельной страницей, "
+                     "BuffForge группирует ресурсы по играм. Так проще переходить от быстрого ответа "
+                     "к практичному инструменту, не начиная поиск заново."),
+        "method_label": "СТРУКТУРА «СНАЧАЛА ИГРА»",
+        "method_steps": [
+            ("Выберите игру", "Начните с хаба игры, в которую играете."),
+            ("Найдите нужный ресурс", "Изучите инструменты и справочные материалы."),
+            ("Пользуйтесь и изучайте дальше", "Свободно переходите между ответами, калькуляторами и справками."),
+        ],
+        "principles_kicker": "Наш подход",
+        "principles_h": "Польза по замыслу",
+        "principles_sub": "Принципы, которым следует каждый хаб BuffForge.",
+        "principles": [
+            ("01 / ЯСНОСТЬ", "Сначала ответы, потом шум",
+             "Понятная вёрстка, точные инструменты и удобная навигация — информация, за которой пришли, не теряется в шуме."),
+            ("02 / ТОЧНОСТЬ", "Факты отдельно, оценки отдельно",
+             "Сначала — официальные объявления. Данные трекеров сообщества указываются как источники сообщества, а не как официальные заявления. Если цифра оказалась неверной, мы исправляем страницу и обновляем дату проверки."),
+            ("03 / АКТУАЛЬНОСТЬ", "Под каждую игру",
+             "Разным играм нужны разные инструменты. Структура хаба привычна, а содержимое отражает реальные нужды игроков. Начинаем с одного инструмента на игру и расширяемся, только когда им реально пользуются."),
+        ],
+        "affil": ("BuffForge — независимый фанатский проект, не связанный с NCSOFT, "
+                  "Rockstar Games, Take-Two Interactive, detailgames и storytaco."),
+        "cta_kicker": "Помогите сделать лучше",
+        "cta_h": "Есть идея полезного инструмента?",
+        "cta_p": ("Нам интересны задачи, которые можно решить небольшим калькулятором, "
+                  "более понятной справкой или хорошим гайдом."),
+        "cta_report": "Сообщить об ошибке ↗",
+        "cta_suggest": "Предложить инструмент ↗",
+        "report_subject": "Неверная цифра на BuffForge",
+        "suggest_subject": "Предложение инструмента для BuffForge",
+    },
+}
+
+
 def about_page(lang):
     c = ABOUT_COPY[lang]
-    secs = "".join(
-        '<section class="block prose"><h2 class="sec">%s</h2><p>%s</p></section>' % (h, p)
-        for h, p in c["sections"])
+    ui = ABOUT_UI[lang]
+    # Existing ABOUT_COPY section texts, reused (indices match the list):
+    # [0] What BuffForge is -> hero paragraph; [2] What we do not do ->
+    # its own section; [4] Report a mistake -> contact note;
+    # [5] RU-only "Почему есть русская версия" -> RU page only.
+    # "What we do" and "How we check our numbers" are distilled into the
+    # Tools offer card and the Accuracy principle (see ABOUT_UI).
+    what = c["sections"][0][1]
+    notdo_h, notdo_p = c["sections"][2]
+    report_p = c["sections"][4][1]
+    ru_only = c["sections"][5] if lang == "ru" and len(c["sections"]) > 5 else None
+    n_live = len([t for t in TOOLS if t["status"] == "live"])
+    n_games = len(SITE["games"])
+    home_url = "/" if lang == "en" else "/ru/"
+
+    art_cards = "".join(
+        '<div class="about-art-card %s"><div class="about-art-symbol">%s</div>'
+        '<h3>%s</h3><p>%s</p></div>' % (cls, sym, t, s)
+        for cls, (sym, t, s) in zip(("one", "two", "three"), ui["art_cards"]))
+    hero = (
+        '<section class="about-hero"><div class="about-intro">'
+        '<p class="about-eyebrow">%s</p><h1>%s</h1>'
+        '<p class="about-lede">%s</p><p class="about-para">%s</p>'
+        '<div class="about-cta-row"><a class="btn btn-primary" href="%s">%s</a>'
+        '<a class="btn btn-secondary" href="#how-it-works">%s</a></div></div>'
+        '<div class="about-art" aria-hidden="true"><div class="about-art-glow"></div>'
+        '<div class="about-art-title">%s</div>%s</div></section>'
+        % (ui["eyebrow"], c["h1"], c["lede"], what, home_url,
+           ui["cta_hubs"], ui["cta_how"], ui["art_title"], art_cards)
+    )
+    statement = (
+        '<section class="about-statement"><div><p class="about-eyebrow">%s</p>'
+        '<h2>%s</h2></div><p>%s</p></section>'
+        % (ui["statement_kicker"], ui["statement_h"], ui["statement_p"])
+    )
+
+    def offer_card(o):
+        if o["note"] is None:
+            note = ("%d live tools · %d games" % (n_live, n_games) if lang == "en"
+                    else "%d инструментов · %d игры" % (n_live, n_games))
+        else:
+            note = o["note"]
+        return (
+            '<article class="about-offer-card"><span class="about-status %s">%s</span>'
+            '<div class="about-offer-icon">%s</div><h3>%s</h3><p>%s</p>'
+            '<p class="about-status-note">%s</p>'
+            '<div class="about-item-list">%s</div></article>'
+            % (o["cls"], o["status"], o["icon"], o["title"], o["body"], note, o["items"]))
+    offers = "".join(offer_card(o) for o in ui["offers"])
+    offer_sec = (
+        '<section class="about-section" id="what-we-build"><div class="about-sec-top"><div>'
+        '<p class="about-eyebrow">%s</p><h2>%s</h2><p class="about-sub">%s</p></div></div>'
+        '<div class="about-offer-grid">%s</div></section>'
+        % (ui["offer_kicker"], ui["offer_h"], ui["offer_sub"], offers)
+    )
+
+    steps = "".join(
+        '<div class="about-method-step"><span class="about-stepnum">%02d</span>'
+        '<div><h3>%s</h3><p>%s</p></div></div>' % (i + 1, t, p)
+        for i, (t, p) in enumerate(ui["method_steps"]))
+    method = (
+        '<section class="about-section" id="how-it-works"><div class="about-method">'
+        '<div class="about-method-left"><p class="about-eyebrow">%s</p><h2>%s</h2><p>%s</p>'
+        '<span class="about-label">%s</span></div>'
+        '<div class="about-method-list">%s</div></div></section>'
+        % (ui["method_kicker"], ui["method_h"], ui["method_p"], ui["method_label"], steps)
+    )
+
+    prins = "".join(
+        '<div class="about-principle"><span>%s</span><h3>%s</h3><p>%s</p></div>' % (k, t, p)
+        for k, t, p in ui["principles"])
+    principles = (
+        '<section class="about-section" id="principles"><div class="about-sec-top"><div>'
+        '<p class="about-eyebrow">%s</p><h2>%s</h2><p class="about-sub">%s</p></div></div>'
+        '<div class="about-principles">%s</div></section>'
+        % (ui["principles_kicker"], ui["principles_h"], ui["principles_sub"], prins)
+    )
+
+    notdo_sec = (
+        '<section class="about-section"><div class="prose"><h2 class="about-h2">%s</h2>'
+        '<p>%s</p></div></section>' % (notdo_h, notdo_p)
+    )
+    ru_sec = ""
+    if ru_only:
+        ru_sec = (
+            '<section class="about-section"><div class="prose"><h2 class="about-h2">%s</h2>'
+            '<p>%s</p></div></section>' % ru_only)
+
+    report_mailto = "mailto:%s?subject=%s" % (EMAIL, quote(ui["report_subject"]))
+    suggest_mailto = "mailto:%s?subject=%s" % (EMAIL, quote(ui["suggest_subject"]))
+    cta = (
+        '<section class="about-cta" id="contact"><div>'
+        '<p class="about-eyebrow">%s</p><h2>%s</h2><p>%s</p>'
+        '<p class="about-contact-note">%s</p></div>'
+        '<div class="about-cta-btns"><a class="btn btn-primary" href="%s">%s</a>'
+        '<a class="btn btn-secondary" href="%s">%s</a></div></section>'
+        % (ui["cta_kicker"], ui["cta_h"], ui["cta_p"], report_p,
+           suggest_mailto, ui["cta_suggest"], report_mailto, ui["cta_report"])
+    )
+
     body = (
-        '<main id="main" class="wrap narrow">%s'
-        '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>%s</main>'
-        % (crumbs_html(lang, [(c["h1"], None)]), c["h1"], c["lede"], secs)
+        '<main id="main" class="wrap">%s%s%s%s%s%s%s%s<p class="about-affil">%s</p>%s</main>'
+        % (crumbs_html(lang, [(c["h1"], None)]),
+           hero, statement, offer_sec, method, principles, notdo_sec, ru_sec,
+           ui["affil"], cta)
     )
     canon = "/about/" if lang == "en" else "/ru/about/"
     alt = {"en": "/about/", "ru": "/ru/about/"}
-    jl = breadcrumb_jsonld(lang, [(HOME_COPY[lang]["games_h"] if False else ("Home" if lang == "en" else "Главная"), "/" if lang == "en" else "/ru/"), (c["h1"], canon)])
+    jl = breadcrumb_jsonld(lang, [(("Home" if lang == "en" else "Главная"),
+                                   "/" if lang == "en" else "/ru/"), (c["h1"], canon)])
     return page(lang, c["title"], c["desc"], canon, alt, body, jsonld=jl)
 
 
@@ -1327,24 +1580,117 @@ def hub_page(game_id, lang):
 
 
 # ---------------------------------------------------------------- 404
+# Search index for the 404 page: live pages only (home, about, the three
+# hubs, the six live tools). The pre-launch Wanted Helper is excluded
+# (not featured), and there are no wiki/guide pages to list.
+NF_HUB_CARDS = {
+    "desktop-pension-squad": ("▦", "fuse or salvage calculator"),
+    "aion-2": ("✦", "daily & weekly tracker"),
+    "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility"),
+}
+
+NF_SEARCH_JS = """
+(function () {
+  var DATA = __ENTRIES__;
+  var input = document.getElementById('nf-query');
+  var results = document.getElementById('nf-results');
+  var form = document.getElementById('nf-search-form');
+  function render() {
+    var q = input.value.trim().toLowerCase();
+    if (!q) {
+      results.classList.remove('show');
+      results.innerHTML = '';
+      return;
+    }
+    var hits = DATA.filter(function (item) {
+      return (item.name + ' ' + item.key).toLowerCase().indexOf(q) !== -1;
+    });
+    results.innerHTML = hits.length
+      ? hits.map(function (i) {
+          return '<a href="' + i.href + '"><span>' + i.name + '</span><small>' + i.type + ' \\u2197</small></a>';
+        }).join('')
+      : '<p>No matches. Try \\u201CGTA\\u201D, \\u201Ctracker\\u201D, or \\u201Ccalculator\\u201D.</p>';
+    results.classList.add('show');
+  }
+  input.addEventListener('input', render);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    render();
+    var first = results.querySelector('a');
+    if (first) location.href = first.href;
+  });
+})();
+"""
+
+
+def not_found_entries():
+    entries = [
+        {"name": "BuffForge — home", "type": "Page", "href": "/",
+         "key": "home buffforge game tools trackers calculators"},
+        {"name": "About BuffForge", "type": "Info", "href": "/about/",
+         "key": "about mission numbers sources contact feedback"},
+    ]
+    for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
+        live = [t for t in tools_for(gid) if t["status"] == "live"]
+        entries.append({
+            "name": HUB_COPY[gid]["en"]["h1"], "type": "Game hub",
+            "href": "/%s/" % gid,
+            "key": (GAMES_DATA[gid]["name"]["en"] + " hub tools guides "
+                    + " ".join(t["title"]["en"] for t in live)).lower(),
+        })
+        for t in live:
+            entries.append({
+                "name": t["title"]["en"], "type": "Tool",
+                "href": "/%s/%s/" % (gid, t["slug"]),
+                "key": (t["title"]["en"] + " " + t["blurb"]["en"]).lower(),
+            })
+    return entries
+
+
 def not_found_page():
+    cards = ""
+    for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
+        live = [t for t in tools_for(gid) if t["status"] == "live"]
+        n = len(live)
+        icon, labels = NF_HUB_CARDS[gid]
+        line = "%s — %d live tool%s" % (labels, n, "" if n == 1 else "s")
+        cards += (
+            '<a class="nf-card" href="/%s/"><div class="nf-icon">%s</div>'
+            '<h3>%s</h3><p>%s.</p><span>Open the hub &nbsp;↗</span></a>'
+            % (gid, icon, GAMES_DATA[gid]["name"]["en"], line))
+    script = ("<script>\n" + NF_SEARCH_JS.replace(
+        "__ENTRIES__", json.dumps(not_found_entries(), ensure_ascii=False)) + "\n</script>")
     body = (
-        '<main id="main" class="wrap narrow">'
-        '<h1 class="page-h1">Page not found</h1>'
-        '<div class="prose"><p>This page does not exist on BuffForge. It may have moved, or the address was typed wrong.</p>'
-        '<p><a href="/">Go to the BuffForge home page</a> or pick a game:</p>'
-        '<ul><li><a href="/desktop-pension-squad/">Desktop Pension Squad</a> — fuse or salvage calculator</li>'
-        '<li><a href="/aion-2/">AION 2</a> — daily &amp; weekly tracker</li>'
-        '<li><a href="/gta-6/">GTA 6</a> — storage check, launch countdown, editions, compatibility</li></ul>'
-        '<p>Russian version: <a href="/ru/">BuffForge на русском</a>.</p></div></main>'
+        '<main id="main" class="wrap">%s'
+        '<section class="nf-hero"><p class="nf-eyebrow">Lost in the game world?</p>'
+        '<div class="nf-num" aria-hidden="true">404</div>'
+        '<h1>Looks like a wrong turn.</h1>'
+        '<p class="nf-lead">This page might have moved, or the link may be broken. '
+        'Your next useful tool is only a click away.</p>'
+        '<div class="nf-actions"><a class="btn btn-primary" href="/">↖ &nbsp;Back to home</a>'
+        '<a class="btn btn-secondary" href="/about/">About BuffForge &nbsp;↗</a></div>'
+        '<p class="nf-ru">Russian version: <a href="/ru/">BuffForge на русском</a>.</p>'
+        '<form class="nf-search" id="nf-search-form" role="search">'
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#829993" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>'
+        '<input type="search" id="nf-query" placeholder="Search tools, hubs, and pages..." aria-label="Search BuffForge" autocomplete="off">'
+        '<button class="btn btn-primary" type="submit">Search →</button></form>'
+        '<div class="nf-results" id="nf-results" aria-live="polite"></div></section>'
+        '<section class="nf-section"><div class="about-sec-top"><div>'
+        '<p class="about-eyebrow">Find your way</p><h2>Where would you like to go?</h2>'
+        '<p class="about-sub">Pick up where you left off, or discover something useful.</p></div></div>'
+        '<div class="nf-cards">%s</div></section>'
+        '<aside class="nf-banner"><div><h3>Something not working?</h3>'
+        '<p>Broken links and outdated pages happen.</p></div>'
+        '<a class="btn btn-secondary" href="/about/#contact">Get in touch ↗</a></aside></main>'
+        % (crumbs_html("en", [("404", None)]), cards)
     )
     # 404 page: no hreflang pair, noindex, canonical to itself.
-    html = ('<!DOCTYPE html>\n<html lang="en">\n<head>\n%s\n</head>\n<body>\n%s\n%s\n%s\n</body>\n</html>\n'
+    html = ('<!DOCTYPE html>\n<html lang="en">\n<head>\n%s\n</head>\n<body>\n%s\n%s\n%s\n%s\n</body>\n</html>\n'
             % (head("en", "Page Not Found — BuffForge",
                     "This page does not exist on BuffForge.",
                     "/404.html", None, None),
                header_html("en", "/404.html", "/ru/"),
-               body, footer_html("en", ("desktop-pension-squad", "aion-2", "gta-6"))))
+               body, footer_html("en", ("desktop-pension-squad", "aion-2", "gta-6")), script))
     return html
 
 
