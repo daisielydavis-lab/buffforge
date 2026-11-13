@@ -154,8 +154,8 @@ COVER_ART = {"desktop-pension-squad": DPS_COVER, "aion-2": AION_COVER,
              "gta-6": GTA_COVER}
 GSUB = {
     "desktop-pension-squad": {"en": "Steam — Free to play", "ru": "Steam — бесплатно"},
-    "aion-2": {"en": "Global servers — 1 live tool", "ru": "Глобальные серверы — 1 инструмент"},
-    "gta-6": {"en": "PS5 and Xbox Series — Nov 19, 2026", "ru": "PS5 и Xbox Series — 19 ноября 2026"},
+    "aion-2": {"en": "Global servers — 1&nbsp;live tool", "ru": "Глобальные серверы — 1&nbsp;инструмент"},
+    "gta-6": {"en": "PS5 and Xbox Series&nbsp;— Nov&nbsp;19,&nbsp;2026", "ru": "PS5 и Xbox Series&nbsp;— 19&nbsp;ноября&nbsp;2026"},
 }
 PLANNED_HOME = {
     "desktop-pension-squad": {

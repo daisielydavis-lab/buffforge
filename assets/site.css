@@ -441,7 +441,7 @@ h1 {
   font-size: var(--fs-h3); font-weight: 600; letter-spacing: -.03em;
   color: #fff;
 }
-.game-cover .gsub { position: relative; z-index: 1; font-size: var(--fs-small); color: rgba(255,255,255,.85); margin-top: 4px; text-wrap: balance; }
+.game-cover .gsub { position: relative; z-index: 1; font-size: var(--fs-small); color: rgba(255,255,255,.85); margin-top: 4px; }
 .game-body { display: flex; flex-direction: column; }
 .game-body .head {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
