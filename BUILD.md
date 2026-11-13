@@ -10,6 +10,7 @@ python3 scripts/build.py            # home, about, hubs, 404, sitemap, robots, _
 python3 scripts/build_tools.py      # 4 GTA 6 official-facts tools, EN + RU
 python3 scripts/transform_legacy.py # AION 2 tracker + GTA 6 Wanted Evidence Helper, EN + RU
 python3 scripts/build_dps.py        # DPS fuse-or-salvage calculator, EN + RU (from the Daylight Forge prototype)
+python3 scripts/build_rob.py        # ROB RUN Federal Raid countdown, loot profit, squad splitter, EN + RU
 ```
 
 ## Sources of truth

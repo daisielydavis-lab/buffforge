@@ -22,3 +22,7 @@ AION_FEATURE = '<img src="/assets/games/aion-2-wide.jpg" alt="" loading="lazy">'
 AION_COVER = '<img src="/assets/games/aion-2-cover.jpg" alt="" loading="lazy">'
 GTA_FEATURE = '<img src="/assets/games/gta-6-wide.jpg" alt="" loading="lazy">'
 GTA_COVER = '<img src="/assets/games/gta-6-cover.jpg" alt="" loading="lazy">'
+# ROB RUN: official Steam capsule (wide) and a portrait crop of the
+# official store page background. No library_600x900 on the CDN.
+ROB_FEATURE = '<img src="/assets/games/rob-run-wide.jpg" alt="ROB RUN" loading="lazy">'
+ROB_COVER = '<img src="/assets/games/rob-run-cover.jpg" alt="ROB RUN" loading="lazy">'

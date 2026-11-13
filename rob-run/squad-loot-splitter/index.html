@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROB RUN squad loot splitter — BuffForge</title>
+<meta name="description" content="Split a ROB RUN haul equally or by a weight you set for each player. The cash total is one you type.">
+<link rel="canonical" href="https://buffforge.com/rob-run/squad-loot-splitter/">
+<meta property="og:title" content="ROB RUN squad loot splitter — BuffForge">
+<meta property="og:description" content="Split a ROB RUN haul equally or by a weight you set for each player. The cash total is one you type.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://buffforge.com/rob-run/squad-loot-splitter/">
+<meta property="og:image" content="https://buffforge.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="alternate" hreflang="en" href="https://buffforge.com/rob-run/squad-loot-splitter/">
+<link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/rob-run/squad-loot-splitter/">
+<link rel="alternate" hreflang="x-default" href="https://buffforge.com/rob-run/squad-loot-splitter/">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://buffforge.com/"}, {"@type": "ListItem", "position": 2, "name": "ROB RUN", "item": "https://buffforge.com/rob-run/"}, {"@type": "ListItem", "position": 3, "name": "Squad loot splitter", "item": "https://buffforge.com/rob-run/squad-loot-splitter/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "Squad loot splitter", "url": "https://buffforge.com/rob-run/squad-loot-splitter/", "inLanguage": "en", "description": "Split a ROB RUN haul equally or by a weight you set for each player. The cash total is one you type.", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}]</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  (function () {
+    if (window.location.hostname !== 'buffforge.com') return;
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtm.js?id=GTM-PQNKG4CV";
+    document.head.appendChild(s);
+  })();
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap nav"><a class="logo" href="/"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0C706C"/><path d="M8 13.5h16v2.2H19.5V23h-7V15.7H8V13.5zm4.2-5.2h7.6l1.6 3.4H10.6l1.6-3.4z" fill="#FFFFFF"/></svg><span class="word">BuffForge</span></a><nav class="site-nav" aria-label="Primary"><details class="navdrop"><summary>Games<svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></summary><div class="drop"><a href="/desktop-pension-squad/"><span class="dot dot-dps"></span>Desktop Pension Squad</a><a href="/aion-2/"><span class="dot dot-aion"></span>AION 2</a><a href="/gta-6/"><span class="dot dot-gta"></span>GTA 6</a><a href="/rob-run/"><span class="dot dot-rob"></span>ROB RUN</a></div></details><a href="/about/">About</a><span class="lang"><a href="/rob-run/squad-loot-splitter/" class="current" aria-current="true">English</a><a href="/ru/rob-run/squad-loot-splitter/" >Русский</a></span></nav></div></header>
+<main id="main" class="wrap narrow"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/rob-run/">ROB RUN</a><span class="sep">›</span><span aria-current="page">Squad loot splitter</span></nav><h1 class="page-h1">Squad loot splitter</h1><p class="page-lede">Enter the haul and the squad. Split it in equal shares, or type a weight for each player.</p><div class="checker"><div class="field-row"><div><label for="pool">Haul (cash)</label><input id="pool" type="number" inputmode="decimal" value="0"></div><div><label for="count">Players</label><input id="count" type="number" inputmode="numeric" min="1" max="40" step="1" value="4"></div></div><div class="mode-row" role="group" aria-label="Squad loot splitter"><button type="button" class="btn btn-secondary" id="modeEqual" aria-pressed="true">Equal</button><button type="button" class="btn btn-secondary" id="modeWeight" aria-pressed="false">Custom weights</button></div><div class="players equal" id="players"></div><p class="hint" id="splitMsg"></p><div class="line-list" id="splitOut" aria-live="polite"></div><p class="hint" id="splitTotal"></p><p class="hint">Weights are yours — the game does not publish a split. Amounts are the cash you typed.</p></div><p class="data-line">No in-game split ratio is used. Cash wording follows Kefir’s FAQ. Reviewed 13 Nov 2026.</p></main>
+<script>
+(function () {
+  var STR = {"locale": "en-US", "player": "Player", "weight": "Weight", "empty": "Enter how many players.", "badWeight": "Weights can’t be negative. Use 0 to leave someone out.", "zeroWeight": "At least one weight has to be above zero.", "capped": "This page lists up to 40 players.", "total": "Shares add up to", "cash": "cash"};
+  var MAX = 40;
+  var mode = 'equal';
+  var poolEl = document.getElementById('pool');
+  var countEl = document.getElementById('count');
+  var players = document.getElementById('players');
+  var msg = document.getElementById('splitMsg');
+  var out = document.getElementById('splitOut');
+  var totalEl = document.getElementById('splitTotal');
+  function num(v) {
+    var n = parseFloat(v);
+    return isFinite(n) ? n : NaN;
+  }
+  function fmt(cents) {
+    return (cents / 100).toLocaleString(STR.locale, {maximumFractionDigits: 2});
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (ch) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch];
+    });
+  }
+  function currentRows() {
+    var rows = [];
+    players.querySelectorAll('.player-row').forEach(function (row) {
+      rows.push({name: row.querySelector('.name').value, weight: row.querySelector('.weight').value});
+    });
+    return rows;
+  }
+  function rebuild() {
+    var raw = num(countEl.value);
+    var prev = currentRows();
+    if (!isFinite(raw)) {
+      if (players.childElementCount) players.innerHTML = '';
+      return null;
+    }
+    var n = Math.floor(raw);
+    var capped = false;
+    if (n > MAX) { n = MAX; countEl.value = String(MAX); capped = true; }
+    if (n < 1) {
+      if (players.childElementCount) players.innerHTML = '';
+      return {n: n, capped: capped};
+    }
+    players.className = 'players' + (mode === 'equal' ? ' equal' : '');
+    if (players.childElementCount === n) return {n: n, capped: capped};
+    var html = '';
+    for (var i = 0; i < n; i++) {
+      var name = (prev[i] && prev[i].name) ? prev[i].name : (STR.player + ' ' + (i + 1));
+      var weight = (prev[i] && prev[i].weight !== '') ? prev[i].weight : '1';
+      html += '<div class="player-row"><input class="name" type="text" value="' + esc(name) +
+        '" aria-label="' + STR.player + ' ' + (i + 1) + '">' +
+        '<input class="weight w" type="number" inputmode="decimal" step="any" value="' + esc(weight) +
+        '" aria-label="' + STR.weight + ' ' + (i + 1) + '"></div>';
+    }
+    players.innerHTML = html;
+    players.className = 'players' + (mode === 'equal' ? ' equal' : '');
+    players.querySelectorAll('input').forEach(function (el) {
+      el.addEventListener('input', render);
+    });
+    return {n: n, capped: capped};
+  }
+  function splitCents(totalCents, weights) {
+    var sum = 0;
+    for (var i = 0; i < weights.length; i++) sum += weights[i];
+    if (!(sum > 0)) return null;
+    var base = [];
+    var used = 0;
+    for (var j = 0; j < weights.length; j++) {
+      var share = Math.trunc(totalCents * weights[j] / sum);
+      base.push(share);
+      used += share;
+    }
+    var rem = totalCents - used;
+    var order = [];
+    for (var k = 0; k < weights.length; k++) {
+      order.push({i: k, frac: Math.abs(totalCents * weights[k] / sum - base[k])});
+    }
+    order.sort(function (a, b) { return b.frac - a.frac; });
+    var step = rem >= 0 ? 1 : -1;
+    var left = Math.abs(rem);
+    for (var t = 0; t < left; t++) base[order[t % order.length].i] += step;
+    return base;
+  }
+  function render() {
+    var info = rebuild();
+    var pool = num(poolEl.value);
+    if (!info || !isFinite(info.n) || info.n < 1) {
+      msg.textContent = STR.empty;
+      out.innerHTML = '';
+      totalEl.textContent = '';
+      return;
+    }
+    if (!isFinite(pool)) pool = 0;
+    var weights = [];
+    var names = [];
+    players.querySelectorAll('.player-row').forEach(function (row) {
+      names.push(row.querySelector('.name').value.trim() || STR.player);
+      var w = num(row.querySelector('.weight').value);
+      weights.push(mode === 'equal' ? 1 : (isFinite(w) ? w : 0));
+    });
+    if (weights.some(function (w) { return w < 0; })) {
+      msg.textContent = STR.badWeight;
+      out.innerHTML = '';
+      totalEl.textContent = '';
+      return;
+    }
+    var shares = splitCents(Math.round(pool * 100), weights);
+    if (!shares) {
+      msg.textContent = (info.capped ? STR.capped + ' ' : '') + STR.zeroWeight;
+      out.innerHTML = '';
+      totalEl.textContent = '';
+      return;
+    }
+    msg.textContent = info.capped ? STR.capped : '';
+    var html = '';
+    var sum = 0;
+    for (var i = 0; i < shares.length; i++) {
+      sum += shares[i];
+      html += '<div class="line-item"><span>' + esc(names[i]) + '</span><b>' + fmt(shares[i]) + '</b></div>';
+    }
+    out.innerHTML = html;
+    totalEl.textContent = STR.total + ': ' + fmt(sum) + ' ' + STR.cash;
+  }
+  document.getElementById('modeEqual').addEventListener('click', function () {
+    mode = 'equal';
+    document.getElementById('modeEqual').setAttribute('aria-pressed', 'true');
+    document.getElementById('modeWeight').setAttribute('aria-pressed', 'false');
+    render();
+  });
+  document.getElementById('modeWeight').addEventListener('click', function () {
+    mode = 'weighted';
+    document.getElementById('modeEqual').setAttribute('aria-pressed', 'false');
+    document.getElementById('modeWeight').setAttribute('aria-pressed', 'true');
+    render();
+  });
+  countEl.addEventListener('input', render);
+  poolEl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<footer class="site-footer"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0C706C"/><path d="M8 13.5h16v2.2H19.5V23h-7V15.7H8V13.5zm4.2-5.2h7.6l1.6 3.4H10.6l1.6-3.4z" fill="#FFFFFF"/></svg><div class="word">BuffForge</div><p>Game tools, trackers and calculators. Every number cites a public source.</p></div><div><h2>Site</h2><div class="links"><a href="/">Home</a><a href="/about/">About</a><a href="mailto:feedback@buffforge.com">Report a mistake</a></div></div><div><h2>Games</h2><div class="links"><a href="/desktop-pension-squad/">Desktop Pension Squad</a><a href="/aion-2/">AION 2</a><a href="/gta-6/">GTA 6</a><a href="/rob-run/">ROB RUN</a></div></div><div><h2>Language</h2><div class="links"><a href="/" class="current" aria-current="true">English</a><a href="/ru/">Русская версия</a></div></div></div></div></footer>
+<script>document.querySelectorAll(".navdrop summary").forEach(function(s){s.addEventListener("click",function(){document.querySelectorAll(".navdrop").forEach(function(d){if(d!==s.parentElement){d.removeAttribute("open");}});});});</script>
+</body>
+</html>

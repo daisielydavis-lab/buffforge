@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from shell import (BASE, EMAIL, GAMES, REVIEWED_EN, REVIEWED_RU, breadcrumb_jsonld,
                    crumbs_html, footer_html, head, header_html, org_website_jsonld, page)
 from art import (AION_COVER, AION_FEATURE, DPS_COVER, DPS_FEATURE,
-                 GTA_COVER, GTA_FEATURE)
+                 GTA_COVER, GTA_FEATURE, ROB_COVER, ROB_FEATURE)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -149,15 +149,17 @@ HOME_COPY = {
 ARROW_SVG = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
              'stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>')
 
-GAME_CLS = {"desktop-pension-squad": "dps", "aion-2": "aion", "gta-6": "gta"}
+GAME_CLS = {"desktop-pension-squad": "dps", "aion-2": "aion", "gta-6": "gta",
+            "rob-run": "rob"}
 FEATURE_ART = {"desktop-pension-squad": DPS_FEATURE, "aion-2": AION_FEATURE,
-               "gta-6": GTA_FEATURE}
+               "gta-6": GTA_FEATURE, "rob-run": ROB_FEATURE}
 COVER_ART = {"desktop-pension-squad": DPS_COVER, "aion-2": AION_COVER,
-             "gta-6": GTA_COVER}
+             "gta-6": GTA_COVER, "rob-run": ROB_COVER}
 GSUB = {
     "desktop-pension-squad": {"en": "Steam — Free to play", "ru": "Steam — бесплатно"},
     "aion-2": {"en": "Global servers — 1&nbsp;live tool", "ru": "Глобальные серверы — 1&nbsp;инструмент"},
     "gta-6": {"en": "PS5 and Xbox Series&nbsp;— Nov&nbsp;19,&nbsp;2026", "ru": "PS5 и Xbox Series&nbsp;— 19&nbsp;ноября&nbsp;2026"},
+    "rob-run": {"en": "Steam Early Access — free", "ru": "Ранний доступ Steam — бесплатно"},
 }
 PLANNED_HOME = {
     "desktop-pension-squad": {
@@ -178,6 +180,9 @@ ICONS = {
     "gta-6-editions": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 8v8l8 5 8-5V8l-8-5z"/><path d="M12 13V3M4 8l8 5 8-5"/></svg>',
     "gta-6-compatibility": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h4"/></svg>',
     "gta-6-wanted-evidence-helper": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    "rob-run-federal-raid-countdown": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    "rob-run-loot-profit-calculator": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',
+    "rob-run-squad-loot-splitter": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="9" r="2.2"/><circle cx="16" cy="9" r="2.2"/><path d="M4.5 18c.6-2.2 2.2-3.2 3.5-3.2s2.9 1 3.5 3.2M12.5 18c.6-2.2 2.2-3.2 3.5-3.2s2.9 1 3.5 3.2"/></svg>',
 }
 CHIP_ICONS = [
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>',
@@ -451,7 +456,7 @@ ABOUT_UI = {
              "Different games need different utilities. The hub structure stays familiar, while the content reflects real gameplay needs. We start with one tool per game and expand only when real players use it."),
         ],
         "affil": ("BuffForge is an independent fan project and is not affiliated with NCSOFT, "
-                  "Rockstar Games, Take-Two Interactive, detailgames, or storytaco."),
+                  "Rockstar Games, Take-Two Interactive, detailgames, storytaco, or Kefir."),
         "cta_kicker": "Help us make it better",
         "cta_h": "Have a useful tool idea?",
         "cta_p": ("We're interested in problems that could be solved with a small calculator, "
@@ -522,7 +527,7 @@ ABOUT_UI = {
              "Разным играм нужны разные инструменты. Структура хаба привычна, а содержимое отражает реальные нужды игроков. Начинаем с одного инструмента на игру и расширяемся, только когда им реально пользуются."),
         ],
         "affil": ("BuffForge — независимый фанатский проект, не связанный с NCSOFT, "
-                  "Rockstar Games, Take-Two Interactive, detailgames и storytaco."),
+                  "Rockstar Games, Take-Two Interactive, detailgames, storytaco и Kefir."),
         "cta_kicker": "Помогите сделать лучше",
         "cta_h": "Есть идея полезного инструмента?",
         "cta_p": ("Нам интересны задачи, которые можно решить небольшим калькулятором, "
@@ -700,6 +705,22 @@ HUB_COPY = {
             "tools_h": "Инструменты — официальные данные", "guides_h": "Гайды",
         },
     },
+    "rob-run": {
+        "en": {
+            "title": "ROB RUN tools and guides — BuffForge",
+            "desc": "ROB RUN tools: Federal Raid countdown, a loot profit calculator, and a squad splitter. Free Early Access on Steam since 4 Nov 2026. You enter the cash amounts.",
+            "h1": "ROB RUN tools and guides",
+            "lede": "ROB RUN is Kefir’s free Early Access game on Steam, out since 4 Nov 2026. Seven days after a server opens, the Federal Raid wipes plots, bases, weapons and cash. Time that raid, total a haul, or split it with your squad.",
+            "tools_h": "Tools", "guides_h": "Guides",
+        },
+        "ru": {
+            "title": "ROB RUN: инструменты и гайды — BuffForge",
+            "desc": "Инструменты ROB RUN: отсчёт до Федеральной облавы, калькулятор добычи и дележ в отряде. Бесплатный ранний доступ в Steam с 4 ноября 2026 года. Суммы вводите вы.",
+            "h1": "Инструменты и гайды по ROB RUN",
+            "lede": "ROB RUN — бесплатная игра Kefir в раннем доступе Steam с 4 ноября 2026 года. Через семь дней после открытия сервера Федеральная облава обнуляет земли, базы, оружие и деньги. Здесь — отсчёт до облавы, расчёт добычи и дележ в отряде.",
+            "tools_h": "Инструменты", "guides_h": "Гайды",
+        },
+    },
 }
 
 
@@ -856,6 +877,28 @@ HUB_BODY = {
                       ("игровые инструменты и трекеры BuffForge", "/ru/")],
         },
     },
+    "rob-run": {
+        "en": {
+            "guides_h": "Guides",
+            "guides_note": "No guides published yet. Guides appear here only when we can source the numbers — nothing is listed until then.",
+            "faq_h": "Frequently asked questions",
+            "faq": [
+                ("When is the Federal Raid?", "Seven days after that server opened. Servers launched on 4 Nov 2026 were raided on 11 Nov 2026 at 20:00 MSK (17:00 UTC). A server opened later keeps its own clock."),
+                ("What is wiped, and what stays?", "Plots, bases, weapons and cash are wiped and turned into jail time and authority. Cosmetics, your name, tutorial progress, settings and accumulated jail time stay. Source: Kefir’s Federal Raid FAQ."),
+                ("Do the calculators know in-game prices?", "No. You type the cash amounts. This site is not connected to the game."),
+            ],
+        },
+        "ru": {
+            "guides_h": "Гайды",
+            "guides_note": "Гайдов пока нет. Гайды появятся здесь, только когда мы сможем проверить цифры, — до тех пор ничего не публикуется.",
+            "faq_h": "Частые вопросы",
+            "faq": [
+                ("Когда Федеральная облава?", "Через семь дней после открытия этого сервера. Серверы, запущенные 4 ноября 2026 года, прошли облаву 11 ноября в 20:00 МСК (17:00 UTC). У сервера, открытого позже, свой отсчёт."),
+                ("Что обнуляется, а что остаётся?", "Земли, базы, оружие и деньги обнуляются и превращаются в тюремный срок и авторитет. Косметика, ник, прогресс обучения, настройки и накопленный срок остаются. Источник — справка Kefir о Федеральной облаве."),
+                ("Калькулятор знает игровые цены?", "Нет. Суммы вводите вы. Сайт к игре не подключён."),
+            ],
+        },
+    },
 }
 
 
@@ -980,6 +1023,20 @@ HUB_HERO = {
             "h2": "Ваш хаб слияний DPS — всё в одном месте.",
             "para": "Калькулятор слияния и разбора: шансы слияния девяти предметов для каждого диапазона уровней и сравнение Soul при введённых ценах. Шансы переписаны из DPSquad Wiki — из клиента игры (v1.0.2, сборка 26611958).",
             "wm": "wm-dps",
+        },
+    },
+    "rob-run": {
+        "en": {
+            "pill": "GAME HUB · EARLY ACCESS",
+            "h2": "Your ROB RUN workspace, all in one place.",
+            "para": "A Federal Raid countdown, a haul calculator, and a squad split. Cash figures are the ones you type.",
+            "wm": "wm-rob",
+        },
+        "ru": {
+            "pill": "ИГРОВОЙ ХАБ · РАННИЙ ДОСТУП",
+            "h2": "Хаб ROB RUN — всё в одном месте.",
+            "para": "Отсчёт до Федеральной облавы, калькулятор добычи и дележ в отряде. Суммы в деньгах вводите вы.",
+            "wm": "wm-rob",
         },
     },
 }
@@ -1135,6 +1192,48 @@ HUB_PREVIEW = {
             "hint": "Попробуйте «слияние», «разбор» или «шансы».",
         },
     },
+    "rob-run": {
+        "en": {
+            "side_h": "Three tools. Your numbers.",
+            "bullets": [
+                ("Free Early Access since 4 Nov 2026",
+                 "Steam app 4262460. Developed and published by Kefir."),
+                ("Federal Raid every 7 days",
+                 "Counted from that server’s own opening, not one global clock."),
+                ("You type the cash",
+                 "No symbol and no price list — Kefir’s FAQ calls it cash."),
+            ],
+            "widget_title": "Haul minus costs",
+            "widget_small": "Example only · you enter both numbers",
+            "label_haul": "Haul (cash)",
+            "label_cost": "Gear and costs (cash)",
+            "result_net": "Net",
+            "note": "Not a live price. The full calculator is on the next page.",
+            "cta": "Open the calculator",
+            "cta_tool": "rob-run-loot-profit-calculator",
+            "hint": "Try “raid”, “loot” or “split”.",
+        },
+        "ru": {
+            "side_h": "Три инструмента. Ваши цифры.",
+            "bullets": [
+                ("Бесплатный ранний доступ с 4 ноября 2026",
+                 "Steam, приложение 4262460. Разработчик и издатель — Kefir."),
+                ("Федеральная облава каждые 7 дней",
+                 "Отсчёт идёт от открытия вашего сервера, а не от одной даты на всех."),
+                ("Деньги вводите вы",
+                 "Символа валюты и прайса нет — в справке Kefir это просто деньги."),
+            ],
+            "widget_title": "Добыча минус расходы",
+            "widget_small": "Только пример · обе цифры ваши",
+            "label_haul": "Добыча (деньги)",
+            "label_cost": "Снаряжение и расходы (деньги)",
+            "result_net": "Итог",
+            "note": "Это не живая цена. Полный калькулятор — на следующей странице.",
+            "cta": "Открыть калькулятор",
+            "cta_tool": "rob-run-loot-profit-calculator",
+            "hint": "Попробуйте «облава», «добыча» или «делёж».",
+        },
+    },
 }
 
 
@@ -1235,6 +1334,27 @@ def preview_widget_dps(lang, ui, pv):
            pv["stat_atleast"], pv["stat_atleast_sub"],
            pv["stat_expected"], pv["stat_expected_sub"],
            rows, pv["source_note"], tool_url(lang, t), pv["cta"], ARROW_SVG)
+    )
+
+
+def preview_widget_rob(lang, ui, pv):
+    t = tool_by_id(pv["cta_tool"])
+    return (
+        '<div class="hub-calc"><div class="hub-calc-head">'
+        '<div class="hub-calc-icon" aria-hidden="true">%s</div>'
+        '<div><h3>%s</h3><small>%s</small></div></div>'
+        '<div class="hub-form-row">'
+        '<div class="hub-field"><label for="hub-haul">%s</label>'
+        '<input id="hub-haul" type="number" value="120000" inputmode="decimal"></div>'
+        '<div class="hub-field"><label for="hub-cost">%s</label>'
+        '<input id="hub-cost" type="number" value="23000" inputmode="decimal"></div></div>'
+        '<div class="hub-result" id="hub-result"><span id="hub-net-label">%s</span>'
+        '<strong id="hub-net">97000</strong></div>'
+        '<p class="hub-note">%s</p>'
+        '<p style="margin-top:16px"><a class="btn btn-primary" href="%s">%s %s</a></p></div>'
+        % (ICONS["rob-run-loot-profit-calculator"], pv["widget_title"], pv["widget_small"],
+           pv["label_haul"], pv["label_cost"], pv["result_net"], pv["note"],
+           tool_url(lang, t), pv["cta"], ARROW_SVG)
     )
 
 
@@ -1414,6 +1534,34 @@ HUB_WIDGET_DPS = """
 })();
 """
 
+# ROB RUN hub preview: haul minus costs. Both numbers are the visitor's.
+# Empty fields count as zero. No currency symbol.
+HUB_WIDGET_ROB = """
+(function () {
+  var STR = __WIDGET_STR__;
+  var haul = document.getElementById('hub-haul');
+  var cost = document.getElementById('hub-cost');
+  var value = document.getElementById('hub-net');
+  var box = document.getElementById('hub-result');
+  function num(el) {
+    var n = parseFloat(el.value);
+    return isFinite(n) ? n : 0;
+  }
+  function fmt(n) {
+    return n.toLocaleString(STR.locale, {maximumFractionDigits: 2});
+  }
+  function recalc() {
+    var net = num(haul) - num(cost);
+    value.textContent = fmt(net);
+    if (net < 0) box.classList.add('short');
+    else box.classList.remove('short');
+  }
+  haul.addEventListener('input', recalc);
+  cost.addEventListener('input', recalc);
+  recalc();
+})();
+"""
+
 
 def hub_js(game_id, lang):
     ui = HUB_UI[lang]
@@ -1439,6 +1587,10 @@ def hub_js(game_id, lang):
     elif game_id == "aion-2":
         wstr = json.dumps({"metaPrefix": pv["meta_prefix"]}, ensure_ascii=False)
         js += HUB_WIDGET_AION.replace("__WIDGET_STR__", wstr)
+    elif game_id == "rob-run":
+        wstr = json.dumps({"locale": "en-US" if lang == "en" else "ru-RU"},
+                          ensure_ascii=False)
+        js += HUB_WIDGET_ROB.replace("__WIDGET_STR__", wstr)
     else:
         wstr = json.dumps({"leftoverOne": pv["leftover_one"],
                            "leftoverMany": pv["leftover_many"]}, ensure_ascii=False)
@@ -1516,6 +1668,8 @@ def hub_page(game_id, lang):
         widget = preview_widget_gta(lang, ui, pv)
     elif game_id == "aion-2":
         widget = preview_widget_aion(lang, ui, pv)
+    elif game_id == "rob-run":
+        widget = preview_widget_rob(lang, ui, pv)
     else:
         widget = preview_widget_dps(lang, ui, pv)
     preview_html = (
@@ -1811,7 +1965,7 @@ def main():
     write("ru/index.html", home_page("ru"))
     write("about/index.html", about_page("en"))
     write("ru/about/index.html", about_page("ru"))
-    for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
+    for gid in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run"):
         write("%s/index.html" % gid, hub_page(gid, "en"))
         write("ru/%s/index.html" % gid, hub_page(gid, "ru"))
     write("404.html", not_found_page("en"))
