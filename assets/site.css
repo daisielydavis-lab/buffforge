@@ -352,6 +352,7 @@ h1 {
   color: var(--ink);
 }
 .intro { color: var(--body); margin: 8px 0 28px; max-width: 48em; }
+.sec-sub { color: var(--body); margin: 8px 0 0; max-width: 48em; }
 
 /* ——— Featured: asymmetric, not a uniform 3-grid ——— */
 .featured-layout { display: grid; gap: 18px; margin-top: 24px; }

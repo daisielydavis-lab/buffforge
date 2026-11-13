@@ -86,9 +86,10 @@ HOME_COPY = {
         "secondary": "How we check our numbers",
         "featured_h": "Featured tools",
         "featured_label": "Featured",
-        "games_h": "Games",
-        "games_label": "The roster",
-        "games_intro": 'Games on BuffForge today: <a href="/desktop-pension-squad/">Desktop Pension Squad</a>, <a href="/aion-2/">AION 2</a> and <a href="/gta-6/">GTA 6</a>.',
+        "featured_sub": "Discover calculators, trackers, and checkers that help you plan ahead, track progress, and make better in-game decisions.",
+        "games_h": "Explore games",
+        "games_label": "Explore games",
+        "games_intro": "Find dedicated game hubs with calculators, trackers, and checkers — all organized by game.",
         "how_h": "How we check every number",
         "how_label": "The method",
         "faq_h": "Frequently asked questions",
@@ -119,9 +120,10 @@ HOME_COPY = {
         "secondary": "Как мы проверяем цифры",
         "featured_h": "Избранные инструменты",
         "featured_label": "Избранное",
-        "games_h": "Игры",
-        "games_label": "Состав",
-        "games_intro": 'Сейчас на BuffForge: <a href="/ru/desktop-pension-squad/">Desktop Pension Squad</a>, <a href="/ru/aion-2/">AION 2</a> и <a href="/ru/gta-6/">GTA 6</a>.',
+        "featured_sub": "Калькуляторы, трекеры и проверки, которые помогают планировать заранее, следить за прогрессом и принимать лучшие решения в игре.",
+        "games_h": "Обзор игр",
+        "games_label": "По играм",
+        "games_intro": "Хабы по играм с калькуляторами, трекерами и проверками — всё собрано по играм.",
         "how_h": "Как мы проверяем каждую цифру",
         "how_label": "Метод",
         "faq_h": "Частые вопросы",
@@ -313,7 +315,7 @@ def home_page(lang):
         '<div class="chips" aria-label="%s">%s</div>'
         '</div>%s</div></section>'
         '<section class="block" id="featured"><div class="wrap">'
-        '<p class="sec-label">%s</p><div class="sec-head"><h2>%s</h2></div>'
+        '<p class="sec-label">%s</p><div class="sec-head"><h2>%s</h2></div><p class="sec-sub">%s</p>'
         '<div class="featured-layout">%s<div class="featured-secondary">%s</div></div>'
         '</div></section>'
         '<section class="block" id="games"><div class="wrap">'
@@ -325,7 +327,7 @@ def home_page(lang):
         '</main>'
         % (c["kicker"], c["h1"], lead, rest_text, c["primary"], ARROW_SVG,
            c["secondary"], "At a glance" if lang == "en" else "Кратко", chips,
-           HERO_VISUAL[lang], c["featured_label"], c["featured_h"],
+           HERO_VISUAL[lang], c["featured_label"], c["featured_h"], c["featured_sub"],
            feature_html, secondary_html,
            c["games_label"], c["games_h"], c["games_intro"], blocks,
            c["how_label"], c["how_h"], trust_items,
