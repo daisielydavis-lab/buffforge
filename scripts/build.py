@@ -1766,7 +1766,7 @@ def not_found_page(lang="en"):
     # 404 page: no hreflang pair, noindex, no canonical.
     switch = "/ru/" if lang == "en" else "/"
     html = ('<!DOCTYPE html>\n<html lang="%s">\n<head>\n%s\n</head>\n<body>\n%s\n%s\n%s\n%s\n</body>\n</html>\n'
-            % (lang, head(lang, c["title"], c["desc"], None, None, None),
+            % (lang, head(lang, c["title"], c["desc"], None, None, None, noindex=True),
                header_html(lang, "/%s404.html" % prefix, switch),
                body, footer_html(lang, ("desktop-pension-squad", "aion-2", "gta-6")), script))
     return html

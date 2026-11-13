@@ -465,7 +465,8 @@ def wanted_page(lang):
     body = ('<main id="main" class="wrap">%s%s</main>'
             % (crumbs_html(lang, [("GTA 6", hub_path), (name, None)]), inner))
     return page(lang, title, desc, canon, alt, body, jsonld=jl,
-                games=("gta-6",), tail="<script>%s</script>\n" % script)
+                games=("gta-6",), tail="<script>%s</script>\n" % script,
+                noindex=True)
 
 
 def main():

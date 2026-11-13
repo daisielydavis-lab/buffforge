@@ -17,6 +17,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROTO = os.path.expanduser(
     "~/workspace/buffforge-design-prototype/buffforge-homepage-prototype/"
     "desktop-pension-squad/fuse-salvage-calculator/index.html")
+# The Daylight Forge prototype lives outside this repo. When it is absent,
+# rebuild from the already-generated in-repo English page.
+FALLBACK = os.path.join(
+    ROOT, "desktop-pension-squad", "fuse-salvage-calculator", "index.html")
 
 EN = {
     "title": "DPS fusion calculator: fuse vs salvage odds — BuffForge",
@@ -210,14 +214,25 @@ def replace_all(text, pairs, what):
     return text
 
 
+def source_path():
+    if os.path.isfile(PROTO):
+        return PROTO
+    if os.path.isfile(FALLBACK):
+        print("build_dps: prototype not in repo, using in-repo EN page")
+        return FALLBACK
+    raise SystemExit("build_dps: prototype missing and no in-repo EN page")
+
+
 def extract():
-    html = open(PROTO, encoding="utf-8").read()
+    html = open(source_path(), encoding="utf-8").read()
     m = re.search(r"<main id=\"main\">\s*<div class=\"wrap\">(.*)</div>\s*</main>",
                   html, re.S)
     if not m:
         raise SystemExit("build_dps: could not extract prototype body")
     inner = m.group(1)
-    inner = re.sub(r"\s*<nav class=\"crumb\"[^>]*>.*?</nav>", "", inner,
+    # Prototype nav is class="crumb"; the site shell emits class="crumbs".
+    # Match both so a rebuild from the in-repo page does not duplicate crumbs.
+    inner = re.sub(r"\s*<nav class=\"crumbs?\"[^>]*>.*?</nav>", "", inner,
                    count=1, flags=re.S)
     js = re.search(r"(<script>\n\(\(\) => \{.*?\n</script>)", html, re.S)
     if not js:

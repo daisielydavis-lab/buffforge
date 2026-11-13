@@ -2,9 +2,9 @@
 # scripts/transform_legacy.py and scripts/build_dps.py.
 # Daylight Forge visual system (design spec, 2026-11-13): light shell,
 # 68px translucent white header, teal anvil mark, 4-column footer.
-# Every page built from here gets: self-hosted IBM Plex fonts, temporary
-# noindex meta (user decision 2026-11-13: keep noindex until content is
-# complete), canonical without www, hreflang only for real counterparts, JSON-LD.
+# Every page built from here gets: self-hosted IBM Plex fonts. noindex is
+# opt-in after launch (pass noindex=True only where a page must stay out of
+# the index). Canonical without www, hreflang only for real counterparts, JSON-LD.
 import json
 
 BASE = "https://buffforge.com"
@@ -80,13 +80,17 @@ def _esc(s):
              .replace(">", "&gt;").replace('"', "&quot;"))
 
 
-def head(lang, title, desc, canon_path=None, alternates=None, jsonld=None):
+def head(lang, title, desc, canon_path=None, alternates=None, jsonld=None, noindex=False):
     """alternates: dict like {'en': '/path/', 'ru': '/ru/path/'} for real counterparts only.
-    canon_path=None omits the canonical link and og:url (used by the 404 page)."""
+    canon_path=None omits the canonical link and og:url (used by the 404 page).
+    noindex is opt-in after launch: the robots meta is emitted only when noindex=True."""
     lines = [
         '<meta charset="UTF-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
-        '<meta name="robots" content="noindex">',
+    ]
+    if noindex:
+        lines.append('<meta name="robots" content="noindex">')
+    lines += [
         '<title>%s</title>' % _esc(title),
         '<meta name="description" content="%s">' % _esc(desc),
     ]
@@ -232,7 +236,7 @@ def footer_html(lang, games):
     )
 
 
-def page(lang, title, desc, canon_path, alternates, body_html, jsonld=None, switch_path=None, games=("desktop-pension-squad", "aion-2", "gta-6"), tail=""):
+def page(lang, title, desc, canon_path, alternates, body_html, jsonld=None, switch_path=None, games=("desktop-pension-squad", "aion-2", "gta-6"), tail="", noindex=False):
     if switch_path is None:
         switch_path = alternates.get("ru") if lang == "en" else alternates.get("en")
         if switch_path is None:
@@ -247,7 +251,7 @@ def page(lang, title, desc, canon_path, alternates, body_html, jsonld=None, swit
     return (
         '<!DOCTYPE html>\n<html lang="%s">\n<head>\n%s\n</head>\n<body>\n'
         '<a class="skip" href="#main">%s</a>\n%s\n%s\n%s\n%s\n%s</body>\n</html>\n'
-        % (lang, head(lang, title, desc, canon_path, alternates, jsonld), skip,
+        % (lang, head(lang, title, desc, canon_path, alternates, jsonld, noindex=noindex), skip,
            header_html(lang, canon_path, switch_path), body_html,
            footer_html(lang, games), navdrop_js, tail)
     )
