@@ -238,9 +238,9 @@ def countdown_page(lang):
         '<select id="region">%s</select>'
         '<p class="hint" id="localTz"></p>'
         '<div style="margin-top:22px"><div class="countdown-big" id="cd" aria-live="off">—</div>'
-        '<p class="hint" id="unlockLine" style="font-size:15px"></p>'
-        '<p class="hint" id="mskLine" style="font-size:15px"></p>'
-        '<p class="hint" id="localLine" style="font-size:15px"></p></div></div>'
+        '<p class="hint" id="unlockLine" style="font-size:var(--fs-body)"></p>'
+        '<p class="hint" id="mskLine" style="font-size:var(--fs-body)"></p>'
+        '<p class="hint" id="localLine" style="font-size:var(--fs-body)"></p></div></div>'
         '<section class="prose"><h2 class="sec">%s</h2><ul>%s</ul></section>'
         '<p class="data-line">%s</p></main>'
         % (crumbs_html(lang, [("GTA 6", hub_path), (c["h1"], None)]),
