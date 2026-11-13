@@ -1213,11 +1213,11 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 .about-art-card {
   position: absolute; background: var(--paper);
   box-shadow: 0 15px 40px rgba(25, 69, 62, .1);
-  border: 1px solid #D6E7E0; border-radius: 13px; padding: 18px 20px; width: 230px;
+  border: 1px solid #D6E7E0; border-radius: 13px; padding: 18px 20px; width: 200px;
 }
-.about-art-card.one { top: 104px; left: 44px; transform: rotate(-8deg); }
-.about-art-card.two { top: 169px; right: 29px; transform: rotate(7deg); }
-.about-art-card.three { bottom: 31px; left: 77px; transform: rotate(-2deg); }
+.about-art-card.one { top: 90px; left: 44px; transform: rotate(-8deg); }
+.about-art-card.two { top: 150px; right: 10px; transform: rotate(7deg); }
+.about-art-card.three { bottom: 0; left: 20px; transform: rotate(-2deg); }
 .about-art-card h3 { font-size: var(--fs-h4); margin: 0 0 7px; color: var(--ink); font-weight: 600; }
 .about-art-card p { font-size: var(--fs-small); color: var(--muted); margin: 0; }
 .about-art-symbol {
