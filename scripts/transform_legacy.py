@@ -270,7 +270,7 @@ def tracker_page(lang):
            "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser",
            "offers": {"@type": "Offer", "price": "0"}}]
     body = ('<main id="main" class="wrap">%s<div class="tracker">%s</div></main>'
-            % (crumbs_html(lang, [(home, home_path), ("AION 2", hub_path), (name, None)]), body_inner))
+            % (crumbs_html(lang, [("AION 2", hub_path), (name, None)]), body_inner))
     return page(lang, title, desc, canon, alt, body, jsonld=jl,
                 games=("aion-2",), tail="<script>%s</script>\n" % script)
 
@@ -456,7 +456,7 @@ def wanted_page(lang):
            "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser",
            "offers": {"@type": "Offer", "price": "0"}}]
     body = ('<main id="main" class="wrap">%s%s</main>'
-            % (crumbs_html(lang, [(home, home_path), ("GTA 6", hub_path), (name, None)]), inner))
+            % (crumbs_html(lang, [("GTA 6", hub_path), (name, None)]), inner))
     return page(lang, title, desc, canon, alt, body, jsonld=jl,
                 games=("gta-6",), tail="<script>%s</script>\n" % script)
 

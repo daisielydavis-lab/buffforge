@@ -120,7 +120,7 @@ def storage_page(lang):
         '</form><div class="result" id="storageResult" role="status"></div></div>'
         '<section class="prose"><h2 class="sec">%s</h2><ul>%s</ul></section>'
         '<p class="data-line">%s</p></main>'
-        % (crumbs_html(lang, [(home, home_path), ("GTA 6", hub_path), (c["h1"].replace("&amp;", "&"), None)]),
+        % (crumbs_html(lang, [("GTA 6", hub_path), (c["h1"].replace("&amp;", "&"), None)]),
            c["h1"], c["lede"], c["label"], c["hint"], c["platform_label"],
            c["ps5"], c["xbox"], c["check"], c["preload_h"], preload, c["sources"])
     )
@@ -243,7 +243,7 @@ def countdown_page(lang):
         '<p class="hint" id="localLine" style="font-size:15px"></p></div></div>'
         '<section class="prose"><h2 class="sec">%s</h2><ul>%s</ul></section>'
         '<p class="data-line">%s</p></main>'
-        % (crumbs_html(lang, [(home, home_path), ("GTA 6", hub_path), (c["h1"], None)]),
+        % (crumbs_html(lang, [("GTA 6", hub_path), (c["h1"], None)]),
            c["h1"], c["lede"], c["label"], opts, c["note_h"], notes, c["sources"])
     )
     js = """
@@ -368,7 +368,7 @@ def editions_page(lang):
         '<table class="fact-table"><tr><th></th><th>%s</th><th>%s</th></tr>%s</table>'
         '<div class="note-box amber"><h3>%s</h3><p>%s</p></div>'
         '<p class="data-line">%s</p></main>'
-        % (crumbs_html(lang, [(home, home_path), ("GTA 6", hub_path), (c["h1"], None)]),
+        % (crumbs_html(lang, [("GTA 6", hub_path), (c["h1"], None)]),
            c["h1"], c["lede"], c["std"], c["ult"], rows, c["warn_h"], c["warn"], c["sources"])
     )
     jl = [breadcrumb_jsonld(lang, [(home, home_path), ("GTA 6", hub_path), (c["h1"], "/gta-6/editions/" if lang == "en" else "/ru/gta-6/editions/")]),
@@ -450,7 +450,7 @@ def compat_page(lang):
         '<section class="prose"><h2 class="sec">%s</h2>'
         '<table class="fact-table"><tr><th>%s</th><th>%s</th></tr>%s</table></section>'
         '<p class="data-line">%s</p></main>'
-        % (crumbs_html(lang, [(home, home_path), ("GTA 6", hub_path), (c["h1"], None)]),
+        % (crumbs_html(lang, [("GTA 6", hub_path), (c["h1"], None)]),
            c["h1"], c["lede"], buttons, c["table_h"], c["th_dev"], c["th_verdict"], rows, c["sources"])
     )
     js = """

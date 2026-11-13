@@ -649,7 +649,7 @@ def hub_page(game_id, lang):
         '<section class="tool-hero"><h1>%s</h1><p class="sub">%s</p></section>'
         '%s'
         '</main>'
-        % (crumbs_html(lang, [(home_label, home_path), (game["name"][lang], None)]),
+        % (crumbs_html(lang, [(game["name"][lang], None)]),
            c["h1"], c["lede"], "".join(secs))
     )
     jl = breadcrumb_jsonld(lang, [(home_label, home_path), (game["name"][lang], hub_path)])
