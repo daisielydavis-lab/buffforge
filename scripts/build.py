@@ -448,6 +448,11 @@ HUB_COPY = {
 }
 
 
+# Hub body copy. NOTE (2026-11-13, user rule): the "planned" and
+# "other" lists below are data only — they are NOT rendered.
+# A section appears on a hub only when it has real content;
+# planned tools and other-game links are already covered by
+# the tool grid and the site header/footer.
 HUB_BODY = {
     "desktop-pension-squad": {
         "en": {
@@ -598,63 +603,727 @@ HUB_BODY = {
 }
 
 
+# ---------------------------------------------------------------- hub chrome
+# Hub UI strings for the demo-style hub layout (hero, jump nav, section
+# headings, explore, suggest). HUB_COPY (Title / H1 / lede / description)
+# is SEO v2 copy and is NOT touched here.
+HUB_UI = {
+    "en": {
+        "eyebrow": "BuffForge / Game hub",
+        "cta_tools": "Explore tools",
+        "cta_faq": "Quick answers",
+        "jump_label": "On this page",
+        "jump": [("Tools", "#tools"), ("Preview", "#preview"),
+                 ("Search", "#explore"), ("FAQ", "#faq")],
+        "tools_kicker": "Start here",
+        "tools_h": "Popular tools",
+        "tools_sub": "Quick, useful utilities — no account required.",
+        "tools_more": "Browse everything",
+        "open_tool": "Open tool \u2197",
+        "preview_kicker": "Try it now",
+        "preview_h": "Interactive tool preview",
+        "explore_kicker": "Find what you need",
+        "explore_h": "Explore the %s hub",
+        "explore_sub": "Search across this hub's tools and questions.",
+        "explore_label": "What are you looking for?",
+        "explore_placeholder": "Search tools and questions...",
+        "explore_search": "Search \u2197",
+        "chip_all": "All",
+        "chip_tools": "Tools",
+        "chip_faq": "FAQ",
+        "no_results": "No matching content. Try another keyword.",
+        "suggest_kicker": "Community input",
+        "suggest_h": "Missing a useful tool?",
+        "suggest_p": "Have a calculator, checker or tracker idea? Tell us what you would like to see next.",
+        "suggest_btn": "Suggest a tool \u2197",
+        "suggest_subject": "Suggest a tool for ",
+        "faq_kicker": "Quick answers",
+        "side_kicker": "At a glance",
+        "tools_meta": "Tools",
+        "langs_meta": "Languages",
+        "type_tool": "Tool",
+        "type_faq": "FAQ",
+    },
+    "ru": {
+        "eyebrow": "BuffForge / Игровой хаб",
+        "cta_tools": "Смотреть инструменты",
+        "cta_faq": "Быстрые ответы",
+        "jump_label": "На этой странице",
+        "jump": [("Инструменты", "#tools"), ("Превью", "#preview"),
+                 ("Поиск", "#explore"), ("Вопросы", "#faq")],
+        "tools_kicker": "Начните здесь",
+        "tools_h": "Популярные инструменты",
+        "tools_sub": "Полезные утилиты — без регистрации.",
+        "tools_more": "Смотреть всё",
+        "open_tool": "Открыть инструмент \u2197",
+        "preview_kicker": "Попробуйте сейчас",
+        "preview_h": "Интерактивный предпросмотр",
+        "explore_kicker": "Найдите нужное",
+        "explore_h": "Поиск по хабу %s",
+        "explore_sub": "Поиск по инструментам и вопросам хаба.",
+        "explore_label": "Что вы ищете?",
+        "explore_placeholder": "Поиск по инструментам и вопросам...",
+        "explore_search": "Найти \u2197",
+        "chip_all": "Все",
+        "chip_tools": "Инструменты",
+        "chip_faq": "Вопросы",
+        "no_results": "Ничего не найдено. Попробуйте другой запрос.",
+        "suggest_kicker": "Мнение сообщества",
+        "suggest_h": "Не хватает нужного инструмента?",
+        "suggest_p": "Есть идея калькулятора, проверки или трекера? Расскажите, что хотели бы увидеть дальше.",
+        "suggest_btn": "Предложить инструмент \u2197",
+        "suggest_subject": "Suggest a tool for ",
+        "faq_kicker": "Быстрые ответы",
+        "side_kicker": "Кратко",
+        "tools_meta": "Инструменты",
+        "langs_meta": "Языка",
+        "type_tool": "Инструмент",
+        "type_faq": "Вопрос",
+    },
+}
+
+
+# Hero stat card per game. Paragraphs are drawn only from the existing
+# hub ledes (HUB_COPY) — no new facts.
+HUB_HERO = {
+    "gta-6": {
+        "en": {
+            "pill": "GAME HUB · PRE-LAUNCH",
+            "h2": "Your GTA 6 workspace, all in one place.",
+            "para": "Four tools built on official facts only: a storage check, a launch countdown, an editions comparison, and a console compatibility check. No PC version has been officially announced.",
+            "wm": "wm-vi",
+        },
+        "ru": {
+            "pill": "ИГРОВОЙ ХАБ · ДО ВЫХОДА",
+            "h2": "Ваш хаб GTA 6 — всё в одном месте.",
+            "para": "Четыре инструмента только по официальным цифрам: проверка места, обратный отсчёт, сравнение изданий и проверка совместимости. Версия для ПК официально не анонсирована.",
+            "wm": "wm-vi",
+        },
+    },
+    "aion-2": {
+        "en": {
+            "pill": "GAME HUB · LIVE",
+            "h2": "Your AION 2 reset workspace, all in one place.",
+            "para": "A daily and weekly tracker for the global servers: tick duties off and watch the countdown to the daily reset and the Wednesday weekly reset. Reset times cite public sources and a review date.",
+            "wm": "wm-2",
+        },
+        "ru": {
+            "pill": "ИГРОВОЙ ХАБ · АКТИВЕН",
+            "h2": "Ваш хаб сбросов AION 2 — всё в одном месте.",
+            "para": "Трекер ежедневных и еженедельных заданий для глобальных серверов: отмечайте задания и следите за отсчётом до сброса. Время сброса — с указанием открытых источников и даты проверки.",
+            "wm": "wm-2",
+        },
+    },
+    "desktop-pension-squad": {
+        "en": {
+            "pill": "GAME HUB · EARLY ACCESS",
+            "h2": "Your DPS fusion workspace, all in one place.",
+            "para": "A fuse or salvage calculator: nine-item fusion odds for every level bracket, plus a Soul comparison when you enter sell prices. Odds are transcribed from DPSquad Wiki, which reads them from the game client (v1.0.2, build 26611958).",
+            "wm": "wm-dps",
+        },
+        "ru": {
+            "pill": "ИГРОВОЙ ХАБ · РАННИЙ ДОСТУП",
+            "h2": "Ваш хаб слияний DPS — всё в одном месте.",
+            "para": "Калькулятор слияния и разбора: шансы слияния девяти предметов для каждого диапазона уровней и сравнение Soul при введённых ценах. Шансы переписаны из DPSquad Wiki — из клиента игры (v1.0.2, сборка 26611958).",
+            "wm": "wm-dps",
+        },
+    },
+}
+
+
+# Preview-section copy per game: right-column bullets (existing facts
+# only) plus the mini-widget strings. "cta_tool" is the real tool page
+# the widget's button opens.
+HUB_PREVIEW = {
+    "gta-6": {
+        "en": {
+            "side_h": "One game. Multiple useful checks.",
+            "bullets": [
+                ("Official facts only",
+                 "Storage, launch time, editions and compatibility all cite official sources."),
+                ("Pre-launch until Nov 19, 2026",
+                 "The Wanted Evidence Helper is based on pre-release previews and will be verified in-game after launch."),
+                ("Updated after launch",
+                 "The same tools are updated from official patches once the game is out."),
+            ],
+            "widget_title": "Storage Space Calculator",
+            "widget_small": "Enter your own figures · no assumed GTA 6 install size",
+            "label_avail": "Available device storage (GB)",
+            "label_req": "Required game storage (GB)",
+            "result_remain": "Storage remaining after install",
+            "result_need": "Additional storage needed",
+            "note_ok": "Based on your custom inputs",
+            "note_short": "Your entered requirement exceeds available space",
+            "ps_note": "PlayStation lists at least 212 GB of free space for GTA 6 — enter 212 as the required size to check your console.",
+            "cta": "Open the storage check",
+            "cta_tool": "gta-6-storage-check",
+            "hint": "Try \u201cstorage\u201d, \u201ccountdown\u201d, \u201ceditions\u201d or \u201ccompatibility\u201d.",
+        },
+        "ru": {
+            "side_h": "Одна игра. Несколько полезных проверок.",
+            "bullets": [
+                ("Только официальные цифры",
+                 "Место, время выхода, издания и совместимость — всё с указанием официальных источников."),
+                ("До выхода — 19 ноября 2026",
+                 "Помощник по уликам основан на превью до выхода; после релиза сверим механику с игрой."),
+                ("Обновим после выхода",
+                 "Те же инструменты обновятся по официальным патчам, когда игра выйдет."),
+            ],
+            "widget_title": "Калькулятор места на диске",
+            "widget_small": "Введите свои цифры · размер установки не подставляется",
+            "label_avail": "Свободное место на устройстве (ГБ)",
+            "label_req": "Нужно игре (ГБ)",
+            "result_remain": "Останется после установки",
+            "result_need": "Нужно освободить ещё",
+            "note_ok": "По вашим цифрам",
+            "note_short": "Требуемый размер больше свободного места",
+            "ps_note": "PlayStation указывает: для GTA 6 нужно не менее 212 ГБ — введите 212 в поле «Нужно игре», чтобы проверить свою консоль.",
+            "cta": "Открыть проверку места",
+            "cta_tool": "gta-6-storage-check",
+            "hint": "Попробуйте «место», «отсчёт», «издания» или «совместимость».",
+        },
+    },
+    "aion-2": {
+        "en": {
+            "side_h": "One tracker. Every reset covered.",
+            "bullets": [
+                ("Daily reset 07:00 UTC",
+                 "Every day — 10:00 Moscow time."),
+                ("Weekly reset Wednesday 07:00 UTC",
+                 "Every Wednesday — 10:00 Moscow time."),
+                ("No account, saved locally",
+                 "The tracker runs in your browser and saves your checkmarks locally."),
+            ],
+            "widget_title": "Daily Reset Countdown",
+            "widget_small": "Live · next reset 07:00 UTC",
+            "meta_prefix": "Resets 07:00 UTC daily · your time: ",
+            "meta_pending": "Resets 07:00 UTC daily · your time: —",
+            "weekly_line": "Weekly reset: Wednesday 07:00 UTC.",
+            "cta": "Open the tracker",
+            "cta_tool": "aion-2-daily-tracker",
+            "hint": "Try \u201ctracker\u201d, \u201creset\u201d or \u201cweekly\u201d.",
+        },
+        "ru": {
+            "side_h": "Один трекер. Все сбросы учтены.",
+            "bullets": [
+                ("Ежедневный сброс — 10:00 МСК",
+                 "Каждый день, 07:00 UTC."),
+                ("Еженедельный сброс — среда, 10:00 МСК",
+                 "Каждую среду, 07:00 UTC."),
+                ("Без регистрации, отметки локально",
+                 "Трекер работает в браузере, а отметки сохраняются локально."),
+            ],
+            "widget_title": "Отсчёт до ежедневного сброса",
+            "widget_small": "Вживую · следующий сброс в 10:00 МСК",
+            "meta_prefix": "Сброс в 10:00 МСК (07:00 UTC) каждый день · ваше время: ",
+            "meta_pending": "Сброс в 10:00 МСК (07:00 UTC) каждый день · ваше время: —",
+            "weekly_line": "Еженедельный сброс: среда, 10:00 МСК (07:00 UTC).",
+            "cta": "Открыть трекер",
+            "cta_tool": "aion-2-daily-tracker",
+            "hint": "Попробуйте «трекер», «сброс» или «еженедельный».",
+        },
+    },
+    "desktop-pension-squad": {
+        "en": {
+            "side_h": "One calculator. Every fusion answered.",
+            "bullets": [
+                ("Odds from the game client",
+                 "DPSquad Wiki reads them from client v1.0.2, build 26611958."),
+                ("Early Access — numbers can change",
+                 "The calculator shows its data version and is updated when the game changes."),
+                ("No account needed",
+                 "Free to use, no login."),
+            ],
+            "widget_title": "Fusion Preview",
+            "widget_small": "Example: Epic, Lv. 20–30",
+            "label_items": "How many Epic items do you have?",
+            "stat_fusions": "Complete fusions",
+            "leftover_init": "0 leftover items",
+            "leftover_one": "1 leftover item",
+            "leftover_many": "{n} leftover items",
+            "stat_per": "Legendary+ per fuse",
+            "stat_per_sub": "Listed odds, Epic Lv. 20–30",
+            "stat_atleast": "At least one Legendary+",
+            "stat_atleast_sub": "across your fusions",
+            "stat_expected": "Expected Legendary+ hits",
+            "stat_expected_sub": "average, not a guarantee",
+            "source_note": "Odds from DPSquad Wiki (game client v1.0.2, build 26611958). Independent rolls, no pity.",
+            "cta": "Open the calculator",
+            "cta_tool": "dps-fuse-salvage-calculator",
+            "hint": "Try \u201cfuse\u201d, \u201csalvage\u201d or \u201codds\u201d.",
+        },
+        "ru": {
+            "side_h": "Один калькулятор. Все слияния посчитаны.",
+            "bullets": [
+                ("Шансы — из клиента игры",
+                 "DPSquad Wiki читает их из клиента v1.0.2, сборка 26611958."),
+                ("Ранний доступ — цифры могут меняться",
+                 "У калькулятора указана версия данных; при изменении игры данные обновляются."),
+                ("Без регистрации",
+                 "Бесплатно, без входа."),
+            ],
+            "widget_title": "Предпросмотр слияния",
+            "widget_small": "Пример: Epic, ур. 20–30",
+            "label_items": "Сколько у вас предметов Epic?",
+            "stat_fusions": "Полных слияний",
+            "leftover_init": "Остаток: 0 шт.",
+            "leftover_one": "Остаток: 1 шт.",
+            "leftover_many": "Остаток: {n} шт.",
+            "stat_per": "Legendary+ за одно слияние",
+            "stat_per_sub": "Указанные шансы, Epic, ур. 20–30",
+            "stat_atleast": "Хотя бы один Legendary+",
+            "stat_atleast_sub": "по вашим слияниям",
+            "stat_expected": "Ожидаемо Legendary+",
+            "stat_expected_sub": "в среднем, без гарантии",
+            "source_note": "Шансы: DPSquad Wiki (клиент игры v1.0.2, сборка 26611958). Независимые броски, без pity.",
+            "cta": "Открыть калькулятор",
+            "cta_tool": "dps-fuse-salvage-calculator",
+            "hint": "Попробуйте «слияние», «разбор» или «шансы».",
+        },
+    },
+}
+
+
+def tool_by_id(tool_id):
+    for t in TOOLS:
+        if t["id"] == tool_id:
+            return t
+    raise KeyError(tool_id)
+
+
 def hub_card(lang, game, t):
-    return tool_row(lang, t)
+    ui = HUB_UI[lang]
+    return (
+        '<a class="hub-tool" href="%s">'
+        '<span class="hub-tool-ico" aria-hidden="true">%s</span>'
+        '<h3>%s</h3><p>%s</p>'
+        '<span class="hub-tool-bottom">%s<span>%s</span></span></a>'
+        % (tool_url(lang, t),
+           ICONS.get(t["id"], ICONS["dps-fuse-salvage-calculator"]),
+           t["title"][lang], t["blurb"][lang], badge(lang, t), ui["open_tool"])
+    )
+
+
+def preview_widget_gta(lang, ui, pv):
+    t = tool_by_id(pv["cta_tool"])
+    return (
+        '<div class="hub-calc"><div class="hub-calc-head">'
+        '<div class="hub-calc-icon" aria-hidden="true">%s</div>'
+        '<div><h3>%s</h3><small>%s</small></div></div>'
+        '<div class="hub-form-row">'
+        '<div class="hub-field"><label for="hub-avail">%s</label>'
+        '<input id="hub-avail" type="number" min="0" value="250"></div>'
+        '<div class="hub-field"><label for="hub-req">%s</label>'
+        '<input id="hub-req" type="number" min="0" value="200"></div></div>'
+        '<div class="hub-result" id="hub-result"><div>'
+        '<span id="hub-result-label">%s</span>'
+        '<div class="hub-note" id="hub-result-note">%s</div></div>'
+        '<strong id="hub-result-value">50 GB</strong></div>'
+        '<p class="hub-note">%s</p>'
+        '<p style="margin-top:16px"><a class="btn btn-primary" href="%s">%s %s</a></p></div>'
+        % (ICONS["gta-6-storage-check"], pv["widget_title"], pv["widget_small"],
+           pv["label_avail"], pv["label_req"], pv["result_remain"], pv["note_ok"],
+           pv["ps_note"], tool_url(lang, t), pv["cta"], ARROW_SVG)
+    )
+
+
+def preview_widget_aion(lang, ui, pv):
+    t = tool_by_id(pv["cta_tool"])
+    return (
+        '<div class="hub-calc"><div class="hub-calc-head">'
+        '<div class="hub-calc-icon" aria-hidden="true">%s</div>'
+        '<div><h3>%s</h3><small>%s</small></div></div>'
+        '<div class="countdown-big" id="hub-daily-count">--:--:--</div>'
+        '<p class="hub-note" id="hub-daily-meta">%s</p>'
+        '<p class="hub-note">%s</p>'
+        '<p style="margin-top:16px"><a class="btn btn-primary" href="%s">%s %s</a></p></div>'
+        % (ICONS["aion-2-daily-tracker"], pv["widget_title"], pv["widget_small"],
+           pv["meta_pending"], pv["weekly_line"], tool_url(lang, t), pv["cta"], ARROW_SVG)
+    )
+
+
+def preview_widget_dps(lang, ui, pv):
+    t = tool_by_id(pv["cta_tool"])
+    # Listed odds for Epic input, Lv. 20-30 bracket (bracket index 2):
+    # Epic 49.88 / Legendary 50.12 — from the calculator's table, which is
+    # transcribed from DPSquad Wiki (game client v1.0.2, build 26611958).
+    # Listed odds sum to 100.00, so no normalization is needed here.
+    rows = (
+        '<div class="outcome-row"><div class="outcome-meta">'
+        '<span class="rarity-label"><span class="rarity-dot" style="--swatch: var(--r-epic)"></span>Epic</span>'
+        '<strong>49.88%</strong></div>'
+        '<div class="meter"><div class="meter-inner" style="--pct: 49.88%; --swatch: var(--r-epic)"></div></div></div>'
+        '<div class="outcome-row"><div class="outcome-meta">'
+        '<span class="rarity-label"><span class="rarity-dot" style="--swatch: var(--r-legendary)"></span>Legendary</span>'
+        '<strong>50.12%</strong></div>'
+        '<div class="meter"><div class="meter-inner" style="--pct: 50.12%; --swatch: var(--r-legendary)"></div></div></div>'
+    )
+    return (
+        '<div class="hub-calc"><div class="hub-calc-head">'
+        '<div class="hub-calc-icon" aria-hidden="true">%s</div>'
+        '<div><h3>%s</h3><small>%s</small></div></div>'
+        '<div class="hub-field"><label for="hub-items">%s</label>'
+        '<input id="hub-items" type="number" min="0" value="90"></div>'
+        '<div class="stats" style="margin-top:16px">'
+        '<div class="stat"><em>%s</em><strong id="hub-fusions">10</strong>'
+        '<span id="hub-leftover">%s</span></div>'
+        '<div class="stat"><em>%s</em><strong>50.12%%</strong><span>%s</span></div>'
+        '<div class="stat"><em>%s</em><strong id="hub-atleast">99.90%%</strong><span>%s</span></div>'
+        '<div class="stat"><em>%s</em><strong id="hub-expected">5.01</strong><span>%s</span></div>'
+        '</div>'
+        '<div class="outcomes" style="margin-top:16px">%s</div>'
+        '<p class="hub-note">%s</p>'
+        '<p style="margin-top:16px"><a class="btn btn-primary" href="%s">%s %s</a></p></div>'
+        % (ICONS["dps-fuse-salvage-calculator"], pv["widget_title"], pv["widget_small"],
+           pv["label_items"],
+           pv["stat_fusions"], pv["leftover_init"],
+           pv["stat_per"], pv["stat_per_sub"],
+           pv["stat_atleast"], pv["stat_atleast_sub"],
+           pv["stat_expected"], pv["stat_expected_sub"],
+           rows, pv["source_note"], tool_url(lang, t), pv["cta"], ARROW_SVG)
+    )
+
+
+def preview_side(lang, ui, pv):
+    items = "".join(
+        '<div class="hub-side-item"><div class="hub-bullet-icon" aria-hidden="true">%s</div>'
+        '<div><strong>%s</strong><span>%s</span></div></div>'
+        % (CHIP_ICONS[i], title, sub)
+        for i, (title, sub) in enumerate(pv["bullets"]))
+    return (
+        '<div class="hub-side"><p class="sec-label">%s</p>'
+        '<h3 class="hub-side-h">%s</h3><div class="hub-side-list">%s</div></div>'
+        % (ui["side_kicker"], pv["side_h"], items)
+    )
+
+
+# ---------------------------------------------------------------- hub JS
+# Search is shared by all hubs; each widget script is per game. Tokens
+# __ENTRIES__ / __SEARCH_STR__ / __WIDGET_STR__ are replaced with JSON
+# in hub_js() — the JS itself is never %-formatted.
+HUB_SEARCH_JS = """
+(function () {
+  var ENTRIES = __ENTRIES__;
+  var STR = __SEARCH_STR__;
+  var box = document.getElementById('hub-search');
+  var results = document.getElementById('hub-results');
+  var chips = document.querySelectorAll('.hub-chip');
+  var filter = 'all';
+  function render() {
+    var q = box.value.trim().toLowerCase();
+    var hits = ENTRIES.filter(function (e) {
+      if (filter !== 'all' && e.type !== filter) return false;
+      if (!q) return filter !== 'all';
+      return (e.name + ' ' + e.key).toLowerCase().indexOf(q) !== -1;
+    });
+    if (!q && filter === 'all') {
+      results.classList.remove('visible');
+      results.innerHTML = '';
+      return;
+    }
+    results.innerHTML = hits.length
+      ? hits.map(function (e) {
+          return '<a class="hub-result-item" href="' + e.href + '"><b>' +
+            e.name + '</b><span>' +
+            (e.type === 'tool' ? STR.tool : STR.faq) + ' \\u2192</span></a>';
+        }).join('')
+      : '<div class="hub-result-item">' + STR.noResults + '</div>';
+    results.classList.add('visible');
+  }
+  box.addEventListener('input', render);
+  document.getElementById('hub-search-btn').addEventListener('click', render);
+  chips.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      chips.forEach(function (x) { x.classList.remove('selected'); });
+      btn.classList.add('selected');
+      filter = btn.getAttribute('data-filter');
+      render();
+      box.focus();
+    });
+  });
+  document.querySelectorAll('.hub-jump a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      document.querySelectorAll('.hub-jump a').forEach(function (x) { x.classList.remove('active'); });
+      a.classList.add('active');
+    });
+  });
+})();
+"""
+
+# Storage widget: two editable inputs, available minus required.
+# Same result logic as the storage-check tool (remaining / additional
+# needed); no install size is assumed — both figures come from the visitor.
+HUB_WIDGET_GTA = """
+(function () {
+  var STR = __WIDGET_STR__;
+  var avail = document.getElementById('hub-avail');
+  var req = document.getElementById('hub-req');
+  var box = document.getElementById('hub-result');
+  var label = document.getElementById('hub-result-label');
+  var note = document.getElementById('hub-result-note');
+  var value = document.getElementById('hub-result-value');
+  function fmt(n) {
+    return n.toLocaleString(STR.locale, {maximumFractionDigits: 2});
+  }
+  function recalc() {
+    var a = Math.max(0, Number(avail.value) || 0);
+    var b = Math.max(0, Number(req.value) || 0);
+    var diff = a - b;
+    if (diff >= 0) {
+      label.textContent = STR.remain;
+      note.textContent = STR.noteOk;
+      value.textContent = fmt(diff) + ' GB';
+      value.style.color = '';
+      box.classList.remove('short');
+    } else {
+      label.textContent = STR.need;
+      note.textContent = STR.noteShort;
+      value.textContent = fmt(-diff) + ' GB';
+      value.style.color = 'var(--warm)';
+      box.classList.add('short');
+    }
+  }
+  avail.addEventListener('input', recalc);
+  req.addEventListener('input', recalc);
+  recalc();
+})();
+"""
+
+# AION 2 widget: live countdown to the next daily reset. Same computation
+# as the tracker (nextDailyReset, 07:00 UTC) — copied verbatim, not
+# re-derived.
+HUB_WIDGET_AION = """
+(function () {
+  var STR = __WIDGET_STR__;
+  function nextDailyReset(now) {
+    var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 7, 0, 0, 0));
+    if (d.getTime() <= now.getTime()) d.setUTCDate(d.getUTCDate() + 1);
+    return d;
+  }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function fmt(ms) {
+    if (ms < 0) ms = 0;
+    var s = Math.floor(ms / 1000);
+    var h = Math.floor(s / 3600);
+    var m = Math.floor((s % 3600) / 60);
+    var sec = s % 60;
+    return pad(h) + '<span class="unit">h</span>' + pad(m) + '<span class="unit">m</span>' + pad(sec) + '<span class="unit">s</span>';
+  }
+  var countEl = document.getElementById('hub-daily-count');
+  var metaEl = document.getElementById('hub-daily-meta');
+  var lastTarget = 0;
+  function tick() {
+    var now = new Date();
+    var nd = nextDailyReset(now);
+    countEl.innerHTML = fmt(nd.getTime() - now.getTime());
+    if (nd.getTime() !== lastTarget) {
+      lastTarget = nd.getTime();
+      try {
+        metaEl.textContent = STR.metaPrefix + nd.toLocaleString(undefined, {hour: 'numeric', minute: '2-digit', timeZoneName: 'short'});
+      } catch (e) {
+        metaEl.textContent = STR.metaPrefix + nd.toLocaleString();
+      }
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+"""
+
+# DPS widget: fixed Epic, Lv. 20-30. P = 0.5012 Legendary+ per fuse
+# (listed 49.88 Epic / 50.12 Legendary). fusions = floor(items / 9);
+# at-least-one = 1 - (1 - p)^n; expected = n * p. Same math as the
+# calculator (independent rolls, no pity).
+HUB_WIDGET_DPS = """
+(function () {
+  var STR = __WIDGET_STR__;
+  var P = 0.5012;
+  var itemsEl = document.getElementById('hub-items');
+  var fusionsEl = document.getElementById('hub-fusions');
+  var leftoverEl = document.getElementById('hub-leftover');
+  var atleastEl = document.getElementById('hub-atleast');
+  var expectedEl = document.getElementById('hub-expected');
+  function pct(x) { return x >= 99.995 ? '100%' : x.toFixed(2) + '%'; }
+  function recalc() {
+    var n = Math.max(0, Math.floor(Number(itemsEl.value) || 0));
+    var fusions = Math.floor(n / 9);
+    var left = n - fusions * 9;
+    var atLeast = fusions > 0 ? (1 - Math.pow(1 - P, fusions)) * 100 : 0;
+    var expected = fusions * P;
+    fusionsEl.textContent = fusions;
+    leftoverEl.textContent = left === 1 ? STR.leftoverOne : STR.leftoverMany.replace('{n}', left);
+    atleastEl.textContent = pct(atLeast);
+    expectedEl.textContent = expected.toFixed(2);
+  }
+  itemsEl.addEventListener('input', recalc);
+  recalc();
+})();
+"""
+
+
+def hub_js(game_id, lang):
+    ui = HUB_UI[lang]
+    pv = HUB_PREVIEW[game_id][lang]
+    b = HUB_BODY[game_id][lang]
+    entries = []
+    for t in tools_for(game_id):
+        entries.append({"name": t["title"][lang], "key": t["blurb"][lang],
+                        "href": tool_url(lang, t), "type": "tool"})
+    for q, a in b["faq"]:
+        entries.append({"name": q, "key": a, "href": "#faq", "type": "faq"})
+    search_str = json.dumps({"noResults": ui["no_results"],
+                             "tool": ui["type_tool"],
+                             "faq": ui["type_faq"]}, ensure_ascii=False)
+    js = HUB_SEARCH_JS.replace("__ENTRIES__", json.dumps(entries, ensure_ascii=False))
+    js = js.replace("__SEARCH_STR__", search_str)
+    if game_id == "gta-6":
+        wstr = json.dumps({"remain": pv["result_remain"], "need": pv["result_need"],
+                           "noteOk": pv["note_ok"], "noteShort": pv["note_short"],
+                           "locale": "en-US" if lang == "en" else "ru-RU"},
+                          ensure_ascii=False)
+        js += HUB_WIDGET_GTA.replace("__WIDGET_STR__", wstr)
+    elif game_id == "aion-2":
+        wstr = json.dumps({"metaPrefix": pv["meta_prefix"]}, ensure_ascii=False)
+        js += HUB_WIDGET_AION.replace("__WIDGET_STR__", wstr)
+    else:
+        wstr = json.dumps({"leftoverOne": pv["leftover_one"],
+                           "leftoverMany": pv["leftover_many"]}, ensure_ascii=False)
+        js += HUB_WIDGET_DPS.replace("__WIDGET_STR__", wstr)
+    return "<script>\n" + js + "\n</script>"
 
 
 def hub_page(game_id, lang):
     c = HUB_COPY[game_id][lang]
     b = HUB_BODY[game_id][lang]
+    ui = HUB_UI[lang]
+    hero = HUB_HERO[game_id][lang]
+    pv = HUB_PREVIEW[game_id][lang]
     game = GAMES_DATA[game_id]
     tools = tools_for(game_id)
-    live_cards = "".join(hub_card(lang, game, t) for t in tools if t["status"] == "live")
-    pre_cards = "".join(hub_card(lang, game, t) for t in tools if t["status"] == "pre-launch")
     hub_path = "/%s/" % game_id if lang == "en" else "/ru/%s/" % game_id
     alt = {"en": "/%s/" % game_id, "ru": "/ru/%s/" % game_id}
     home_label = "Home" if lang == "en" else "Главная"
     home_path = "/" if lang == "en" else "/ru/"
-    secs = ['<h2 class="sec">%s</h2>%s' % (c["tools_h"], live_cards)]
-    if pre_cards:
-        secs.append('<h2 class="sec">%s</h2><p class="intro-note">%s</p>%s'
-                    % (b["prelaunch_h"], b["prelaunch_note"], pre_cards))
-    if "reset" in b:
-        reset_rows = "".join("<h3>%s</h3><p>%s</p>" % (h, p) for h, p in b["reset"])
-        secs.append('<section class="block prose"><h2 class="sec">%s</h2>%s</section>'
-                    % (b["reset_h"], reset_rows))
+    short = GAMES[game_id]["short"]
+
+    # Hero: eyebrow + H1 + lede (SEO v2 copy, unchanged) + CTAs, and the
+    # stat card (status pill, per-game line, honest paragraph, real stats).
+    jump = "".join(
+        '<a href="%s">%s</a>' % (href, label) for label, href in ui["jump"])
+    hero_html = (
+        '<section class="hub-hero"><div class="hub-hero-main">'
+        '<p class="hub-eyebrow">%s</p><h1>%s</h1>'
+        '<p class="hub-lede">%s</p>'
+        '<div class="cta"><a class="btn btn-primary" href="#tools">%s</a>'
+        '<a class="btn btn-secondary" href="#faq">%s</a></div></div>'
+        '<aside class="hub-stat %s"><div>'
+        '<span class="hub-pill"><span class="dot"></span>%s</span>'
+        '<h2>%s</h2><p>%s</p></div>'
+        '<div class="hub-meta"><div><strong>%d</strong><span>%s</span></div>'
+        '<div><strong>2</strong><span>%s</span></div></div></aside></section>'
+        '<nav class="hub-jump" aria-label="%s">%s</nav>'
+        % (ui["eyebrow"], c["h1"], c["lede"], ui["cta_tools"], ui["cta_faq"],
+           hero["wm"], hero["pill"], hero["h2"], hero["para"],
+           len(tools), ui["tools_meta"], ui["langs_meta"],
+           ui["jump_label"], jump)
+    )
+
+    # Tools: one card per real tool page (live + pre-launch in one grid).
+    # The GTA 6 pre-launch note still appears exactly once, under the grid.
+    cards = "".join(hub_card(lang, game, t) for t in tools)
+    note = ""
+    if any(t["status"] == "pre-launch" for t in tools) and b.get("prelaunch_note"):
+        note = '<p class="intro-note">%s</p>' % b["prelaunch_note"]
+    tools_html = (
+        '<section class="hub-section" id="tools">'
+        '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
+        '<h2>%s</h2><p class="hub-sub">%s</p></div>'
+        '<a class="hub-more" href="#explore">%s %s</a></div>'
+        '<div class="hub-tools">%s</div>%s</section>'
+        % (ui["tools_kicker"], ui["tools_h"], ui["tools_sub"],
+           ui["tools_more"], ARROW_SVG, cards, note)
+    )
+
+    # Preview: one real working mini-widget + honest bullets. The AION 2
+    # reset facts live here now (no standalone Reset section).
+    if game_id == "gta-6":
+        widget = preview_widget_gta(lang, ui, pv)
+    elif game_id == "aion-2":
+        widget = preview_widget_aion(lang, ui, pv)
+    else:
+        widget = preview_widget_dps(lang, ui, pv)
+    preview_html = (
+        '<section class="hub-section" id="preview">'
+        '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
+        '<h2>%s</h2></div></div>'
+        '<div class="hub-workspace">%s%s</div></section>'
+        % (ui["preview_kicker"], ui["preview_h"], widget, preview_side(lang, ui, pv))
+    )
+
     # Guides section only exists once a game actually has guides
     # (data/site.json top-level "guides"; an entry counts only when its
     # "game" field equals this game's id). Until then the hub shows no
     # Guides block at all. When guides land, render the list here
     # instead of the placeholder note.
+    # No wiki section: no wiki data exists yet. When wiki data lands in
+    # data/site.json, render it here, gated the same way as guides.
+    guides_html = ""
     if [g for g in GUIDES if g.get("game") == game_id]:
-        secs.append('<section class="block prose"><h2 class="sec">%s</h2><p>%s</p></section>'
-                    % (b["guides_h"], b["guides_note"]))
-    planned_items = "".join("<li>%s</li>" % p for p in b["planned"])
-    secs.append('<section class="block prose"><h2 class="sec">%s</h2><ul>%s</ul></section>'
-                % (b["planned_h"], planned_items))
+        guides_html = ('<section class="hub-section"><h2 class="sec">%s</h2><p>%s</p></section>'
+                       % (b["guides_h"], b["guides_note"]))
+
+    # Explore: client-side search over this hub's real tools + FAQ, and a
+    # suggest box with a real mailto link (no demo prompt/toast).
+    mailto = "mailto:%s?subject=%s" % (
+        EMAIL, (ui["suggest_subject"] + game["name"]["en"]).replace(" ", "%20"))
+    explore_html = (
+        '<section class="hub-section" id="explore">'
+        '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
+        '<h2>%s</h2><p class="hub-sub">%s</p></div></div>'
+        '<div class="hub-explore"><div class="hub-browse">'
+        '<h3>%s</h3><p class="hub-sub">%s</p>'
+        '<div class="hub-searchbox">'
+        '<input id="hub-search" type="search" placeholder="%s" aria-label="%s">'
+        '<button id="hub-search-btn" type="button">%s</button></div>'
+        '<div class="hub-chips">'
+        '<button class="hub-chip selected" type="button" data-filter="all">%s</button>'
+        '<button class="hub-chip" type="button" data-filter="tool">%s</button>'
+        '<button class="hub-chip" type="button" data-filter="faq">%s</button></div>'
+        '<div class="hub-results" id="hub-results" aria-live="polite"></div>'
+        '</div>'
+        '<aside class="hub-suggest"><div><p class="sec-label">%s</p>'
+        '<h3>%s</h3><p>%s</p></div>'
+        '<a class="btn btn-primary" href="%s">%s</a></aside></div></section>'
+        % (ui["explore_kicker"], ui["explore_h"] % short, ui["explore_sub"],
+           ui["explore_label"], pv["hint"], ui["explore_placeholder"],
+           ui["explore_label"], ui["explore_search"],
+           ui["chip_all"], ui["chip_tools"], ui["chip_faq"],
+           ui["suggest_kicker"], ui["suggest_h"], ui["suggest_p"],
+           mailto, ui["suggest_btn"])
+    )
+
+    # FAQ: same Q&As as before (text unchanged), first item open.
     faq_items = "".join(
         '<details%s><summary><h3>%s</h3><span class="plus" aria-hidden="true">'
         '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6">'
         '<path d="M6 1v10M1 6h10"/></svg></span></summary><p>%s</p></details>'
         % (" open" if i == 0 else "", q, a)
         for i, (q, a) in enumerate(b["faq"]))
-    secs.append('<section class="block prose faq"><h2 class="sec">%s</h2>%s</section>'
-                % (b["faq_h"], faq_items))
-    other_links = " &middot; ".join('<a href="%s">%s</a>' % (href, label)
-                                     for label, href in b["other"])
-    secs.append('<section class="block"><h2 class="sec">%s</h2><p>%s</p></section>'
-                % (b["other_h"], other_links))
+    faq_html = (
+        '<section class="hub-section faq hub-faq" id="faq">'
+        '<p class="sec-label">%s</p><h2>%s</h2>%s</section>'
+        % (ui["faq_kicker"], b["faq_h"], faq_items)
+    )
+
     body = (
-        '<main id="main" class="wrap">%s'
-        '<section class="tool-hero"><h1>%s</h1><p class="sub">%s</p></section>'
-        '%s'
-        '</main>'
+        '<main id="main" class="wrap">%s%s%s%s%s%s%s</main>'
         % (crumbs_html(lang, [(game["name"][lang], None)]),
-           c["h1"], c["lede"], "".join(secs))
+           hero_html, tools_html, preview_html, guides_html, explore_html,
+           faq_html)
     )
     jl = breadcrumb_jsonld(lang, [(home_label, home_path), (game["name"][lang], hub_path)])
     return page(lang, c["title"], c["desc"], hub_path, alt, body,
-                jsonld=jl, games=(game_id,))
+                jsonld=jl, games=(game_id,), tail=hub_js(game_id, lang))
 
 
 # ---------------------------------------------------------------- 404
