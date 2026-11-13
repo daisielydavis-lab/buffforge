@@ -806,7 +806,7 @@ HUB_BODY = {
     "gta-6": {
         "en": {
             "prelaunch_h": "Pre-launch tool",
-            "prelaunch_note": "Based on pre-release previews. Mechanics will be verified in-game after launch on Nov 19, 2026. This tool is not featured and is not in the sitemap.",
+            "prelaunch_note": "Based on pre-release previews. Mechanics will be verified in-game after launch on Nov 19, 2026.",
             "guides_h": "Guides",
             "guides_note": "No guides published yet. Guides appear here only when we can source the numbers — nothing is listed until then.",
             "planned_h": "Planned tools and guides",
@@ -830,7 +830,7 @@ HUB_BODY = {
         },
         "ru": {
             "prelaunch_h": "Инструмент до выхода",
-            "prelaunch_note": "По материалам превью до выхода. После 19 ноября 2026 года сверим механику с игрой. Инструмент не входит в главный блок и не входит в sitemap.",
+            "prelaunch_note": "По материалам превью до выхода. После 19 ноября 2026 года сверим механику с игрой.",
             "guides_h": "Гайды",
             "guides_note": "Гайдов пока нет. Гайды появятся здесь, только когда мы сможем проверить цифры, — до тех пор ничего не публикуется.",
             "planned_h": "Запланированные инструменты и гайды",
