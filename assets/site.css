@@ -1411,3 +1411,149 @@ a.hub-result-item:hover { color: var(--teal-deep); }
   .nf-banner { display: block; }
   .nf-banner .btn { margin-top: 19px; }
 }
+
+/* Guide figures: official shots and the lag-guide diagrams.
+   Type uses the scale tokens only. */
+.shot {
+  margin: 18px 0 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.shot img { width: 100%; height: auto; display: block; background: var(--paper-2); }
+.shot figcaption, .guide-visual figcaption {
+  margin: 0;
+  padding: 8px 14px 10px;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--muted);
+}
+.guide-visual { margin: 16px 0 18px; }
+.guide-visual figcaption { padding: 8px 2px 0; }
+.route {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px 16px;
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+}
+.route-origin {
+  grid-row: span 2;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+  background: var(--rob-wash);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  text-align: center;
+}
+.route-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; }
+.route-track { height: 10px; background: var(--bg-elev); border-radius: 99px; overflow: hidden; }
+.route-track i { display: block; height: 100%; border-radius: 99px; }
+.route-track.near i { width: 48%; background: var(--teal); }
+.route-track.far i { width: 100%; background: var(--warm); }
+.route-end b {
+  display: block;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.route-end span {
+  display: block;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--muted);
+}
+.ping-fps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 18px; }
+.ping-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 16px 18px 14px;
+  box-shadow: var(--shadow-sm);
+}
+.ping-card.net { border-top: 4px solid var(--teal); }
+.ping-card.fps { border-top: 4px solid var(--warm); }
+.ping-card .ico {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: grid; place-items: center; margin-bottom: 10px;
+}
+.ping-card.net .ico { background: var(--teal-dim); color: var(--teal-deep); }
+.ping-card.fps .ico { background: var(--warm-dim); color: var(--warm-ink); }
+.ping-card .ico svg { width: 20px; height: 20px; }
+.ping-card h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.ping-card p {
+  font-size: var(--fs-card);
+  line-height: 1.65;
+  color: var(--body);
+  margin: 0 0 6px;
+}
+.prose ol.steps {
+  list-style: none;
+  margin: 16px 0 18px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 8px;
+  align-items: stretch;
+}
+.prose ol.steps li { margin: 0; }
+.steps .step {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 14px 12px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.steps .step-n {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--teal-ink);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  line-height: 1;
+}
+.steps .step b {
+  display: block;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.steps .step-arrow {
+  align-self: center;
+  justify-self: center;
+  color: var(--teal-deep);
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.steps .step-arrow svg { width: 22px; height: 22px; display: block; }
+@media (max-width: 640px) {
+  .route { grid-template-columns: 1fr; }
+  .route-origin { grid-row: auto; }
+  .ping-fps { grid-template-columns: 1fr; }
+  .prose ol.steps { grid-template-columns: 1fr; }
+  .steps .step-arrow svg { transform: rotate(90deg); margin: 0 auto; }
+}

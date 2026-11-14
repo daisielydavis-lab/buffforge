@@ -779,6 +779,70 @@ def _booster(tag, name, trial, lines, href, host):
     )
 
 
+def _shot(src, width, height, alt, lazy):
+    extra = ' loading="lazy" decoding="async"' if lazy else ' fetchpriority="high"'
+    return (
+        '<figure class="shot"><img src="%s" width="%d" height="%d" alt="%s"%s>'
+        '<figcaption>© Kefir</figcaption></figure>'
+        % (src, width, height, alt, extra)
+    )
+
+
+def _guide_visuals():
+    """Original diagrams plus official Steam screenshots. Article sentences stay as written."""
+    hero = _shot(
+        "/assets/rob-run/lag-hero.webp", 1600, 901,
+        "Ограбление в ROB RUN: игрок с сумкой у стойки, в углу мини-карта.",
+        False)
+    route = (
+        '<figure class="guide-visual"><div class="route" role="img" '
+        'aria-label="Из России путь до EU короче, чем до East US. Без цифр пинга и без городов серверов.">'
+        '<div class="route-origin">Россия</div>'
+        '<div class="route-row"><div class="route-track near" aria-hidden="true"><i></i></div>'
+        '<div class="route-end"><b>EU</b><span>обычно ближе</span></div></div>'
+        '<div class="route-row"><div class="route-track far" aria-hidden="true"><i></i></div>'
+        '<div class="route-end"><b>East US</b><span>дальше</span></div></div>'
+        '</div><figcaption>Схема без цифр: длиннее маршрут — выше задержка. Города серверов не показаны.</figcaption></figure>'
+    )
+    ping = (
+        '<div class="ping-fps">'
+        '<article class="ping-card net"><div class="ico" aria-hidden="true">'
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+        '<path d="M5 12.5a8 8 0 0 1 14 0"/><path d="M8 14.2a4.2 4.2 0 0 1 8 0"/>'
+        '<circle cx="12" cy="17" r="1.2" fill="currentColor" stroke="none"/></svg></div>'
+        '<h3>Сеть</h3>'
+        '<p>Высокий пинг, «резинка», рассинхрон.</p>'
+        '<p>Многих отключает сразу — это сервер.</p></article>'
+        '<article class="ping-card fps"><div class="ico" aria-hidden="true">'
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+        '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>'
+        '<h3>FPS</h3>'
+        '<p>Кадры падают, когда двигаете мышь.</p>'
+        '<p>Это не пинг.</p></article></div>'
+    )
+    arrow = (
+        '<li class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" '
+        'stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></li>'
+    )
+    steps = (
+        '<ol class="steps">'
+        '<li class="step"><span class="step-n">1</span><b>Глобальная карта</b></li>%s'
+        '<li class="step"><span class="step-n">2</span><b>«Тюрьма»</b></li>%s'
+        '<li class="step"><span class="step-n">3</span><b>«Сдаться федералам»</b></li>'
+        '</ol>'
+        % (arrow, arrow)
+    )
+    world = _shot(
+        "/assets/rob-run/lag-map.webp", 1280, 720,
+        "Глобальная карта ROB RUN: районы на одном экране.",
+        True)
+    prison = _shot(
+        "/assets/rob-run/lag-prison.webp", 1280, 720,
+        "Тюрьма в ROB RUN: общий зал и табло со сроком.",
+        True)
+    return hero, route, ping, steps + world + prison
+
+
 def lag_page():
     """RU-only guide. No English page and no hreflang alternate."""
     canon = "/ru/rob-run/kak-ubrat-lagi/"
@@ -787,6 +851,7 @@ def lag_page():
             "и что сделать бесплатно. LagoFast, ExitLag и GearUP — без цен.")
     h1 = "ROB RUN лагает и высокий пинг: как уменьшить задержку"
     crumb = "Лаги и высокий пинг"
+    hero, route, ping, server_art = _guide_visuals()
     faq_html = "".join(
         '<details%s><summary><h3>%s</h3>'
         '<span class="plus" aria-hidden="true">'
@@ -823,11 +888,13 @@ def lag_page():
         '<p class="page-lede">Из России задержка чаще упирается в маршрут до сервера. '
         'Официально регионов два, города площадок не опубликованы.</p>'
         '<p class="intro-note">Обновлено: 14 ноября 2026</p>'
+        '%s'
         '<div class="prose">'
         '<h2 class="sec">Почему лагает</h2>'
         '<p>4 ноября 2026 года Kefir написал: «Сейчас в ROB RUN доступны два региона: EU и East US». '
         'Другие регионы обещали добавлять по мере возможности. Города серверов в %s не названы — '
         'и на этой странице тоже.</p>'
+        '%s'
         '<p>13 ноября 2026 года в %s разработчики назвали нестабильность серверов и DDoS-атаки '
         'среди острых проблем, которые они разбирают.</p>'
         '<div class="note-box amber"><p>Если сервер недоступен из-за DDoS, со стороны игрока это не исправить. '
@@ -838,6 +905,7 @@ def lag_page():
         '<tr><th>Многих отключает одновременно</th><td>Сервер. Со своей стороны это не исправить.</td></tr>'
         '<tr><th>FPS падает, когда двигаете мышь</th><td>Не пинг. В справке Kefir это частота опроса мыши.</td></tr>'
         '</table>'
+        '%s'
         '<p>Если кадры падают при движении мыши, %s советует снизить «Частоту опроса» в программе '
         'производителя мыши (Logitech, Razer, Bloody и другие).</p>'
         '<p>Проверка файлов в Steam, по %s: Свойства → Установленные файлы → Проверить целостность файлов игры.</p>'
@@ -849,6 +917,7 @@ def lag_page():
         '<p>Сменить сервер в рейде нельзя. В FAQ от 13 ноября 2026 года: «Чтобы сменить сервер, приходится '
         'сдаваться и возвращаться в тюрьму». %s описывает тот же шаг: откройте глобальную карту, выберите '
         'локацию «Тюрьма» и нажмите «Сдаться федералам». Сервер меняют уже из тюрьмы.</p>'
+        '%s'
         '<p>Серверы в других регионах, например в Азии или Океании, как минимум до конца этого года не появятся — '
         'так Kefir ответил в том же FAQ.</p>'
         '<h2 class="sec">Бесплатно: что сделать самому</h2>'
@@ -892,14 +961,17 @@ def lag_page():
         '<p class="data-line">BuffForge — независимый фанатский проект. Сайт не связан с Kefir и не одобрен компанией. '
         'Официальная справка: %s.</p></main>'
         % (crumbs_html("ru", [("ROB RUN", "/ru/rob-run/"), (crumb, None)]),
-           h1,
+           h1, hero,
            _src(ANN_REGIONS, "объявлении от 4 ноября 2026"),
+           route,
            _src(ANN_FAQ, "FAQ"),
+           ping,
            _src(HC_FPS, "справка Kefir"),
            _src(HC_FILES, "справке Kefir"),
            _src(HC_ERR, "списке ошибок"),
            _src(HC_SECTION, "устранение неполадок и поддержка"),
            _src(HC_SERVER, "Справка Kefir"),
+           server_art,
            _src(HC_REQ, "справка Kefir"),
            cards, faq_html,
            _src(HC_SECTION, "устранение неполадок ROB RUN"))
