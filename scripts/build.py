@@ -40,6 +40,33 @@ def tools_for(game_id):
     return [t for t in TOOLS if t["game"] == game_id]
 
 
+def guides_for(game_id, lang):
+    """Live guides for this game in this language only.
+
+    data/site.json "guides" is the hidden list. An entry with "langs"
+    is omitted from the other language, so a RU-only guide never
+    appears on the EN hub.
+    """
+    found = []
+    for g in GUIDES:
+        if g.get("game") != game_id:
+            continue
+        if g.get("status", "live") != "live":
+            continue
+        langs = g.get("langs")
+        if langs is not None and lang not in langs:
+            continue
+        if lang not in (g.get("title") or {}):
+            continue
+        found.append(g)
+    return found
+
+
+def guide_url(lang, guide):
+    base = "" if lang == "en" else "/ru"
+    return "%s/%s/%s/" % (base, guide["game"], guide["slug"])
+
+
 def featured_for(lang):
     feats = [t for t in TOOLS
              if t["status"] == "live" and t.get("featured", {}).get(lang)]
@@ -183,6 +210,7 @@ ICONS = {
     "rob-run-federal-raid-countdown": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
     "rob-run-loot-profit-calculator": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',
     "rob-run-squad-loot-splitter": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="9" r="2.2"/><circle cx="16" cy="9" r="2.2"/><path d="M4.5 18c.6-2.2 2.2-3.2 3.5-3.2s2.9 1 3.5 3.2M12.5 18c.6-2.2 2.2-3.2 3.5-3.2s2.9 1 3.5 3.2"/></svg>',
+    "rob-run-kak-ubrat-lagi": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16V11"/><path d="M12 16V7"/><path d="M16 16v-6"/></svg>',
 }
 CHIP_ICONS = [
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>',
@@ -941,6 +969,11 @@ HUB_UI = {
         "langs_meta": "Languages",
         "type_tool": "Tool",
         "type_faq": "FAQ",
+        # Rendered only when this language has a guide in data/site.json.
+        "guides_kicker": "Read next",
+        "open_guide": "Open guide \u2197",
+        "chip_guides": "Guides",
+        "type_guide": "Guide",
     },
     "ru": {
         "eyebrow": "BuffForge / Игровой хаб",
@@ -976,6 +1009,10 @@ HUB_UI = {
         "langs_meta": "Языка",
         "type_tool": "Инструмент",
         "type_faq": "Вопрос",
+        "guides_kicker": "Коротко",
+        "open_guide": "Открыть гайд \u2197",
+        "chip_guides": "Гайды",
+        "type_guide": "Гайд",
     },
 }
 
@@ -1254,6 +1291,19 @@ def hub_card(lang, game, t):
         % (tool_url(lang, t),
            ICONS.get(t["id"], ICONS["dps-fuse-salvage-calculator"]),
            t["title"][lang], t["blurb"][lang], badge(lang, t), ui["open_tool"])
+    )
+
+
+def guide_card(lang, g):
+    ui = HUB_UI[lang]
+    return (
+        '<a class="hub-tool" href="%s">'
+        '<span class="hub-tool-ico" aria-hidden="true">%s</span>'
+        '<h3>%s</h3><p>%s</p>'
+        '<span class="hub-tool-bottom">%s<span>%s</span></span></a>'
+        % (guide_url(lang, g),
+           ICONS.get(g["id"], ICONS["dps-fuse-salvage-calculator"]),
+           g["title"][lang], g["blurb"][lang], badge(lang, g), ui["open_guide"])
     )
 
 
@@ -1571,12 +1621,25 @@ def hub_js(game_id, lang):
     for t in tools_for(game_id):
         entries.append({"name": t["title"][lang], "key": t["blurb"][lang],
                         "href": tool_url(lang, t), "type": "tool"})
+    page_guides = guides_for(game_id, lang)
+    for g in page_guides:
+        entries.append({"name": g["title"][lang], "key": g["blurb"][lang],
+                        "href": guide_url(lang, g), "type": "guide"})
     for q, a in b["faq"]:
         entries.append({"name": q, "key": a, "href": "#faq", "type": "faq"})
-    search_str = json.dumps({"noResults": ui["no_results"],
-                             "tool": ui["type_tool"],
-                             "faq": ui["type_faq"]}, ensure_ascii=False)
-    js = HUB_SEARCH_JS.replace("__ENTRIES__", json.dumps(entries, ensure_ascii=False))
+    payload = {"noResults": ui["no_results"],
+               "tool": ui["type_tool"],
+               "faq": ui["type_faq"]}
+    template = HUB_SEARCH_JS
+    # Label "Гайд" only on hubs that actually list a guide. Other hubs
+    # keep the original script byte-for-byte.
+    if page_guides:
+        payload["guide"] = ui["type_guide"]
+        template = template.replace(
+            "(e.type === 'tool' ? STR.tool : STR.faq)",
+            "(e.type === 'tool' ? STR.tool : (e.type === 'guide' ? STR.guide : STR.faq))")
+    search_str = json.dumps(payload, ensure_ascii=False)
+    js = template.replace("__ENTRIES__", json.dumps(entries, ensure_ascii=False))
     js = js.replace("__SEARCH_STR__", search_str)
     if game_id == "gta-6":
         wstr = json.dumps({"remain": pv["result_remain"], "need": pv["result_need"],
@@ -1618,6 +1681,7 @@ def hub_page(game_id, lang):
     pv = HUB_PREVIEW[game_id][lang]
     game = GAMES_DATA[game_id]
     tools = tools_for(game_id)
+    guides = guides_for(game_id, lang)
     hub_path = "/%s/" % game_id if lang == "en" else "/ru/%s/" % game_id
     alt = {"en": "/%s/" % game_id, "ru": "/ru/%s/" % game_id}
     home_label = "Home" if lang == "en" else "Главная"
@@ -1626,8 +1690,12 @@ def hub_page(game_id, lang):
 
     # Hero: eyebrow + H1 + lede (SEO v2 copy, unchanged) + CTAs, and the
     # stat card (status pill, per-game line, honest paragraph, real stats).
+    # A Guides jump is added only when this language has a guide.
+    jump_items = list(ui["jump"])
+    if guides:
+        jump_items.insert(1, (b["guides_h"], "#guides"))
     jump = "".join(
-        '<a href="%s">%s</a>' % (href, label) for label, href in ui["jump"])
+        '<a href="%s">%s</a>' % (href, label) for label, href in jump_items)
     hero_html = (
         '<section class="hub-hero"><div class="hub-hero-main">'
         '<p class="hub-eyebrow">%s</p><h1>%s</h1>'
@@ -1680,22 +1748,37 @@ def hub_page(game_id, lang):
         % (ui["preview_kicker"], ui["preview_h"], widget, preview_side(lang, ui, pv))
     )
 
-    # Guides section only exists once a game actually has guides
-    # (data/site.json top-level "guides"; an entry counts only when its
-    # "game" field equals this game's id). Until then the hub shows no
-    # Guides block at all. When guides land, render the list here
-    # instead of the placeholder note.
+    # Guides section only exists once THIS language has a live guide
+    # (data/site.json top-level "guides", matched on game id and langs).
+    # Until then the hub shows no Guides block at all — the placeholder
+    # note in HUB_BODY stays unused. A RU-only guide does not open the
+    # section on the EN hub.
     # No wiki section: no wiki data exists yet. When wiki data lands in
     # data/site.json, render it here, gated the same way as guides.
     guides_html = ""
-    if [g for g in GUIDES if g.get("game") == game_id]:
-        guides_html = ('<section class="hub-section"><h2 class="sec">%s</h2><p>%s</p></section>'
-                       % (b["guides_h"], b["guides_note"]))
+    if guides:
+        cards = "".join(guide_card(lang, g) for g in guides)
+        guides_html = (
+            '<section class="hub-section" id="guides">'
+            '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
+            '<h2>%s</h2></div></div>'
+            '<div class="hub-tools">%s</div></section>'
+            % (ui["guides_kicker"], b["guides_h"], cards)
+        )
 
     # Explore: client-side search over this hub's real tools + FAQ, and a
     # suggest box with a real mailto link (no demo prompt/toast).
     mailto = "mailto:%s?subject=%s" % (
         EMAIL, (ui["suggest_subject"] + game["name"]["en"]).replace(" ", "%20"))
+    chips = (
+        '<button class="hub-chip selected" type="button" data-filter="all">%s</button>'
+        '<button class="hub-chip" type="button" data-filter="tool">%s</button>'
+        % (ui["chip_all"], ui["chip_tools"]))
+    if guides:
+        chips += ('<button class="hub-chip" type="button" data-filter="guide">%s</button>'
+                  % ui["chip_guides"])
+    chips += ('<button class="hub-chip" type="button" data-filter="faq">%s</button>'
+              % ui["chip_faq"])
     explore_html = (
         '<section class="hub-section" id="explore">'
         '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
@@ -1705,10 +1788,7 @@ def hub_page(game_id, lang):
         '<div class="hub-searchbox">'
         '<input id="hub-search" type="search" placeholder="%s" aria-label="%s">'
         '<button id="hub-search-btn" type="button">%s</button></div>'
-        '<div class="hub-chips">'
-        '<button class="hub-chip selected" type="button" data-filter="all">%s</button>'
-        '<button class="hub-chip" type="button" data-filter="tool">%s</button>'
-        '<button class="hub-chip" type="button" data-filter="faq">%s</button></div>'
+        '<div class="hub-chips">%s</div>'
         '<div class="hub-results" id="hub-results" aria-live="polite"></div>'
         '</div>'
         '<aside class="hub-suggest"><div><p class="sec-label">%s</p>'
@@ -1717,7 +1797,7 @@ def hub_page(game_id, lang):
         % (ui["explore_kicker"], ui["explore_h"] % short, ui["explore_sub"],
            ui["explore_label"], pv["hint"], ui["explore_placeholder"],
            ui["explore_label"], ui["explore_search"],
-           ui["chip_all"], ui["chip_tools"], ui["chip_faq"],
+           chips,
            ui["suggest_kicker"], ui["suggest_h"], ui["suggest_p"],
            mailto, ui["suggest_btn"])
     )
@@ -1930,10 +2010,10 @@ def not_found_page(lang="en"):
 def sitemap_xml():
     urls = []
 
-    def add(path, freq, prio):
-        urls.append('  <url>\n    <loc>%s%s</loc>\n    <lastmod>2026-11-13</lastmod>\n'
+    def add(path, freq, prio, lastmod="2026-11-13"):
+        urls.append('  <url>\n    <loc>%s%s</loc>\n    <lastmod>%s</lastmod>\n'
                     '    <changefreq>%s</changefreq>\n    <priority>%s</priority>\n  </url>'
-                    % (BASE, path, freq, prio))
+                    % (BASE, path, lastmod, freq, prio))
 
     add("/", "weekly", "1.0")
     add("/ru/", "weekly", "1.0")
@@ -1947,6 +2027,16 @@ def sitemap_xml():
             continue  # pre-launch tools never enter the submitted sitemap
         add("/%s/%s/" % (t["game"], t["slug"]), "weekly", "0.9")
         add("/ru/%s/%s/" % (t["game"], t["slug"]), "weekly", "0.9")
+    for g in GUIDES:
+        if g.get("status", "live") != "live":
+            continue
+        langs = g.get("langs") or ["en", "ru"]
+        lastmod = g.get("updated") or "2026-11-13"
+        for lang in langs:
+            if lang not in (g.get("title") or {}):
+                continue
+            prefix = "" if lang == "en" else "/ru"
+            add("%s/%s/%s/" % (prefix, g["game"], g["slug"]), "weekly", "0.7", lastmod)
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "\n".join(urls) + "\n</urlset>\n")
