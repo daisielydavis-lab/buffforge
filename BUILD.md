@@ -33,8 +33,7 @@ python3 scripts/build_rob.py        # ROB RUN Federal Raid countdown, loot profi
 
 ## Rules that must survive any rebuild
 
-- Temporary `noindex` on every page (user decision 2026-11-13) until the
-  content set is complete; `robots.txt` stays `Allow: /`.
+- No site-wide `noindex` (user decision 2026-11-15: the removal is intentional, the site is indexable). `noindex` is opt-in only: kept on the GTA 6 Wanted Evidence Helper (pre-launch) and the 404 pages. `robots.txt` stays `Allow: /`.
 - Canonical URLs without `www`; `www.buffforge.com` 301s to `buffforge.com`
   (see `_redirects`; also confirm in the Cloudflare dashboard).
 - `buffforge.pages.dev` gets `X-Robots-Tag: noindex` via `_headers`
