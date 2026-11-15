@@ -20,6 +20,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from shell import BASE, breadcrumb_jsonld, crumbs_html, page  # noqa: E402
+from rob_status import rel_path as status_rel, render as status_render  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEEK_MS = 7 * 24 * 60 * 60 * 1000
@@ -887,7 +888,7 @@ def lag_page():
         '<h1 class="page-h1">%s</h1>'
         '<p class="page-lede">Из России задержка чаще упирается в маршрут до сервера. '
         'Официально регионов два, города площадок не опубликованы.</p>'
-        '<p class="intro-note">Обновлено: 14 ноября 2026</p>'
+        '<p class="intro-note">Обновлено: 15 ноября 2026</p>'
         '%s'
         '<div class="prose">'
         '<h2 class="sec">Почему лагает</h2>'
@@ -899,6 +900,8 @@ def lag_page():
         'среди острых проблем, которые они разбирают.</p>'
         '<div class="note-box amber"><p>Если сервер недоступен из-за DDoS, со стороны игрока это не исправить. '
         'Ускоритель такой отказ тоже не лечит: он только меняет маршрут до официальных серверов.</p></div>'
+        '<p>Если не пускает в игру, это другая страница: <a href="/ru/rob-run/server-ne-rabotaet/">ROB RUN не работает — серверы и вход</a>. '
+        'Она не измеряет EU и не показывает живой статус.</p>'
         '<h2 class="sec">Пинг или FPS?</h2>'
         '<table class="fact-table">'
         '<tr><th>Высокий пинг, «резинка», рассинхрон</th><td>Сеть: маршрут или сервер.</td></tr>'
@@ -951,6 +954,8 @@ def lag_page():
         '<section class="faq" id="faq"><h2 class="sec">Частые вопросы</h2>%s</section>'
         '</div>'
         '<section class="related"><h2>Инструменты ROB RUN</h2><div class="related-grid">'
+        '<a class="rel" href="/ru/rob-run/server-ne-rabotaet/"><b>Сервер не работает</b>'
+        '<span>Вход и коды ошибок. Статус EU здесь неизвестен.</span></a>'
         '<a class="rel" href="/ru/rob-run/federal-raid-countdown/"><b>Отсчёт до Федеральной облавы</b>'
         '<span>Семь дней от открытия сервера — у вас, по Москве и в UTC.</span></a>'
         '<a class="rel" href="/ru/rob-run/loot-profit-calculator/"><b>Калькулятор добычи</b>'
@@ -984,7 +989,7 @@ def lag_page():
         ]),
         {"@context": "https://schema.org", "@type": "Article",
          "headline": h1, "description": desc, "inLanguage": "ru",
-         "datePublished": "2026-11-14", "dateModified": "2026-11-14",
+         "datePublished": "2026-11-14", "dateModified": "2026-11-15",
          "author": {"@type": "Organization", "name": "BuffForge", "url": BASE},
          "publisher": {"@type": "Organization", "name": "BuffForge", "url": BASE},
          "mainEntityOfPage": {"@type": "WebPage", "@id": BASE + canon}},
@@ -1004,6 +1009,7 @@ def main():
         write(prefix + "rob-run/federal-raid-countdown/index.html", countdown_page(lang))
         write(prefix + "rob-run/loot-profit-calculator/index.html", profit_page(lang))
         write(prefix + "rob-run/squad-loot-splitter/index.html", split_page(lang))
+        write(status_rel(lang), status_render(lang))
     write("ru/rob-run/kak-ubrat-lagi/index.html", lag_page())
     print("rob run build done")
 

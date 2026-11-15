@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "include": [
+    "/api/rob-run/announcements",
+    "/api/rob-run/announcements/",
+    "/404",
+    "/404/",
+    "/ru/404",
+    "/ru/404/"
+  ],
+  "exclude": [
+    "/assets/*",
+    "/404.html",
+    "/ru/404.html"
+  ]
+}
