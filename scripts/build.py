@@ -81,9 +81,16 @@ def game_order(lang):
     return games
 
 
+def tool_slug(tool, lang):
+    slug = tool["slug"]
+    if isinstance(slug, dict):
+        return slug[lang]
+    return slug
+
+
 def tool_url(lang, tool):
     base = "" if lang == "en" else "/ru"
-    return "%s/%s/%s/" % (base, tool["game"], tool["slug"])
+    return "%s/%s/%s/" % (base, tool["game"], tool_slug(tool, lang))
 
 
 def badge(lang, tool):
@@ -210,6 +217,7 @@ ICONS = {
     "rob-run-federal-raid-countdown": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
     "rob-run-loot-profit-calculator": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',
     "rob-run-squad-loot-splitter": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="9" r="2.2"/><circle cx="16" cy="9" r="2.2"/><path d="M4.5 18c.6-2.2 2.2-3.2 3.5-3.2s2.9 1 3.5 3.2M12.5 18c.6-2.2 2.2-3.2 3.5-3.2s2.9 1 3.5 3.2"/></svg>',
+    "rob-run-server-status": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M7 7h.01M7 17h.01M12 7h6"/></svg>',
     "rob-run-kak-ubrat-lagi": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16V11"/><path d="M12 16V7"/><path d="M16 16v-6"/></svg>',
 }
 CHIP_ICONS = [
@@ -736,16 +744,16 @@ HUB_COPY = {
     "rob-run": {
         "en": {
             "title": "ROB RUN tools and guides — BuffForge",
-            "desc": "ROB RUN tools: Federal Raid countdown, a loot profit calculator, and a squad splitter. Free Early Access on Steam since 4 Nov 2026. You enter the cash amounts.",
+            "desc": "ROB RUN tools: Federal Raid countdown, loot and squad calculators, and a server-status page that stays unknown without a live feed. Free Early Access on Steam since 4 Nov 2026.",
             "h1": "ROB RUN tools and guides",
-            "lede": "ROB RUN is Kefir’s free Early Access game on Steam, out since 4 Nov 2026. Seven days after a server opens, the Federal Raid wipes plots, bases, weapons and cash. Time that raid, total a haul, or split it with your squad.",
+            "lede": "ROB RUN is Kefir’s free Early Access game on Steam, out since 4 Nov 2026. Seven days after a server opens, the Federal Raid wipes plots, bases, weapons and cash. Time that raid, total a haul, or split it with your squad. The server page quotes Kefir’s announcements and still marks EU and East US unknown.",
             "tools_h": "Tools", "guides_h": "Guides",
         },
         "ru": {
             "title": "ROB RUN: инструменты и гайды — BuffForge",
-            "desc": "Инструменты ROB RUN: отсчёт до Федеральной облавы, калькулятор добычи и дележ в отряде. Бесплатный ранний доступ в Steam с 4 ноября 2026 года. Суммы вводите вы.",
+            "desc": "Инструменты ROB RUN: отсчёт до Федеральной облавы, добыча, дележ и страница «сервер не работает». Живой статус EU там не обещан. Ранний доступ Steam с 4 ноября 2026 года.",
             "h1": "Инструменты и гайды по ROB RUN",
-            "lede": "ROB RUN — бесплатная игра Kefir в раннем доступе Steam с 4 ноября 2026 года. Через семь дней после открытия сервера Федеральная облава обнуляет земли, базы, оружие и деньги. Здесь — отсчёт до облавы, расчёт добычи и дележ в отряде.",
+            "lede": "ROB RUN — бесплатная игра Kefir в раннем доступе Steam с 4 ноября 2026 года. Через семь дней после открытия сервера Федеральная облава обнуляет земли, базы, оружие и деньги. Здесь — отсчёт до облавы, расчёт добычи и дележ в отряде. Страница про вход цитирует объявления Kefir и всё равно помечает EU и East US как неизвестно.",
             "tools_h": "Инструменты", "guides_h": "Гайды",
         },
     },
@@ -914,6 +922,7 @@ HUB_BODY = {
                 ("When is the Federal Raid?", "Seven days after that server opened. Servers launched on 4 Nov 2026 were raided on 11 Nov 2026 at 20:00 MSK (17:00 UTC). A server opened later keeps its own clock."),
                 ("What is wiped, and what stays?", "Plots, bases, weapons and cash are wiped and turned into jail time and authority. Cosmetics, your name, tutorial progress, settings and accumulated jail time stay. Source: Kefir’s Federal Raid FAQ."),
                 ("Do the calculators know in-game prices?", "No. You type the cash amounts. This site is not connected to the game."),
+                ("Is the ROB RUN EU server down right now?", "This site cannot tell you. There is no live status feed. The server-status page quotes Kefir’s 14 Nov 2026 announcement and still marks both regions unknown."),
             ],
         },
         "ru": {
@@ -924,6 +933,7 @@ HUB_BODY = {
                 ("Когда Федеральная облава?", "Через семь дней после открытия этого сервера. Серверы, запущенные 4 ноября 2026 года, прошли облаву 11 ноября в 20:00 МСК (17:00 UTC). У сервера, открытого позже, свой отсчёт."),
                 ("Что обнуляется, а что остаётся?", "Земли, базы, оружие и деньги обнуляются и превращаются в тюремный срок и авторитет. Косметика, ник, прогресс обучения, настройки и накопленный срок остаются. Источник — справка Kefir о Федеральной облаве."),
                 ("Калькулятор знает игровые цены?", "Нет. Суммы вводите вы. Сайт к игре не подключён."),
+                ("ROB RUN не работает — это сервер EU?", "Сайт этого не знает: живой ленты статуса нет. Страница про вход цитирует объявление Kefir от 14 ноября 2026 года и помечает оба региона как неизвестно."),
             ],
         },
     },
@@ -1066,13 +1076,13 @@ HUB_HERO = {
         "en": {
             "pill": "GAME HUB · EARLY ACCESS",
             "h2": "Your ROB RUN workspace, all in one place.",
-            "para": "A Federal Raid countdown, a haul calculator, and a squad split. Cash figures are the ones you type.",
+            "para": "A Federal Raid countdown, a haul calculator, and a squad split. Cash figures are the ones you type. Server status is a separate page, and it does not measure EU or East US.",
             "wm": "wm-rob",
         },
         "ru": {
             "pill": "ИГРОВОЙ ХАБ · РАННИЙ ДОСТУП",
             "h2": "Хаб ROB RUN — всё в одном месте.",
-            "para": "Отсчёт до Федеральной облавы, калькулятор добычи и дележ в отряде. Суммы в деньгах вводите вы.",
+            "para": "Отсчёт до Федеральной облавы, калькулятор добычи и дележ в отряде. Суммы в деньгах вводите вы. Статус серверов — отдельная страница, и она не измеряет EU или East US.",
             "wm": "wm-rob",
         },
     },
@@ -1231,7 +1241,7 @@ HUB_PREVIEW = {
     },
     "rob-run": {
         "en": {
-            "side_h": "Three tools. Your numbers.",
+            "side_h": "Calculators use your numbers.",
             "bullets": [
                 ("Free Early Access since 4 Nov 2026",
                  "Steam app 4262460. Developed and published by Kefir."),
@@ -1248,10 +1258,10 @@ HUB_PREVIEW = {
             "note": "Not a live price. The full calculator is on the next page.",
             "cta": "Open the calculator",
             "cta_tool": "rob-run-loot-profit-calculator",
-            "hint": "Try “raid”, “loot” or “split”.",
+            "hint": "Try “raid”, “loot”, “split” or “server”.",
         },
         "ru": {
-            "side_h": "Три инструмента. Ваши цифры.",
+            "side_h": "Калькуляторы считают ваши цифры.",
             "bullets": [
                 ("Бесплатный ранний доступ с 4 ноября 2026",
                  "Steam, приложение 4262460. Разработчик и издатель — Kefir."),
@@ -1268,7 +1278,7 @@ HUB_PREVIEW = {
             "note": "Это не живая цена. Полный калькулятор — на следующей странице.",
             "cta": "Открыть калькулятор",
             "cta_tool": "rob-run-loot-profit-calculator",
-            "hint": "Попробуйте «облава», «добыча» или «делёж».",
+            "hint": "Попробуйте «облава», «добыча», «делёж» или «сервер».",
         },
     },
 }
@@ -1942,7 +1952,7 @@ def not_found_entries(lang):
         for t in live:
             entries.append({
                 "name": t["title"][lang], "type": c["tool_type"],
-                "href": "/%s%s/%s/" % (prefix, gid, t["slug"]),
+                "href": "/%s%s/%s/" % (prefix, gid, tool_slug(t, lang)),
                 "key": (t["title"][lang] + " " + t["blurb"][lang]).lower(),
             })
     return entries
@@ -2020,13 +2030,15 @@ def sitemap_xml():
     add("/about/", "monthly", "0.6")
     add("/ru/about/", "monthly", "0.6")
     for g in SITE["games"]:
-        add("/%s/" % g["slug"], "weekly", "0.8")
-        add("/ru/%s/" % g["slug"], "weekly", "0.8")
+        hub_mod = "2026-11-15" if g["slug"] == "rob-run" else "2026-11-13"
+        add("/%s/" % g["slug"], "weekly", "0.8", hub_mod)
+        add("/ru/%s/" % g["slug"], "weekly", "0.8", hub_mod)
     for t in TOOLS:
         if t["status"] != "live":
             continue  # pre-launch tools never enter the submitted sitemap
-        add("/%s/%s/" % (t["game"], t["slug"]), "weekly", "0.9")
-        add("/ru/%s/%s/" % (t["game"], t["slug"]), "weekly", "0.9")
+        lastmod = t.get("updated") or "2026-11-13"
+        add("/%s/%s/" % (t["game"], tool_slug(t, "en")), "weekly", "0.9", lastmod)
+        add("/ru/%s/%s/" % (t["game"], tool_slug(t, "ru")), "weekly", "0.9", lastmod)
     for g in GUIDES:
         if g.get("status", "live") != "live":
             continue
