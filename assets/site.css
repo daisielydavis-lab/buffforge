@@ -1575,6 +1575,10 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 }
 
 /* DPS wiki search (desktop-pension-squad/wiki). Scoped with .wiki-. */
+/* [hidden] must beat author display rules: .btn sets display:inline-flex,
+   which otherwise overrides the UA [hidden]{display:none} rule and leaves
+   "Show more" visible with a negative remaining count. */
+[hidden] { display: none !important; }
 .wiki-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 .wiki-search { display: flex; gap: 10px; align-items: center; padding: 6px 8px 6px 16px; border: 1px solid var(--line-strong); border-radius: var(--r-lg); background: var(--paper); margin-top: 24px; box-shadow: var(--shadow-sm); }
 .wiki-search svg { flex: none; width: 20px; height: 20px; color: var(--muted); }

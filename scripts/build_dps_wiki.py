@@ -401,7 +401,7 @@ JS = r"""
         + '<span class="wiki-arrow" aria-hidden="true">\u203a</span></button>';
     }).join('') || '<div class="wiki-empty">' + esc(STR.emptyResults) + '</div>';
     more.hidden = shown.length <= limit;
-    more.textContent = STR.showMore.replace('{n}', String(shown.length - limit));
+    more.textContent = STR.showMore.replace('{n}', String(Math.max(0, shown.length - limit)));
     if (!selected || shown.indexOf(selected) === -1) selected = shown[0] || null;
     drawDetail(selected);
     var active = results.querySelector('[data-id="' + (selected ? selected.id : '') + '"]');
@@ -426,11 +426,15 @@ JS = r"""
   document.getElementById('clear').addEventListener('click', function () {
     q.value = ''; hero.value = ''; difficulty.value = ''; type = 'All'; selected = null; limit = 35; render(); q.focus();
   });
-  try {
-    var hash = decodeURIComponent(location.hash.slice(1));
-    var found = DATA.filter(function (x) { return x.id === hash; })[0];
-    if (found) { type = found.type; selected = found; q.value = found.name; }
-  } catch (e) {}
+  function applyHash() {
+    try {
+      var hash = decodeURIComponent(location.hash.slice(1));
+      var found = DATA.filter(function (x) { return x.id === hash; })[0];
+      if (found) { type = found.type; selected = found; q.value = found.name; limit = 35; }
+    } catch (e) {}
+  }
+  applyHash();
+  window.addEventListener('hashchange', function () { applyHash(); render(); });
   render();
 })();
 """
