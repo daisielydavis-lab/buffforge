@@ -901,6 +901,10 @@ h2.sec { font-size: var(--fs-h2); line-height: 1.25; font-weight: 600; letter-sp
 .result.neutral { background: var(--paper-2); border: 1px solid var(--line-strong); }
 .result ol { margin: 8px 0 0; padding-left: 1.2em; color: var(--body); }
 .result li { margin: 6px 0; }
+.feed-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.feed-list .note-box { margin: 0; }
+.feed-list h3 { font-size: var(--fs-h3); line-height: 1.35; font-weight: 600; margin: 0 0 8px; color: var(--ink); }
+.feed-list time { font-size: var(--fs-small); color: var(--muted); }
 .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 8px; }
 .status-grid .note-box { margin: 0; }
 .status-k { font-size: var(--fs-meta); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }

@@ -130,14 +130,14 @@ PATHS = {"en": "/rob-run/server-status/", "ru": "/ru/rob-run/server-ne-rabotaet/
 
 COPY = {
     "en": {
-        "title": "ROB RUN server status and login check — BuffForge",
-        "desc": "ROB RUN server status stays unknown: no live EU or East US feed. Kefir’s 14 Nov 2026 announcement, official error codes, and a browser check that does not reach the game.",
-        "h1": "ROB RUN server status",
-        "crumb": "Server status",
-        "lede": "EU and East US are unknown on this page. It quotes Kefir’s announcements and error codes. It does not measure the game servers.",
-        "reviewed": "Reviewed 15 Nov 2026. This page does not update itself.",
-        "limit_h": "Not a live outage tracker",
-        "limit_p": "BuffForge is not connected to ROB RUN. There is no official status feed to read, so both regions stay unknown. Loading this website, Steam, or any other site is not EU or East US health. There is no player count, ping, uptime chart, or crowd total here.",
+        "title": "ROB RUN official Steam server news — BuffForge",
+        "desc": "Official Steam community announcements for ROB RUN, requested when you open the page. Not a live check of the EU or East US game servers.",
+        "h1": "ROB RUN server news",
+        "crumb": "Server news",
+        "lede": "This page requests Kefir’s official Steam announcements. It does not measure whether the EU or East US game servers are up.",
+        "reviewed": "The list below is requested from Steam. A separate note further down was read by hand on 15 Nov 2026.",
+        "limit_h": "Steam announcements, not a server probe",
+        "limit_p": "Each card is one Steam community announcement, with the time Steam published it. The words in a post are not a green or red light. A quiet feed is not an all-clear. X, Discord, Telegram, and VK are not included.",
         "regions_h": "Regions",
         "regions_p": "On 4 Nov 2026 Kefir wrote that two regions were available, EU and East US, and that more would be added when they can. The same note plans at least one fresh server a day — EU at 5 PM UTC, East US at 8 PM ET — plus extra servers outside those times. A planned opening is not a status reading.",
         "eu_name": "Europe (EU)",
@@ -155,10 +155,11 @@ COPY = {
         "switch_a": "Kefir’s help article on changing server",
         "faq_link": "13 Nov 2026 FAQ",
         "sched_link": "4 Nov 2026 server note",
-        "browser_h": "Check this browser",
-        "browser_p": "The button tries to load a file on BuffForge. It does not contact ROB RUN, Steam, or any other host. A success only means this browser reached this site.",
-        "net_initial": "Not checked yet. EU and East US stay unknown whether or not you run this.",
-        "net_btn": "Check this browser",
+        "feed_h": "Official Steam announcements",
+        "feed_p": "Opening this page, pressing refresh, and a visible tab about every 90 seconds each ask BuffForge. BuffForge reuses a successful Steam response for about a minute. That is a page request, not a monitor running all day. “Steam fetch” is when that response was retrieved. “Shown” is when this browser received it.",
+        "refresh_btn": "Refresh announcements",
+        "hand_h": "Hand-checked copy from 15 Nov 2026",
+        "hand_p": "This note is not the live list. It is the EU post as read on 15 Nov 2026, so the page still cites it if the request fails.",
         "match_h": "Match a symptom to Kefir’s help text",
         "match_p": "Your answers pick a paragraph Kefir already published. They do not test a region. The result will not say the servers are up, and it will not declare an outage.",
         "region_label": "Region you play on",
@@ -192,7 +193,7 @@ COPY = {
         ],
         "ping_h": "High ping is a different question",
         "ping_p": "If you are in the game and the delay is high, that is not something this page can time. The checks above are for login and error codes. A product that only changes your route still needs the official server to answer.",
-        "noscript": "JavaScript is off. The region cards stay unknown. The browser check and the symptom matcher do not run. The error-code table and the official links still apply.",
+        "noscript": "JavaScript is off, so the Steam list does not load. The hand-checked note, the error-code table, and the official links still apply. The symptom matcher does not run.",
         "related_h": "Other ROB RUN pages",
         "rel": [
             ("/rob-run/federal-raid-countdown/", "Federal Raid countdown", "Seven days from the opening you enter."),
@@ -202,14 +203,14 @@ COPY = {
         "src_h": "Sources",
     },
     "ru": {
-        "title": "ROB RUN не работает: сервер EU, вход и коды ошибок — BuffForge",
-        "desc": "ROB RUN не работает? Статус EU и East US здесь неизвестен: живой ленты нет. Объявление Kefir от 14 ноября 2026 года и официальные коды ошибок.",
-        "h1": "ROB RUN не работает: серверы и вход",
+        "title": "ROB RUN не работает: официальные новости Steam — BuffForge",
+        "desc": "Официальные объявления Steam о ROB RUN. Страница запрашивает их при открытии. Это не проверка, работают ли серверы EU и East US.",
+        "h1": "ROB RUN не работает: новости серверов",
         "crumb": "Сервер не работает",
-        "lede": "EU и East US на этой странице — неизвестно. Здесь объявления Kefir и коды ошибок. Игровые серверы страница не измеряет.",
-        "reviewed": "Сверено 15 ноября 2026 года. Страница сама не обновляется.",
-        "limit_h": "Это не живой трекер сбоев",
-        "limit_p": "BuffForge не подключён к ROB RUN. Официальной ленты статуса нет, поэтому оба региона остаются неизвестными. То, что открылся этот сайт, Steam или любой другой адрес, не говорит о здоровье EU или East US. Здесь нет числа игроков, пинга, графика аптайма и общей суммы жалоб.",
+        "lede": "Здесь запрос официальных объявлений Kefir в Steam. Страница не измеряет, отвечают ли игровые серверы EU и East US.",
+        "reviewed": "Список ниже запрашивается у Steam. Отдельная заметка дальше сверена вручную 15 ноября 2026 года.",
+        "limit_h": "Объявления Steam, не проверка серверов",
+        "limit_p": "Каждая карточка — одно объявление сообщества Steam и время его публикации. Текст поста — не зелёный и не красный сигнал. Молчание ленты не значит, что всё починили. X, Discord, Telegram и VK сюда не входят.",
         "regions_h": "Регионы",
         "regions_p": "4 ноября 2026 года Kefir написал: «Сейчас в ROB RUN доступны два региона: EU и East US». Другие обещали добавлять по мере возможности. В той же заметке — минимум один свежий сервер в день: EU в 17:00 UTC, East US в 20:00 ET, плюс дополнительные серверы вне этого времени. Расписание открытия — не замер статуса.",
         "eu_name": "Европа (EU)",
@@ -227,10 +228,11 @@ COPY = {
         "switch_a": "Справка Kefir: смена сервера",
         "faq_link": "FAQ от 13 ноября 2026 года",
         "sched_link": "Заметка о серверах от 4 ноября 2026 года",
-        "browser_h": "Проверка этого браузера",
-        "browser_p": "Кнопка пытается открыть файл на BuffForge. Она не обращается к ROB RUN, Steam или другим адресам. Успех значит только то, что этот браузер достучался до этого сайта.",
-        "net_initial": "Ещё не проверяли. EU и East US остаются неизвестными, даже если проверку не запускать.",
-        "net_btn": "Проверить этот браузер",
+        "feed_h": "Официальные объявления Steam",
+        "feed_p": "Страница спрашивает BuffForge при открытии, по кнопке и примерно раз в полторы минуты, пока вкладка видна. Удачный ответ Steam переиспользуется около минуты. Это запрос со страницы, а не круглосуточный монитор. «Запрос к Steam» — когда этот ответ получили. «Показано» — когда его увидел этот браузер.",
+        "refresh_btn": "Обновить объявления",
+        "hand_h": "Копия, сверенная 15 ноября 2026 года",
+        "hand_p": "Это не живой список. Так выглядел пост про EU, когда его читали 15 ноября 2026 года. Он остаётся на странице, если запрос не удастся.",
         "match_h": "Сопоставить симптом со справкой Kefir",
         "match_p": "Ответы выбирают уже опубликованный абзац Kefir. Регион они не тестируют. Результат не скажет, что серверы работают, и не объявит сбой.",
         "region_label": "Регион, на котором вы играете",
@@ -264,7 +266,7 @@ COPY = {
         ],
         "ping_h": "Высокий пинг — другая страница",
         "ping_p": "Если вы уже в игре и задержка высокая, эта страница время не замерит. Выше — вход и коды ошибок. Что сделать с маршрутом до официальных серверов, без цен и без обещания починить молчащий сервер, — в гайде <a href=\"/ru/rob-run/kak-ubrat-lagi/\">лаги и высокий пинг</a>.",
-        "noscript": "JavaScript выключен. Карточки регионов остаются «неизвестно». Проверка браузера и подбор симптома не работают. Таблица кодов и официальные ссылки на месте.",
+        "noscript": "JavaScript выключен, поэтому список Steam не загружается. Ручная заметка, таблица кодов и официальные ссылки на месте. Подбор симптома не работает.",
         "related_h": "Ещё по ROB RUN",
         "rel": [
             ("/ru/rob-run/kak-ubrat-lagi/", "Лаги и высокий пинг", "Маршрут до EU, FPS и что сделать бесплатно. Не статус сервера."),
@@ -281,17 +283,18 @@ JS_COPY = {
         "locale": "en-US",
         "lagHref": "",
         "lagLabel": "",
-        "netLoading": "Checking this browser…",
-        "netLoadingBody": "Loading a file on BuffForge. ROB RUN is not part of this request.",
-        "netOfflineTitle": "This browser reports no network",
-        "netOfflineBody": "At {time} this browser reported no network. ROB RUN status is still unknown.",
-        "netReachTitle": "This browser reached BuffForge",
-        "netReachBody": "At {time} this browser loaded a file on BuffForge. That does not mean the ROB RUN EU or East US servers are up.",
-        "netErrTitle": "The BuffForge file did not load",
-        "netErrBody": "At {time} a file on BuffForge failed to load. That can be this site, your network, or a blocker. ROB RUN status is still unknown.",
-        "netTimeoutBody": "At {time} the file on BuffForge did not load in time. ROB RUN status is still unknown.",
-        "netBackTitle": "The browser reports a network again",
-        "netBackBody": "At {time} the browser reported a network again. That is not a new check, and ROB RUN is still unknown. Use the button if you want another attempt to load the BuffForge file.",
+        "loading": "Loading official Steam announcements…",
+        "cardKicker": "Steam announcement",
+        "published": "Published",
+        "openPost": "Open this Steam post",
+        "empty": "Steam returned no community announcements. That is an empty feed, not an all-clear.",
+        "offline": "This browser reports no network. The list was not refreshed.",
+        "timeout": "The request for Steam announcements timed out.",
+        "malformed": "The announcement response was not usable. Nothing was filled in.",
+        "upstream": "Steam’s news feed did not return a usable list.",
+        "kept": "The cards below are the previous response, not a new reading.",
+        "metaFresh": "{n} announcement(s). Steam fetch {fetched}. Shown {served}. Fresh for this page request.",
+        "metaStale": "{n} announcement(s) from the last successful Steam fetch at {fetched}. Shown {served}. This copy is stale. It is not a current server reading.",
         "title": "Next checks, not a server verdict",
         "notATest": "This matches your answers to text Kefir already published. It is not a test of EU or East US.",
         "codeLead": "{code}. Kefir: {meaning} Kefir’s fix: {fix}",
@@ -302,9 +305,9 @@ JS_COPY = {
         "loginUnknown": "A failed login or a dropped session can be the game service or the path to it. This page cannot tell those apart, and it does not mark a region operational or down.",
         "unsure": "These answers are not enough to separate your PC from the game service. Status stays unknown.",
         "regionNote": {
-            "eu": "EU: the 14 Nov 2026 announcement is quoted above. It is not a reading of this moment. Status stays unknown.",
-            "us": "East US: that announcement said US servers were not affected at the time. That is not East US right now. Status stays unknown.",
-            "unknown": "You did not pick a region. Both stay unknown.",
+            "eu": "EU: read the dated Steam posts above. A sentence in one of them is not EU health right now.",
+            "us": "East US: a post can say US servers were unaffected at the time it was written. That is not East US right now.",
+            "unknown": "You did not pick a region. The posts above are still announcements, not a health reading.",
         },
         "stamp": "Guidance assembled in this browser at {time}. That clock is not a server timestamp.",
         "copied": "Copied.",
@@ -315,17 +318,18 @@ JS_COPY = {
         "locale": "ru-RU",
         "lagHref": "/ru/rob-run/kak-ubrat-lagi/",
         "lagLabel": "Гайд: лаги и высокий пинг",
-        "netLoading": "Проверяем этот браузер…",
-        "netLoadingBody": "Открываем файл на BuffForge. ROB RUN в этот запрос не входит.",
-        "netOfflineTitle": "Браузер сообщает, что сети нет",
-        "netOfflineBody": "В {time} браузер сообщил, что сети нет. Статус ROB RUN по-прежнему неизвестен.",
-        "netReachTitle": "Браузер открыл BuffForge",
-        "netReachBody": "В {time} браузер загрузил файл на BuffForge. Это не значит, что серверы ROB RUN EU или East US работают.",
-        "netErrTitle": "Файл BuffForge не открылся",
-        "netErrBody": "В {time} файл на BuffForge не загрузился. Так бывает из-за этого сайта, вашей сети или блокировщика. Статус ROB RUN по-прежнему неизвестен.",
-        "netTimeoutBody": "В {time} файл на BuffForge не успел загрузиться. Статус ROB RUN по-прежнему неизвестен.",
-        "netBackTitle": "Браузер снова видит сеть",
-        "netBackBody": "В {time} браузер снова сообщил, что сеть есть. Это не новая проверка, и ROB RUN по-прежнему неизвестен. Нажмите кнопку, если нужна ещё одна попытка открыть файл BuffForge.",
+        "loading": "Загружаем официальные объявления Steam…",
+        "cardKicker": "Объявление Steam",
+        "published": "Опубликовано",
+        "openPost": "Открыть этот пост Steam",
+        "empty": "Steam не вернул объявлений сообщества. Пустая лента — не отбой.",
+        "offline": "Браузер сообщает, что сети нет. Список не обновлялся.",
+        "timeout": "Запрос объявлений Steam не успел завершиться.",
+        "malformed": "Ответ с объявлениями нельзя разобрать. Ничего не подставлено.",
+        "upstream": "Лента новостей Steam не вернула пригодный список.",
+        "kept": "Карточки ниже — предыдущий ответ, не новый замер.",
+        "metaFresh": "Объявлений: {n}. Запрос к Steam: {fetched}. Показано: {served}. Для этого открытия страницы ответ свежий.",
+        "metaStale": "Объявлений: {n}. Последний удачный запрос к Steam: {fetched}. Показано: {served}. Эта копия устарела. Это не текущее состояние серверов.",
         "title": "Дальше — проверки, а не вердикт по серверу",
         "notATest": "Это ваши ответы, сопоставленные с уже опубликованным текстом Kefir. Это не проверка EU или East US.",
         "codeLead": "{code}. Kefir: {meaning} Шаг из справки: {fix}",
@@ -336,9 +340,9 @@ JS_COPY = {
         "loginUnknown": "Отказ на входе или обрыв сессии может быть и службой игры, и путём до неё. Страница их не различает и не помечает регион ни рабочим, ни лежащим.",
         "unsure": "Этих ответов мало, чтобы отделить ваш компьютер от службы игры. Статус остаётся неизвестным.",
         "regionNote": {
-            "eu": "EU: объявление от 14 ноября 2026 года процитировано выше. Это не замер текущего момента. Статус остаётся неизвестным.",
-            "us": "East US: в том объявлении сказано, что US-серверы тогда не были затронуты. Это не East US прямо сейчас. Статус остаётся неизвестным.",
-            "unknown": "Регион вы не выбрали. Оба остаются неизвестными.",
+            "eu": "EU: смотрите датированные посты Steam выше. Фраза в одном из них — не здоровье EU прямо сейчас.",
+            "us": "East US: в посте может быть сказано, что US-серверы тогда не затронуты. Это не East US прямо сейчас.",
+            "unknown": "Регион вы не выбрали. Посты выше — объявления, а не замер состояния.",
         },
         "stamp": "Подсказка собрана в этом браузере в {time}. Эти часы — не отметка сервера.",
         "copied": "Скопировано.",
@@ -350,23 +354,23 @@ JS_COPY = {
 FAQ = {
     "en": [
         ("Is the ROB RUN EU server down right now?",
-         "Unknown. This page is not connected to the game. On 14 Nov 2026 at 21:00 UTC, Kefir’s Steam announcement said they were aware of login issues and instability on EU servers, and that US servers were not affected. An English update labeled 23:20 CET said the servers would be restarted shortly. The post does not say the restart finished. That is an announcement we reviewed on 15 Nov 2026, not a reading of this moment."),
-        ("Can this page measure my ping to ROB RUN?",
-         "No. A browser cannot measure the game’s UDP connection, and this page does not ping Steam, Kefir’s website, or any other host as a stand-in. The browser check only tries to load a file on BuffForge."),
+         "This page cannot say. It shows official Steam community announcements and the time each one was published. On 14 Nov 2026 at 21:00 UTC, Kefir wrote that EU login was unstable and that US servers were not affected at that time. An English line labeled 23:20 CET said a restart would happen shortly. The post does not confirm that the restart finished. A later silence is not an all-clear."),
+        ("Does this page read every official channel?",
+         "No. It requests Steam’s public news for community announcements only. Kefir also posts on X, Discord, Telegram, and VK. Those channels are linked on this page and are not read by it."),
         ("What does error E-0101 mean?",
          "Kefir’s help text: the game cannot connect to the server to download configuration or startup data. Their fix is to check your internet connection and make sure websites load. The help text does not say this code proves the EU or East US region is down."),
         ("Where does Kefir announce server trouble?",
-         "Kefir’s help article lists Discord, X, the Steam store page, Facebook, Instagram, VK, and Telegram. There is no official live status page in those links. This page does not read those channels for you."),
+         "Kefir’s help article lists Discord, X, the Steam store page, Facebook, Instagram, VK, and Telegram. This page reads only the Steam community-announcement feed. It does not read the other channels, and none of the links is a live status board."),
     ],
     "ru": [
         ("ROB RUN не работает — сервер EU лежит прямо сейчас?",
-         "Неизвестно. Страница не подключена к игре. 14 ноября 2026 года в 21:00 UTC Kefir в объявлении Steam написал, что знает о проблемах со входом и нестабильной работе EU-серверов и что US-серверы не затронуты. В английской версии есть строка «UPD (23:20 CET)»: серверы скоро перезапустят. В русской версии той же записи этой строки нет. Ни там, ни там не сказано, что перезапуск закончился. Это объявление, сверенное 15 ноября 2026 года, а не замер текущего момента."),
-        ("Эта страница измеряет пинг до ROB RUN?",
-         "Нет. Браузер не измеряет UDP-соединение игры, и страница не пингует Steam, сайт Kefir или чужие адреса вместо серверов. Проверка браузера только пытается открыть файл на BuffForge."),
+         "Эта страница так не отвечает. Она показывает официальные объявления сообщества Steam и время публикации каждого. 14 ноября 2026 года в 21:00 UTC Kefir написал, что вход на EU нестабилен и что US-серверы в тот момент не затронуты. В английской строке «UPD (23:20 CET)» сказано, что серверы скоро перезапустят. Подтверждения, что перезапуск закончился, в посте нет. Молчание после поста — не отбой."),
+        ("Страница читает все официальные каналы?",
+         "Нет. Запрос идёт только к публичным новостям Steam и только к объявлениям сообщества. Kefir также пишет в X, Discord, Telegram и VK. Эти каналы даны ссылками, страница их не читает."),
         ("Что значит ошибка E-0101?",
          "В справке Kefir: игра не может связаться с сервером для загрузки настроек или стартовых данных. Их шаг — проверить интернет и что сайты открываются. В справке не сказано, что этот код доказывает простой региона EU или East US."),
         ("Где Kefir пишет о проблемах с серверами?",
-         "В справке перечислены Discord, X, страница игры в Steam, Facebook, Instagram, VK и Telegram. Живой статусной страницы среди этих ссылок нет. Эта страница сама каналы не читает."),
+         "В справке перечислены Discord, X, страница игры в Steam, Facebook, Instagram, VK и Telegram. Эта страница читает только ленту объявлений сообщества Steam. Остальные каналы она не читает, и живого табло среди ссылок нет."),
     ],
 }
 
@@ -375,19 +379,30 @@ STATUS_JS = r"""
 (function () {
   var STR = __STR__;
   var CODES = __CODES__;
-  var netBtn = document.getElementById('netBtn');
-  var netResult = document.getElementById('netResult');
+  var refreshBtn = document.getElementById('refreshBtn');
+  var feedMeta = document.getElementById('feedMeta');
+  var feedList = document.getElementById('feedList');
   var diagBtn = document.getElementById('diagBtn');
   var diagResult = document.getElementById('diagResult');
   var copyBtn = document.getElementById('copyBtn');
   var copyNote = document.getElementById('copyNote');
-  var checked = false;
   var lastSummary = '';
+  var inFlight = false;
+  var pollTimer = 0;
 
+  function clockOptions() {
+    return {
+      year: 'numeric', month: 'short', day: 'numeric',
+      hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+    };
+  }
+  function fmt(iso) {
+    var when = new Date(iso);
+    if (!iso || isNaN(when.getTime())) return '—';
+    return new Intl.DateTimeFormat(STR.locale, clockOptions()).format(when);
+  }
   function nowLabel() {
-    return new Intl.DateTimeFormat(STR.locale, {
-      dateStyle: 'medium', timeStyle: 'medium'
-    }).format(new Date());
+    return new Intl.DateTimeFormat(STR.locale, clockOptions()).format(new Date());
   }
   function fill(el, title, paras, steps, extraLink) {
     el.className = 'result show neutral';
@@ -419,38 +434,95 @@ STATUS_JS = r"""
       el.appendChild(p2);
     }
   }
-  function showNet(title, body) {
-    fill(netResult, title, [body], [], null);
+  function paintFeed(data) {
+    while (feedList.firstChild) feedList.removeChild(feedList.firstChild);
+    var items = data && Array.isArray(data.items) ? data.items : [];
+    if (!data || (!data.ok && !items.length)) {
+      var code = (data && data.upstreamError) || 'upstream';
+      feedMeta.textContent = STR[code] || STR.upstream;
+      return;
+    }
+    if (!items.length) {
+      feedMeta.textContent = STR.empty;
+      return;
+    }
+    var template = data.fresh ? STR.metaFresh : STR.metaStale;
+    feedMeta.textContent = template
+      .replace('{n}', String(items.length))
+      .replace('{fetched}', fmt(data.sourceFetchedAt))
+      .replace('{served}', fmt(data.servedAt));
+    items.forEach(function (item) {
+      var art = document.createElement('article');
+      art.className = 'note-box';
+      var kicker = document.createElement('p');
+      kicker.className = 'status-k';
+      kicker.textContent = STR.cardKicker;
+      var title = document.createElement('h3');
+      title.textContent = item.title || '';
+      var when = document.createElement('p');
+      var time = document.createElement('time');
+      time.dateTime = item.publishedAt || '';
+      time.textContent = STR.published + ' ' + fmt(item.publishedAt);
+      when.appendChild(time);
+      var body = document.createElement('p');
+      body.textContent = item.excerpt || '';
+      art.appendChild(kicker);
+      art.appendChild(title);
+      art.appendChild(when);
+      art.appendChild(body);
+      var linkOk = false;
+      try {
+        var parsed = new URL(item.link || '');
+        linkOk = parsed.protocol === 'https:' && (
+          parsed.hostname === 'store.steampowered.com' ||
+          parsed.hostname === 'steamcommunity.com' ||
+          (parsed.hostname === 'steamstore-a.akamaihd.net' &&
+            parsed.pathname === '/news/externalpost/steam_community_announcements/' + item.gid)
+        );
+      } catch (err) { linkOk = false; }
+      if (linkOk) {
+        var link = document.createElement('a');
+        link.href = item.link;
+        link.rel = 'noopener noreferrer';
+        link.target = '_blank';
+        link.textContent = STR.openPost;
+        art.appendChild(link);
+      }
+      feedList.appendChild(art);
+    });
   }
-  async function runNet() {
-    var when = nowLabel();
-    checked = true;
-    netBtn.disabled = true;
-    copyNote.textContent = '';
-    var initial = document.getElementById('netInitial');
-    if (initial) initial.hidden = true;
+  async function loadFeed() {
+    if (inFlight) return;
+    inFlight = true;
+    refreshBtn.disabled = true;
+    if (!feedList.firstChild) feedMeta.textContent = STR.loading;
     try {
       if (!navigator.onLine) {
-        showNet(STR.netOfflineTitle, STR.netOfflineBody.replace('{time}', when));
+        feedMeta.textContent = STR.offline;
         return;
       }
-      showNet(STR.netLoading, STR.netLoadingBody);
       var ctrl = new AbortController();
-      var timer = setTimeout(function () { ctrl.abort(); }, 8000);
+      var timer = setTimeout(function () { ctrl.abort(); }, 12000);
       var res;
       try {
-        res = await fetch('/assets/favicon.svg', { cache: 'no-store', signal: ctrl.signal });
+        res = await fetch('/api/rob-run/announcements', { cache: 'no-store', signal: ctrl.signal });
       } finally {
         clearTimeout(timer);
       }
-      if (!res.ok) throw new Error('http');
-      showNet(STR.netReachTitle, STR.netReachBody.replace('{time}', when));
+      var data = null;
+      try { data = await res.json(); } catch (err) { data = null; }
+      if (!data || data.mode !== 'live' || !Array.isArray(data.items)) {
+        feedMeta.textContent = STR.malformed;
+        return;
+      }
+      paintFeed(data);
     } catch (err) {
-      var timedOut = err && err.name === 'AbortError';
-      var body = timedOut ? STR.netTimeoutBody : STR.netErrBody;
-      showNet(STR.netErrTitle, body.replace('{time}', when));
+      console.error(JSON.stringify({ event: "rob_run_news_client", name: err && err.name, message: err && err.message }));
+      var fail = err && err.name === 'AbortError' ? STR.timeout : STR.upstream;
+      feedMeta.textContent = feedList.firstChild ? fail + ' ' + STR.kept : fail;
     } finally {
-      netBtn.disabled = false;
+      inFlight = false;
+      refreshBtn.disabled = false;
     }
   }
   function selectedRegion() {
@@ -489,7 +561,7 @@ STATUS_JS = r"""
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     diagResult.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
   }
-  netBtn.addEventListener('click', runNet);
+  refreshBtn.addEventListener('click', loadFeed);
   diagBtn.addEventListener('click', diagnose);
   document.querySelectorAll('#regionChoices button').forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -500,14 +572,18 @@ STATUS_JS = r"""
       });
     });
   });
-  window.addEventListener('offline', function () {
-    if (!checked) return;
-    showNet(STR.netOfflineTitle, STR.netOfflineBody.replace('{time}', nowLabel()));
+  function armPoll() {
+    clearTimeout(pollTimer);
+    pollTimer = setTimeout(function () {
+      if (document.visibilityState === 'visible') loadFeed();
+      armPoll();
+    }, 90000);
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') loadFeed();
   });
-  window.addEventListener('online', function () {
-    if (!checked) return;
-    showNet(STR.netBackTitle, STR.netBackBody.replace('{time}', nowLabel()));
-  });
+  loadFeed();
+  armPoll();
   copyBtn.addEventListener('click', function () {
     if (!lastSummary) { copyNote.textContent = STR.copyEmpty; return; }
     if (!navigator.clipboard || !navigator.clipboard.writeText) {
@@ -584,8 +660,10 @@ def render(lang):
         _a(HC_ERR[lang], "error codes" if lang == "en" else "коды ошибок"),
         _a(HC_COMM[lang], "communities" if lang == "en" else "сообщества"),
     ]
-    eu_card = _region_card(c["eu_name"], c["unknown"], c["metrics"], c["eu_ann"], c["open_ann"])
-    us_card = _region_card(c["us_name"], c["unknown"], c["metrics"], c["us_ann"], c["open_ann"])
+    hand = (
+        '<article class="note-box"><h3>%s</h3><p>%s</p><p>%s</p><p>%s</p></article>'
+        % (c["eu_name"], c["eu_ann"], c["us_ann"], _a(NEWS_EU, c["open_ann"]))
+    )
     body = (
         '<main id="main" class="wrap narrow">'
         + crumbs_html(lang, [("ROB RUN", hub), (c["crumb"], None)])
@@ -594,12 +672,19 @@ def render(lang):
         + '<p class="intro-note">%s</p>' % c["reviewed"]
         + '<div class="note-box amber"><h2>%s</h2><p>%s</p></div>' % (c["limit_h"], c["limit_p"])
         + '<noscript><p class="intro-note">%s</p></noscript>' % c["noscript"]
+        + '<div class="prose"><h2 class="sec" id="announcements">%s</h2><p>%s</p></div>' % (c["feed_h"], c["feed_p"])
+        + '<div class="checker"><div class="actions">'
+        + '<button type="button" class="btn btn-primary" id="refreshBtn">%s</button></div>' % c["refresh_btn"]
+        + '<p id="feedMeta" aria-live="polite">%s</p>' % (
+            "Loading official Steam announcements…" if lang == "en" else "Загружаем официальные объявления Steam…")
+        + '<div id="feedList" class="feed-list"></div></div>'
         + '<div class="prose">'
+        + '<h2 class="sec" id="hand">%s</h2><p>%s</p>' % (c["hand_h"], c["hand_p"])
+        + hand
         + '<h2 class="sec" id="regions">%s</h2><p>%s</p>' % (c["regions_h"], c["regions_p"])
         + '<p>%s %s. %s.</p>' % (
             ("Read the notes:" if lang == "en" else "Тексты:"),
             _a(NEWS_SCHED, c["sched_link"]), _a(NEWS_FAQ, c["faq_link"]))
-        + '<div class="status-grid">%s%s</div>' % (eu_card, us_card)
         + '<h2 class="sec" id="channels">%s</h2><p>%s</p><ul>%s</ul>' % (c["where_h"], c["where_p"], channels)
         + '<p>%s</p>' % (
             ("The list is on the %s. Every Steam post is under %s." if lang == "en"
@@ -608,10 +693,7 @@ def render(lang):
         + '<p>%s</p>' % c["mail_p"]
         + '<h2 class="sec">%s</h2><p>%s</p><p>%s. %s.</p>' % (
             c["switch_h"], c["switch_p"], _a(HC_SERVER[lang], c["switch_a"]), _a(NEWS_FAQ, c["faq_link"]))
-        + '<h2 class="sec" id="browser">%s</h2><p>%s</p></div>' % (c["browser_h"], c["browser_p"])
-        + '<div class="checker"><p id="netInitial">%s</p>' % c["net_initial"]
-        + '<div class="actions"><button type="button" class="btn btn-primary" id="netBtn">%s</button></div>' % c["net_btn"]
-        + '<div id="netResult" class="result" aria-live="polite"></div></div>'
+        + '</div>'
         + '<div class="prose"><h2 class="sec" id="match">%s</h2><p>%s</p></div>' % (c["match_h"], c["match_p"])
         + '<div class="checker">'
         + '<p id="regionLabel" class="field-label">%s</p>' % c["region_label"]
