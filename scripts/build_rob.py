@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""ROB RUN tools (EN + RU) and the RU-only lag guide. Generated static pages.
+"""ROB RUN tools (EN + RU) and the lag guide (EN + RU). Generated static pages.
 
 Run:  cd <repo root> && python3 scripts/build_rob.py
 
@@ -749,16 +749,285 @@ LAGO_URL = "https://www.lagofastbooster.ru/games/rob-run/"
 EXIT_URL = "https://www.exitlag.com/ru"
 GEAR_URL = "https://www.gearupbooster.com/ru/"
 
-LAG_FAQ = [
-    ("Почему ROB RUN лагает из России?",
-     "Официально доступны только EU и East US, города серверов не названы. Из России обычно ближе EU. Если сервер недоступен из-за DDoS, домашние настройки это не исправят."),
-    ("Это пинг или просадка FPS?",
-     "Высокий пинг, «резинка» и массовые отключения — сеть или сервер. Если кадры падают, когда двигаете мышь, справка Kefir советует снизить частоту опроса в программе мыши. Код E-0201 значит, что связь с игровым сервером пропала: проверьте соединение и перезапустите игру."),
-    ("Как перейти на сервер EU?",
-     "В FAQ Kefir от 13 ноября 2026 года: «Чтобы сменить сервер, приходится сдаваться и возвращаться в тюрьму». В справке: глобальная карта, локация «Тюрьма», кнопка «Сдаться федералам», затем смена сервера из тюрьмы."),
-    ("Ускоритель уберёт лаги, если сервер под DDoS?",
-     "Нет. Он только меняет маршрут до официальных серверов. Сравните пинг на одном сервере EU в одно время, с ускорителем и без, на пробном периоде. Отказ самого сервера так не лечится."),
-]
+LAG = {
+    "en": {
+        "title": "ROB RUN lag and high ping: how to reduce latency — BuffForge",
+        "desc": "Why ROB RUN lags from Russia: only EU and East US. How to tell high ping from FPS drops, and what to do for free. LagoFast, ExitLag and GearUP — no prices.",
+        "h1": "ROB RUN lag and high ping: how to reduce latency",
+        "crumb": "Lag and high ping",
+        "lede": "Latency from Russia usually comes down to the route to the server. Officially there are two regions; the server cities are not published.",
+        "updated": "Updated: 15 November 2026",
+        "hero_alt": "A heist in ROB RUN: a player with a bag at the counter, mini-map in the corner.",
+        "route_aria": "From Russia the route to EU is shorter than to East US. No ping numbers and no server cities.",
+        "route_origin": "Russia",
+        "route_eu": "usually closer",
+        "route_us": "farther",
+        "route_caption": "Diagram without numbers: a longer route means higher latency. Server cities are not shown.",
+        "net_h": "Network",
+        "net_1": "High ping, rubber-banding, desync.",
+        "net_2": "Many disconnect at once — that's the server.",
+        "fps_h": "FPS",
+        "fps_1": "Frames drop when you move the mouse.",
+        "fps_2": "That's not ping.",
+        "step1": "Global map",
+        "step2": "Prison",
+        "step3": "Surrender to the Feds",
+        "world_alt": "ROB RUN global map: districts on one screen.",
+        "prison_alt": "Prison in ROB RUN: the common hall and the sentence board.",
+        "why_h": "Why it lags",
+        "why_p1": "On 4 November 2026 Kefir wrote: \"ROB RUN currently has two regions: EU and East US.\" More regions were promised as capacity allows. The server cities are not named in the %s — and not on this page either.",
+        "ann_label": "4 November 2026 announcement",
+        "why_p2": "On 13 November 2026 the %s named server instability and DDoS attacks among the acute problems they are working through.",
+        "faq_label": "FAQ",
+        "amber": "If the server is unreachable because of DDoS, there is nothing you can do about it as a player. A booster does not fix that kind of outage either: it only changes the route to the official servers.",
+        "not_in_html": "<p>If the game won't let you in, that's a different page: <a href=\"/rob-run/server-status/\">ROB RUN not working — servers and login</a>. It doesn't measure EU and shows no live status.</p>",
+        "pingfps_h": "Ping or FPS?",
+        "fact1_h": "High ping, rubber-banding, desync",
+        "fact1_d": "Network: the route or the server.",
+        "fact2_h": "Many players disconnect at once",
+        "fact2_d": "Server. You can't fix that yourself.",
+        "fact3_h": "FPS drops when you move the mouse",
+        "fact3_d": "Not ping. Kefir's help pages say it is the mouse polling rate.",
+        "fps_p": "If frames drop when you move the mouse, %s advises lowering the \"Polling rate\" in your mouse maker's software (Logitech, Razer, Bloody and others).",
+        "fps_label": "Kefir's help pages",
+        "files_p": "Verifying files in Steam, per %s: Properties → Installed Files → Verify integrity of game files.",
+        "files_label": "Kefir's help pages",
+        "err_p": "Error code E-0201 in the %s: the game was already running, the connection to the game server was lost and never came back. Kefir advises checking your connection and restarting the game.",
+        "err_label": "error list",
+        "section_p": "The whole section — %s.",
+        "section_label": "Troubleshooting and support",
+        "eu_h": "Pick EU",
+        "eu_p1": "For players in Russia, EU is usually closer than East US. It makes sense to compare ping on EU first.",
+        "eu_p2": "You can't change server during a raid. The 13 November 2026 FAQ says: \"To change server, you have to surrender and return to prison.\" %s describes the same step: open the global map, pick the \"Prison\" location and press \"Surrender to the Feds\". You change server from inside the prison.",
+        "server_label": "Kefir's help pages",
+        "regions_p": "Servers in other regions, for example Asia or Oceania, will not appear until at least the end of this year — that's what Kefir answered in the same FAQ.",
+        "free_h": "Free: do it yourself",
+        "free_items": [
+            "Connect your computer with a cable, not over Wi-Fi.",
+            "Pause background downloads and streams: Steam downloads, torrents, system updates.",
+            "If your router has QoS or a gaming priority, turn it on for this computer.",
+            "Restart your router.",
+            "Verify the game files in Steam.",
+            "Update your network card and graphics card drivers.",
+            "Check your computer against the requirements below.",
+        ],
+        "req_p": "For both builds, %s lists 64-bit Windows 10 or newer, DirectX 11, an internet connection and 20 GB of disk space.",
+        "req_label": "Kefir's help pages",
+        "spec1_h": "Processor",
+        "spec1_d": "Minimum: Intel i5-6600K or Ryzen 5 1600. Recommended: Intel i5-9600K or Ryzen 5 3600.",
+        "spec2_h": "Memory",
+        "spec2_d": "Minimum 12 GB. Recommended 16 GB.",
+        "spec3_h": "Graphics card",
+        "spec3_d": "Minimum: GTX 1050 Ti, RX 580 or Arc A380. Recommended: RTX 2070, RX 5700 XT or Arc B570.",
+        "boosters_h": "Paid game boosters",
+        "boosters_intro": "A paid booster routes ROB RUN traffic through its own nodes to the game's official servers. If the server itself is not responding, a booster will not fix that.",
+        "booster_shared": "Routes ROB RUN traffic through its own nodes to the game's official servers.",
+        "lago_tag": "3 hours",
+        "lago_trial": "Trial: 3 hours from account creation, once per device.",
+        "lago_lines": [
+            ("Pro.", "Russian-language site and a dedicated ROB RUN page."),
+            ("Pro.", "You can sign in with VK."),
+            ("Con.", "The trial is only 3 hours."),
+        ],
+        "exit_tag": "3 days",
+        "exit_trial": "Trial: 3 days, per the Russian trial page.",
+        "exit_lines": [
+            ("Pro.", "The longest trial of the three."),
+            ("Pro.", "There are group plans."),
+            ("Con.", "No dedicated ROB RUN page found — check the game list in the client."),
+        ],
+        "gear_tag": "free trial",
+        "gear_trial": "Free trial and money-back guarantee — per the site.",
+        "gear_lines": [
+            ("Pro.", "The site has articles about ROB RUN."),
+            ("Pro.", "Money-back guarantee — per the site."),
+            ("Con.", "Before paying, check which payment methods the site accepts."),
+        ],
+        "cmp1_h": "Trial",
+        "cmp1_d": "LagoFast — 3 hours, once per device. ExitLag — 3 days. GearUP — available, per the site.",
+        "cmp2_h": "ROB RUN page",
+        "cmp2_d": "LagoFast — yes. ExitLag — no dedicated page found. GearUP — has articles.",
+        "cmp3_h": "Site in Russian",
+        "cmp3_d": "LagoFast — yes. ExitLag — yes. GearUP — yes.",
+        "prices_p": "Current prices and payment methods — on the official sites.",
+        "test_p": "Test the trial on the same EU server at the same time: ping with the booster and without. If the server itself is not responding, a booster makes no difference.",
+        "faq_h": "Frequently asked questions",
+        "related_h": "ROB RUN tools",
+        "related": [
+            ("/rob-run/server-status/", "Official Steam server news",
+             "Login and error codes. EU status is not shown here."),
+            ("/rob-run/federal-raid-countdown/", "Federal Raid countdown",
+             "Seven days from the server opening — in your time, Moscow time and UTC."),
+            ("/rob-run/loot-profit-calculator/", "Loot profit calculator",
+             "Add up the loot and subtract the costs. You enter the amounts."),
+            ("/rob-run/squad-loot-splitter/", "Squad loot splitter",
+             "Split equally, or set your own weight for each player."),
+        ],
+        "data_line": "BuffForge is an independent fan project. The site is not affiliated with Kefir or endorsed by the company. Official help: %s.",
+        "data_label": "Troubleshooting and support for ROB RUN",
+    },
+    "ru": {
+        "title": "ROB RUN лагает и высокий пинг: как уменьшить задержку — BuffForge",
+        "desc": "Почему ROB RUN лагает из России: только EU и East US. Как отличить высокий пинг от FPS и что сделать бесплатно. LagoFast, ExitLag и GearUP — без цен.",
+        "h1": "ROB RUN лагает и высокий пинг: как уменьшить задержку",
+        "crumb": "Лаги и высокий пинг",
+        "lede": "Из России задержка чаще упирается в маршрут до сервера. Официально регионов два, города площадок не опубликованы.",
+        "updated": "Обновлено: 15 ноября 2026",
+        "hero_alt": "Ограбление в ROB RUN: игрок с сумкой у стойки, в углу мини-карта.",
+        "route_aria": "Из России путь до EU короче, чем до East US. Без цифр пинга и без городов серверов.",
+        "route_origin": "Россия",
+        "route_eu": "обычно ближе",
+        "route_us": "дальше",
+        "route_caption": "Схема без цифр: длиннее маршрут — выше задержка. Города серверов не показаны.",
+        "net_h": "Сеть",
+        "net_1": "Высокий пинг, «резинка», рассинхрон.",
+        "net_2": "Многих отключает сразу — это сервер.",
+        "fps_h": "FPS",
+        "fps_1": "Кадры падают, когда двигаете мышь.",
+        "fps_2": "Это не пинг.",
+        "step1": "Глобальная карта",
+        "step2": "«Тюрьма»",
+        "step3": "«Сдаться федералам»",
+        "world_alt": "Глобальная карта ROB RUN: районы на одном экране.",
+        "prison_alt": "Тюрьма в ROB RUN: общий зал и табло со сроком.",
+        "why_h": "Почему лагает",
+        "why_p1": "4 ноября 2026 года Kefir написал: «Сейчас в ROB RUN доступны два региона: EU и East US». Другие регионы обещали добавлять по мере возможности. Города серверов в %s не названы — и на этой странице тоже.",
+        "ann_label": "объявлении от 4 ноября 2026",
+        "why_p2": "13 ноября 2026 года в %s разработчики назвали нестабильность серверов и DDoS-атаки среди острых проблем, которые они разбирают.",
+        "faq_label": "FAQ",
+        "amber": "Если сервер недоступен из-за DDoS, со стороны игрока это не исправить. Ускоритель такой отказ тоже не лечит: он только меняет маршрут до официальных серверов.",
+        "not_in_html": "<p>Если не пускает в игру, это другая страница: <a href=\"/ru/rob-run/server-ne-rabotaet/\">ROB RUN не работает — серверы и вход</a>. Она не измеряет EU и не показывает живой статус.</p>",
+        "pingfps_h": "Пинг или FPS?",
+        "fact1_h": "Высокий пинг, «резинка», рассинхрон",
+        "fact1_d": "Сеть: маршрут или сервер.",
+        "fact2_h": "Многих отключает одновременно",
+        "fact2_d": "Сервер. Со своей стороны это не исправить.",
+        "fact3_h": "FPS падает, когда двигаете мышь",
+        "fact3_d": "Не пинг. В справке Kefir это частота опроса мыши.",
+        "fps_p": "Если кадры падают при движении мыши, %s советует снизить «Частоту опроса» в программе производителя мыши (Logitech, Razer, Bloody и другие).",
+        "fps_label": "справка Kefir",
+        "files_p": "Проверка файлов в Steam, по %s: Свойства → Установленные файлы → Проверить целостность файлов игры.",
+        "files_label": "справке Kefir",
+        "err_p": "Код E-0201 в %s: игра уже шла, связь с игровым сервером пропала и не восстановилась. Kefir советует проверить соединение и перезапустить игру.",
+        "err_label": "списке ошибок",
+        "section_p": "Весь раздел — %s.",
+        "section_label": "устранение неполадок и поддержка",
+        "eu_h": "Выберите EU",
+        "eu_p1": "Для игроков из России EU обычно ближе, чем East US. Сравнивать пинг имеет смысл уже на EU.",
+        "eu_p2": "Сменить сервер в рейде нельзя. В FAQ от 13 ноября 2026 года: «Чтобы сменить сервер, приходится сдаваться и возвращаться в тюрьму». %s описывает тот же шаг: откройте глобальную карту, выберите локацию «Тюрьма» и нажмите «Сдаться федералам». Сервер меняют уже из тюрьмы.",
+        "server_label": "Справка Kefir",
+        "regions_p": "Серверы в других регионах, например в Азии или Океании, как минимум до конца этого года не появятся — так Kefir ответил в том же FAQ.",
+        "free_h": "Бесплатно: что сделать самому",
+        "free_items": [
+            "Подключите компьютер кабелем, не по Wi‑Fi.",
+            "Поставьте на паузу фоновые загрузки и стримы: загрузки Steam, торренты, обновления системы.",
+            "Если роутер умеет QoS или приоритет для игр, включите его для этого компьютера.",
+            "Перезагрузите роутер.",
+            "Проверьте целостность файлов игры в Steam.",
+            "Обновите драйвер сетевой карты и видеокарты.",
+            "Сверьте компьютер с требованиями ниже.",
+        ],
+        "req_p": "Для обеих сборок %s указывает 64-разрядную Windows 10 или новее, DirectX 11, интернет и 20 ГБ на диске.",
+        "req_label": "справка Kefir",
+        "spec1_h": "Процессор",
+        "spec1_d": "Минимум: Intel i5-6600K или Ryzen 5 1600. Рекомендуется: Intel i5-9600K или Ryzen 5 3600.",
+        "spec2_h": "Память",
+        "spec2_d": "Минимум 12 ГБ. Рекомендуется 16 ГБ.",
+        "spec3_h": "Видеокарта",
+        "spec3_d": "Минимум: GTX 1050 Ti, RX 580 или Arc A380. Рекомендуется: RTX 2070, RX 5700 XT или Arc B570.",
+        "boosters_h": "Платные игровые ускорители",
+        "boosters_intro": "Платный ускоритель пропускает трафик ROB RUN через свои узлы к официальным серверам игры. Если не отвечает сам сервер, ускоритель это не исправит.",
+        "booster_shared": "Пропускает трафик ROB RUN через свои узлы к официальным серверам игры.",
+        "lago_tag": "3 часа",
+        "lago_trial": "Пробный период: 3 часа с создания аккаунта, один раз на устройство.",
+        "lago_lines": [
+            ("Плюс.", "Сайт на русском и отдельная страница ROB RUN."),
+            ("Плюс.", "Можно войти через VK."),
+            ("Минус.", "Пробный период только 3 часа."),
+        ],
+        "exit_tag": "3 дня",
+        "exit_trial": "Пробный период: 3 дня, по странице пробного периода на русском.",
+        "exit_lines": [
+            ("Плюс.", "Самый длинный пробный период из трёх."),
+            ("Плюс.", "Есть тарифы для группы."),
+            ("Минус.", "Отдельной страницы ROB RUN на сайте не нашли — список игр смотрите в клиенте."),
+        ],
+        "gear_tag": "пробный период",
+        "gear_trial": "Бесплатный пробный период и гарантия возврата — по данным сайта.",
+        "gear_lines": [
+            ("Плюс.", "На сайте есть статьи про ROB RUN."),
+            ("Плюс.", "Гарантия возврата — по данным сайта."),
+            ("Минус.", "Перед оплатой проверьте, какие способы оплаты принимает сайт."),
+        ],
+        "cmp1_h": "Пробный период",
+        "cmp1_d": "LagoFast — 3 часа, один раз на устройство. ExitLag — 3 дня. GearUP — есть, по данным сайта.",
+        "cmp2_h": "Страница ROB RUN",
+        "cmp2_d": "LagoFast — есть. ExitLag — отдельной страницы не найдено. GearUP — есть статьи.",
+        "cmp3_h": "Сайт на русском",
+        "cmp3_d": "LagoFast — да. ExitLag — да. GearUP — да.",
+        "prices_p": "Актуальные цены и способы оплаты — на официальных сайтах.",
+        "test_p": "Проверьте пробный период на одном и том же сервере EU в одно и то же время: пинг с ускорителем и без. Если не отвечает сам сервер, ускоритель разницы не даст.",
+        "faq_h": "Частые вопросы",
+        "related_h": "Инструменты ROB RUN",
+        "related": [
+            ("/ru/rob-run/server-ne-rabotaet/", "Сервер не работает",
+             "Вход и коды ошибок. Статус EU здесь неизвестен."),
+            ("/ru/rob-run/federal-raid-countdown/", "Отсчёт до Федеральной облавы",
+             "Семь дней от открытия сервера — у вас, по Москве и в UTC."),
+            ("/ru/rob-run/loot-profit-calculator/", "Калькулятор добычи",
+             "Сложить добычу и вычесть расходы. Суммы вводите вы."),
+            ("/ru/rob-run/squad-loot-splitter/", "Делёж добычи в отряде",
+             "Поровну или со своим весом на каждого."),
+        ],
+        "data_line": "BuffForge — независимый фанатский проект. Сайт не связан с Kefir и не одобрен компанией. Официальная справка: %s.",
+        "data_label": "устранение неполадок ROB RUN",
+    },
+}
+
+LAG_FAQ = {
+    "en": [
+        ("Why does ROB RUN lag from Russia?",
+         "Officially only EU and East US are available; the server cities are not named. From Russia, EU is usually closer. If the server is unreachable because of DDoS, home settings won't fix it."),
+        ("Is it ping or an FPS drop?",
+         "High ping, rubber-banding and mass disconnects mean network or server. If frames drop when you move the mouse, Kefir's help pages advise lowering the mouse polling rate. Error code E-0201 means the connection to the game server was lost: check your connection and restart the game."),
+        ("How do I switch to the EU server?",
+         "The 13 November 2026 Kefir FAQ says: \"To change server, you have to surrender and return to prison.\" The help pages say: global map, the \"Prison\" location, the \"Surrender to the Feds\" button, then change server from inside the prison."),
+        ("Will a booster remove lag while the server is under DDoS?",
+         "No. It only changes the route to the official servers. Compare ping on one EU server at one time, with the booster and without, on the trial. A server outage itself can't be fixed this way."),
+    ],
+    "ru": [
+        ("Почему ROB RUN лагает из России?",
+         "Официально доступны только EU и East US, города серверов не названы. Из России обычно ближе EU. Если сервер недоступен из-за DDoS, домашние настройки это не исправят."),
+        ("Это пинг или просадка FPS?",
+         "Высокий пинг, «резинка» и массовые отключения — сеть или сервер. Если кадры падают, когда двигаете мышь, справка Kefir советует снизить частоту опроса в программе мыши. Код E-0201 значит, что связь с игровым сервером пропала: проверьте соединение и перезапустите игру."),
+        ("Как перейти на сервер EU?",
+         "В FAQ Kefir от 13 ноября 2026 года: «Чтобы сменить сервер, приходится сдаваться и возвращаться в тюрьму». В справке: глобальная карта, локация «Тюрьма», кнопка «Сдаться федералам», затем смена сервера из тюрьмы."),
+        ("Ускоритель уберёт лаги, если сервер под DDoS?",
+         "Нет. Он только меняет маршрут до официальных серверов. Сравните пинг на одном сервере EU в одно время, с ускорителем и без, на пробном периоде. Отказ самого сервера так не лечится."),
+    ],
+}
+
+# Kefir help center links, per language. The EN articles use the same
+# FAQ IDs under /hc/en/ (verified 200 on 16 Nov 2026); the RU articles
+# are the ones the RU guide already linked.
+HC_LINKS = {
+    "en": {
+        "section": "https://kefirgames.helpshift.com/hc/en/14-rob-run/section/140-troubleshooting-and-support/",
+        "req": "https://kefirgames.helpshift.com/hc/en/14-rob-run/faq/1375-what-are-the-system-requirements/",
+        "files": "https://kefirgames.helpshift.com/hc/en/14-rob-run/faq/1376-the-game-won-t-load-or-keeps-freezing-what-should-i-do/",
+        "err": "https://kefirgames.helpshift.com/hc/en/14-rob-run/faq/1377-what-should-i-do-if-i-get-an-error-code/",
+        "fps": "https://kefirgames.helpshift.com/hc/en/14-rob-run/faq/1383-what-should-i-do-if-my-fps-drops-drastically-when-moving-the-mouse/",
+        "server": "https://kefirgames.helpshift.com/hc/en/14-rob-run/faq/1382-how-to-invite-a-friend-to-a-party-if-it-says-they-are-on-another-server/",
+    },
+    "ru": {
+        "section": HC_SECTION,
+        "req": HC_REQ,
+        "files": HC_FILES,
+        "err": HC_ERR,
+        "fps": HC_FPS,
+        "server": HC_SERVER,
+    },
+}
 
 
 def _src(href, label):
@@ -769,14 +1038,14 @@ def _ext(href, label):
     return '<a href="%s" rel="nofollow noopener" target="_blank">%s</a>' % (href, label)
 
 
-def _booster(tag, name, trial, lines, href, host):
+def _booster(tag, name, trial, lines, href, host, lang):
     bits = "".join("<p><b>%s</b> %s</p>" % pair for pair in lines)
     return (
         '<article class="card"><p class="tag">%s</p><h3>%s</h3>'
-        '<p>Пропускает трафик ROB RUN через свои узлы к официальным серверам игры.</p>'
+        '<p>%s</p>'
         '<p class="meta">%s</p>%s'
         '<p class="go">%s</p></article>'
-        % (tag, name, trial, bits, _ext(href, host))
+        % (tag, name, LAG[lang]["booster_shared"], trial, bits, _ext(href, host))
     )
 
 
@@ -789,21 +1058,27 @@ def _shot(src, width, height, alt, lazy):
     )
 
 
-def _guide_visuals():
-    """Original diagrams plus official Steam screenshots. Article sentences stay as written."""
+def _guide_visuals(lang):
+    """Original diagrams plus official Steam screenshots. Article sentences stay as written.
+
+    The three .webp shots carry no Russian text (English in-game UI), so the
+    same files serve both languages; only alt texts and diagram labels differ.
+    """
+    v = LAG[lang]
     hero = _shot(
         "/assets/rob-run/lag-hero.webp", 1600, 901,
-        "Ограбление в ROB RUN: игрок с сумкой у стойки, в углу мини-карта.",
+        v["hero_alt"],
         False)
     route = (
         '<figure class="guide-visual"><div class="route" role="img" '
-        'aria-label="Из России путь до EU короче, чем до East US. Без цифр пинга и без городов серверов.">'
-        '<div class="route-origin">Россия</div>'
+        'aria-label="%s">'
+        '<div class="route-origin">%s</div>'
         '<div class="route-row"><div class="route-track near" aria-hidden="true"><i></i></div>'
-        '<div class="route-end"><b>EU</b><span>обычно ближе</span></div></div>'
+        '<div class="route-end"><b>EU</b><span>%s</span></div></div>'
         '<div class="route-row"><div class="route-track far" aria-hidden="true"><i></i></div>'
-        '<div class="route-end"><b>East US</b><span>дальше</span></div></div>'
-        '</div><figcaption>Схема без цифр: длиннее маршрут — выше задержка. Города серверов не показаны.</figcaption></figure>'
+        '<div class="route-end"><b>East US</b><span>%s</span></div></div>'
+        '</div><figcaption>%s</figcaption></figure>'
+        % (v["route_aria"], v["route_origin"], v["route_eu"], v["route_us"], v["route_caption"])
     )
     ping = (
         '<div class="ping-fps">'
@@ -811,15 +1086,16 @@ def _guide_visuals():
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
         '<path d="M5 12.5a8 8 0 0 1 14 0"/><path d="M8 14.2a4.2 4.2 0 0 1 8 0"/>'
         '<circle cx="12" cy="17" r="1.2" fill="currentColor" stroke="none"/></svg></div>'
-        '<h3>Сеть</h3>'
-        '<p>Высокий пинг, «резинка», рассинхрон.</p>'
-        '<p>Многих отключает сразу — это сервер.</p></article>'
+        '<h3>%s</h3>'
+        '<p>%s</p>'
+        '<p>%s</p></article>'
         '<article class="ping-card fps"><div class="ico" aria-hidden="true">'
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
         '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>'
-        '<h3>FPS</h3>'
-        '<p>Кадры падают, когда двигаете мышь.</p>'
-        '<p>Это не пинг.</p></article></div>'
+        '<h3>%s</h3>'
+        '<p>%s</p>'
+        '<p>%s</p></article></div>'
+        % (v["net_h"], v["net_1"], v["net_2"], v["fps_h"], v["fps_1"], v["fps_2"])
     )
     arrow = (
         '<li class="step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" '
@@ -827,168 +1103,147 @@ def _guide_visuals():
     )
     steps = (
         '<ol class="steps">'
-        '<li class="step"><span class="step-n">1</span><b>Глобальная карта</b></li>%s'
-        '<li class="step"><span class="step-n">2</span><b>«Тюрьма»</b></li>%s'
-        '<li class="step"><span class="step-n">3</span><b>«Сдаться федералам»</b></li>'
+        '<li class="step"><span class="step-n">1</span><b>%s</b></li>%s'
+        '<li class="step"><span class="step-n">2</span><b>%s</b></li>%s'
+        '<li class="step"><span class="step-n">3</span><b>%s</b></li>'
         '</ol>'
-        % (arrow, arrow)
+        % (v["step1"], arrow, v["step2"], arrow, v["step3"])
     )
     world = _shot(
         "/assets/rob-run/lag-map.webp", 1280, 720,
-        "Глобальная карта ROB RUN: районы на одном экране.",
+        v["world_alt"],
         True)
     prison = _shot(
         "/assets/rob-run/lag-prison.webp", 1280, 720,
-        "Тюрьма в ROB RUN: общий зал и табло со сроком.",
+        v["prison_alt"],
         True)
     return hero, route, ping, steps + world + prison
 
 
-def lag_page():
-    """RU-only guide. No English page and no hreflang alternate."""
-    canon = "/ru/rob-run/kak-ubrat-lagi/"
-    title = "ROB RUN лагает и высокий пинг: как уменьшить задержку — BuffForge"
-    desc = ("Почему ROB RUN лагает из России: только EU и East US. Как отличить высокий пинг от FPS "
-            "и что сделать бесплатно. LagoFast, ExitLag и GearUP — без цен.")
-    h1 = "ROB RUN лагает и высокий пинг: как уменьшить задержку"
-    crumb = "Лаги и высокий пинг"
-    hero, route, ping, server_art = _guide_visuals()
+def lag_page(lang):
+    """Lag guide, EN + RU. EN slug lag-and-high-ping, RU slug kak-ubrat-lagi."""
+    c = LAG[lang]
+    hc = HC_LINKS[lang]
+    canon = "/rob-run/lag-and-high-ping/" if lang == "en" else "/ru/rob-run/kak-ubrat-lagi/"
+    alt = {"en": "/rob-run/lag-and-high-ping/", "ru": "/ru/rob-run/kak-ubrat-lagi/"}
+    switch = alt["ru"] if lang == "en" else alt["en"]
+    hub = "/rob-run/" if lang == "en" else "/ru/rob-run/"
+    home = "Home" if lang == "en" else "Главная"
+    home_path = "/" if lang == "en" else "/ru/"
+    hero, route, ping, server_art = _guide_visuals(lang)
     faq_html = "".join(
         '<details%s><summary><h3>%s</h3>'
         '<span class="plus" aria-hidden="true">'
         '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6">'
         '<path d="M6 1v10M1 6h10"/></svg></span></summary><p>%s</p></details>'
         % (" open" if i == 0 else "", q, a)
-        for i, (q, a) in enumerate(LAG_FAQ))
+        for i, (q, a) in enumerate(LAG_FAQ[lang]))
     cards = (
         _booster(
-            "3 часа", "LagoFast",
-            "Пробный период: 3 часа с создания аккаунта, один раз на устройство.",
-            [("Плюс.", "Сайт на русском и отдельная страница ROB RUN."),
-             ("Плюс.", "Можно войти через VK."),
-             ("Минус.", "Пробный период только 3 часа.")],
-            LAGO_URL, "www.lagofastbooster.ru/games/rob-run/")
+            c["lago_tag"], "LagoFast", c["lago_trial"], c["lago_lines"],
+            LAGO_URL, "www.lagofastbooster.ru/games/rob-run/", lang)
         + _booster(
-            "3 дня", "ExitLag",
-            "Пробный период: 3 дня, по странице пробного периода на русском.",
-            [("Плюс.", "Самый длинный пробный период из трёх."),
-             ("Плюс.", "Есть тарифы для группы."),
-             ("Минус.", "Отдельной страницы ROB RUN на сайте не нашли — список игр смотрите в клиенте.")],
-            EXIT_URL, "www.exitlag.com/ru")
+            c["exit_tag"], "ExitLag", c["exit_trial"], c["exit_lines"],
+            EXIT_URL, "www.exitlag.com/ru", lang)
         + _booster(
-            "пробный период", "GearUP Booster",
-            "Бесплатный пробный период и гарантия возврата — по данным сайта.",
-            [("Плюс.", "На сайте есть статьи про ROB RUN."),
-             ("Плюс.", "Гарантия возврата — по данным сайта."),
-             ("Минус.", "Перед оплатой проверьте, какие способы оплаты принимает сайт.")],
-            GEAR_URL, "www.gearupbooster.com/ru/")
+            c["gear_tag"], "GearUP Booster", c["gear_trial"], c["gear_lines"],
+            GEAR_URL, "www.gearupbooster.com/ru/", lang)
     )
+    free_html = "<ol>" + "".join("<li>%s</li>" % x for x in c["free_items"]) + "</ol>"
+    related_html = "".join(
+        '<a class="rel" href="%s"><b>%s</b><span>%s</span></a>' % (href, t, b)
+        for href, t, b in c["related"])
     body = (
         '<main id="main" class="wrap narrow">%s'
         '<h1 class="page-h1">%s</h1>'
-        '<p class="page-lede">Из России задержка чаще упирается в маршрут до сервера. '
-        'Официально регионов два, города площадок не опубликованы.</p>'
-        '<p class="intro-note">Обновлено: 15 ноября 2026</p>'
+        '<p class="page-lede">%s</p>'
+        '<p class="intro-note">%s</p>'
         '%s'
         '<div class="prose">'
-        '<h2 class="sec">Почему лагает</h2>'
-        '<p>4 ноября 2026 года Kefir написал: «Сейчас в ROB RUN доступны два региона: EU и East US». '
-        'Другие регионы обещали добавлять по мере возможности. Города серверов в %s не названы — '
-        'и на этой странице тоже.</p>'
+        '<h2 class="sec">%s</h2>'
+        '<p>%s</p>'
         '%s'
-        '<p>13 ноября 2026 года в %s разработчики назвали нестабильность серверов и DDoS-атаки '
-        'среди острых проблем, которые они разбирают.</p>'
-        '<div class="note-box amber"><p>Если сервер недоступен из-за DDoS, со стороны игрока это не исправить. '
-        'Ускоритель такой отказ тоже не лечит: он только меняет маршрут до официальных серверов.</p></div>'
-        '<p>Если не пускает в игру, это другая страница: <a href="/ru/rob-run/server-ne-rabotaet/">ROB RUN не работает — серверы и вход</a>. '
-        'Она не измеряет EU и не показывает живой статус.</p>'
-        '<h2 class="sec">Пинг или FPS?</h2>'
+        '<p>%s</p>'
+        '<div class="note-box amber"><p>%s</p></div>'
+        '%s'
+        '<h2 class="sec">%s</h2>'
         '<table class="fact-table">'
-        '<tr><th>Высокий пинг, «резинка», рассинхрон</th><td>Сеть: маршрут или сервер.</td></tr>'
-        '<tr><th>Многих отключает одновременно</th><td>Сервер. Со своей стороны это не исправить.</td></tr>'
-        '<tr><th>FPS падает, когда двигаете мышь</th><td>Не пинг. В справке Kefir это частота опроса мыши.</td></tr>'
+        '<tr><th>%s</th><td>%s</td></tr>'
+        '<tr><th>%s</th><td>%s</td></tr>'
+        '<tr><th>%s</th><td>%s</td></tr>'
         '</table>'
         '%s'
-        '<p>Если кадры падают при движении мыши, %s советует снизить «Частоту опроса» в программе '
-        'производителя мыши (Logitech, Razer, Bloody и другие).</p>'
-        '<p>Проверка файлов в Steam, по %s: Свойства → Установленные файлы → Проверить целостность файлов игры.</p>'
-        '<p>Код E-0201 в %s: игра уже шла, связь с игровым сервером пропала и не восстановилась. '
-        'Kefir советует проверить соединение и перезапустить игру.</p>'
-        '<p>Весь раздел — %s.</p>'
-        '<h2 class="sec">Выберите EU</h2>'
-        '<p>Для игроков из России EU обычно ближе, чем East US. Сравнивать пинг имеет смысл уже на EU.</p>'
-        '<p>Сменить сервер в рейде нельзя. В FAQ от 13 ноября 2026 года: «Чтобы сменить сервер, приходится '
-        'сдаваться и возвращаться в тюрьму». %s описывает тот же шаг: откройте глобальную карту, выберите '
-        'локацию «Тюрьма» и нажмите «Сдаться федералам». Сервер меняют уже из тюрьмы.</p>'
+        '<p>%s</p>'
+        '<p>%s</p>'
+        '<p>%s</p>'
+        '<p>%s</p>'
+        '<h2 class="sec">%s</h2>'
+        '<p>%s</p>'
+        '<p>%s</p>'
         '%s'
-        '<p>Серверы в других регионах, например в Азии или Океании, как минимум до конца этого года не появятся — '
-        'так Kefir ответил в том же FAQ.</p>'
-        '<h2 class="sec">Бесплатно: что сделать самому</h2>'
-        '<ol>'
-        '<li>Подключите компьютер кабелем, не по Wi\u2011Fi.</li>'
-        '<li>Поставьте на паузу фоновые загрузки и стримы: загрузки Steam, торренты, обновления системы.</li>'
-        '<li>Если роутер умеет QoS или приоритет для игр, включите его для этого компьютера.</li>'
-        '<li>Перезагрузите роутер.</li>'
-        '<li>Проверьте целостность файлов игры в Steam.</li>'
-        '<li>Обновите драйвер сетевой карты и видеокарты.</li>'
-        '<li>Сверьте компьютер с требованиями ниже.</li>'
-        '</ol>'
-        '<p>Для обеих сборок %s указывает 64-разрядную Windows 10 или новее, DirectX 11, интернет и 20 ГБ на диске.</p>'
+        '<p>%s</p>'
+        '<h2 class="sec">%s</h2>'
+        '%s'
+        '<p>%s</p>'
         '<table class="fact-table">'
-        '<tr><th>Процессор</th><td>Минимум: Intel i5-6600K или Ryzen 5 1600. Рекомендуется: Intel i5-9600K или Ryzen 5 3600.</td></tr>'
-        '<tr><th>Память</th><td>Минимум 12 ГБ. Рекомендуется 16 ГБ.</td></tr>'
-        '<tr><th>Видеокарта</th><td>Минимум: GTX 1050 Ti, RX 580 или Arc A380. Рекомендуется: RTX 2070, RX 5700 XT или Arc B570.</td></tr>'
+        '<tr><th>%s</th><td>%s</td></tr>'
+        '<tr><th>%s</th><td>%s</td></tr>'
+        '<tr><th>%s</th><td>%s</td></tr>'
         '</table>'
-        '<h2 class="sec">Платные игровые ускорители</h2>'
-        '<p>Платный ускоритель пропускает трафик ROB RUN через свои узлы к официальным серверам игры. '
-        'Если не отвечает сам сервер, ускоритель это не исправит.</p>'
+        '<h2 class="sec">%s</h2>'
+        '<p>%s</p>'
         '%s'
         '<table class="fact-table">'
-        '<tr><th>Пробный период</th><td>LagoFast — 3 часа, один раз на устройство. ExitLag — 3 дня. GearUP — есть, по данным сайта.</td></tr>'
-        '<tr><th>Страница ROB RUN</th><td>LagoFast — есть. ExitLag — отдельной страницы не найдено. GearUP — есть статьи.</td></tr>'
-        '<tr><th>Сайт на русском</th><td>LagoFast — да. ExitLag — да. GearUP — да.</td></tr>'
+        '<tr><th>%s</th><td>%s</td></tr>'
+        '<tr><th>%s</th><td>%s</td></tr>'
+        '<tr><th>%s</th><td>%s</td></tr>'
         '</table>'
-        '<p>Актуальные цены и способы оплаты — на официальных сайтах.</p>'
-        '<p>Проверьте пробный период на одном и том же сервере EU в одно и то же время: пинг с ускорителем и без. '
-        'Если не отвечает сам сервер, ускоритель разницы не даст.</p>'
-        '<section class="faq" id="faq"><h2 class="sec">Частые вопросы</h2>%s</section>'
+        '<p>%s</p>'
+        '<p>%s</p>'
+        '<section class="faq" id="faq"><h2 class="sec">%s</h2>%s</section>'
         '</div>'
-        '<section class="related"><h2>Инструменты ROB RUN</h2><div class="related-grid">'
-        '<a class="rel" href="/ru/rob-run/server-ne-rabotaet/"><b>Сервер не работает</b>'
-        '<span>Вход и коды ошибок. Статус EU здесь неизвестен.</span></a>'
-        '<a class="rel" href="/ru/rob-run/federal-raid-countdown/"><b>Отсчёт до Федеральной облавы</b>'
-        '<span>Семь дней от открытия сервера — у вас, по Москве и в UTC.</span></a>'
-        '<a class="rel" href="/ru/rob-run/loot-profit-calculator/"><b>Калькулятор добычи</b>'
-        '<span>Сложить добычу и вычесть расходы. Суммы вводите вы.</span></a>'
-        '<a class="rel" href="/ru/rob-run/squad-loot-splitter/"><b>Делёж добычи в отряде</b>'
-        '<span>Поровну или со своим весом на каждого.</span></a>'
-        '</div></section>'
-        '<p class="data-line">BuffForge — независимый фанатский проект. Сайт не связан с Kefir и не одобрен компанией. '
-        'Официальная справка: %s.</p></main>'
-        % (crumbs_html("ru", [("ROB RUN", "/ru/rob-run/"), (crumb, None)]),
-           h1, hero,
-           _src(ANN_REGIONS, "объявлении от 4 ноября 2026"),
-           route,
-           _src(ANN_FAQ, "FAQ"),
+        '<section class="related"><h2>%s</h2><div class="related-grid">%s</div></section>'
+        '<p class="data-line">%s</p></main>'
+        % (crumbs_html(lang, [("ROB RUN", hub), (c["crumb"], None)]),
+           c["h1"], c["lede"], c["updated"], hero,
+           c["why_h"], c["why_p1"] % _src(ANN_REGIONS, c["ann_label"]), route,
+           c["why_p2"] % _src(ANN_FAQ, c["faq_label"]),
+           c["amber"], c["not_in_html"],
+           c["pingfps_h"],
+           c["fact1_h"], c["fact1_d"],
+           c["fact2_h"], c["fact2_d"],
+           c["fact3_h"], c["fact3_d"],
            ping,
-           _src(HC_FPS, "справка Kefir"),
-           _src(HC_FILES, "справке Kefir"),
-           _src(HC_ERR, "списке ошибок"),
-           _src(HC_SECTION, "устранение неполадок и поддержка"),
-           _src(HC_SERVER, "Справка Kefir"),
+           c["fps_p"] % _src(hc["fps"], c["fps_label"]),
+           c["files_p"] % _src(hc["files"], c["files_label"]),
+           c["err_p"] % _src(hc["err"], c["err_label"]),
+           c["section_p"] % _src(hc["section"], c["section_label"]),
+           c["eu_h"], c["eu_p1"],
+           c["eu_p2"] % _src(hc["server"], c["server_label"]),
            server_art,
-           _src(HC_REQ, "справка Kefir"),
-           cards, faq_html,
-           _src(HC_SECTION, "устранение неполадок ROB RUN"))
+           c["regions_p"],
+           c["free_h"], free_html,
+           c["req_p"] % _src(hc["req"], c["req_label"]),
+           c["spec1_h"], c["spec1_d"],
+           c["spec2_h"], c["spec2_d"],
+           c["spec3_h"], c["spec3_d"],
+           c["boosters_h"], c["boosters_intro"], cards,
+           c["cmp1_h"], c["cmp1_d"],
+           c["cmp2_h"], c["cmp2_d"],
+           c["cmp3_h"], c["cmp3_d"],
+           c["prices_p"], c["test_p"],
+           c["faq_h"], faq_html,
+           c["related_h"], related_html,
+           c["data_line"] % _src(hc["section"], c["data_label"]))
     )
     jl = [
-        breadcrumb_jsonld("ru", [
-            ("Главная", "/ru/"),
-            ("ROB RUN", "/ru/rob-run/"),
-            (crumb, canon),
+        breadcrumb_jsonld(lang, [
+            (home, home_path),
+            ("ROB RUN", hub),
+            (c["crumb"], canon),
         ]),
         {"@context": "https://schema.org", "@type": "Article",
-         "headline": h1, "description": desc, "inLanguage": "ru",
+         "headline": c["h1"], "description": c["desc"], "inLanguage": lang,
          "datePublished": "2026-11-14", "dateModified": "2026-11-15",
          "author": {"@type": "Organization", "name": "BuffForge", "url": BASE},
          "publisher": {"@type": "Organization", "name": "BuffForge", "url": BASE},
@@ -997,10 +1252,10 @@ def lag_page():
          "mainEntity": [
              {"@type": "Question", "name": q,
               "acceptedAnswer": {"@type": "Answer", "text": a}}
-             for q, a in LAG_FAQ]},
+             for q, a in LAG_FAQ[lang]]},
     ]
-    return page("ru", title, desc, canon, None, body, jsonld=jl,
-                switch_path="/rob-run/", games=("rob-run",))
+    return page(lang, c["title"], c["desc"], canon, alt, body, jsonld=jl,
+                switch_path=switch, games=("rob-run",))
 
 
 def main():
@@ -1010,7 +1265,8 @@ def main():
         write(prefix + "rob-run/loot-profit-calculator/index.html", profit_page(lang))
         write(prefix + "rob-run/squad-loot-splitter/index.html", split_page(lang))
         write(status_rel(lang), status_render(lang))
-    write("ru/rob-run/kak-ubrat-lagi/index.html", lag_page())
+    write("rob-run/lag-and-high-ping/index.html", lag_page("en"))
+    write("ru/rob-run/kak-ubrat-lagi/index.html", lag_page("ru"))
     print("rob run build done")
 
 
