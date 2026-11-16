@@ -25,7 +25,11 @@ python3 scripts/build_rob.py        # ROB RUN Federal Raid countdown, loot profi
   The implementation spec's §8 homepage copy is superseded by v2.
 - `assets/site.css` — the one shared visual shell: Daylight Forge light
   system, self-hosted IBM Plex fonts (`assets/fonts/`, `assets/fonts.css`).
-  No Google Fonts anywhere.
+  No Google Fonts anywhere. Stylesheet is cache-busted by query string:
+  every page links `/assets/site.css?v=<short git blob hash of site.css>`
+  (current `v=b603320`); whenever site.css changes, re-run the same
+  replacement with the new hash (`git hash-object assets/site.css`) so
+  returning visitors do not keep a stale 4-hour cached copy.
 - `scripts/shell.py` — shared header / footer / head tags / JSON-LD.
   Also the single place for the site-wide GTM + GA4 snippet
   (GTM-PQNKG4CV, G-MV0P0LF5YM, added 2026-11-13): every page built from
