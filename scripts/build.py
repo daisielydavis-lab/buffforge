@@ -1847,11 +1847,11 @@ def hub_page(game_id, lang):
 # ---------------------------------------------------------------- 404
 # Search index for the 404 page: live pages only (home, about, hubs,
 # live tools and live guides). The pre-launch Wanted Helper is excluded.
-# ROB RUN tools are not listed yet (hub loop covers three games only).
 NF_HUB_CARDS = {
     "desktop-pension-squad": ("▦", "fuse or salvage calculator", "калькулятор слияния и разбора"),
     "aion-2": ("✦", "daily & weekly tracker", "трекер ежедневных и еженедельных заданий"),
     "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility", "проверка места, обратный отсчёт, издания, совместимость"),
+    "rob-run": ("⬢", "federal raid countdown, loot calculator, server news", "обратный отсчёт облавы, калькулятор добычи, новости серверов"),
 }
 
 NF_SEARCH_JS = """
@@ -1949,7 +1949,7 @@ def not_found_entries(lang):
         {"name": c["about_name"], "type": c["about_type"], "href": "/%sabout/" % prefix,
          "key": c["about_key"]},
     ]
-    for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
+    for gid in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run"):
         live = [t for t in tools_for(gid) if t["status"] == "live"]
         entries.append({
             "name": HUB_COPY[gid][lang]["h1"], "type": c["hub_type"],
@@ -1985,7 +1985,7 @@ def not_found_page(lang="en"):
     c = NF_COPY[lang]
     prefix = "" if lang == "en" else "ru/"
     cards = ""
-    for gid in ("desktop-pension-squad", "aion-2", "gta-6"):
+    for gid in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run"):
         live = [t for t in tools_for(gid) if t["status"] == "live"]
         n = len(live)
         icon, labels_en, labels_ru = NF_HUB_CARDS[gid]
