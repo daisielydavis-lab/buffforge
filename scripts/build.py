@@ -62,9 +62,16 @@ def guides_for(game_id, lang):
     return found
 
 
+def guide_slug(guide, lang):
+    slug = guide["slug"]
+    if isinstance(slug, dict):
+        return slug[lang]
+    return slug
+
+
 def guide_url(lang, guide):
     base = "" if lang == "en" else "/ru"
-    return "%s/%s/%s/" % (base, guide["game"], guide["slug"])
+    return "%s/%s/%s/" % (base, guide["game"], guide_slug(guide, lang))
 
 
 def featured_for(lang):
@@ -1838,9 +1845,9 @@ def hub_page(game_id, lang):
 
 
 # ---------------------------------------------------------------- 404
-# Search index for the 404 page: live pages only (home, about, the three
-# hubs, the six live tools). The pre-launch Wanted Helper is excluded
-# (not featured), and there are no wiki/guide pages to list.
+# Search index for the 404 page: live pages only (home, about, hubs,
+# live tools and live guides). The pre-launch Wanted Helper is excluded.
+# ROB RUN tools are not listed yet (hub loop covers three games only).
 NF_HUB_CARDS = {
     "desktop-pension-squad": ("▦", "fuse or salvage calculator", "калькулятор слияния и разбора"),
     "aion-2": ("✦", "daily & weekly tracker", "трекер ежедневных и еженедельных заданий"),
@@ -1887,7 +1894,7 @@ NF_COPY = {
         "home_key": "home buffforge game tools trackers calculators",
         "about_name": "About BuffForge", "about_type": "Info",
         "about_key": "about mission numbers sources contact feedback",
-        "hub_type": "Game hub", "tool_type": "Tool",
+        "hub_type": "Game hub", "tool_type": "Tool", "guide_type": "Guide",
         "no_matches": "No matches. Try “GTA”, “tracker”, or “calculator”.",
         "eyebrow": "Lost in the game world?",
         "h1": "Looks like a wrong turn.",
@@ -1911,7 +1918,7 @@ NF_COPY = {
         "home_key": "главная buffforge игровые инструменты трекеры калькуляторы",
         "about_name": "О проекте BuffForge", "about_type": "Инфо",
         "about_key": "о проекте миссия цифры источники контакты обратная связь",
-        "hub_type": "Хаб игры", "tool_type": "Инструмент",
+        "hub_type": "Хаб игры", "tool_type": "Инструмент", "guide_type": "Гайд",
         "no_matches": "Ничего не найдено. Попробуйте «GTA», «трекер» или «калькулятор».",
         "eyebrow": "Заблудились в игровом мире?",
         "h1": "Похоже, вы свернули не туда.",
@@ -1956,6 +1963,21 @@ def not_found_entries(lang):
                 "href": "/%s%s/%s/" % (prefix, gid, tool_slug(t, lang)),
                 "key": (t["title"][lang] + " " + t["blurb"][lang]).lower(),
             })
+    for g in GUIDES:
+        if g.get("status", "live") != "live":
+            continue
+        langs = g.get("langs")
+        if langs is not None and lang not in langs:
+            continue
+        title = (g.get("title") or {}).get(lang)
+        blurb = (g.get("blurb") or {}).get(lang)
+        if not title or not blurb:
+            continue
+        entries.append({
+            "name": title, "type": c["guide_type"],
+            "href": guide_url(lang, g),
+            "key": (title + " " + blurb).lower(),
+        })
     return entries
 
 
@@ -2049,7 +2071,7 @@ def sitemap_xml():
             if lang not in (g.get("title") or {}):
                 continue
             prefix = "" if lang == "en" else "/ru"
-            add("%s/%s/%s/" % (prefix, g["game"], g["slug"]), "weekly", "0.7", lastmod)
+            add("%s/%s/%s/" % (prefix, g["game"], guide_slug(g, lang)), "weekly", "0.7", lastmod)
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "\n".join(urls) + "\n</urlset>\n")
