@@ -1646,12 +1646,13 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 .datanote.warn { border-color: #E8D2B0; background: var(--warm-dim); }
 .res-list { max-height: 380px; overflow: auto; display: grid; gap: 8px; margin-top: 12px; padding-right: 4px; }
 .res-item { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 11px 12px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 12px; }
-.res-item b { display: block; font-size: var(--fs-body); color: var(--ink); }
+.res-item > div:first-child { min-width: 0; }
+.res-item b { display: block; font-size: var(--fs-body); color: var(--ink); overflow-wrap: break-word; }
 .res-item .sub { display: block; font-size: var(--fs-card); color: var(--muted); margin-top: 2px; }
 .res-item .price { font-weight: 700; white-space: nowrap; color: var(--ink); margin-left: auto; font-size: var(--fs-body); }
 .res-item .btn { flex: none; }
 .haul-row { display: grid; grid-template-columns: minmax(0, 1fr) 72px 104px 34px; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); }
-.haul-row .t { min-width: 0; overflow-wrap: anywhere; font-weight: 600; color: var(--ink); font-size: var(--fs-body); }
+.haul-row .t { min-width: 0; overflow-wrap: break-word; font-weight: 600; color: var(--ink); font-size: var(--fs-body); }
 .haul-row .t .sub { display: block; font-weight: 400; font-size: var(--fs-card); color: var(--muted); }
 .haul-row input { padding: 8px; }
 .haul-row .lp { text-align: right; font-weight: 700; font-size: var(--fs-card); color: var(--ink); }
