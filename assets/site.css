@@ -1528,7 +1528,7 @@ a.hub-result-item:hover { color: var(--teal-deep); }
   gap: 8px;
   align-items: stretch;
 }
-.prose ol.steps.five { grid-template-columns: repeat(5, 1fr); }
+.prose ol.steps.five { grid-template-columns: repeat(3, 1fr); }
 .prose ol.steps li { margin: 0; }
 .steps .step {
   background: var(--paper);
