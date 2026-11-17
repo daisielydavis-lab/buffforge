@@ -1635,3 +1635,32 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 @media (max-width: 600px) {
   .wiki-detail { padding: 20px; }
 }
+
+/* ——— Loot profit calculator v2 (17 Nov 2026) ——— */
+.profit-grid h2 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin: 0 0 12px; }
+.profit-grid h2.sec-gap { margin-top: 26px; }
+.profit-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 8px 26px; align-items: start; }
+.field-row.search { grid-template-columns: minmax(0, 1.7fr) minmax(0, .9fr); }
+.field-row.two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.datanote { padding: 11px 13px; border: 1px solid var(--line-strong); background: var(--paper-2); border-radius: 10px; color: var(--body); font-size: var(--fs-card); margin: 0 0 18px; }
+.datanote.warn { border-color: #E8D2B0; background: var(--warm-dim); }
+.res-list { max-height: 380px; overflow: auto; display: grid; gap: 8px; margin-top: 12px; padding-right: 4px; }
+.res-item { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 11px 12px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 12px; }
+.res-item b { display: block; font-size: var(--fs-body); color: var(--ink); }
+.res-item .sub { display: block; font-size: var(--fs-card); color: var(--muted); margin-top: 2px; }
+.res-item .price { font-weight: 700; white-space: nowrap; color: var(--ink); margin-left: auto; font-size: var(--fs-body); }
+.res-item .btn { flex: none; }
+.haul-row { display: grid; grid-template-columns: minmax(0, 1fr) 72px 104px 34px; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.haul-row .t { min-width: 0; overflow-wrap: anywhere; font-weight: 600; color: var(--ink); font-size: var(--fs-body); }
+.haul-row .t .sub { display: block; font-weight: 400; font-size: var(--fs-card); color: var(--muted); }
+.haul-row input { padding: 8px; }
+.haul-row .lp { text-align: right; font-weight: 700; font-size: var(--fs-card); color: var(--ink); }
+.haul-row .btn-ghost { padding: 4px 9px; min-height: 30px; }
+.note-box .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.actions label.btn { cursor: pointer; }
+@media (max-width: 860px) {
+  .profit-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .haul-row { grid-template-columns: minmax(0, 1fr) 60px 88px 30px; }
+}

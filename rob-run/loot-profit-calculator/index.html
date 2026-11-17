@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ROB RUN loot profit calculator — BuffForge</title>
-<meta name="description" content="Add ROB RUN loot, subtract gear and other costs, and see net cash and the return. Every amount is one you type.">
+<meta name="description" content="Search the ROB RUN item database, set your Notoriety level, and see the estimated sale payout, net profit and per-player share. Prices from the public robrunwiki catalogue, game version 0.7.0.">
 <link rel="canonical" href="https://buffforge.com/rob-run/loot-profit-calculator/">
 <meta property="og:title" content="ROB RUN loot profit calculator — BuffForge">
-<meta property="og:description" content="Add ROB RUN loot, subtract gear and other costs, and see net cash and the return. Every amount is one you type.">
+<meta property="og:description" content="Search the ROB RUN item database, set your Notoriety level, and see the estimated sale payout, net profit and per-player share. Prices from the public robrunwiki catalogue, game version 0.7.0.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://buffforge.com/rob-run/loot-profit-calculator/">
 <meta property="og:image" content="https://buffforge.com/assets/og.png">
@@ -16,11 +16,11 @@
 <meta property="og:locale" content="en_US">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/site.css?v=48f50e2">
+<link rel="stylesheet" href="/assets/site.css?v=db25a54">
 <link rel="alternate" hreflang="en" href="https://buffforge.com/rob-run/loot-profit-calculator/">
 <link rel="alternate" hreflang="ru" href="https://buffforge.com/ru/rob-run/loot-profit-calculator/">
 <link rel="alternate" hreflang="x-default" href="https://buffforge.com/rob-run/loot-profit-calculator/">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://buffforge.com/"}, {"@type": "ListItem", "position": 2, "name": "ROB RUN", "item": "https://buffforge.com/rob-run/"}, {"@type": "ListItem", "position": 3, "name": "Loot profit calculator", "item": "https://buffforge.com/rob-run/loot-profit-calculator/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "Loot profit calculator", "url": "https://buffforge.com/rob-run/loot-profit-calculator/", "inLanguage": "en", "description": "Add ROB RUN loot, subtract gear and other costs, and see net cash and the return. Every amount is one you type.", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://buffforge.com/"}, {"@type": "ListItem", "position": 2, "name": "ROB RUN", "item": "https://buffforge.com/rob-run/"}, {"@type": "ListItem", "position": 3, "name": "Loot profit calculator", "item": "https://buffforge.com/rob-run/loot-profit-calculator/"}]}, {"@context": "https://schema.org", "@type": "WebApplication", "name": "Loot profit calculator", "url": "https://buffforge.com/rob-run/loot-profit-calculator/", "inLanguage": "en", "description": "Search the ROB RUN item database, set your Notoriety level, and see the estimated sale payout, net profit and per-player share. Prices from the public robrunwiki catalogue, game version 0.7.0.", "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}]</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   (function () {
@@ -35,73 +35,423 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap nav"><a class="logo" href="/"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0C706C"/><path d="M8 13.5h16v2.2H19.5V23h-7V15.7H8V13.5zm4.2-5.2h7.6l1.6 3.4H10.6l1.6-3.4z" fill="#FFFFFF"/></svg><span class="word">BuffForge</span></a><nav class="site-nav" aria-label="Primary"><details class="navdrop"><summary>Games<svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></summary><div class="drop"><a href="/desktop-pension-squad/"><span class="dot dot-dps"></span>Desktop Pension Squad</a><a href="/aion-2/"><span class="dot dot-aion"></span>AION 2</a><a href="/gta-6/"><span class="dot dot-gta"></span>GTA 6</a><a href="/rob-run/"><span class="dot dot-rob"></span>ROB RUN</a></div></details><a href="/about/">About</a><span class="lang"><a href="/rob-run/loot-profit-calculator/" class="current" aria-current="true">English</a><a href="/ru/rob-run/loot-profit-calculator/" >Русский</a></span></nav></div></header>
-<main id="main" class="wrap narrow"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/rob-run/">ROB RUN</a><span class="sep">›</span><span aria-current="page">Loot profit calculator</span></nav><h1 class="page-h1">Loot profit calculator</h1><p class="page-lede">List the haul, then subtract gear and other costs. The net and the return use only the numbers you type — this page has no price list.</p><div class="checker"><div class="field-row"><div class="grow"><label for="itemName">Item</label><input id="itemName" type="text" autocomplete="off" placeholder="Name"></div><div><label for="itemPrice">Unit price (cash)</label><input id="itemPrice" type="number" inputmode="decimal" value="0"></div><div><label for="itemQty">Qty</label><input id="itemQty" type="number" inputmode="decimal" value="1"></div></div><div class="actions"><button type="button" class="btn btn-primary" id="addItem">Add item</button><button type="button" class="btn btn-secondary" id="clearItems">Clear list</button></div><p class="hint" id="addNote"></p><div class="line-list" id="itemList"></div><div class="field-row" style="margin-top:18px"><div><label for="gear">Gear (cash)</label><input id="gear" type="number" inputmode="decimal" value="0"></div><div><label for="other">Other costs (cash)</label><input id="other" type="number" inputmode="decimal" value="0"></div></div><div class="stats" style="margin-top:16px"><div class="stat"><em>Haul</em><strong id="haulOut">0</strong><span>cash</span></div><div class="stat"><em>Costs</em><strong id="costOut">0</strong><span>cash</span></div><div class="stat"><em>Net</em><strong id="netOut">0</strong><span>cash</span></div><div class="stat"><em>Return</em><strong id="ratioOut">—</strong><span>Haul ÷ costs</span></div></div><p class="hint">Kefir’s help pages call the in-game money cash. No currency symbol is shown here because none is published on those pages.</p></div><p class="data-line">You enter every amount. Wording for cash: Kefir FAQ “How do I make money?” and “Can my money be stolen?”. Reviewed 13 Nov 2026.</p></main>
+<main id="main" class="wrap narrow"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/rob-run/">ROB RUN</a><span class="sep">›</span><span aria-current="page">Loot profit calculator</span></nav><h1 class="page-h1">Loot profit calculator</h1><p class="page-lede">Pick loot from the item database, set your Notoriety level, then subtract gear and other costs. Sale prices are estimates from the public catalogue — confirm the actual offer in game.</p><div class="checker"><p class="datanote" id="dataNotice" role="status">Loading item database…</p><div class="profit-grid"><section><h2>Find loot <span class="hint" id="resultCount"></span></h2><div class="field-row search"><div><label for="search">Search items</label><input id="search" type="text" autocomplete="off" placeholder="Gold Bar, Diamond, слиток…"></div><div><label for="category">Item type</label><select id="category"><option value="all">All types</option><option value="valuables">Valuables</option><option value="cargo">Cargo</option><option value="other">Other priced items</option></select></div></div><p class="hint">Only items with a published sale price can be added. Confirm the actual offer in game; prices may change after a patch.</p><div class="res-list" id="results"></div><h2 class="sec-gap">Add a custom item</h2><p class="hint">Use this when an item is missing or its current in-game offer differs. A custom price is the final unit sale value at your level — no bonus is added.</p><div class="field-row"><div class="grow"><label for="customName">Item</label><input id="customName" type="text" autocomplete="off" placeholder="Item"></div><div><label for="customPrice">Sale price (cash)</label><input id="customPrice" type="number" inputmode="decimal" min="0" value="0"></div><div><label for="customQty">Qty</label><input id="customQty" type="number" inputmode="decimal" min="1" value="1"></div></div><div class="actions"><button type="button" class="btn btn-primary" id="addCustom">+ Add custom item</button></div><p class="hint" id="customNote"></p></section><section><h2>Your haul</h2><div class="actions" style="margin-top:0"><button type="button" class="btn btn-secondary" id="clearHaul">Clear list</button><button type="button" class="btn btn-secondary" id="share">Copy share link</button></div><div class="line-list" id="haul"></div><div class="field-row two" style="margin-top:18px"><div><label for="notoriety">Notoriety level</label><select id="notoriety"><option value="1">Level 1 · Base</option><option value="2">Level 2 · valuables +10%, cargo +5%</option><option value="3">Level 3 · valuables +20%, cargo +10%</option><option value="4">Level 4 · valuables +35%, cargo +15%</option><option value="5">Level 5 · valuables +50%, cargo +25%</option></select></div><div><label for="split">Split between</label><select id="split"><option value="1">1 player</option><option value="2">2 players</option><option value="3">3 players</option><option value="4">4 players</option></select></div></div><div class="field-row two" style="margin-top:14px"><div><label for="gearCost">Gear (cash)</label><input id="gearCost" type="number" inputmode="decimal" min="0" value="0"></div><div><label for="otherCost">Other costs (cash)</label><input id="otherCost" type="number" inputmode="decimal" min="0" value="0"></div></div><p class="hint">Cargo uses the smaller Notoriety bonus (up to +25%). Exact sale values come from the source price range when the tier is supported.</p><div class="stats" style="margin-top:16px"><div class="stat"><em>Base sale value</em><strong id="baseOut">0</strong><span>cash</span></div><div class="stat"><em>Est. total sale</em><strong id="saleOut">0</strong><span>cash</span></div><div class="stat"><em>Costs</em><strong id="costOut">0</strong><span>cash</span></div><div class="stat"><em>Net</em><strong id="netOut">0</strong><span>cash</span></div><div class="stat"><em>Profit per player</em><strong id="perOut">0</strong><span>cash</span></div><div class="stat"><em>Return</em><strong id="ratioOut">—</strong><span>Est. sale ÷ costs</span></div></div><p class="hint" id="calcNotice"></p><div class="actions"><button type="button" class="btn btn-secondary" id="exportHaul">Export haul CSV</button><button type="button" class="btn btn-secondary" id="saveHaul">Save on this device</button><button type="button" class="btn btn-secondary" id="restoreHaul">Load saved haul</button></div><p class="hint" id="toolNote"></p></section></div><p class="hint">Kefir’s help pages call the in-game money cash. No currency symbol is shown here because none is published on those pages.</p></div><div class="note-box"><h2>Data & sources</h2><p>Source: <a href="https://robrunwiki.com/en/data/">ROB RUN Wiki open data</a>, original <a href="https://robrunwiki.com/data/items.csv">items.csv</a>, game version 0.7.0. English and Russian names, categories and the minimum/maximum sale prices come from that catalogue. Intermediate Notoriety tiers use the documented multipliers — the CSV only publishes the two end prices. This tool is not affiliated with Kefir.</p><p class="hint" id="dataMeta"></p><div class="actions"><label class="btn btn-secondary" for="uploadCsv">Import updated items.csv</label><input id="uploadCsv" type="file" accept=".csv,text/csv" hidden><button type="button" class="btn btn-secondary" id="resetData">Reset to site data</button></div><p class="hint">An imported CSV works for this session only and is not saved. To update the site database, it has to be rebuilt from the public catalogue.</p></div><section class="faq" id="faq"><h2 class="sec">Frequently asked questions</h2><details open><summary><h3>How do I calculate ROB RUN loot profit?</h3><span class="plus" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>Search for items and add the quantities you collected. Set your Notoriety level, enter gear and other run costs, then read the estimated net profit. The result subtracts costs from the estimated sale payout.</p></details><details><summary><h3>Does Notoriety increase every item’s value equally?</h3><span class="plus" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>No. Valuables follow 1.00, 1.10, 1.20, 1.35 and 1.50. Some cargo follows 1.00, 1.05, 1.10, 1.15 and 1.25. The calculator checks each item’s published minimum and maximum price and warns when its tier cannot be reliably inferred.</p></details><details><summary><h3>Are these live prices from ROB RUN?</h3><span class="plus" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>No. The source reflects game version 0.7.0 and may lag a patch. Always verify the in-game Fence or Smuggler price. Custom entries let you use your actual observed offer.</p></details><details><summary><h3>Why isn’t backpack slot optimization included?</h3><span class="plus" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>The public catalogue does not provide verified occupied-slot data for every loot item. We do not invent slot counts or rank items on unverified storage assumptions.</p></details></section><p class="data-line">Item prices: public catalogue at robrunwiki.com, game version 0.7.0. 569 entries, 373 with a published sale price. Not live prices — confirm in game. BuffForge is an independent fan project, not affiliated with Kefir.</p></main>
 <script>
 (function () {
-  var STR = {"locale": "en-US", "empty": "No items yet.", "needName": "Add a name first.", "remove": "Remove"};
-  var items = [];
-  var nameEl = document.getElementById('itemName');
-  var priceEl = document.getElementById('itemPrice');
-  var qtyEl = document.getElementById('itemQty');
-  var list = document.getElementById('itemList');
-  var note = document.getElementById('addNote');
-  var gearEl = document.getElementById('gear');
-  var otherEl = document.getElementById('other');
+  var STR = {"lang": "en", "locale": "en-US", "rarity": {"Обычный": "Common", "Необычный": "Uncommon", "Эпический": "Epic", "Легендарный": "Legendary", "Экзотический": "Exotic"}, "cash": "cash", "add": "Add", "share": "Copy share link", "empty": "No items yet.", "needCustom": "Enter a name, a non-negative sale price and a quantity of at least 1.", "remove": "Remove", "unknown": "Unknown", "customTag": "custom", "each": "{p} each", "qtyFor": "Quantity for {n}", "noHaul": "No loot in your haul.", "estimates": "Values are estimates. Base and maximum source values are documented; intermediate levels use verified ladder patterns.", "unknownWarn": "Warning: {n} item(s) have no verified intermediate Notoriety-tier prices. They are excluded from this estimated payout; choose level 1 or 5, or enter an observed custom sale price.", "copied": "Link copied", "copyReady": "Link ready — select the address bar and press Ctrl+C to copy.", "saved": "Saved in this browser.", "saveFailed": "Local storage is unavailable. Use Copy share link.", "noSaved": "No saved haul found.", "loadedSaved": "Saved haul loaded.", "loadFailed": "Could not load the saved haul.", "offline": "Offline mode: {n} verified priced items loaded. The full 373-item database could not be loaded — check your connection and reload.", "full": "Loaded {total} catalogue entries, including {n} with published sale prices. Source version 0.7.0.", "countForms": ["{n} item", "{n} items", "{n} items"], "noMatch": "No matching priced item found. Try a different name or add a custom price.", "showing80": "Showing 80 of {n}. Narrow your search to find a specific item.", "imported": "Imported {n} priced entries from {file}. These values are available for the current session.", "importFailed": "CSV import failed: {msg}", "importTooFew": "The CSV has fewer than 10 priced rows, or the columns do not match the public items.csv format.", "dataMeta": "Loaded: {n} priced items. Source game-data version 0.7.0.", "dataMetaOff": "Limited built-in subset.", "customSource": "Custom"};
+  var OFFLINE = [{"id": "egg_faberge_1", "en": "BIG EGG #53", "ru": "BIG EGG #53", "cat": "valuables", "rarity": "Экзотический", "min": 550000, "max": 825000, "url": "https://robrunwiki.com/items/egg_faberge_1/"}, {"id": "ring_7", "en": "WISH Ring", "ru": "Кольцо WISH", "cat": "valuables", "rarity": "Экзотический", "min": 320616, "max": 480924, "url": "https://robrunwiki.com/items/ring_7/"}, {"id": "vinyl_2", "en": "Golden Disc", "ru": "Золотой диск", "cat": "valuables", "rarity": "Экзотический", "min": 318180, "max": 477270, "url": "https://robrunwiki.com/items/vinyl_2/"}, {"id": "baseball_card_6", "en": "Harley Wanger Card", "ru": "Карточка с Харли Вангером", "cat": "valuables", "rarity": "Экзотический", "min": 217320, "max": 325980, "url": "https://robrunwiki.com/items/baseball_card_6/"}, {"id": "equipment_12", "en": "Portable EW System", "ru": "Переносной РЭБ", "cat": "valuables", "rarity": "Экзотический", "min": 204260, "max": 306390, "url": "https://robrunwiki.com/items/equipment_12/"}, {"id": "laptop_5", "en": "MSR PRO Laptop", "ru": "Ноутбук MSR PRO", "cat": "valuables", "rarity": "Экзотический", "min": 204256, "max": 306384, "url": "https://robrunwiki.com/items/laptop_5/"}, {"id": "alcohol_15", "en": "King’s Reserve Bottle", "ru": "Бутылка King’s Reserve", "cat": "valuables", "rarity": "Экзотический", "min": 200000, "max": 300000, "url": "https://robrunwiki.com/items/alcohol_15/"}, {"id": "gemstone_1", "en": "Diamond in Case", "ru": "Бриллиант в кейсе", "cat": "valuables", "rarity": "Экзотический", "min": 200000, "max": 300000, "url": "https://robrunwiki.com/items/gemstone_1/"}, {"id": "blade_6", "en": "Shade Collectible Knife", "ru": "Коллекционный нож Shade", "cat": "valuables", "rarity": "Экзотический", "min": 199784, "max": 299676, "url": "https://robrunwiki.com/items/blade_6/"}, {"id": "pharma_tools_2", "en": "Microscope", "ru": "Микроскоп", "cat": "valuables", "rarity": "Экзотический", "min": 194620, "max": 291930, "url": "https://robrunwiki.com/items/pharma_tools_2/"}, {"id": "car_trinket_6", "en": "Plush Car Charm", "ru": "Плюшевая игрушка на стекло", "cat": "valuables", "rarity": "Экзотический", "min": 192160, "max": 288240, "url": "https://robrunwiki.com/items/car_trinket_6/"}, {"id": "equipment_6", "en": "K9 Body Armor", "ru": "Бронежилет для собаки", "cat": "valuables", "rarity": "Легендарный", "min": 52156, "max": 78234, "url": "https://robrunwiki.com/items/equipment_6/"}, {"id": "gold_bar_1", "en": "Gold Bar", "ru": "Золотой слиток", "cat": "valuables", "rarity": "Легендарный", "min": 52000, "max": 78000, "url": "https://robrunwiki.com/items/gold_bar_1/"}, {"id": "vinyl_1", "en": "Platinum Disc", "ru": "Платиновый диск", "cat": "valuables", "rarity": "Легендарный", "min": 36936, "max": 55404, "url": "https://robrunwiki.com/items/vinyl_1/"}, {"id": "ring_6", "en": "PRIDE Ring", "ru": "Кольцо PRIDE", "cat": "valuables", "rarity": "Легендарный", "min": 34876, "max": 52314, "url": "https://robrunwiki.com/items/ring_6/"}, {"id": "headphones_5", "en": "Beat Head Headphones", "ru": "Наушники Beat Head", "cat": "valuables", "rarity": "Легендарный", "min": 34716, "max": 52074, "url": "https://robrunwiki.com/items/headphones_5/"}, {"id": "toy_5", "en": "CollectiToy x TA", "ru": "CollectiToy x TA", "cat": "valuables", "rarity": "Легендарный", "min": 33896, "max": 50844, "url": "https://robrunwiki.com/items/toy_5/"}, {"id": "earrings_2", "en": "AMINA Earrings", "ru": "Серьги AMINA", "cat": "valuables", "rarity": "Легендарный", "min": 33840, "max": 50760, "url": "https://robrunwiki.com/items/earrings_2/"}, {"id": "burner_3", "en": "High-precision Stove", "ru": "Высокоточная горелка", "cat": "valuables", "rarity": "Легендарный", "min": 32904, "max": 49356, "url": "https://robrunwiki.com/items/burner_3/"}, {"id": "watch_5", "en": "POLEX Watch", "ru": "Часы POLEX", "cat": "valuables", "rarity": "Легендарный", "min": 32842, "max": 49263, "url": "https://robrunwiki.com/items/watch_5/"}, {"id": "journal_5", "en": "OPALINE Magazine", "ru": "Журнал OPALINE", "cat": "valuables", "rarity": "Легендарный", "min": 32226, "max": 48339, "url": "https://robrunwiki.com/items/journal_5/"}, {"id": "pharma_tools_5", "en": "Dental Loupes", "ru": "Бинокуляры", "cat": "valuables", "rarity": "Легендарный", "min": 30620, "max": 45930, "url": "https://robrunwiki.com/items/pharma_tools_5/"}, {"id": "equipment_11", "en": "Collectible Multitool", "ru": "Коллекционный мультитул", "cat": "valuables", "rarity": "Легендарный", "min": 30400, "max": 45600, "url": "https://robrunwiki.com/items/equipment_11/"}, {"id": "comics_5", "en": "MASK Comic Book", "ru": "Комикс MASK", "cat": "valuables", "rarity": "Легендарный", "min": 30180, "max": 45270, "url": "https://robrunwiki.com/items/comics_5/"}, {"id": "necklace_6", "en": "PENARAI Necklace", "ru": "Ожерелье PENARAI", "cat": "valuables", "rarity": "Легендарный", "min": 30134, "max": 45201, "url": "https://robrunwiki.com/items/necklace_6/"}, {"id": "laptop_4", "en": "PD STATION Laptop", "ru": "Ноутбук PD STATION", "cat": "valuables", "rarity": "Легендарный", "min": 29556, "max": 44334, "url": "https://robrunwiki.com/items/laptop_4/"}, {"id": "console_5", "en": "X-STATION VR Console", "ru": "Консоль X-STATION VR", "cat": "valuables", "rarity": "Легендарный", "min": 28350, "max": 42525, "url": "https://robrunwiki.com/items/console_5/"}, {"id": "blade_5", "en": "Nightfall Collectible Knife", "ru": "Коллекционный нож Nightfall", "cat": "valuables", "rarity": "Легендарный", "min": 27784, "max": 41676, "url": "https://robrunwiki.com/items/blade_5/"}, {"id": "alcohol_5", "en": "Golden Jaguar Bottle", "ru": "Бутылка Golden Jaguar", "cat": "valuables", "rarity": "Легендарный", "min": 27700, "max": 41550, "url": "https://robrunwiki.com/items/alcohol_5/"}, {"id": "antique_4", "en": "Stone Maiden Statue", "ru": "Каменная статуя девы", "cat": "valuables", "rarity": "Легендарный", "min": 27420, "max": 41130, "url": "https://robrunwiki.com/items/antique_4/"}, {"id": "alcohol_13", "en": "Amber Shift Bottle", "ru": "Бутылка Amber Shift", "cat": "valuables", "rarity": "Легендарный", "min": 27140, "max": 40710, "url": "https://robrunwiki.com/items/alcohol_13/"}, {"id": "equipment_7", "en": "Modern Tactical Binoculars", "ru": "Современный тактический бинокль", "cat": "valuables", "rarity": "Легендарный", "min": 26510, "max": 39765, "url": "https://robrunwiki.com/items/equipment_7/"}, {"id": "alcohol_14", "en": "Velvet Dynasty Bottle", "ru": "Бутылка Velvet Dynasty", "cat": "valuables", "rarity": "Легендарный", "min": 26160, "max": 39240, "url": "https://robrunwiki.com/items/alcohol_14/"}, {"id": "car_device_6", "en": "Premium Car Stereo", "ru": "Премиальная магнитола", "cat": "valuables", "rarity": "Легендарный", "min": 25680, "max": 38520, "url": "https://robrunwiki.com/items/car_device_6/"}, {"id": "alcohol_12", "en": "Krystal Authority Bottle", "ru": "Бутылка Krystal Authority", "cat": "valuables", "rarity": "Легендарный", "min": 23960, "max": 35940, "url": "https://robrunwiki.com/items/alcohol_12/"}, {"id": "drugs_6", "en": "Candy", "ru": "Леденцы", "cat": "valuables", "rarity": "Легендарный", "min": 23246, "max": 34869, "url": "https://robrunwiki.com/items/drugs_6/"}, {"id": "equip_carbine_4", "en": "Tactical Carabiner", "ru": "Тактический карабин", "cat": "valuables", "rarity": "Легендарный", "min": 23200, "max": 34800, "url": "https://robrunwiki.com/items/equip_carbine_4/"}, {"id": "baseball_card_1", "en": "Eason McKinley Card", "ru": "Карточка с Эйсоном Маккинли", "cat": "valuables", "rarity": "Легендарный", "min": 22556, "max": 33834, "url": "https://robrunwiki.com/items/baseball_card_1/"}, {"id": "action_camera_1_cumulative", "en": "Action Camera", "ru": "Экшн-камера", "cat": "other", "rarity": "Необычный", "min": 1500, "max": 2250, "url": "https://robrunwiki.com/items/action_camera_1_cumulative/"}, {"id": "alcohol_box_1", "en": "Alcohol", "ru": "Алкоголь", "cat": "cargo", "rarity": "Обычный", "min": 50, "max": 75, "url": "https://robrunwiki.com/items/alcohol_box_1/"}, {"id": "bush_drugs_1", "en": "Harvest Package", "ru": "Пакет с урожаем", "cat": "cargo", "rarity": "Необычный", "min": 4000, "max": 6000, "url": "https://robrunwiki.com/items/bush_drugs_1/"}, {"id": "cargo_alcohol_grade_1", "en": "Contraband Cargo", "ru": "Контрабандный груз", "cat": "cargo", "rarity": "Необычный", "min": 10000, "max": 12500, "url": "https://robrunwiki.com/items/cargo_alcohol_grade_1/"}, {"id": "cargo_alcohol_grade_2", "en": "Premium Cargo", "ru": "Премиальный груз", "cat": "cargo", "rarity": "Эпический", "min": 35000, "max": 43750, "url": "https://robrunwiki.com/items/cargo_alcohol_grade_2/"}, {"id": "cargo_alcohol_grade_3", "en": "Rarity Cargo", "ru": "Раритетный груз", "cat": "cargo", "rarity": "Легендарный", "min": 40000, "max": 50000, "url": "https://robrunwiki.com/items/cargo_alcohol_grade_3/"}, {"id": "cargo_carparts", "en": "Spare Parts Crate", "ru": "Ящик с запчастями", "cat": "cargo", "rarity": "Эпический", "min": 40000, "max": 50000, "url": "https://robrunwiki.com/items/cargo_carparts/"}, {"id": "cargo_electronics", "en": "Electronics Crate", "ru": "Ящик с электроникой", "cat": "cargo", "rarity": "Эпический", "min": 40000, "max": 50000, "url": "https://robrunwiki.com/items/cargo_electronics/"}, {"id": "cargo_equip", "en": "Equipment Crate", "ru": "Ящик с экипировкой", "cat": "cargo", "rarity": "Эпический", "min": 40000, "max": 50000, "url": "https://robrunwiki.com/items/cargo_equip/"}, {"id": "cargo_charge_workbench_garden_bed", "en": "Grow Table", "ru": "Стол для рассады", "cat": "cargo", "rarity": "Необычный", "min": 16000, "max": 24000, "url": "https://robrunwiki.com/items/cargo_charge_workbench_garden_bed/"}, {"id": "cargo_charge_workbench_lab_freezer_1", "en": "Industrial Freezer", "ru": "Промышленный фризер", "cat": "cargo", "rarity": "Необычный", "min": 8000, "max": 12000, "url": "https://robrunwiki.com/items/cargo_charge_workbench_lab_freezer_1/"}, {"id": "cargo_charge_workbench_lab_freezer_2", "en": "Industrial Freezer", "ru": "Промышленный фризер", "cat": "cargo", "rarity": "Эпический", "min": 36000, "max": 54000, "url": "https://robrunwiki.com/items/cargo_charge_workbench_lab_freezer_2/"}, {"id": "cargo_charge_workbench_lab_freezer_3", "en": "Industrial Freezer", "ru": "Промышленный фризер", "cat": "cargo", "rarity": "Легендарный", "min": 100000, "max": 150000, "url": "https://robrunwiki.com/items/cargo_charge_workbench_lab_freezer_3/"}];
+  var DATA_URL = '/data/rob-run-items.json';
+  var LS_KEY = 'buffforge-rob-run-haul-v2';
+  var catalog = OFFLINE, haul = [], dataMode = 'offline';
+  var searchTimer = null;
+  var searchEl = document.getElementById('search');
+  var catEl = document.getElementById('category');
+  var resultCountEl = document.getElementById('resultCount');
+  var resultsEl = document.getElementById('results');
+  var customNameEl = document.getElementById('customName');
+  var customPriceEl = document.getElementById('customPrice');
+  var customQtyEl = document.getElementById('customQty');
+  var customNoteEl = document.getElementById('customNote');
+  var haulEl = document.getElementById('haul');
+  var notorietyEl = document.getElementById('notoriety');
+  var gearEl = document.getElementById('gearCost');
+  var otherEl = document.getElementById('otherCost');
+  var splitEl = document.getElementById('split');
+  var baseOut = document.getElementById('baseOut');
+  var saleOut = document.getElementById('saleOut');
+  var costOut = document.getElementById('costOut');
+  var netOut = document.getElementById('netOut');
+  var perOut = document.getElementById('perOut');
+  var ratioOut = document.getElementById('ratioOut');
+  var calcNoticeEl = document.getElementById('calcNotice');
+  var dataNoticeEl = document.getElementById('dataNotice');
+  var dataMetaEl = document.getElementById('dataMeta');
+  var toolNoteEl = document.getElementById('toolNote');
+  var shareEl = document.getElementById('share');
   function num(v) {
     var n = parseFloat(v);
     return isFinite(n) ? n : 0;
   }
+  function pos(v) {
+    var n = num(v);
+    return n > 0 ? n : 0;
+  }
   function fmt(n) {
-    return n.toLocaleString(STR.locale, {maximumFractionDigits: 2});
+    return isFinite(n) ? n.toLocaleString(STR.locale, {maximumFractionDigits: 2}) : '—';
+  }
+  function fmtInt(n) {
+    return isFinite(n) ? Math.round(n).toLocaleString(STR.locale, {maximumFractionDigits: 0}) : '—';
   }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (ch) {
       return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch];
     });
   }
-  function render() {
-    var haul = 0;
-    var html = '';
-    for (var i = 0; i < items.length; i++) {
-      var line = items[i].price * items[i].qty;
-      haul += line;
-      html += '<div class="line-item"><span>' + esc(items[i].name) + ' × ' + fmt(items[i].qty) +
-        '</span><b>' + fmt(line) + ' <button type="button" class="btn btn-ghost" data-i="' + i + '">' +
-        STR.remove + '</button></b></div>';
+  function countText(n) {
+    var f = STR.countForms;
+    if (STR.lang === 'ru') {
+      var m10 = n % 10, m100 = n % 100;
+      var i = (m10 === 1 && m100 !== 11) ? 0 : (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) ? 1 : 2;
+      return f[i].replace('{n}', fmtInt(n));
     }
-    list.innerHTML = html || '<p class="hint">' + STR.empty + '</p>';
-    var costs = num(gearEl.value) + num(otherEl.value);
-    var net = haul - costs;
-    document.getElementById('haulOut').textContent = fmt(haul);
-    document.getElementById('costOut').textContent = fmt(costs);
-    document.getElementById('netOut').textContent = fmt(net);
-    document.getElementById('netOut').style.color = net < 0 ? 'var(--danger)' : 'var(--ink)';
-    document.getElementById('ratioOut').textContent = costs === 0 ? '—' :
-      ((haul / costs).toLocaleString(STR.locale, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '×');
-    list.querySelectorAll('button[data-i]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        items.splice(+btn.getAttribute('data-i'), 1);
-        render();
+    return f[n === 1 ? 0 : 1].replace('{n}', fmtInt(n));
+  }
+  function catOf(row) {
+    var c = (row.category_ru || '').trim();
+    if (c === 'Ценности (краденое)') return 'valuables';
+    if (c === 'Грузы') return 'cargo';
+    return 'other';
+  }
+  function convertRows(rows) {
+    var out = [];
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      var id = (row.id || '').trim(), en = (row.name_en || '').trim(), ru = (row.name_ru || '').trim();
+      // Site JSON uses min/max; an imported CSV uses fence_price_min/max_usd.
+      var min = Number(row.fence_price_min_usd != null ? row.fence_price_min_usd : row.min);
+      var max = Number(row.fence_price_max_usd != null ? row.fence_price_max_usd : row.max);
+      if (!id || !en || !isFinite(min) || min <= 0) continue;
+      out.push({id: id, en: en, ru: ru, cat: catOf(row), rarity: row.rarity || '',
+        min: min, max: isFinite(max) && max >= min ? max : min, url: row.url || ''});
+    }
+    return out;
+  }
+  // CSV parser: quoted commas, embedded quotes, CRLF, BOM.
+  function parseCSV(csv) {
+    csv = csv.replace(/^\uFEFF/, '');
+    var records = [], row = [], val = '', quote = false;
+    for (var i = 0; i < csv.length; i++) {
+      var ch = csv[i];
+      if (quote) {
+        if (ch === '"' && csv[i + 1] === '"') { val += '"'; i++; }
+        else if (ch === '"') quote = false;
+        else val += ch;
+      } else if (ch === '"') quote = true;
+      else if (ch === ',') { row.push(val); val = ''; }
+      else if (ch === '\n') { row.push(val.replace(/\r$/, '')); records.push(row); row = []; val = ''; }
+      else val += ch;
+    }
+    if (val || row.length) { row.push(val.replace(/\r$/, '')); records.push(row); }
+    var headers = (records.shift() || []).map(function (x) { return x.trim().replace(/^\uFEFF/, ''); });
+    return records.filter(function (x) { return x.some(function (v) { return v.trim(); }); })
+      .map(function (values) {
+        var obj = {};
+        headers.forEach(function (k, j) { obj[k] = values[j] || ''; });
+        return obj;
       });
+  }
+  function priceAt(item, lvl) {
+    if (item.custom) return item.min;
+    var min = item.min, max = item.max, ratio = max / min;
+    var valuables = [1, 1.1, 1.2, 1.35, 1.5];
+    var cargo = [1, 1.05, 1.1, 1.15, 1.25];
+    if (Math.abs(ratio - 1.5) < 0.015) return Math.round(min * valuables[lvl - 1]);
+    if (Math.abs(ratio - 1.25) < 0.015) return Math.round(min * cargo[lvl - 1]);
+    if (Math.abs(ratio - 1) < 0.005) return min;
+    // Unknown ladder: only the two end prices are confirmed.
+    return lvl === 1 ? min : lvl === 5 ? max : null;
+  }
+  function rarityOf(x) {
+    var r = x.rarity || '';
+    if (STR.lang === 'en' && STR.rarity[r]) return STR.rarity[r];
+    return r;
+  }
+  function nameMain(x) {
+    return STR.lang === 'ru' ? (x.ru || x.en) : x.en;
+  }
+  function nameSub(x) {
+    var other = STR.lang === 'ru' ? x.en : x.ru;
+    var r = rarityOf(x);
+    var parts = [];
+    if (other) parts.push(other);
+    if (r) parts.push(r);
+    return parts.join(' · ');
+  }
+  function findItem(id) {
+    for (var i = 0; i < catalog.length; i++) if (catalog[i].id === id) return catalog[i];
+    return null;
+  }
+  function renderResults() {
+    var q = searchEl.value.trim().toLowerCase();
+    var cat = catEl.value;
+    var matches = catalog.filter(function (x) {
+      return (cat === 'all' || x.cat === cat) &&
+        (!q || (x.en + ' ' + x.ru + ' ' + x.id).toLowerCase().indexOf(q) !== -1);
+    });
+    resultCountEl.textContent = countText(matches.length);
+    var sorted = matches.slice().sort(function (a, b) {
+      if (!q) return b.min - a.min;
+      var as = a.en.toLowerCase().indexOf(q) === 0 ? -1 : 0;
+      var bs = b.en.toLowerCase().indexOf(q) === 0 ? -1 : 0;
+      return (as - bs) || (b.min - a.min);
+    });
+    var html = sorted.slice(0, 80).map(function (x) {
+      var sub = nameSub(x);
+      return '<div class="res-item"><div><b>' + esc(nameMain(x)) + '</b>' +
+        (sub ? '<span class="sub">' + esc(sub) + '</span>' : '') + '</div>' +
+        '<div class="price">' + fmt(x.min) + ' ' + esc(STR.cash) + '</div>' +
+        '<button type="button" class="btn btn-secondary" data-add="' + esc(x.id) + '">' +
+        esc(STR.add) + '</button></div>';
+    }).join('');
+    if (!html) html = '<p class="hint">' + esc(STR.noMatch) + '</p>';
+    if (matches.length > 80) {
+      html += '<p class="hint">' + esc(STR.showing80.replace('{n}', fmtInt(matches.length))) + '</p>';
+    }
+    resultsEl.innerHTML = html;
+  }
+  function notify(msg, warn) {
+    dataNoticeEl.className = 'datanote' + (warn ? ' warn' : '');
+    dataNoticeEl.textContent = msg;
+  }
+  function setCatalog(rows, mode) {
+    if (!rows.length) throw new Error('No priced items found.');
+    catalog = rows;
+    dataMode = mode;
+    dataMetaEl.textContent = mode === 'offline' ? STR.dataMetaOff :
+      STR.dataMeta.replace('{n}', fmtInt(rows.length));
+    renderResults();
+    renderHaul();
+  }
+  function loadData() {
+    return fetch(DATA_URL, {cache: 'no-store'}).then(function (r) {
+      if (!r.ok) throw new Error('Endpoint unavailable');
+      return r.json();
+    }).then(function (data) {
+      if (!data.items || !Array.isArray(data.items)) throw new Error('Invalid JSON');
+      var rows = convertRows(data.items);
+      if (rows.length < 50) throw new Error('Dataset incomplete');
+      setCatalog(rows, 'full');
+      var total = (data.meta && data.meta.total) ? data.meta.total : rows.length;
+      notify(STR.full.replace('{total}', fmtInt(total)).replace('{n}', fmtInt(rows.length)), false);
+    }).catch(function () {
+      setCatalog(OFFLINE, 'offline');
+      notify(STR.offline.replace('{n}', fmtInt(OFFLINE.length)), true);
     });
   }
-  document.getElementById('addItem').addEventListener('click', function () {
-    var name = nameEl.value.trim();
-    if (!name) { note.textContent = STR.needName; nameEl.focus(); return; }
-    note.textContent = '';
-    items.push({name: name, price: num(priceEl.value), qty: num(qtyEl.value)});
-    nameEl.value = '';
-    render();
-    nameEl.focus();
+  function updateTotals() {
+    var lvl = +notorietyEl.value;
+    var base = 0, sale = 0, unknown = 0;
+    for (var i = 0; i < haul.length; i++) {
+      var x = haul[i];
+      var s = findItem(x.id) || x;
+      var qty = Math.max(1, Math.floor(x.qty) || 1);
+      var p = priceAt(s, lvl);
+      base += s.min * qty;
+      if (p === null) { unknown++; } else { sale += p * qty; }
+      var lp = haulEl.querySelector('[data-lp="' + x.id + '"]');
+      if (lp) lp.textContent = p === null ? STR.unknown : fmt(p * qty);
+    }
+    var costs = pos(gearEl.value) + pos(otherEl.value);
+    var net = sale - costs;
+    var split = +(splitEl.value || 1);
+    baseOut.textContent = fmt(base);
+    saleOut.textContent = fmt(sale);
+    costOut.textContent = fmt(costs);
+    netOut.textContent = fmt(net);
+    netOut.style.color = net < 0 ? 'var(--danger)' : 'var(--ink)';
+    perOut.textContent = fmt(net / split);
+    ratioOut.textContent = costs === 0 ? '—' :
+      (sale / costs).toLocaleString(STR.locale, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '×';
+    calcNoticeEl.textContent = unknown ? STR.unknownWarn.replace('{n}', unknown) :
+      haul.length ? STR.estimates : STR.noHaul;
+  }
+  function renderHaul() {
+    var lvl = +notorietyEl.value;
+    var html = '';
+    for (var i = 0; i < haul.length; i++) {
+      var x = haul[i];
+      var s = findItem(x.id) || x;
+      var p = priceAt(s, lvl);
+      var sub = nameSub(s);
+      html += '<div class="haul-row"><div class="t">' + esc(nameMain(s)) +
+        (x.custom ? ' <span class="sub">· ' + esc(STR.customTag) + '</span>' : '') +
+        (sub ? '<span class="sub">' + esc(sub) + '</span>' : '') +
+        '<span class="sub">' + esc(p === null ? STR.unknown : STR.each.replace('{p}', fmt(p))) + '</span></div>' +
+        '<input type="number" min="1" max="999999" value="' + x.qty + '" data-qty="' + esc(x.id) + '"' +
+        ' aria-label="' + esc(STR.qtyFor.replace('{n}', nameMain(s))) + '">' +
+        '<div class="lp" data-lp="' + esc(x.id) + '">' + (p === null ? STR.unknown : fmt(p * x.qty)) + '</div>' +
+        '<button type="button" class="btn btn-ghost" data-remove="' + esc(x.id) + '"' +
+        ' aria-label="' + esc(STR.remove) + '">×</button></div>';
+    }
+    haulEl.innerHTML = html || '<p class="hint">' + esc(STR.empty) + '</p>';
+    updateTotals();
+  }
+  function persistState() {
+    try {
+      var encoded = encodeURIComponent(JSON.stringify({
+        haul: haul, notoriety: notorietyEl.value,
+        gearCost: gearEl.value, otherCost: otherEl.value, split: splitEl.value}));
+      history.replaceState(null, '', location.pathname + location.search + '#haul=' + encoded);
+    } catch (e) {}
+  }
+  function updateFromHash() {
+    if (location.hash.indexOf('#haul=') !== 0) return;
+    try {
+      var obj = JSON.parse(decodeURIComponent(location.hash.slice(6)));
+      if (!obj || !Array.isArray(obj.haul) || obj.haul.length > 200) return;
+      haul = obj.haul.filter(function (x) {
+        return typeof x.id === 'string' && typeof x.en === 'string' &&
+          isFinite(Number(x.min)) && x.min >= 0;
+      }).slice(0, 150).map(function (x) {
+        return {id: x.id, en: x.en, ru: x.ru || '', cat: x.cat || 'other',
+          rarity: x.rarity || '', min: Number(x.min),
+          max: Number(x.max) || Number(x.min), custom: !!x.custom,
+          url: x.url || '', qty: Math.max(1, Math.min(999999, Math.floor(Number(x.qty) || 1)))};
+      });
+      var keys = ['notoriety', 'gearCost', 'otherCost', 'split'];
+      for (var i = 0; i < keys.length; i++) {
+        if (obj[keys[i]] != null) {
+          var el = document.getElementById(keys[i]);
+          if (el) el.value = obj[keys[i]];
+        }
+      }
+      renderHaul();
+    } catch (e) {}
+  }
+  function addItem(id) {
+    var x = findItem(id);
+    if (!x) return;
+    var found = null;
+    for (var i = 0; i < haul.length; i++) if (haul[i].id === id) found = haul[i];
+    if (found) found.qty++;
+    else haul.push({id: x.id, en: x.en, ru: x.ru, cat: x.cat, rarity: x.rarity,
+      min: x.min, max: x.max, url: x.url, qty: 1});
+    renderHaul();
+    persistState();
+  }
+  searchEl.addEventListener('input', function () {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(renderResults, 70);
   });
-  document.getElementById('clearItems').addEventListener('click', function () {
-    items = [];
-    note.textContent = '';
-    render();
+  catEl.addEventListener('change', renderResults);
+  resultsEl.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('[data-add]') : null;
+    if (btn) addItem(btn.getAttribute('data-add'));
   });
-  gearEl.addEventListener('input', render);
-  otherEl.addEventListener('input', render);
-  render();
+  haulEl.addEventListener('input', function (e) {
+    if (!e.target.matches || !e.target.matches('[data-qty]')) return;
+    var x = null;
+    for (var i = 0; i < haul.length; i++) if (haul[i].id === e.target.getAttribute('data-qty')) x = haul[i];
+    if (x) {
+      x.qty = Math.min(999999, Math.max(1, Math.floor(Number(e.target.value) || 1)));
+      updateTotals();
+      persistState();
+    }
+  });
+  haulEl.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-remove]') : null;
+    if (b) {
+      var id = b.getAttribute('data-remove');
+      haul = haul.filter(function (x) { return x.id !== id; });
+      renderHaul();
+      persistState();
+    }
+  });
+  notorietyEl.addEventListener('change', function () { renderHaul(); persistState(); });
+  gearEl.addEventListener('input', function () { updateTotals(); persistState(); });
+  otherEl.addEventListener('input', function () { updateTotals(); persistState(); });
+  splitEl.addEventListener('change', function () { updateTotals(); persistState(); });
+  document.getElementById('clearHaul').addEventListener('click', function () {
+    haul = [];
+    renderHaul();
+    persistState();
+  });
+  document.getElementById('addCustom').addEventListener('click', function () {
+    var en = customNameEl.value.trim();
+    var p = Number(customPriceEl.value);
+    var qty = Math.floor(Number(customQtyEl.value));
+    if (!en || !isFinite(p) || p < 0 || qty < 1) {
+      customNoteEl.textContent = STR.needCustom;
+      customNameEl.focus();
+      return;
+    }
+    customNoteEl.textContent = '';
+    var id = 'custom-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+    haul.push({id: id, en: en, ru: '', cat: 'other', rarity: '', min: p, max: p,
+      custom: true, url: '', qty: Math.min(999999, qty)});
+    customNameEl.value = '';
+    customPriceEl.value = '';
+    customQtyEl.value = '1';
+    renderHaul();
+    persistState();
+    customNameEl.focus();
+  });
+  shareEl.addEventListener('click', function () {
+    persistState();
+    var done = function () {
+      shareEl.textContent = STR.copied;
+      setTimeout(function () { shareEl.textContent = STR.share; }, 1700);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(location.href).then(done, function () {
+        toolNoteEl.textContent = STR.copyReady;
+      });
+    } else {
+      toolNoteEl.textContent = STR.copyReady;
+    }
+  });
+  document.getElementById('saveHaul').addEventListener('click', function () {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify({
+        haul: haul, notoriety: notorietyEl.value,
+        gearCost: gearEl.value, otherCost: otherEl.value, split: splitEl.value}));
+      toolNoteEl.textContent = STR.saved;
+    } catch (e) {
+      toolNoteEl.textContent = STR.saveFailed;
+    }
+  });
+  document.getElementById('restoreHaul').addEventListener('click', function () {
+    try {
+      var data = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
+      if (!data) { toolNoteEl.textContent = STR.noSaved; return; }
+      haul = data.haul || [];
+      var keys = ['notoriety', 'gearCost', 'otherCost', 'split'];
+      for (var i = 0; i < keys.length; i++) {
+        if (data[keys[i]] != null) document.getElementById(keys[i]).value = data[keys[i]];
+      }
+      renderHaul();
+      persistState();
+      toolNoteEl.textContent = STR.loadedSaved;
+    } catch (e) {
+      toolNoteEl.textContent = STR.loadFailed;
+    }
+  });
+  document.getElementById('exportHaul').addEventListener('click', function () {
+    var lvl = +notorietyEl.value;
+    var rows = [['Item', 'Quantity', 'Base unit price', 'Est unit sale price', 'Est line sale price', 'Source']];
+    for (var i = 0; i < haul.length; i++) {
+      var x = haul[i];
+      var s = findItem(x.id) || x;
+      var p = priceAt(s, lvl);
+      rows.push([s.en, x.qty, s.min, p === null ? '' : p, p === null ? '' : p * x.qty, s.url || STR.customSource]);
+    }
+    var csv = rows.map(function (r) {
+      return r.map(function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; }).join(',');
+    }).join('\r\n');
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv;charset=utf-8'}));
+    link.download = 'rob-run-loot-profit.csv';
+    link.click();
+    setTimeout(function () { URL.revokeObjectURL(link.href); }, 1000);
+  });
+  document.getElementById('uploadCsv').addEventListener('change', function (e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    file.text().then(function (text) {
+      var rows = convertRows(parseCSV(text));
+      if (rows.length < 10) throw new Error(STR.importTooFew);
+      setCatalog(rows, 'imported');
+      notify(STR.imported.replace('{n}', fmtInt(rows.length)).replace('{file}', file.name), false);
+    }).catch(function (err) {
+      notify(STR.importFailed.replace('{msg}', err.message || ''), true);
+    });
+    e.target.value = '';
+  });
+  document.getElementById('resetData').addEventListener('click', function () { loadData(); });
+  window.addEventListener('hashchange', updateFromHash);
+  renderResults();
+  renderHaul();
+  loadData().then(updateFromHash);
 })();
 </script>
 
