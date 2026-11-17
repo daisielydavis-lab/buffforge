@@ -427,7 +427,7 @@ PROFIT = {
         "clear": "Очистить",
         "notoriety": "Уровень дурной славы",
         "not_opts": [
-            "Уровень 1 · базовая цена",
+            "Уровень 1 · база",
             "Уровень 2 · +10% / +5%",
             "Уровень 3 · +20% / +10%",
             "Уровень 4 · +35% / +15%",
@@ -979,7 +979,7 @@ def profit_page(lang):
         % (" open" if i == 0 else "", q, a)
         for i, (q, a) in enumerate(c["faq"]))
     body = (
-        '<main id="main" class="wrap narrow">%s'
+        '<main id="main" class="wrap">%s'
         '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>'
         '<div class="checker">'
         '<p class="datanote" id="dataNotice" role="status">%s</p>'
