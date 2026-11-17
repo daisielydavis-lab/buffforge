@@ -1528,6 +1528,7 @@ a.hub-result-item:hover { color: var(--teal-deep); }
   gap: 8px;
   align-items: stretch;
 }
+.prose ol.steps.five { grid-template-columns: repeat(5, 1fr); }
 .prose ol.steps li { margin: 0; }
 .steps .step {
   background: var(--paper);
@@ -1571,6 +1572,7 @@ a.hub-result-item:hover { color: var(--teal-deep); }
   .route-origin { grid-row: auto; }
   .ping-fps { grid-template-columns: 1fr; }
   .prose ol.steps { grid-template-columns: 1fr; }
+  .prose ol.steps.five { grid-template-columns: 1fr; }
   .steps .step-arrow svg { transform: rotate(90deg); margin: 0 auto; }
 }
 
