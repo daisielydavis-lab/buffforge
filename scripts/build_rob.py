@@ -53,7 +53,7 @@ def write(rel, content):
     print("wrote", rel)
 
 
-def tool_page(lang, slug, title, desc, body, h1):
+def tool_page(lang, slug, title, desc, body, h1, extra_jsonld=None):
     canon = "/rob-run/%s/" % slug if lang == "en" else "/ru/rob-run/%s/" % slug
     alt = {"en": "/rob-run/%s/" % slug, "ru": "/ru/rob-run/%s/" % slug}
     home = "Home" if lang == "en" else "Главная"
@@ -63,6 +63,8 @@ def tool_page(lang, slug, title, desc, body, h1):
         breadcrumb_jsonld(lang, [(home, home_path), ("ROB RUN", hub), (h1, canon)]),
         webapp_jsonld(lang, h1, canon, desc),
     ]
+    if extra_jsonld:
+        jl.extend(extra_jsonld)
     return page(lang, title, desc, canon, alt, body, jsonld=jl, games=("rob-run",))
 
 
@@ -103,6 +105,10 @@ COUNT = {
             'EU 17:00 UTC and East US 8:00 PM ET, plus extra servers: <a href="https://store.steampowered.com/news/app/4262460/view/712291399099220569">Steam news, 4 Nov 2026</a>. '
             'Reviewed 13 Nov 2026.'
         ),
+        "planner_link": (
+            'Planning what to keep through the raid? <a href="/rob-run/wipe-planner/">Use the ROB RUN wipe planner</a> '
+            'to check what resets, what carries over, and build your pre-wipe checklist.'
+        ),
     },
     "ru": {
         "title": "Отсчёт до Федеральной облавы в ROB RUN — BuffForge",
@@ -138,6 +144,10 @@ COUNT = {
             'Первая облава и срок жизни сервера в семь дней — тот же пост. '
             'EU в 17:00 UTC, восток США в 20:00 ET и дополнительные серверы: <a href="https://store.steampowered.com/news/app/4262460/view/712291399099220569">новость Steam от 4 ноября 2026</a>. '
             'Проверено 13 ноября 2026.'
+        ),
+        "planner_link": (
+            'Планируете, что сохранить? <a href="/ru/rob-run/wipe-planner/">Планировщик вайпа ROB RUN</a>: '
+            'что сбрасывается, что остаётся, и чек-лист перед вайпом.'
         ),
     },
 }
@@ -304,11 +314,12 @@ def countdown_page(lang):
         '</div><p class="hint" id="openLine"></p></div>'
         '<div class="keep-grid"><div class="note-box"><h2>%s</h2><ul>%s</ul></div>'
         '<div class="note-box amber"><h2>%s</h2><ul>%s</ul></div></div>'
+        '<p class="hint">%s</p>'
         '<p class="data-line">%s</p></main>'
         % (crumbs_html(lang, [("ROB RUN", hub), (c["h1"], None)]),
            c["h1"], c["lede"], c["mode"], opts, c["opened"], c["zone"], zones,
            c["open_date"], c["local"], c["msk"], c["utc"],
-           c["keep_h"], keep, c["lose_h"], lose, c["sources"])
+           c["keep_h"], keep, c["lose_h"], lose, c["planner_link"], c["sources"])
     )
     strings = {
         "locale": "en-US" if lang == "en" else "ru-RU",
@@ -2108,10 +2119,856 @@ def failed_location_page():
                 switch_path="/rob-run/", games=("rob-run",))
 
 
+# ---------------------------------------------------------------- wipe planner
+# Design: user-supplied desktop mock, 18 Nov 2026. Facts re-checked 18 Nov 2026:
+# - Kefir FAQ (EN + RU, read directly): every 7 days plots, bases, weapons
+#   and cash are wiped into jail time and authority; cosmetics, player name,
+#   tutorial progress, settings and accumulated jail time carry over.
+# - Official Telegram 11 Nov 2026 (t.me/robrungame/67, read directly):
+#   confiscated: clean money, things, vehicles, real estate, land, unlocked
+#   skill-tree items, recorded clan spending, bribes. Kept: all cosmetics,
+#   B-coin balance, appearance and character name, tutorial progress,
+#   settings, accumulated jail time. "Things" is too vague for its own row;
+#   clean money and land fold into the Cash and Plots rows.
+# - ROB RUN Info FAQ (community, robrun.info/faq, read directly): keeps on
+#   the character are tattoos, Authority level, purchased skins, B-coins,
+#   premium. Skins fold into the Cosmetics row; B-coins already covered by
+#   the Telegram post. The jail-time formula on that page is NOT used:
+#   Kefir has not published it, and the tool never estimates conversion.
+# Library is 19 verified rows. The mock shows "22 results" but only 4 rows
+# are visible; nothing is invented to reach 22 — the count shown is the
+# number actually in the library.
+WIPE_FAQ_EN = "https://kefirgames.helpshift.com/hc/en/14-rob-run/faq/1346-what-is-the-federal-raid-wipe/?l=en"
+WIPE_FAQ_RU = "https://kefirgames.helpshift.com/hc/ru/14-rob-run/faq/1346-what-is-the-federal-raid-wipe/?l=ru"
+WIPE_TG67 = "https://t.me/robrungame/67"
+WIPE_INFO_FAQ = "https://robrun.info/faq/"
+
+WIPE_ITEMS = [
+    {"id": "cash", "out": "resets", "ev": "official",
+     "name": {"en": "Cash / money", "ru": "Деньги"},
+     "desc": {"en": "Kefir confirms that cash is wiped during the Federal Raid.",
+              "ru": "Kefir подтверждает: деньги сбрасываются во время Федеральной облавы."},
+     "kw": ["money", "bank", "cash", "деньги", "банк"]},
+    {"id": "weapons", "out": "resets", "ev": "official",
+     "name": {"en": "Weapons", "ru": "Оружие"},
+     "desc": {"en": "Weapons are listed in the official wipe reset rule.",
+              "ru": "Оружие указано в официальном правиле сброса."},
+     "kw": ["guns", "gear", "оружие"]},
+    {"id": "plots", "out": "resets", "ev": "official",
+     "name": {"en": "Land plots / claims", "ru": "Земельные участки"},
+     "desc": {"en": "All plots are wiped at the Federal Raid. The Nov 11 developer post also names land among the confiscated property.",
+              "ru": "Все участки сбрасываются во время Федеральной облавы. В посте разработчиков от 11 ноября земля также названа среди конфискованного имущества."},
+     "kw": ["land", "claims", "settlement", "земля", "участок", "поселение"]},
+    {"id": "base", "out": "resets", "ev": "official",
+     "name": {"en": "Base / house / built structures", "ru": "База / дом / постройки"},
+     "desc": {"en": "Bases are wiped. Items not explicitly named by Kefir are separately categorized.",
+              "ru": "Базы сбрасываются. Предметы, прямо не названные Kefir, отнесены в отдельные категории."},
+     "kw": ["house", "structures", "buildings", "дом", "постройки", "здания"]},
+    {"id": "cosmetics", "out": "keeps", "ev": "official",
+     "name": {"en": "Cosmetics", "ru": "Косметика"},
+     "desc": {"en": "Kefir lists cosmetics among the things that carry over.",
+              "ru": "Kefir называет косметику среди того, что сохраняется."},
+     "kw": ["skins", "скины", "косметика"]},
+    {"id": "player-name", "out": "keeps", "ev": "official",
+     "name": {"en": "Player name", "ru": "Ник"},
+     "desc": {"en": "Your player name carries over.",
+              "ru": "Ваш ник сохраняется."},
+     "kw": ["nickname", "name", "ник", "имя"]},
+    {"id": "tutorial", "out": "keeps", "ev": "official",
+     "name": {"en": "Tutorial progress", "ru": "Прогресс обучения"},
+     "desc": {"en": "Tutorial progress carries over.",
+              "ru": "Прогресс обучения сохраняется."},
+     "kw": ["tutorial", "обучение"]},
+    {"id": "settings", "out": "keeps", "ev": "official",
+     "name": {"en": "Settings", "ru": "Настройки"},
+     "desc": {"en": "Settings carry over.",
+              "ru": "Настройки сохраняются."},
+     "kw": ["keybinds", "options", "настройки"]},
+    {"id": "jail-time", "out": "keeps", "ev": "official",
+     "name": {"en": "Accumulated jail time", "ru": "Накопленный тюремный срок"},
+     "desc": {"en": "Accumulated jail time carries over — and wiped assets are converted into more of it.",
+              "ru": "Накопленный тюремный срок сохраняется, а сброшенные активы конвертируются в дополнительный срок."},
+     "kw": ["sentence", "prison", "срок", "тюрьма"]},
+    {"id": "vehicles", "out": "resets", "ev": "developer",
+     "name": {"en": "Vehicles", "ru": "Транспорт"},
+     "desc": {"en": "The 11 Nov developer post names vehicles among the confiscated property.",
+              "ru": "В посте разработчиков от 11 ноября транспорт назван среди конфискованного имущества."},
+     "kw": ["cars", "car", "машины", "авто", "транспорт"]},
+    {"id": "real-estate", "out": "resets", "ev": "developer",
+     "name": {"en": "Real estate", "ru": "Недвижимость"},
+     "desc": {"en": "Named as confiscated in the 11 Nov developer post.",
+              "ru": "Названа конфискованной в посте разработчиков от 11 ноября."},
+     "kw": ["property", "house", "apartment", "недвижимость", "дом"]},
+    {"id": "skill-tree", "out": "resets", "ev": "developer",
+     "name": {"en": "Unlocked skill-tree items", "ru": "Открытые предметы древа"},
+     "desc": {"en": "Named as confiscated in the 11 Nov developer post.",
+              "ru": "Названы конфискованными в посте разработчиков от 11 ноября."},
+     "kw": ["research", "skills", "tree", "исследования", "древо", "навыки"]},
+    {"id": "clan-spending", "out": "resets", "ev": "developer",
+     "name": {"en": "Recorded clan spending", "ru": "Учтенные траты на клан"},
+     "desc": {"en": "Named as confiscated in the 11 Nov developer post.",
+              "ru": "Названы конфискованными в посте разработчиков от 11 ноября."},
+     "kw": ["clan", "клан"]},
+    {"id": "bribes", "out": "resets", "ev": "developer",
+     "name": {"en": "Bribes", "ru": "Взятки"},
+     "desc": {"en": "Named as confiscated in the 11 Nov developer post.",
+              "ru": "Названы конфискованными в посте разработчиков от 11 ноября."},
+     "kw": ["bribe", "взятки", "взятка"]},
+    {"id": "bcoins", "out": "keeps", "ev": "developer",
+     "name": {"en": "B-coin balance", "ru": "Баланс B-coins"},
+     "desc": {"en": "The 11 Nov developer post says the B-coin balance is kept.",
+              "ru": "В посте разработчиков от 11 ноября сказано, что баланс B-coins сохраняется."},
+     "kw": ["b-coins", "currency", "b-coins", "валюта"]},
+    {"id": "appearance", "out": "keeps", "ev": "developer",
+     "name": {"en": "Character appearance", "ru": "Внешность персонажа"},
+     "desc": {"en": "The 11 Nov developer post lists appearance among the things that are kept.",
+              "ru": "В посте разработчиков от 11 ноября внешность названа среди сохраняемого."},
+     "kw": ["face", "look", "внешность", "лицо"]},
+    {"id": "tattoos", "out": "keeps", "ev": "community",
+     "name": {"en": "Tattoos", "ru": "Татуировки"},
+     "desc": {"en": "The community FAQ lists tattoos as staying on the character.",
+              "ru": "В FAQ сообщества татуировки указаны как сохраняющиеся на персонаже."},
+     "kw": ["tattoo", "ink", "татуировки", "тату"]},
+    {"id": "authority", "out": "keeps", "ev": "community",
+     "name": {"en": "Authority level", "ru": "Уровень авторитета"},
+     "desc": {"en": "The community FAQ says the Authority level stays on the character.",
+              "ru": "В FAQ сообщества сказано, что уровень авторитета остаётся на персонаже."},
+     "kw": ["authority", "level", "rank", "авторитет", "уровень"]},
+    {"id": "premium", "out": "keeps", "ev": "community",
+     "name": {"en": "Premium status", "ru": "Премиум-статус"},
+     "desc": {"en": "The community FAQ lists premium as staying on the character.",
+              "ru": "В FAQ сообщества премиум указан как сохраняющийся на персонаже."},
+     "kw": ["premium", "премиум"]},
+]
+
+WIPE = {
+    "en": {
+        "title": "ROB RUN Wipe Checker: What Resets & What Stays? | BuffForge",
+        "desc": "ROB RUN wipes every 7 days. Check what resets after a Federal Raid, what carries over, and make a free pre-wipe checklist for your server. No login required.",
+        "h1": "ROB RUN Wipe: What Do You Lose or Keep?",
+        "eyebrow": "ROB RUN · Federal Raid tool",
+        "hero_a": "Know ",
+        "hero_b": "what you keep.",
+        "hero_c": " Plan what comes next.",
+        "lede": "Search the wipe rules, mark the assets that matter to you, and get your next Federal Raid checklist ready. Real sources. Your own data. No game login.",
+        "rule_kicker": "Official rule · Kefir",
+        "rule_h": "Every 7 days",
+        "rule_p": "The Federal Raid resets server-held property. Your accumulated jail time and a small set of character progress carry over. Each server has its own clock.",
+        "rule_link": "Read the official FAQ",
+        "chips": ["Rules reviewed 18 Nov 2026", "Official / community sources labeled", "Saved in your browser", "No account required"],
+        "ws_h": "Your wipe workspace",
+        "server_label": "Server",
+        "server_default": "My server",
+        "server_n": "Server",
+        "new_server": "+ New server",
+        "delete_server": "Delete",
+        "del_confirm": "Delete this server profile and everything tracked in it?",
+        "stat_reset": "Your reset items",
+        "stat_reset_sub": "Tracked types, not item count",
+        "stat_kept": "Your saved progress",
+        "stat_kept_sub": "Tracked things that carry over",
+        "stat_manual": "Check manually",
+        "stat_manual_sub": "Rules not firmly confirmed",
+        "stat_check": "Checklist complete",
+        "stat_check_sub": "{done} / {total} tasks",
+        "lib_h": "What resets? What stays?",
+        "lib_badge": "Source-checked",
+        "lib_lede": "Search an item or progress type, then add it to your personal wipe list.",
+        "lib_notice": "Confirmed facts are taken from Kefir's official FAQ. Other details are clearly marked as developer announcements, community guidance, or unverified. Do not treat unknown as safe.",
+        "search_label": "Search items",
+        "search_ph": "Search: cars, cash, tattoos, research…",
+        "clear": "Clear",
+        "f_all": "All",
+        "f_resets": "Resets",
+        "f_keeps": "Keeps",
+        "f_unconf": "Unconfirmed",
+        "lib_list_h": "Item / progress library",
+        "results": "{n} results",
+        "tracked_h": "My tracked items",
+        "tracked_empty": "Nothing tracked yet. Use “+ Track” above to make your personal keep / lose list.",
+        "custom_h": "Can't find an item? Add your own for manual verification.",
+        "custom_ph": "e.g. Unclaimed shipment",
+        "custom_add": "+ Track item",
+        "custom_need": "Type an item name first.",
+        "lib_foot": "The numbers above count things you chose to track, not your in-game balance. The tool never reads game inventory.",
+        "target_h": "My Federal Raid target",
+        "target_lede": "Optional: enter the wipe time shown in your game to plan around it.",
+        "target_label": "My in-game wipe date & time",
+        "target_clear": "Clear",
+        "target_none": "No deadline entered",
+        "target_none_sub": "Enter the actual raid time if your game shows it.",
+        "target_note": "This is your manually entered deadline, not a live server lookup. If the raid time changes, update it here. Check the in-game timer for the authoritative time.",
+        "target_link": "Need to estimate it from server opening? Use BuffForge's existing Federal Raid countdown",
+        "target_passed": "This raid time has passed.",
+        "summary_h": "Your plan summary",
+        "summary_lede": "Useful before switching servers or logging off.",
+        "summary_empty": "No items tracked yet. {done} of {total} prep tasks complete.",
+        "copy": "Copy summary",
+        "copied": "Summary copied",
+        "print": "Print / PDF",
+        "backup_h": "Backup and restore",
+        "export": "Export JSON",
+        "import": "Import JSON",
+        "backup_note": "Stored only in this browser with localStorage. Browser data can be cleared; export a backup if it matters to you.",
+        "import_ok": "Backup imported.",
+        "import_bad": "That file is not a valid wipe-planner backup.",
+        "sources_h": "Rules & sources",
+        "sources_lede": "Primary source first. Unknowns stay unknown.",
+        "review_note": "Last editorial review: 18 November 2026. Early-access rules can change without notice. If sources conflict, trust newer official information and the in-game interface.",
+        "check_h": "Your pre-wipe checklist",
+        "check_lede": "Suggested preparation steps, plus any tasks you add. Nothing is sent to a server.",
+        "check_progress": "Preparation progress",
+        "check_done": "{done} / {total} done",
+        "check_add_ph": "Add your own pre-wipe task",
+        "check_add": "Add task",
+        "check_foot": "This is a personal planning checklist. Completing tasks here does not change anything in ROB RUN.",
+        "faq_h": "ROB RUN wipe questions, answered",
+        "sources": "Wipe rules: Kefir FAQ “What is the Federal Raid (Wipe)?” (reviewed 18 Nov 2026); extra items: official Telegram post, 11 Nov 2026; community FAQ: ROB RUN Info. BuffForge is an independent fan project, not affiliated with Kefir.",
+        "track": "+ Track",
+        "tracked": "✓ Tracked",
+        "remove": "Remove",
+        "resets": "Resets",
+        "keeps": "Keeps",
+        "unconf": "Unconfirmed",
+        "ev_official": "Official",
+        "ev_developer": "Developer",
+        "ev_community": "Community",
+        "ev_unconf": "Unconfirmed",
+        "src_faq": "Kefir FAQ",
+        "src_tg": "Nov 11 post",
+        "src_info": "ROB RUN Info FAQ",
+        "units": ["d", "h", "m", "s"],
+        "tasks": [
+            ("Check the Federal Raid timer in-game", "Use your server's own timer, not a global reset guess."),
+            ("Record server number and region", "Useful if your squad plans to regroup next cycle."),
+            ("Review cash, weapons, plots and bases", "Kefir confirms these are wiped."),
+            ("Verify any uncertain items or unclaimed rewards", "Use in-game information and up-to-date official announcements."),
+            ("Note your jail time / Authority progress", "Record a before/after reference for the next cycle."),
+            ("Agree on a next server with your squad", "Optional if you play with friends."),
+        ],
+        "faq": [
+            ("What disappears during the Federal Raid?",
+             "Officially: plots, bases, weapons, and cash are wiped. Confiscated holdings are converted into jail time and Authority. The tool does not estimate that conversion."),
+            ("What definitely carries over?",
+             "Kefir lists cosmetics, player name, tutorial progress, settings, and accumulated jail time. Other items receive a separate evidence label in the checker."),
+            ("Is every server wiped at the same time?",
+             "No. ROB RUN has a seven-day cycle for each server, rather than a single worldwide reset hour. Check your own server timer."),
+            ("Does BuffForge read my account or items?",
+             "No. You select what to track. The list and checklist stay on this device unless you export them. There is no live game data or account connection."),
+        ],
+    },
+    "ru": {
+        "title": "Проверка вайпа ROB RUN: что сбрасывается и что остаётся | BuffForge",
+        "desc": "Вайп в ROB RUN — каждые 7 дней. Проверьте, что сбрасывается после Федеральной облавы, что остаётся, и составьте бесплатный чек-лист перед вайпом для вашего сервера. Без регистрации.",
+        "h1": "Вайп ROB RUN: что вы теряете, а что сохраняете?",
+        "eyebrow": "ROB RUN · Инструмент Федеральной облавы",
+        "hero_a": "Знайте, ",
+        "hero_b": "что сохраните.",
+        "hero_c": " Планируйте, что будет дальше.",
+        "lede": "Найдите правила вайпа, отметьте важное для вас имущество и подготовьте чек-лист к следующей Федеральной облаве. Настоящие источники. Ваши данные. Без входа в игру.",
+        "rule_kicker": "Официальное правило · Kefir",
+        "rule_h": "Каждые 7 дней",
+        "rule_p": "Федеральная облава сбрасывает имущество сервера. Накопленный тюремный срок и небольшой набор прогресса персонажа сохраняются. У каждого сервера свой таймер.",
+        "rule_link": "Читать справку Kefir",
+        "chips": ["Правила проверены 18 ноября 2026", "Источники помечены: официальные и сообщества", "Сохраняется в вашем браузере", "Без регистрации"],
+        "ws_h": "Ваше рабочее место для вайпа",
+        "server_label": "Сервер",
+        "server_default": "Мой сервер",
+        "server_n": "Сервер",
+        "new_server": "+ Новый сервер",
+        "delete_server": "Удалить",
+        "del_confirm": "Удалить этот профиль сервера и всё отслеживаемое в нём?",
+        "stat_reset": "Ваши сброшенные предметы",
+        "stat_reset_sub": "Отслеженные типы, а не количество",
+        "stat_kept": "Ваш сохранённый прогресс",
+        "stat_kept_sub": "Отслеженное, что сохраняется",
+        "stat_manual": "Проверьте вручную",
+        "stat_manual_sub": "Правила подтверждены не полностью",
+        "stat_check": "Чек-лист выполнен",
+        "stat_check_sub": "{done} / {total} задач",
+        "lib_h": "Что сбрасывается? Что остаётся?",
+        "lib_badge": "Проверено по источникам",
+        "lib_lede": "Найдите предмет или вид прогресса и добавьте его в свой список вайпа.",
+        "lib_notice": "Подтверждённые факты взяты из официальной справки Kefir. Остальное чётко помечено: объявления разработчиков, советы сообщества или «не проверено». Неизвестное не значит безопасное.",
+        "search_label": "Поиск предметов",
+        "search_ph": "Поиск: машины, деньги, татуировки, исследования…",
+        "clear": "Очистить",
+        "f_all": "Все",
+        "f_resets": "Сбрасывается",
+        "f_keeps": "Остаётся",
+        "f_unconf": "Не проверено",
+        "lib_list_h": "Библиотека предметов и прогресса",
+        "results": "Найдено: {n}",
+        "tracked_h": "Мои отслеживаемые предметы",
+        "tracked_empty": "Пока ничего не отслеживается. Нажмите «+ Отслеживать» выше, чтобы составить личный список потерь и сохранений.",
+        "custom_h": "Не нашли предмет? Добавьте свой для ручной проверки.",
+        "custom_ph": "напр., Незабранная посылка",
+        "custom_add": "+ Отслеживать предмет",
+        "custom_need": "Сначала введите название предмета.",
+        "lib_foot": "Числа выше — это типы, которые вы выбрали для отслеживания, а не ваш игровой баланс. Инструмент не читает игровой инвентарь.",
+        "target_h": "Моя цель — Федеральная облава",
+        "target_lede": "Необязательно: введите время вайпа, показанное в вашей игре, чтобы планировать вокруг него.",
+        "target_label": "Дата и время вайпа в моей игре",
+        "target_clear": "Очистить",
+        "target_none": "Срок не введён",
+        "target_none_sub": "Введите фактическое время облавы, если игра его показывает.",
+        "target_note": "Это введённый вами вручную срок, а не живая проверка сервера. Если время облавы изменится, обновите его здесь. Точное время смотрите по внутриигровому таймеру.",
+        "target_link": "Нужно прикинуть от открытия сервера? Используйте существующий отсчёт до Федеральной облавы на BuffForge",
+        "target_passed": "Это время облавы уже прошло.",
+        "summary_h": "Итог вашего плана",
+        "summary_lede": "Полезно перед сменой сервера или выходом из игры.",
+        "summary_empty": "Предметов пока не отслеживается. Выполнено {done} из {total} задач подготовки.",
+        "copy": "Копировать итог",
+        "copied": "Итог скопирован",
+        "print": "Печать / PDF",
+        "backup_h": "Резервная копия и восстановление",
+        "export": "Экспорт JSON",
+        "import": "Импорт JSON",
+        "backup_note": "Хранится только в этом браузере (localStorage). Данные браузера можно очистить — сделайте резервную копию, если это важно.",
+        "import_ok": "Резервная копия импортирована.",
+        "import_bad": "Этот файл — не резервная копия планировщика вайпа.",
+        "sources_h": "Правила и источники",
+        "sources_lede": "Сначала основной источник. Неизвестное остаётся неизвестным.",
+        "review_note": "Последняя редакторская проверка: 18 ноября 2026. Правила раннего доступа могут измениться без предупреждения. При конфликте источников доверяйте более свежей официальной информации и внутриигровому интерфейсу.",
+        "check_h": "Ваш чек-лист перед вайпом",
+        "check_lede": "Предлагаемые шаги подготовки и ваши задачи. На сервер ничего не отправляется.",
+        "check_progress": "Прогресс подготовки",
+        "check_done": "{done} / {total} выполнено",
+        "check_add_ph": "Добавьте свою задачу перед вайпом",
+        "check_add": "Добавить задачу",
+        "check_foot": "Это личный чек-лист для планирования. Выполнение задач здесь ничего не меняет в ROB RUN.",
+        "faq_h": "Вопросы о вайпе ROB RUN — с ответами",
+        "sources": "Правила вайпа: справка Kefir «Что такое облава федералов — вайп?» (проверено 18 ноября 2026); дополнительные предметы: официальный пост в Telegram от 11 ноября 2026; FAQ сообщества: ROB RUN Info. BuffForge — независимый фанатский проект, не связан с Kefir.",
+        "track": "+ Отслеживать",
+        "tracked": "✓ Отслеживается",
+        "remove": "Убрать",
+        "resets": "Сбрасывается",
+        "keeps": "Остаётся",
+        "unconf": "Не проверено",
+        "ev_official": "Официальный",
+        "ev_developer": "Разработчик",
+        "ev_community": "Сообщество",
+        "ev_unconf": "Не проверено",
+        "src_faq": "Справка Kefir",
+        "src_tg": "Пост от 11 ноября",
+        "src_info": "FAQ ROB RUN Info",
+        "units": ["д", "ч", "мин", "с"],
+        "tasks": [
+            ("Проверьте внутриигровой таймер Федеральной облавы", "Ориентируйтесь на таймер вашего сервера, а не на общее время сброса."),
+            ("Запишите номер сервера и регион", "Пригодится, если отряд планирует собраться на следующем цикле."),
+            ("Проверьте деньги, оружие, участки и базы", "Kefir подтверждает: они сбрасываются."),
+            ("Проверьте сомнительные предметы и незабранные награды", "Используйте внутриигровую информацию и свежие официальные объявления."),
+            ("Запишите тюремный срок и прогресс авторитета", "Зафиксируйте значения до и после для следующего цикла."),
+            ("Договоритесь с отрядом о следующем сервере", "Необязательно, если играете с друзьями."),
+        ],
+        "faq": [
+            ("Что исчезает во время Федеральной облавы?",
+             "Официально: участки, базы, оружие и деньги сбрасываются. Конфискованное имущество конвертируется в тюремный срок и авторитет. Инструмент не оценивает эту конвертацию."),
+            ("Что точно сохраняется?",
+             "Kefir называет косметику, имя игрока, прогресс обучения, настройки и накопленный тюремный срок. У остальных предметов в списке — отдельная пометка об источнике."),
+            ("Все серверы вайпаются одновременно?",
+             "Нет. У каждого сервера ROB RUN свой семидневный цикл, а не единый час сброса для всех. Проверяйте таймер своего сервера."),
+            ("Читает ли BuffForge мой аккаунт или предметы?",
+             "Нет. Вы сами выбираете, что отслеживать. Список и чек-лист остаются на этом устройстве, пока вы их не экспортируете. Живых игровых данных и подключения к аккаунту нет."),
+        ],
+    },
+}
+
+
+WIPE_JS = r'''
+(function(){
+  var S = window.WIPE_STRINGS || {};
+  var KEY = "buffforge-wipe-planner-v1";
+  var data = null;
+  function blankServer(name){
+    return {name: name, tracked: [], custom: [], target: "",
+      tasks: (S.tasks || []).map(function(t, i){
+        return {id: "t" + i, text: t[0], sub: t[1], done: false, custom: false};
+      })};
+  }
+  function load(){
+    try { data = JSON.parse(localStorage.getItem(KEY)); } catch (e) { data = null; }
+    if (!data || !Array.isArray(data.servers) || !data.servers.length) {
+      data = {servers: [blankServer(S.server_default || "My server")], active: 0};
+    }
+    if (data.active == null || data.active >= data.servers.length) data.active = 0;
+    data.servers.forEach(function(sv){
+      if (!Array.isArray(sv.tracked)) sv.tracked = [];
+      if (!Array.isArray(sv.custom)) sv.custom = [];
+      if (!Array.isArray(sv.tasks) || !sv.tasks.length) sv.tasks = blankServer(sv.name).tasks;
+      if (sv.target == null) sv.target = "";
+    });
+  }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} }
+  function cur(){ return data.servers[data.active]; }
+  function esc(s){ return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function $(id){ return document.getElementById(id); }
+  function allItems(){ return (S.items || []).concat(cur().custom); }
+  function itemById(id){
+    var all = allItems();
+    for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i];
+    return null;
+  }
+  function evLabel(ev){
+    return ev === "official" ? S.ev_official : ev === "developer" ? S.ev_developer : ev === "community" ? S.ev_community : S.ev_unconf;
+  }
+  function evCls(ev){
+    return ev === "official" ? "ev-keeps" : ev === "unconf" ? "ev-resets" : "ev-unconf";
+  }
+  function outCls(out){
+    return out === "resets" ? "ev-resets" : out === "keeps" ? "ev-keeps" : "ev-unconf";
+  }
+  function outLabel(out){
+    return out === "resets" ? S.resets : out === "keeps" ? S.keeps : S.unconf;
+  }
+  function libRow(it){
+    var tracked = cur().tracked.indexOf(it.id) !== -1;
+    var src = it.href ? '<a class="ev-src" href="' + esc(it.href) + '" target="_blank" rel="noopener">' + esc(it.src) + '</a>' : '<span class="ev-src">' + esc(it.src || "") + '</span>';
+    return '<div class="lib-item"><div><b>' + esc(it.name) + '</b>' +
+      (it.desc ? '<span class="desc">' + esc(it.desc) + '</span>' : '') +
+      '<span class="tags"><span class="ev-pill ' + outCls(it.out) + '">' + esc(outLabel(it.out)) + '</span>' +
+      '<span class="ev-pill ' + evCls(it.ev) + '">' + esc(evLabel(it.ev)) + '</span>' + src + '</span></div>' +
+      '<button class="btn" type="button" data-track="' + esc(it.id) + '"' + (tracked ? ' aria-pressed="true"' : '') + '>' +
+      esc(tracked ? S.tracked : S.track) + '</button></div>';
+  }
+  var q = "", filter = "all";
+  function renderLib(){
+    var list = $("wipe-lib");
+    if (!list) return;
+    var needle = q.trim().toLowerCase();
+    var rows = allItems().filter(function(it){
+      if (filter === "resets" && it.out !== "resets") return false;
+      if (filter === "keeps" && it.out !== "keeps") return false;
+      if (filter === "unconf" && it.ev !== "unconf") return false;
+      if (!needle) return true;
+      var hay = (it.name + " " + it.desc + " " + (it.kw || []).join(" ")).toLowerCase();
+      return hay.indexOf(needle) !== -1;
+    });
+    list.innerHTML = rows.map(libRow).join("");
+    var c = $("wipe-count");
+    if (c) c.textContent = (S.results || "{n}").replace("{n}", rows.length);
+  }
+  function renderTracked(){
+    var box = $("wipe-tracked");
+    if (!box) return;
+    if (!cur().tracked.length) {
+      box.innerHTML = '<p class="hint">' + esc(S.tracked_empty) + '</p>';
+      return;
+    }
+    box.innerHTML = cur().tracked.map(function(id){
+      var it = itemById(id);
+      if (!it) return "";
+      return '<div class="lib-item"><div><b>' + esc(it.name) + '</b>' +
+        '<span class="tags"><span class="ev-pill ' + outCls(it.out) + '">' + esc(outLabel(it.out)) + '</span>' +
+        '<span class="ev-pill ' + evCls(it.ev) + '">' + esc(evLabel(it.ev)) + '</span></span></div>' +
+        '<button class="btn btn-ghost" type="button" data-untrack="' + esc(it.id) + '">' + esc(S.remove) + '</button></div>';
+    }).join("");
+  }
+  function renderStats(){
+    var r = 0, k = 0, m = 0;
+    cur().tracked.forEach(function(id){
+      var it = itemById(id);
+      if (!it) return;
+      if (it.out === "resets") r++; else if (it.out === "keeps") k++;
+      if (it.ev === "unconf") m++;
+    });
+    var done = cur().tasks.filter(function(t){ return t.done; }).length;
+    var total = cur().tasks.length;
+    var sr = $("stat-reset"); if (sr) sr.textContent = r;
+    var sk = $("stat-kept"); if (sk) sk.textContent = k;
+    var sm = $("stat-manual"); if (sm) sm.textContent = m;
+    var sc = $("stat-check"); if (sc) sc.textContent = done + " / " + total;
+  }
+  function renderTasks(){
+    var box = $("wipe-tasks");
+    if (!box) return;
+    box.innerHTML = cur().tasks.map(function(t){
+      return '<div class="check-row' + (t.done ? ' done' : '') + '">' +
+        '<input type="checkbox" data-task="' + esc(t.id) + '"' + (t.done ? ' checked' : '') + ' aria-label="' + esc(t.text) + '">' +
+        '<div class="t"><span>' + esc(t.text) + '</span>' +
+        (t.sub ? '<span class="sub">' + esc(t.sub) + '</span>' : '') + '</div>' +
+        (t.custom ? '<button class="btn btn-ghost" type="button" data-deltask="' + esc(t.id) + '" aria-label="' + esc(S.remove) + '">✕</button>' : '') +
+        '</div>';
+    }).join("");
+    var done = cur().tasks.filter(function(t){ return t.done; }).length;
+    var lbl = $("wipe-progress-label");
+    if (lbl) lbl.textContent = (S.check_done || "{done} / {total}").replace("{done}", done).replace("{total}", cur().tasks.length);
+    var bar = $("wipe-bar");
+    if (bar) bar.style.width = (cur().tasks.length ? Math.round(done / cur().tasks.length * 100) : 0) + "%";
+  }
+  function renderSummary(){
+    var box = $("wipe-summary");
+    if (!box) return;
+    var names = function(out){
+      return cur().tracked.map(itemById).filter(function(it){ return it && it.out === out; }).map(function(it){ return it.name; });
+    };
+    var manual = cur().tracked.map(itemById).filter(function(it){ return it && it.ev === "unconf"; }).map(function(it){ return it.name; });
+    var done = cur().tasks.filter(function(t){ return t.done; }).length;
+    var lines = ["ROB RUN — " + cur().name];
+    lines.push(S.stat_reset + ": " + (names("resets").join(", ") || "—"));
+    lines.push(S.stat_kept + ": " + (names("keeps").join(", ") || "—"));
+    lines.push(S.stat_manual + ": " + (manual.join(", ") || "—"));
+    lines.push(S.check_progress + ": " + done + " / " + cur().tasks.length);
+    lines.push(S.target_label + ": " + (cur().target ? cur().target.replace("T", " ") : "—"));
+    box.textContent = lines.join("\n");
+  }
+  function renderServers(){
+    var sel = $("wipe-server");
+    if (!sel) return;
+    sel.innerHTML = data.servers.map(function(sv, i){
+      return '<option value="' + i + '"' + (i === data.active ? ' selected' : '') + '>' + esc(sv.name) + '</option>';
+    }).join("");
+    var del = $("wipe-del");
+    if (del) del.disabled = data.servers.length <= 1;
+  }
+  function tick(){
+    var big = $("wipe-countdown");
+    var lbl = $("wipe-target-label");
+    if (!big) return;
+    var t = cur().target;
+    if (!t) {
+      big.textContent = S.target_none;
+      if (lbl) lbl.textContent = S.target_none_sub;
+      return;
+    }
+    var end = new Date(t).getTime();
+    var diff = end - Date.now();
+    if (isNaN(end)) { big.textContent = S.target_none; return; }
+    if (diff <= 0) {
+      big.textContent = S.target_passed;
+      if (lbl) lbl.textContent = "";
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor(diff / 3600000) % 24;
+    var m = Math.floor(diff / 60000) % 60;
+    var s = Math.floor(diff / 1000) % 60;
+    var u = S.units || ["d", "h", "m", "s"];
+    var pad = function(n){ return (n < 10 ? "0" : "") + n; };
+    big.textContent = d + u[0] + " " + pad(h) + u[1] + " " + pad(m) + u[2] + " " + pad(s) + u[3];
+    if (lbl) lbl.textContent = "";
+  }
+  function renderTarget(){
+    var input = $("wipe-target");
+    if (input && input.value !== cur().target) input.value = cur().target || "";
+    tick();
+  }
+  function renderAll(){
+    renderServers(); renderLib(); renderTracked(); renderStats(); renderTasks(); renderSummary(); renderTarget();
+  }
+  function fallbackCopy(text){
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    ta.remove();
+  }
+  function bind(){
+    var sel = $("wipe-server");
+    if (sel) sel.addEventListener("change", function(){ data.active = parseInt(sel.value, 10) || 0; save(); renderAll(); });
+    var nw = $("wipe-new");
+    if (nw) nw.addEventListener("click", function(){
+      var name = window.prompt(S.server_n + ":", (S.server_n + " " + (data.servers.length + 1)));
+      if (name == null) return;
+      name = name.trim() || (S.server_n + " " + (data.servers.length + 1));
+      data.servers.push(blankServer(name));
+      data.active = data.servers.length - 1;
+      save(); renderAll();
+    });
+    var del = $("wipe-del");
+    if (del) del.addEventListener("click", function(){
+      if (data.servers.length <= 1) return;
+      if (!window.confirm(S.del_confirm)) return;
+      data.servers.splice(data.active, 1);
+      if (data.active >= data.servers.length) data.active = data.servers.length - 1;
+      save(); renderAll();
+    });
+    var input = $("wipe-q");
+    if (input) input.addEventListener("input", function(){ q = input.value; renderLib(); });
+    var clr = $("wipe-clear");
+    if (clr) clr.addEventListener("click", function(){ q = ""; if (input) input.value = ""; renderLib(); });
+    document.querySelectorAll("[data-filter]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        filter = btn.getAttribute("data-filter");
+        document.querySelectorAll("[data-filter]").forEach(function(b){ b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+        renderLib();
+      });
+    });
+    var lib = $("wipe-lib");
+    if (lib) lib.addEventListener("click", function(e){
+      var b = e.target.closest("[data-track]");
+      if (!b) return;
+      var id = b.getAttribute("data-track");
+      var i = cur().tracked.indexOf(id);
+      if (i === -1) cur().tracked.push(id); else cur().tracked.splice(i, 1);
+      save(); renderLib(); renderTracked(); renderStats(); renderSummary();
+    });
+    var tr = $("wipe-tracked");
+    if (tr) tr.addEventListener("click", function(e){
+      var b = e.target.closest("[data-untrack]");
+      if (!b) return;
+      var i = cur().tracked.indexOf(b.getAttribute("data-untrack"));
+      if (i !== -1) cur().tracked.splice(i, 1);
+      save(); renderLib(); renderTracked(); renderStats(); renderSummary();
+    });
+    var cAdd = $("wipe-custom-add");
+    if (cAdd) cAdd.addEventListener("click", function(){
+      var inp = $("wipe-custom");
+      var name = inp ? inp.value.trim() : "";
+      if (!name) { window.alert(S.custom_need); return; }
+      var id = "custom-" + Date.now();
+      cur().custom.push({id: id, out: "unconf", ev: "unconf", name: name, desc: "", kw: [name.toLowerCase()], href: "", src: S.ev_unconf});
+      cur().tracked.push(id);
+      if (inp) inp.value = "";
+      save(); renderLib(); renderTracked(); renderStats(); renderSummary();
+    });
+    var tgt = $("wipe-target");
+    if (tgt) tgt.addEventListener("change", function(){ cur().target = tgt.value || ""; save(); renderTarget(); renderSummary(); });
+    var tclr = $("wipe-target-clear");
+    if (tclr) tclr.addEventListener("click", function(){ cur().target = ""; save(); renderTarget(); renderSummary(); });
+    var tasks = $("wipe-tasks");
+    if (tasks) tasks.addEventListener("change", function(e){
+      var cb = e.target.closest("[data-task]");
+      if (!cb) return;
+      var t = cur().tasks.filter(function(x){ return x.id === cb.getAttribute("data-task"); })[0];
+      if (t) { t.done = cb.checked; save(); renderTasks(); renderStats(); renderSummary(); }
+    });
+    if (tasks) tasks.addEventListener("click", function(e){
+      var b = e.target.closest("[data-deltask]");
+      if (!b) return;
+      cur().tasks = cur().tasks.filter(function(x){ return x.id !== b.getAttribute("data-deltask"); });
+      save(); renderTasks(); renderStats(); renderSummary();
+    });
+    var tAdd = $("wipe-task-btn");
+    if (tAdd) tAdd.addEventListener("click", function(){
+      var inp = $("wipe-task-add");
+      var text = inp ? inp.value.trim() : "";
+      if (!text) return;
+      cur().tasks.push({id: "c" + Date.now(), text: text, sub: "", done: false, custom: true});
+      if (inp) inp.value = "";
+      save(); renderTasks(); renderStats(); renderSummary();
+    });
+    var cp = $("wipe-copy");
+    if (cp) cp.addEventListener("click", function(){
+      var text = $("wipe-summary") ? $("wipe-summary").textContent : "";
+      var done = function(){
+        cp.textContent = S.copied;
+        setTimeout(function(){ cp.textContent = S.copy; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+      } else { fallbackCopy(text); done(); }
+    });
+    var pr = $("wipe-print");
+    if (pr) pr.addEventListener("click", function(){ window.print(); });
+    var ex = $("wipe-export");
+    if (ex) ex.addEventListener("click", function(){
+      var blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "rob-run-wipe-plan.json";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+    });
+    var im = $("wipe-import");
+    var file = $("wipe-file");
+    if (im && file) {
+      im.addEventListener("click", function(){ file.click(); });
+      file.addEventListener("change", function(){
+        var f = file.files && file.files[0];
+        if (!f) return;
+        var r = new FileReader();
+        r.onload = function(){
+          try {
+            var parsed = JSON.parse(r.result);
+            if (!parsed || !Array.isArray(parsed.servers) || !parsed.servers.length) throw new Error("bad");
+            data = parsed;
+            if (data.active == null || data.active >= data.servers.length) data.active = 0;
+            save(); renderAll();
+            window.alert(S.import_ok);
+          } catch (e) { window.alert(S.import_bad); }
+        };
+        r.readAsText(f);
+        file.value = "";
+      });
+    }
+  }
+  load();
+  bind();
+  renderAll();
+  setInterval(tick, 1000);
+})();
+'''
+
+
+def wipe_page(lang):
+    w = WIPE[lang]
+    faq_url = WIPE_FAQ_EN if lang == "en" else WIPE_FAQ_RU
+    count_url = "/rob-run/federal-raid-countdown/" if lang == "en" else "/ru/rob-run/federal-raid-countdown/"
+    hub = "/rob-run/" if lang == "en" else "/ru/rob-run/"
+    # Library rows, server-rendered so the facts are visible without JS.
+    rows = []
+    for it in WIPE_ITEMS:
+        if it["ev"] == "official":
+            href, lbl, ev_cls, ev_lbl = faq_url, w["src_faq"], "ev-keeps", w["ev_official"]
+        elif it["ev"] == "developer":
+            href, lbl, ev_cls, ev_lbl = WIPE_TG67, w["src_tg"], "ev-unconf", w["ev_developer"]
+        else:
+            href, lbl, ev_cls, ev_lbl = WIPE_INFO_FAQ, w["src_info"], "ev-unconf", w["ev_community"]
+        out_cls = "ev-resets" if it["out"] == "resets" else "ev-keeps"
+        out_lbl = w["resets"] if it["out"] == "resets" else w["keeps"]
+        rows.append(
+            '<div class="lib-item"><div><b>%s</b><span class="desc">%s</span>'
+            '<span class="tags"><span class="ev-pill %s">%s</span>'
+            '<span class="ev-pill %s">%s</span>'
+            '<a class="ev-src" href="%s" target="_blank" rel="noopener">%s</a></span></div>'
+            '<button class="btn" type="button" data-track="%s">%s</button></div>'
+            % (it["name"][lang], it["desc"][lang], out_cls, out_lbl,
+               ev_cls, ev_lbl, href, lbl, it["id"], w["track"]))
+    tasks_html = "".join(
+        '<div class="check-row"><input type="checkbox" data-task="t%d">'
+        '<div class="t"><span>%s</span><span class="sub">%s</span></div></div>'
+        % (i, t, sub) for i, (t, sub) in enumerate(w["tasks"]))
+    if lang == "en":
+        src_list = [
+            ("Kefir FAQ — What is the Federal Raid (Wipe)?", faq_url, "ev-keeps", w["ev_official"]),
+            ("ROB RUN Nov 11 announcement", WIPE_TG67, "ev-unconf", w["ev_developer"]),
+            ("ROB RUN Info — Detailed FAQ", WIPE_INFO_FAQ, "ev-unconf", w["ev_community"]),
+        ]
+    else:
+        src_list = [
+            ("Справка Kefir — Что такое облава федералов (вайп)?", faq_url, "ev-keeps", w["ev_official"]),
+            ("Объявление ROB RUN от 11 ноября", WIPE_TG67, "ev-unconf", w["ev_developer"]),
+            ("ROB RUN Info — подробный FAQ", WIPE_INFO_FAQ, "ev-unconf", w["ev_community"]),
+        ]
+    src_html = "".join(
+        '<div class="src-row"><a href="%s" target="_blank" rel="noopener"><b>%s</b></a>'
+        '<span class="ev-pill %s">%s</span></div>' % (href, title, cls, ev)
+        for title, href, cls, ev in src_list)
+    faq_html = "".join(
+        '<details><summary><h3>%s</h3><span class="plus">+</span></summary><p>%s</p></details>'
+        % (q, a) for q, a in w["faq"])
+    # Strings the client script needs; server-rendered copy stays the source
+    # of truth for SEO copy (title, desc, h1, hero, sources, FAQ).
+    js_keys = ["server_default", "server_n", "delete_server", "del_confirm",
+               "stat_reset", "stat_kept", "stat_manual", "stat_check",
+               "stat_reset_sub", "stat_kept_sub", "stat_manual_sub", "stat_check_sub",
+               "lib_notice", "search_ph", "clear", "f_all", "f_resets", "f_keeps", "f_unconf",
+               "lib_list_h", "results", "tracked_h", "tracked_empty", "custom_h", "custom_ph",
+               "custom_add", "custom_need", "target_none", "target_none_sub", "target_passed",
+               "target_label", "summary_empty", "copy", "copied", "print", "export", "import",
+               "import_ok", "import_bad", "check_progress", "check_done", "check_add_ph", "check_add",
+               "track", "tracked", "remove", "resets", "keeps", "unconf",
+               "ev_official", "ev_developer", "ev_community", "ev_unconf",
+               "src_faq", "src_tg", "src_info", "units", "tasks"]
+    strings = {k: w[k] for k in js_keys}
+    strings["items"] = []
+    for it in WIPE_ITEMS:
+        if it["ev"] == "official":
+            href, lbl = faq_url, w["src_faq"]
+        elif it["ev"] == "developer":
+            href, lbl = WIPE_TG67, w["src_tg"]
+        else:
+            href, lbl = WIPE_INFO_FAQ, w["src_info"]
+        strings["items"].append({"id": it["id"], "out": it["out"], "ev": it["ev"],
+                                 "name": it["name"][lang], "desc": it["desc"][lang],
+                                 "kw": it["kw"], "href": href, "src": lbl})
+    js = ('<script>window.WIPE_STRINGS = %s;</script><script>%s</script>'
+          % (json.dumps(strings, ensure_ascii=False), WIPE_JS))
+    chips = "".join('<span class="chip">✓ %s</span>' % c for c in w["chips"])
+    body = (
+        '<main class="wrap">'
+        + crumbs_html(lang, [("ROB RUN", hub), (w["h1"], None)])
+        + '<div class="wipe-hero"><div>'
+        + '<p class="wipe-eyebrow">%s</p><h1>%s</h1>' % (w["eyebrow"], w["h1"])
+        + '<p class="wipe-hero-line">%s<span class="accent">%s</span>%s</p>' % (w["hero_a"], w["hero_b"], w["hero_c"])
+        + '<p class="lede">%s</p>' % w["lede"]
+        + '<div class="chips">%s</div></div>' % chips
+        + '<aside class="wipe-rule"><p class="kicker">%s</p><h2>%s</h2><p>%s</p>'
+          '<p><a href="%s" target="_blank" rel="noopener">%s</a></p></aside></div>'
+          % (w["rule_kicker"], w["rule_h"], w["rule_p"], faq_url, w["rule_link"])
+        + '<section class="wipe-panel"><h2>%s</h2>' % w["ws_h"]
+        + '<div class="mode-row" style="align-items:center;margin-bottom:14px">'
+        + '<label for="wipe-server"><strong>%s</strong></label>' % w["server_label"]
+        + '<select id="wipe-server"><option value="0">%s</option></select>' % w["server_default"]
+        + '<button class="btn" type="button" id="wipe-new">%s</button>' % w["new_server"]
+        + '<button class="btn btn-ghost" type="button" id="wipe-del" disabled>%s</button></div>' % w["delete_server"]
+        + '<div class="stats four">'
+        + '<div class="stat"><em>%s</em><strong id="stat-reset">0</strong><span>%s</span></div>' % (w["stat_reset"], w["stat_reset_sub"])
+        + '<div class="stat"><em>%s</em><strong id="stat-kept">0</strong><span>%s</span></div>' % (w["stat_kept"], w["stat_kept_sub"])
+        + '<div class="stat"><em>%s</em><strong id="stat-manual">0</strong><span>%s</span></div>' % (w["stat_manual"], w["stat_manual_sub"])
+        + '<div class="stat"><em>%s</em><strong id="stat-check">0 / 6</strong><span>%s</span></div></div></section>'
+          % (w["stat_check"], w["stat_check_sub"].replace("{done} / {total} ", ""))
+        + '<div class="profit-grid"><div class="wipe-panel"><h2>%s <span class="ev-pill ev-keeps">%s</span></h2>' % (w["lib_h"], w["lib_badge"])
+        + '<p class="sub">%s</p>' % w["lib_lede"]
+        + '<div class="note-box" style="margin:12px 0"><p>%s</p></div>' % w["lib_notice"]
+        + '<label class="lbl" for="wipe-q">%s</label>' % w["search_label"]
+        + '<div class="mode-row"><input type="search" id="wipe-q" placeholder="%s">'
+          '<button class="btn btn-ghost" type="button" id="wipe-clear">%s</button></div>' % (w["search_ph"], w["clear"])
+        + '<div class="mode-row" role="group" aria-label="Filter">'
+        + '<button class="btn" type="button" data-filter="all" aria-pressed="true">%s</button>' % w["f_all"]
+        + '<button class="btn" type="button" data-filter="resets" aria-pressed="false">%s</button>' % w["f_resets"]
+        + '<button class="btn" type="button" data-filter="keeps" aria-pressed="false">%s</button>' % w["f_keeps"]
+        + '<button class="btn" type="button" data-filter="unconf" aria-pressed="false">%s</button></div>' % w["f_unconf"]
+        + '<h3>%s <span class="hint" id="wipe-count">%s</span></h3>' % (w["lib_list_h"], w["results"].replace("{n}", str(len(WIPE_ITEMS))))
+        + '<div class="wipe-stack" id="wipe-lib">%s</div>' % "".join(rows)
+        + '<h3>%s</h3>' % w["tracked_h"]
+        + '<div class="wipe-stack" id="wipe-tracked"><p class="hint">%s</p></div>' % w["tracked_empty"]
+        + '<h3>%s</h3>' % w["custom_h"]
+        + '<div class="mode-row"><input type="text" id="wipe-custom" placeholder="%s">'
+          '<button class="btn" type="button" id="wipe-custom-add">%s</button></div>' % (w["custom_ph"], w["custom_add"])
+        + '<p class="hint">%s</p></div>' % w["lib_foot"]
+        + '<div><div class="wipe-panel"><h2>%s</h2>' % w["target_h"]
+        + '<p class="sub">%s</p>' % w["target_lede"]
+        + '<label class="lbl" for="wipe-target">%s</label>' % w["target_label"]
+        + '<div class="mode-row"><input type="datetime-local" id="wipe-target">'
+          '<button class="btn btn-ghost" type="button" id="wipe-target-clear">%s</button></div>' % w["target_clear"]
+        + '<div class="target-box" style="margin-top:14px"><p class="lbl">%s</p>'
+          '<p class="big" id="wipe-countdown">%s</p>'
+          '<p class="hint" id="wipe-target-label">%s</p></div>' % (w["target_label"], w["target_none"], w["target_none_sub"])
+        + '<p class="hint">%s</p>' % w["target_note"]
+        + '<p class="hint"><a href="%s">%s</a></p></div>' % (count_url, w["target_link"])
+        + '<div class="wipe-panel"><h2>%s</h2>' % w["summary_h"]
+        + '<p class="sub">%s</p>' % w["summary_lede"]
+        + '<div class="wipe-summary" id="wipe-summary">ROB RUN — %s</div>' % w["server_default"]
+        + '<div class="actions">'
+        + '<button class="btn" type="button" id="wipe-copy">%s</button>' % w["copy"]
+        + '<button class="btn btn-ghost" type="button" id="wipe-print">%s</button></div>' % w["print"]
+        + '<h3>%s</h3>' % w["backup_h"]
+        + '<div class="actions">'
+        + '<button class="btn" type="button" id="wipe-export">%s</button>' % w["export"]
+        + '<button class="btn btn-ghost" type="button" id="wipe-import">%s</button>' % w["import"]
+        + '<input type="file" id="wipe-file" accept="application/json" hidden></div>'
+        + '<p class="hint">%s</p></div></div></div>' % w["backup_note"]
+        + '<section class="wipe-panel"><h2>%s</h2>' % w["check_h"]
+        + '<p class="sub">%s</p>' % w["check_lede"]
+        + '<div class="progress" role="progressbar" aria-label="%s"><span id="wipe-bar" style="width:0%%"></span></div>' % w["check_progress"]
+        + '<div class="mode-row" style="justify-content:space-between"><span class="hint">%s</span>'
+          '<span class="hint" id="wipe-progress-label">%s</span></div>' % (w["check_progress"], w["check_done"].replace("{done}", "0").replace("{total}", "6"))
+        + '<div class="wipe-stack" id="wipe-tasks" style="margin-top:12px">%s</div>' % tasks_html
+        + '<div class="mode-row"><input type="text" id="wipe-task-add" placeholder="%s">'
+          '<button class="btn" type="button" id="wipe-task-btn">%s</button></div>' % (w["check_add_ph"], w["check_add"])
+        + '<p class="hint">%s</p></section>' % w["check_foot"]
+        + '<section class="wipe-panel"><h2>%s</h2>' % w["sources_h"]
+        + '<p class="sub">%s</p>' % w["sources_lede"]
+        + '<div class="wipe-stack">%s</div>' % src_html
+        + '<p class="hint">%s</p></section>' % w["review_note"]
+        + '<section class="faq" id="faq"><h2 class="sec">%s</h2>%s</section>' % (w["faq_h"], faq_html)
+        + '<p class="data-line">%s</p></main>' % w["sources"]
+    )
+    faq_jl = {"@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q,
+         "acceptedAnswer": {"@type": "Answer", "text": a}}
+        for q, a in w["faq"]]}
+    return tool_page(lang, "wipe-planner", w["title"], w["desc"], body + js, w["h1"], extra_jsonld=[faq_jl])
+
+
 def main():
     for lang in ("en", "ru"):
         prefix = "" if lang == "en" else "ru/"
         write(prefix + "rob-run/federal-raid-countdown/index.html", countdown_page(lang))
+        write(prefix + "rob-run/wipe-planner/index.html", wipe_page(lang))
         write(prefix + "rob-run/loot-profit-calculator/index.html", profit_page(lang))
         write(prefix + "rob-run/squad-loot-splitter/index.html", split_page(lang))
         write(status_rel(lang), status_render(lang))
