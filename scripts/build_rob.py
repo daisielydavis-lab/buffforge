@@ -2478,7 +2478,11 @@ WIPE = {
 WIPE_JS = r'''
 (function(){
   var S = window.WIPE_STRINGS || {};
-  var KEY = "buffforge-wipe-planner-v1";
+  // One store per page language: EN and RU share an origin, so a single key
+  // would leak the first-visited language's default tasks and server name
+  // into the other language. Old data under the shared key is left alone;
+  // each language seeds fresh defaults from its own strings.
+  var KEY = "buffforge-wipe-planner-v1-" + ((document.documentElement.lang || "en").slice(0, 2));
   var data = null;
   function blankServer(name){
     return {name: name, tracked: [], custom: [], target: "",
@@ -2577,7 +2581,8 @@ WIPE_JS = r'''
     var sr = $("stat-reset"); if (sr) sr.textContent = r;
     var sk = $("stat-kept"); if (sk) sk.textContent = k;
     var sm = $("stat-manual"); if (sm) sm.textContent = m;
-    var sc = $("stat-check"); if (sc) sc.textContent = done + " / " + total;
+    var sc = $("stat-check"); if (sc) sc.textContent = (total ? Math.round(done / total * 100) : 0) + "%";
+    var scs = $("stat-check-sub"); if (scs) scs.textContent = (S.stat_check_sub || "{done} / {total}").replace("{done}", done).replace("{total}", total);
   }
   function renderTasks(){
     var box = $("wipe-tasks");
@@ -2650,7 +2655,9 @@ WIPE_JS = r'''
   }
   function renderTarget(){
     var input = $("wipe-target");
-    if (input && input.value !== cur().target) input.value = cur().target || "";
+    // Always sync: an invalid datetime-local value reads back as "" while
+    // the typed text stays visible, so a conditional sync never clears it.
+    if (input) input.value = cur().target || "";
     tick();
   }
   function renderAll(){
@@ -2726,7 +2733,7 @@ WIPE_JS = r'''
     var tgt = $("wipe-target");
     if (tgt) tgt.addEventListener("change", function(){ cur().target = tgt.value || ""; save(); renderTarget(); renderSummary(); });
     var tclr = $("wipe-target-clear");
-    if (tclr) tclr.addEventListener("click", function(){ cur().target = ""; save(); renderTarget(); renderSummary(); });
+    if (tclr) tclr.addEventListener("click", function(){ cur().target = ""; if (tgt) tgt.value = ""; save(); renderTarget(); renderSummary(); });
     var tasks = $("wipe-tasks");
     if (tasks) tasks.addEventListener("change", function(e){
       var cb = e.target.closest("[data-task]");
@@ -2898,8 +2905,8 @@ def wipe_page(lang):
         + '<div class="stat"><em>%s</em><strong id="stat-reset">0</strong><span>%s</span></div>' % (w["stat_reset"], w["stat_reset_sub"])
         + '<div class="stat"><em>%s</em><strong id="stat-kept">0</strong><span>%s</span></div>' % (w["stat_kept"], w["stat_kept_sub"])
         + '<div class="stat"><em>%s</em><strong id="stat-manual">0</strong><span>%s</span></div>' % (w["stat_manual"], w["stat_manual_sub"])
-        + '<div class="stat"><em>%s</em><strong id="stat-check">0 / 6</strong><span>%s</span></div></div></section>'
-          % (w["stat_check"], w["stat_check_sub"].replace("{done} / {total} ", ""))
+        + '<div class="stat"><em>%s</em><strong id="stat-check">0%%</strong><span id="stat-check-sub">%s</span></div></div></section>'
+          % (w["stat_check"], w["stat_check_sub"].replace("{done}", "0").replace("{total}", "6"))
         + '<div class="profit-grid"><div class="wipe-panel"><h2>%s <span class="ev-pill ev-keeps">%s</span></h2>' % (w["lib_h"], w["lib_badge"])
         + '<p class="sub">%s</p>' % w["lib_lede"]
         + '<div class="note-box" style="margin:12px 0"><p>%s</p></div>' % w["lib_notice"]
