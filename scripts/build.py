@@ -79,7 +79,7 @@ def featured_for(lang):
              if t["status"] == "live" and t.get("featured", {}).get(lang)]
     feats.sort(key=lambda t: (t.get("featuredOrder", {}).get(lang) is None,
                               t.get("featuredOrder", {}).get(lang) or 99))
-    return feats[:3]
+    return feats[:4]
 
 
 def game_order(lang):
