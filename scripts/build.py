@@ -222,6 +222,7 @@ ICONS = {
     "gta-6-editions": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 8v8l8 5 8-5V8l-8-5z"/><path d="M12 13V3M4 8l8 5 8-5"/></svg>',
     "gta-6-compatibility": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h4"/></svg>',
     "gta-6-wanted-evidence-helper": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    "gta-6-ps5-frame-interpolation": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="11" height="8" rx="1.5"/><rect x="10" y="10" width="11" height="8" rx="1.5"/></svg>',
     "rob-run-federal-raid-countdown": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
     "rob-run-loot-profit-calculator": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',
     "rob-run-squad-loot-splitter": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="9" r="2.2"/><circle cx="16" cy="9" r="2.2"/><path d="M4.5 18c.6-2.2 2.2-3.2 3.5-3.2s2.9 1 3.5 3.2M12.5 18c.6-2.2 2.2-3.2 3.5-3.2s2.9 1 3.5 3.2"/></svg>',
@@ -2054,7 +2055,12 @@ def sitemap_xml():
     add("/about/", "monthly", "0.6")
     add("/ru/about/", "monthly", "0.6")
     for g in SITE["games"]:
-        hub_mod = "2026-11-15" if g["slug"] == "rob-run" else "2026-11-13"
+        if g["slug"] == "rob-run":
+            hub_mod = "2026-11-15"
+        elif g["slug"] == "gta-6":
+            hub_mod = "2026-11-19"
+        else:
+            hub_mod = "2026-11-13"
         add("/%s/" % g["slug"], "weekly", "0.8", hub_mod)
         add("/ru/%s/" % g["slug"], "weekly", "0.8", hub_mod)
     for t in TOOLS:
