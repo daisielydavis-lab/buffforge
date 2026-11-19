@@ -31,9 +31,12 @@ python3 scripts/build_rob.py        # ROB RUN Federal Raid countdown, loot profi
   replacement with the new hash (`git hash-object assets/site.css`) so
   returning visitors do not keep a stale 4-hour cached copy.
 - `scripts/shell.py` — shared header / footer / head tags / JSON-LD.
-  Also the single place for the site-wide GTM + GA4 snippet
-  (GTM-PQNKG4CV, G-MV0P0LF5YM, added 2026-11-13): every page built from
-  `head()` carries it; verify with `grep -r GTM-PQNKG4CV --include='*.html' .`.
+  Also the single place for the site-wide GTM snippet (GTM-PQNKG4CV,
+  added 2026-11-13). It loads only when `location.hostname` is
+  `buffforge.com`, and it must push `{event:'gtm.js'}` before loading
+  `gtm.js`. The GA4 tag `G-MV0P0LF5YM` lives in that container, not as
+  a second inline `gtag('config')`. Every page built from `head()`
+  carries it; verify with `grep -r GTM-PQNKG4CV --include='*.html' .`.
 
 ## Rules that must survive any rebuild
 

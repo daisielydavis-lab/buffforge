@@ -127,13 +127,16 @@ def head(lang, title, desc, canon_path=None, alternates=None, jsonld=None, noind
         lines.append('<link rel="alternate" hreflang="x-default" href="%s%s">' % (BASE, alternates["en"]))
     if jsonld:
         lines.append('<script type="application/ld+json">%s</script>' % json.dumps(jsonld, ensure_ascii=False))
-    # Google Tag Manager (user request 2026-11-13; container GTM-PQNKG4CV).
-    # Loads ONLY on buffforge.com — never on preview/staging hosts. No inline
-    # gtag config: GA4 data flows only if a GA4 tag is configured inside the
-    # GTM container itself.
+    # Google Tag Manager (container GTM-PQNKG4CV). Loads ONLY on
+    # buffforge.com — never on preview, staging, or pages.dev. The
+    # dataLayer gtm.js event is required: the published container's
+    # Google tag (GA4 G-MV0P0LF5YM) fires on gtm.js. Loading gtm.js
+    # without that push leaves the container running but sends no
+    # page_view. No inline gtag('config') — one container, one tag.
     lines.append('<script>\n  window.dataLayer = window.dataLayer || [];\n'
                  '  (function () {\n'
                  "    if (window.location.hostname !== 'buffforge.com') return;\n"
+                 "    window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});\n"
                  '    var s = document.createElement("script");\n'
                  '    s.async = true;\n'
                  '    s.src = "https://www.googletagmanager.com/gtm.js?id=GTM-PQNKG4CV";\n'
