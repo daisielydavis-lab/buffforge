@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""GTA 6 official-facts tools (EN + RU). Generated static pages.
+"""GTA 6 official-facts tools (EN + RU) and the PS5 frame-interpolation guide.
 
 Run:  cd <repo root> && python3 scripts/build_tools.py
 Uses only verified official facts (see spec section 10.2):
@@ -494,6 +494,9 @@ def main():
         write(prefix + "gta-6/launch-countdown/index.html", countdown_page(lang))
         write(prefix + "gta-6/editions/index.html", editions_page(lang))
         write(prefix + "gta-6/compatibility/index.html", compat_page(lang))
+    from gta_fps_guide import guide_page
+    write("gta-6/60-fps-ps5/index.html", guide_page("en"))
+    write("ru/gta-6/60-fps-ps5/index.html", guide_page("ru"))
     print("tools build done")
 
 
