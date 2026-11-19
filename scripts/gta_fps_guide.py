@@ -29,7 +29,41 @@ PLUS = (
 
 
 def A(url, label):
-    return '<a href="%s">%s</a>' % (url, label)
+    return '<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>' % (url, label)
+
+
+def shot(src, w, h, alt, cap):
+    return (
+        '<figure class="shot"><img src="%s" width="%d" height="%d" alt="%s" '
+        'loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>'
+        % (src, w, h, alt, cap)
+    )
+
+
+def path_svg(aria, nodes):
+    """Four-stop schematic. nodes: (title, detail) x4. Not a screenshot."""
+    parts = [
+        '<svg class="path-svg" viewBox="0 0 360 500" role="img" aria-label="%s">' % aria
+    ]
+    y = 16
+    for i, (title, detail) in enumerate(nodes):
+        parts.append(
+            '<rect x="16" y="%d" width="328" height="92" rx="12" fill="var(--paper)" stroke="var(--line)"/>'
+            '<circle cx="48" cy="%d" r="14" fill="var(--teal)"/>'
+            '<text x="48" y="%d" text-anchor="middle" fill="var(--teal-ink)" font-size="14" font-weight="700">%d</text>'
+            '<text x="76" y="%d" fill="var(--ink)" font-size="16" font-weight="600">%s</text>'
+            '<text x="76" y="%d" fill="var(--body)" font-size="14">%s</text>'
+            % (y, y + 46, y + 51, i + 1, y + 38, title, y + 62, detail)
+        )
+        if i < 3:
+            ay = y + 92
+            parts.append(
+                '<path d="M180 %d v16" stroke="var(--teal)" stroke-width="2" fill="none"/>'
+                '<path d="M174 %d l6 8 l6-8" fill="var(--teal)"/>' % (ay, ay + 16)
+            )
+        y += 120
+    parts.append("</svg>")
+    return "".join(parts)
 
 
 def _ul(items):
@@ -46,8 +80,10 @@ def _table(rows):
 
 def _steps(items):
     bits = []
-    for title, text in items:
-        bits.append('<li><span class="t">%s</span>%s</li>' % (title, text))
+    for item in items:
+        title, text = item[0], item[1]
+        extra = item[2] if len(item) > 2 else ""
+        bits.append('<li><span class="t">%s</span>%s%s</li>' % (title, text, extra))
     return '<ol class="setup" id="setup">%s</ol>' % "".join(bits)
 
 
@@ -89,7 +125,23 @@ def en():
             "The game stays at 30. This is unproven on a live PS5 copy of GTA 6."
         ),
         "safety": "Download SmoovPlay only from its %s. The Windows installer is an early unsigned build." % rel,
-        "who_h": "You need a PC",
+        "jump": [("#need", "What you need"), ("#setup", "Set it up"), ("#feel", "Will it feel like 60?"), ("#faq", "Questions")],
+        "art_alt": "Official Grand Theft Auto VI key art: a collage of characters, vehicles and the VI logo.",
+        "art_cap": "Official key art. © Rockstar Games. Not a gameplay frame, and not a frame-rate test.",
+        "who_h": "Only a TV, or a Windows PC?",
+        "bridge": (
+            'PS5 can run the game. The console list is the <a href="/gta-6/compatibility/">compatibility check</a>. '
+            'The other GTA 6 tools are on the <a href="/gta-6/">GTA 6 hub</a>.'
+        ),
+        "path_aria": "Diagram. PS5 sends real frames at 30. Remote Play carries a 1080p stream. Windows draws extra frames. The monitor shows 60.",
+        "path_nodes": [
+            ("PS5", "Real frames, target 30"),
+            ("Remote Play", "1080p stream"),
+            ("Windows PC", "Extra frames drawn here"),
+            ("PC monitor", "Can show 60 pictures"),
+        ],
+        "path_cap": "Diagram only, not a screenshot. The console does not start rendering at 60.",
+        "df_line": "That 30 FPS target, and the missing 60 mode, is %s measurement. Tested and Experimental are SmoovPlay's own labels." % A(DF, "Digital Foundry's"),
         "yes_h": "This can help",
         "yes": [
             "Windows 10 or 11, and an NVIDIA RTX 30, 40, or 50 card. That range is marked Tested.",
@@ -103,6 +155,7 @@ def en():
             "You expected AMD, Intel, Xbox, or a capture card. Those are Experimental.",
         ],
         "need_h": "What you need",
+        "need_id": "need",
         "need_lead": "Labels below are the project's own, from the %s." % readme,
         "need": [
             ("PC", "Windows 10 or 11, 64-bit."),
@@ -120,11 +173,22 @@ def en():
             ("Install it",
              "Run that file and wait until setup finishes. The project says this takes about 10 to 20 minutes."),
             ("Connect the PS5",
-             "In the app, follow <b>Connect your PS5</b>, sign in to PSN there, and register the console. chiaki-ng only carries the Remote Play stream; if it asks for a code, the PS5 shows one at <b>Remote Play → Link Device</b>."),
+             "In the app, follow <b>Connect your PS5</b>, sign in to PSN there, and register the console. chiaki-ng only carries the Remote Play stream; if it asks for a code, the PS5 shows one at <b>Remote Play → Link Device</b>.",
+             shot(
+                 "/assets/gta-6/smoov-connect.webp", 800, 688,
+                 "SmoovPlay illustration: Connect your PS5, with Remote Play, optional wake from rest, and PSN sign-in in chiaki-ng.",
+                 "From the %s (v0.3.8, MIT): their drawing of <b>Connect your PS5</b>. Wake-from-rest is optional; the menu names are on %s. Not a photo from our PC, and not GTA 6 on a console."
+                 % (readme, A(CK_CONF, "chiaki-ng's configuration page")),
+             )),
             ("Pair the controller",
              "Connect the controller to the PC. Play looking at the PC monitor."),
             ("Press Play, then pick 60",
-             "Press <b>Play</b>. Press <b>M</b> and set the frame rate to <b>60</b> on a 60 Hz screen."),
+             "Press <b>Play</b>. Press <b>M</b> and set the frame rate to <b>60</b> on a 60 Hz screen.",
+             shot(
+                 "/assets/gta-6/smoov-framerate.webp", 800, 666,
+                 "SmoovPlay illustration: Frame rate set to 60 fps, with Auto-detect.",
+                 "From the same README: <b>Frame rate</b> on 60 fps, beside <b>Auto-detect</b>. An illustration of the control, not our screenshot.",
+             )),
         ],
         "keys_h": "Keys",
         "keys_lead": "The controller plays the game. These keys run SmoovPlay, from the README.",
@@ -134,11 +198,12 @@ def en():
             ("I", "Extra frames off and on."),
             ("Esc or Q", "Stop."),
         ],
-        "feel_h": "Smoother, not a 60 FPS game",
+        "feel_h": "Will it feel like 60?",
         "feel": [
             "The extra frames are drawn on the PC after the stream arrives. The console does not start rendering at 60.",
             "The game stays at its native 30, so the controls do not become a 60 FPS game. The stream and the extra frames add delay.",
             "HUD text, fast camera turns, and thin objects that cross can wobble. The picture arrives at 1080p, a little softer than HDMI from the console.",
+            "The GTA pictures on %s are Rockstar's trailer, An Extended Look, played as a simulated stream. Their live PS5 recording is Gotham Knights." % A(SP_COMPARE, "SmoovPlay's compare page"),
         ],
         "more": [
             ("More settings", [
@@ -195,7 +260,23 @@ def ru():
             "Игра остаётся на 30. На живой копии с PS5 это ещё не показано."
         ),
         "safety": "Качайте SmoovPlay только со страницы %s. Установщик Windows — ранняя сборка без подписи." % rel,
-        "who_h": "Нужен компьютер",
+        "jump": [("#need", "Что нужно"), ("#setup", "Как включить"), ("#feel", "Это как 60?"), ("#faq", "Вопросы")],
+        "art_alt": "Официальный постер Grand Theft Auto VI: коллаж персонажей, техники и логотипа VI.",
+        "art_cap": "Официальный постер. © Rockstar Games. Это не кадр из игры и не замер частоты.",
+        "who_h": "Только телевизор или компьютер?",
+        "bridge": (
+            'PS5 игру запускает. Полный список приставок — на <a href="/ru/gta-6/compatibility/">проверке совместимости</a>. '
+            'Остальные инструменты — на <a href="/ru/gta-6/">хабе GTA 6</a>.'
+        ),
+        "path_aria": "Схема. PS5 отдаёт настоящие кадры с целью 30. Remote Play несёт поток 1080p. Windows дорисовывает кадры. Монитор может показать 60.",
+        "path_nodes": [
+            ("PS5", "Настоящие кадры, цель 30"),
+            ("Remote Play", "Поток 1080p"),
+            ("Windows", "Здесь дорисовывают кадры"),
+            ("Монитор ПК", "Может показать 60"),
+        ],
+        "path_cap": "Только схема, не скриншот. Приставка не начинает рисовать в 60.",
+        "df_line": "Цель в 30 кадров и отсутствие режима 60 — это замер %s. Пометки Tested и Experimental — слова SmoovPlay." % A(DF, "Digital Foundry"),
         "yes_h": "Подойдёт",
         "yes": [
             "Windows 10 или 11 и карта NVIDIA RTX 30, 40 или 50. Этот ряд помечен Tested.",
@@ -226,11 +307,22 @@ def ru():
             ("Установите",
              "Запустите файл и дождитесь конца установки. По словам проекта, это около 10–20 минут."),
             ("Подключите PS5",
-             "В программе пройдите <b>Connect your PS5</b>, войдите в PSN там и зарегистрируйте приставку. chiaki-ng только несёт поток Remote Play; если просит код, он на PS5 в <b>Remote Play → Link Device</b>."),
+             "В программе пройдите <b>Connect your PS5</b>, войдите в PSN там и зарегистрируйте приставку. chiaki-ng только несёт поток Remote Play; если просит код, он на PS5 в <b>Remote Play → Link Device</b>.",
+             shot(
+                 "/assets/gta-6/smoov-connect.webp", 800, 688,
+                 "Рисунок SmoovPlay: экран Connect your PS5 — Remote Play, необязательное пробуждение и вход в PSN через chiaki-ng.",
+                 "Из %s (v0.3.8, MIT): их рисунок экрана <b>Connect your PS5</b>. Пробуждение из покоя необязательно; названия пунктов — на %s. Это не фото с нашего компьютера и не GTA 6 на приставке."
+                 % (readme, A(CK_CONF, "странице настройки chiaki-ng")),
+             )),
             ("Подключите геймпад",
              "Соедините геймпад с компьютером. Смотрите в монитор ПК."),
             ("Нажмите Play и выберите 60",
-             "Нажмите <b>Play</b>. Клавишей <b>M</b> поставьте частоту <b>60</b> на экране 60 Гц."),
+             "Нажмите <b>Play</b>. Клавишей <b>M</b> поставьте частоту <b>60</b> на экране 60 Гц.",
+             shot(
+                 "/assets/gta-6/smoov-framerate.webp", 800, 666,
+                 "Рисунок SmoovPlay: частота кадров стоит на 60 fps, рядом кнопка Auto-detect.",
+                 "Из того же README: <b>Frame rate</b> на 60 fps и кнопка <b>Auto-detect</b>. Рисунок органа управления, не наш скриншот.",
+             )),
         ],
         "keys_h": "Клавиши",
         "keys_lead": "Геймпад играет. Эти клавиши управляют SmoovPlay, как в README.",
@@ -240,11 +332,12 @@ def ru():
             ("I", "Лишние кадры выкл и вкл."),
             ("Esc или Q", "Стоп."),
         ],
-        "feel_h": "Плавнее, но это не игра в 60",
+        "feel_h": "Это будет как 60?",
         "feel": [
             "Лишние кадры рисуются на компьютере, уже после потока. Приставка не начинает рисовать в 60.",
             "Игра остаётся на родных 30, поэтому управление не становится игрой в 60. Поток и лишние кадры добавляют задержку.",
             "Текст интерфейса, резкий поворот камеры и тонкие пересекающиеся предметы могут дрожать. Картинка приходит в 1080p, чуть мягче, чем HDMI с приставки.",
+            "Картинки GTA на %s — трейлер Rockstar An Extended Look, прогнанный как имитация потока. Живая запись с PS5 у них — Gotham Knights." % A(SP_COMPARE, "странице сравнения SmoovPlay"),
         ],
         "more": [
             ("Ещё настройки", [
@@ -296,18 +389,30 @@ def guide_body(lang):
         '<h1 class="page-h1">%s</h1>' % c["h1"],
         '<p class="page-lede">%s</p>' % c["lede"],
         '<p class="intro-note">%s</p>' % c["safety"],
+        '<nav class="guide-jump" aria-label="%s">%s</nav>' % (
+            "On this page" if lang == "en" else "На этой странице",
+            "".join('<a href="%s">%s</a>' % pair for pair in c["jump"]),
+        ),
         '<div class="prose">',
-        '<h2 class="sec">%s</h2>' % c["who_h"],
+        '<h2 class="sec" id="who">%s</h2>' % c["who_h"],
         _pair(c["yes_h"], _ul(c["yes"]), c["no_h"], _ul(c["no"])),
-        '<h2 class="sec">%s</h2>' % c["need_h"],
+        (
+            '<figure class="shot"><img src="/assets/games/gta-6-wide.jpg" width="1200" height="630" '
+            'alt="%s" loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>'
+        ) % (c["art_alt"], c["art_cap"]),
+        "<p>%s</p>" % c["bridge"],
+        "<p>%s</p>" % c["df_line"],
+        path_svg(c["path_aria"], c["path_nodes"]),
+        "<p>%s</p>" % c["path_cap"],
+        '<h2 class="sec" id="need">%s</h2>' % c["need_h"],
         "<p>%s</p>" % c["need_lead"],
         _table(c["need"]),
-        '<h2 class="sec">%s</h2>' % c["setup_h"],
+        '<h2 class="sec" id="setup">%s</h2>' % c["setup_h"],
         _steps(c["steps"]),
-        '<h2 class="sec">%s</h2>' % c["keys_h"],
+        '<h2 class="sec" id="keys">%s</h2>' % c["keys_h"],
         "<p>%s</p>" % c["keys_lead"],
         _table(c["keys"]),
-        '<h2 class="sec">%s</h2>' % c["feel_h"],
+        '<h2 class="sec" id="feel">%s</h2>' % c["feel_h"],
     ]
     parts.extend("<p>%s</p>" % p for p in c["feel"])
     parts.extend(_more(title, paras) for title, paras in c["more"])

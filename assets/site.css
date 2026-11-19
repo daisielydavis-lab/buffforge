@@ -1619,6 +1619,10 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 .prose details.more > summary::before { content: "▸ "; color: var(--teal-deep); }
 .prose details.more[open] > summary::before { content: "▾ "; }
 .prose details.more p { margin: 0 0 8px; }
+.guide-jump { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0 0 8px; max-width: 72ch; }
+.guide-jump a { font-size: var(--fs-small); font-weight: 600; color: var(--teal-deep); }
+.path-svg { width: min(420px, 100%); height: auto; display: block; margin: 4px 0 0; }
+.prose ol.setup .shot { margin: 12px 0 2px; max-width: 520px; }
 @media (max-width: 640px) {
   .route { grid-template-columns: 1fr; }
   .route-origin { grid-row: auto; }
