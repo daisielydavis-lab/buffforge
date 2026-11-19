@@ -7,7 +7,7 @@ serves the files in this repo as-is.
 
 ```bash
 python3 scripts/build.py            # home, about, hubs, 404, sitemap, robots, _headers, _redirects
-python3 scripts/build_tools.py      # 4 GTA 6 official-facts tools, EN + RU
+python3 scripts/build_tools.py      # 4 GTA 6 official-facts tools, EN + RU, plus the PS5 frame-interpolation guide
 python3 scripts/transform_legacy.py # AION 2 tracker + GTA 6 Wanted Evidence Helper, EN + RU
 python3 scripts/build_dps.py        # DPS fuse-or-salvage calculator, EN + RU (from the Daylight Forge prototype)
 python3 scripts/build_rob.py        # ROB RUN Federal Raid countdown, loot profit, squad splitter, server-news pages (EN + RU), RU lag guide
@@ -27,7 +27,7 @@ python3 scripts/build_rob.py        # ROB RUN Federal Raid countdown, loot profi
   system, self-hosted IBM Plex fonts (`assets/fonts/`, `assets/fonts.css`).
   No Google Fonts anywhere. Stylesheet is cache-busted by query string:
   every page links `/assets/site.css?v=<short git blob hash of site.css>`
-  (current `v=b603320`); whenever site.css changes, re-run the same
+  (current `v=51e4b27`); whenever site.css changes, re-run the same
   replacement with the new hash (`git hash-object assets/site.css`) so
   returning visitors do not keep a stale 4-hour cached copy.
 - `scripts/shell.py` — shared header / footer / head tags / JSON-LD.

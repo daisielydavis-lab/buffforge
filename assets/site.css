@@ -1568,6 +1568,55 @@ a.hub-result-item:hover { color: var(--teal-deep); }
   padding: 0;
 }
 .steps .step-arrow svg { width: 22px; height: 22px; display: block; }
+/* Vertical pipeline for the GTA 6 frame guide. Tokens only. */
+.frame-flow { display: grid; gap: 0; max-width: 100%; }
+.frame-flow .ff-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 12px;
+  row-gap: 2px;
+  align-items: center;
+  min-width: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 12px 14px;
+  box-shadow: var(--shadow-sm);
+}
+.frame-flow .ff-n {
+  grid-row: span 2;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gta);
+  color: var(--teal-ink);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  line-height: 1;
+}
+.frame-flow .ff-step b {
+  display: block;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.frame-flow .ff-d {
+  display: block;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--muted);
+  overflow-wrap: break-word;
+}
+.frame-flow .ff-arrow {
+  display: flex;
+  justify-content: center;
+  color: var(--teal-deep);
+  padding: 4px 0;
+}
+.frame-flow .ff-arrow svg { width: 22px; height: 22px; display: block; transform: rotate(90deg); }
 @media (max-width: 640px) {
   .route { grid-template-columns: 1fr; }
   .route-origin { grid-row: auto; }
