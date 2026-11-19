@@ -495,8 +495,8 @@ def main():
         write(prefix + "gta-6/editions/index.html", editions_page(lang))
         write(prefix + "gta-6/compatibility/index.html", compat_page(lang))
     from gta_fps_guide import guide_page
-    write("gta-6/ps5-frame-interpolation/index.html", guide_page("en"))
-    write("ru/gta-6/ps5-frame-interpolation/index.html", guide_page("ru"))
+    write("gta-6/60-fps-ps5/index.html", guide_page("en"))
+    write("ru/gta-6/60-fps-ps5/index.html", guide_page("ru"))
     print("tools build done")
 
 

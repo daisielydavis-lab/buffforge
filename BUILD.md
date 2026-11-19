@@ -27,7 +27,7 @@ python3 scripts/build_rob.py        # ROB RUN Federal Raid countdown, loot profi
   system, self-hosted IBM Plex fonts (`assets/fonts/`, `assets/fonts.css`).
   No Google Fonts anywhere. Stylesheet is cache-busted by query string:
   every page links `/assets/site.css?v=<short git blob hash of site.css>`
-  (current `v=51e4b27`); whenever site.css changes, re-run the same
+  (current `v=c9d7b47`); whenever site.css changes, re-run the same
   replacement with the new hash (`git hash-object assets/site.css`) so
   returning visitors do not keep a stale 4-hour cached copy.
 - `scripts/shell.py` — shared header / footer / head tags / JSON-LD.
