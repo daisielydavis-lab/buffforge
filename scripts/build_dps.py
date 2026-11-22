@@ -51,12 +51,14 @@ RU_BODY = [
      "Девять предметов одной категории и редкости отправляются в куб мастерской — а выходит один. "
      "Калькулятор использует указанные шансы слияния для каждого диапазона уровней и — если ввести цены продажи — "
      "сравнивает ожидаемый Soul от слияния и от разбора всего."),
-    ("Odds from <a href=\"https://dpsquad.wiki/workshop\" rel=\"noopener noreferrer\">DPSquad Wiki</a> "
-     "(game client, wiki read 12 Nov 2026). BuffForge review: 12 Nov 2026, Pacific Time. "
-     "Listed percentages are rounded and then normalized. <a href=\"#faq\">Source notes</a>.",
-     "Шансы: <a href=\"https://dpsquad.wiki/workshop\" rel=\"noopener noreferrer\">DPSquad Wiki</a> "
-     "(клиент игры, вики прочитана 12 ноября 2026). Проверка BuffForge: 12 ноября 2026, тихоокеанское время. "
-     "Указанные проценты округлены, затем нормализованы. <a href=\"#faq\">Примечания об источниках</a>."),
+    ("Odds from <a href=\"https://dpsquad.wiki/workshop\" rel=\"noopener noreferrer\">DPSquad Wiki</a>. "
+     "Original table: client v1.0.2, build 26611958, wiki read 12 Nov 2026. "
+     "Cross-check 22 Nov 2026: those rows still match the wiki’s v1.0.6 page, build 26804378. Not a new extract. "
+     "Listed percentages are rounded, then scaled so one roll sums to 100%. <a href=\"#faq\">Source notes</a>.",
+     "Шансы: <a href=\"https://dpsquad.wiki/workshop\" rel=\"noopener noreferrer\">DPSquad Wiki</a>. "
+     "Исходная таблица: клиент v1.0.2, сборка 26611958, чтение вики 12 ноября 2026. "
+     "Сверка 22 ноября 2026: те же строки на странице вики v1.0.6, сборка 26804378. Это не новая выгрузка. "
+     "Указанные проценты округлены, затем приведены к сумме 100%. <a href=\"#faq\">Примечания об источниках</a>."),
     ("Your batch", "Ваша партия"),
     ("Level bracket", "Диапазон уровней"),
     ("Input rarity", "Редкость входа"),
