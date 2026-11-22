@@ -387,9 +387,9 @@ def wanted_body_ru():
   <section class="unknown">
     <h2>Чего мы пока не знаем</h2>
     <ul>
-      <li>Сколько именно звёзд даёт каждый тип улик и как быстро спадает нагрев — до выхода не подтверждено.</li>
+      <li>Сколько именно звёзд даёт каждый тип улик и как быстро спадает нагрев — в вышедшей игре не проверено.</li>
       <li>Как именно работают поиски и периметры полиции — в превью описано, но цифр в открытом доступе нет.</li>
-      <li>После выхода 19 ноября 2026 года проверим по живой игре и обновим эту страницу.</li>
+      <li>Страница по-прежнему основана на предрелизных превью и не сверена с вышедшей игрой.</li>
     </ul>
   </section>
 """
@@ -434,14 +434,13 @@ def wanted_page(lang):
         name = "Wanted Evidence Helper"
         inner = wanted_body_en()
         script = extract_script(read(WANTED_SRC))
-        badge_html = ('<div class="note-box amber" style="margin-top:24px"><h3>Pre-launch — based on pre-release previews</h3>'
+        badge_html = ('<div class="note-box amber" style="margin-top:24px"><h3>Not yet verified in the live game</h3>'
                       '<p>The heat scale is the tool\u2019s own scale, not an in-game number. '
-                      'Star values and fade speed are not confirmed before launch; '
-                      'this page will be verified against the live game after Nov 19, 2026.</p></div>')
+                      'Star values and fade speed come from pre-release previews and have not been checked against the shipped game.</p></div>')
         inner = inner.replace('<section class="how-box">', badge_html + '\n  <section class="how-box">', 1)
         # Sources + correction line (the original page footer is replaced by the shell footer).
         inner += ('<p class="data-line">Based on pre-release hands-on previews '
-                  '(Rockstar North, Nov 2026). Mechanics may change at launch. '
+                  '(Rockstar North, Nov 2026). Not checked against the shipped game. '
                   'Sources: gta6.how gameplay page; Flow Games preview via gtavice.net. '
                   'Data version: Nov 12, 2026. Spotted a wrong number? Email '
                   '<a href="mailto:%s">%s</a>.</p>' % (EMAIL, EMAIL))
@@ -452,8 +451,14 @@ def wanted_page(lang):
         name = "Помощник по уликам розыска"
         inner = wanted_body_ru()
         script = wanted_ru_script()
+        inner = inner.replace(
+            '<section class="how-box">',
+            '<div class="note-box amber" style="margin-top:24px"><h3>В вышедшей игре ещё не проверено</h3>'
+            '<p>Шкала нагрева — шкала этого инструмента, не цифра из игры. '
+            'Звёзды и скорость спада взяты из предрелизных превью и с вышедшей игрой не сверены.</p></div>\n  <section class="how-box">',
+            1)
         inner += ('<p class="data-line">По предрелизным превью (Rockstar North, ноябрь 2026). '
-                  'Механика может измениться к выходу. Данные на 12 ноября 2026 года. '
+                  'С вышедшей игрой не сверено. Данные на 12 ноября 2026 года. '
                   'Нашли ошибку? Напишите на <a href="mailto:%s">%s</a>.</p>' % (EMAIL, EMAIL))
     canon = "/gta-6/wanted-evidence-helper/" if lang == "en" else "/ru/gta-6/wanted-evidence-helper/"
     alt = {"en": "/gta-6/wanted-evidence-helper/", "ru": "/ru/gta-6/wanted-evidence-helper/"}

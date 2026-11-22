@@ -175,7 +175,7 @@ test("timeout with no cache returns an empty live error, not a fixture", async (
   assert.equal(result.sourceFetchedAt, null);
 });
 
-test("live Steam feed contains the 14 Nov EU announcement and drops syndicated feeds", async (t) => {
+test("live Steam feed contains the 20 Nov patch and drops syndicated feeds", async (t) => {
   if (process.env.SKIP_LIVE === "1") {
     t.skip("SKIP_LIVE=1");
     return;
@@ -185,13 +185,14 @@ test("live Steam feed contains the 14 Nov EU announcement and drops syndicated f
   const parsed = parseSteamNews(await response.json());
   assert.equal(parsed.feed, FEED_NAME);
   assert.equal(parsed.feedProvidesEditTime, false);
-  const eu = parsed.items.find((item) => item.gid === "1849458702684655");
-  assert.ok(eu, "expected the official EU issues announcement in the live feed");
-  assert.equal(eu.publishedAt, "2026-11-14T21:00:04.000Z");
-  assert.equal(eu.title, "Technical Issues on EU Servers");
+  // The 14 Nov EU post (gid 1849458702684655) is no longer inside count=20.
+  // The page must not invent it. The current official item in that window is the 20 Nov patch.
+  const patch = parsed.items.find((item) => item.gid === "1849827110432538");
+  assert.ok(patch, "expected the 20 Nov official Patch Notes in the live feed");
+  assert.equal(patch.publishedAt, "2026-11-20T14:59:56.000Z");
+  assert.equal(patch.title, "Patch Notes");
   assert.equal(/SteamDB|PlayGround/i.test(parsed.items.map((item) => item.title).join(" ")), false);
-  assert.equal(eu.excerpt.toLowerCase().includes("eu"), true);
-  assert.equal(eu.link.includes("1849458702684655"), true);
+  assert.equal(parsed.items.some((item) => item.gid === "1849458702684655"), false);
 });
 
 test("excerpt stays bounded", () => {

@@ -65,8 +65,10 @@
    "type": "Character",
    "id": "character-5",
    "source": "https://dpsquad.wiki/characters",
-   "version": "v1.0.3",
-   "status": "Community-reference checked"
+   "version": "v1.0.3 extract; wording checked v1.0.6",
+   "status": "Wording checked on dpsquad.wiki 22 Nov 2026; not a new client extract",
+   "sale": false,
+   "availability": "In the game files. Not on sale (dpsquad.wiki v1.0.6, checked 22 Nov 2026)."
   },
   {
    "name": "Death's Reprieve",
@@ -135,8 +137,9 @@
    "type": "Skill",
    "id": "skill-12",
    "source": "https://dpsquad.wiki/skills",
-   "version": "v1.0.3",
-   "status": "Community-reference checked"
+   "version": "v1.0.3 extract; wording checked v1.0.6",
+   "status": "Wording checked on dpsquad.wiki 22 Nov 2026; not a new client extract",
+   "description": "Fires 3 arrows, one per animation. Before v1.0.4 they fired together. The fan wiki still counts the written description — 3 arrows sharing the damage, and a Brand on the first enemy hit — until it is measured. The cooldown line is from the v1.0.3 extract and was not re-read as a new number."
   },
   {
    "name": "Rain of Arrows",
@@ -441,22 +444,24 @@
   {
    "name": "Welcoming Rite",
    "hero": "Geumeum",
-   "trigger": "When an Ally Gains a Shield",
+   "trigger": "When an Ally Gains a Shield; at most once every 10s per ally",
    "type": "Skill",
    "id": "skill-43",
    "source": "https://dpsquad.wiki/skills",
-   "version": "v1.0.3",
-   "status": "Community-reference checked"
+   "version": "v1.0.3 extract; wording checked v1.0.6",
+   "status": "Wording checked on dpsquad.wiki 22 Nov 2026; not a new client extract",
+   "description": "The ally who gains a Shield takes less DMG for 3s. The v1.0.6 wiki note says this replaced a DEF increase. Geumeum is not on sale. Exact percentages were not re-extracted."
   },
   {
    "name": "Soul Requiem",
    "hero": "Geumeum",
-   "trigger": "When an Ally's Shield Breaks; cooldown 3s",
+   "trigger": "Every 25s",
    "type": "Skill",
    "id": "skill-44",
    "source": "https://dpsquad.wiki/skills",
-   "version": "v1.0.3",
-   "status": "Community-reference checked"
+   "version": "v1.0.3 extract; wording checked v1.0.6",
+   "status": "Wording checked on dpsquad.wiki 22 Nov 2026; not a new client extract",
+   "description": "Casts every 25s, drains HP from the other ally with the most HP, and hits the enemy ahead. The v1.0.3 extract said it triggered when an ally’s Shield broke, on a 3s cooldown. Geumeum is not on sale. Exact numbers were not re-extracted; later builds encrypt the code."
   },
   {
    "name": "Grand Applause",
@@ -1045,7 +1050,8 @@
    "boss": true,
    "source": "https://dpsquad.wiki/stages",
    "version": "v1.0.3",
-   "status": "Stage structure verified; individual rewards not reviewed"
+   "status": "Structure from the v1.0.3 extract. Difficulty note checked on dpsquad.wiki 22 Nov 2026; HP not re-extracted.",
+   "description": "Fan wiki v1.0.4 note: the Falcon Emperor has about 27% less HP than the prior build. Official notes say Normal 4-10 Chapter Boss HP was reduced. This row does not store the new HP."
   },
   {
    "id": "stage-torment-1-1",
@@ -1105,7 +1111,8 @@
    "boss": false,
    "source": "https://dpsquad.wiki/stages",
    "version": "v1.0.3",
-   "status": "Stage structure verified; individual rewards not reviewed"
+   "status": "Structure from the v1.0.3 extract. Difficulty note checked on dpsquad.wiki 22 Nov 2026; HP not re-extracted.",
+   "description": "Fan wiki v1.0.3 note: monsters in every wave have about 11% less HP and damage. The patch notes called the difficulty Hard; the wiki maps that to Torment. This row does not store the new HP."
   },
   {
    "id": "stage-torment-1-6",
@@ -1165,7 +1172,8 @@
    "boss": true,
    "source": "https://dpsquad.wiki/stages",
    "version": "v1.0.3",
-   "status": "Stage structure verified; individual rewards not reviewed"
+   "status": "Structure from the v1.0.3 extract. Difficulty note checked on dpsquad.wiki 22 Nov 2026; HP not re-extracted.",
+   "description": "Fan wiki v1.0.3 note: the Paladin of Judgment’s stage has about 13% less HP and damage. This row does not store the new HP."
   },
   {
    "id": "stage-torment-2-1",
@@ -1585,7 +1593,8 @@
    "boss": false,
    "source": "https://dpsquad.wiki/stages",
    "version": "v1.0.3",
-   "status": "Stage structure verified; individual rewards not reviewed"
+   "status": "Structure from the v1.0.3 extract. Difficulty note checked on dpsquad.wiki 22 Nov 2026; HP not re-extracted.",
+   "description": "Fan wiki v1.0.4 note, still current on the v1.0.6 updates page: monsters and the boss have about 17% less HP and about 23% less damage than the prior build. This row does not store the new HP. Official patch text says Nightmare 1-5 difficulty was reduced."
   },
   {
    "id": "stage-nightmare-1-6",
@@ -2551,11 +2560,11 @@
    "id": "mechanic-7",
    "type": "Mechanic",
    "name": "Chest drops",
-   "description": "Kills can roll for chest drops; the stage, enemy type and Engraving bonuses affect the result. Exact odds are stage-specific.",
+   "description": "Kills can roll for chest drops. From v1.0.4 the names swapped: an Elite Chest (formerly Boss Chest) drops from Elite and Boss enemies; a Boss Chest (formerly Elite Chest) drops from the boss of a Chapter Boss stage. Exact odds are still not in this dataset.",
    "group": "Drops",
    "source": "https://dpsquad.wiki/how-it-works",
-   "version": "v1.0.3",
-   "status": "Community-reference checked"
+   "version": "v1.0.3 extract; wording checked v1.0.6",
+   "status": "Wording checked on dpsquad.wiki 22 Nov 2026; not a new client extract"
   },
   {
    "id": "mechanic-8",
@@ -5096,6 +5105,45 @@
    "source": "https://dpsquad.wiki/equipment",
    "version": "v1.0.3",
    "status": "Equipment tier catalog cross-checked; exact grade stats not independently verified"
+  },
+  {
+   "id": "mechanic-10",
+   "type": "Mechanic",
+   "name": "Evasion Rate",
+   "description": "Official v1.0.5 notes renamed the Agility tooltip from Miss to Evasion Rate. The fan wiki says the Stats window reads “Evasion Rate N%” (it said “Miss Chance: N%”). The percentage formula is still the encrypted v1.0.3 read, so this page does not print a new number.",
+   "group": "Combat",
+   "source": "https://dpsquad.wiki/updates",
+   "version": "v1.0.6 note",
+   "status": "Wording checked on dpsquad.wiki 22 Nov 2026; not a new client extract"
+  },
+  {
+   "id": "mechanic-11",
+   "type": "Mechanic",
+   "name": "Life Steal",
+   "description": "Fan wiki v1.0.3 note, and the code is still that read because later builds are encrypted: Life Steal saves healing under 1 HP and applies it once the total reaches 1 HP. The Stats tooltip is “Restores N HP for every 10,000 damage dealt”. No new coefficient was extracted for v1.0.6.",
+   "group": "Combat",
+   "source": "https://dpsquad.wiki/updates",
+   "version": "v1.0.3 rule; checked v1.0.6",
+   "status": "Wording checked on dpsquad.wiki 22 Nov 2026; not a new client extract"
+  },
+  {
+   "id": "pet-worn-compass",
+   "type": "Pet",
+   "name": "Worn Compass",
+   "effect": "Hidden",
+   "value": "not obtainable",
+   "unlock": "Hidden until its pack is out. Hidden since v1.0.3. The v1.0.6 wiki page, checked 22 Nov 2026, still says it is not obtainable. Not counted among the nine obtainable pets.",
+   "obtainable": false,
+   "source": "https://dpsquad.wiki/updates",
+   "version": "v1.0.6 note",
+   "status": "Hidden, not obtainable"
   }
- ]
+ ],
+ "crossCheck": {
+  "date": "2026-11-22",
+  "against": "https://dpsquad.wiki/updates",
+  "wikiVersion": "v1.0.6",
+  "wikiBuild": "26804378",
+  "note": "Original rows remain the 15 Nov 2026 v1.0.3 extract (build 26637932). The fan wiki says stages, gear, boxes, Engraving and Workshop numbers are unchanged in v1.0.6, and that encrypted code still uses the v1.0.3 rule read. This file is not a new extract of build 26804378. Wording notes below are only the fields re-read on 22 Nov 2026."
+ }
 }
