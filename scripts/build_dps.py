@@ -26,8 +26,8 @@ EN = {
     "title": "DPS fusion calculator: fuse vs salvage odds — BuffForge",
     "desc": ("Free Desktop Pension Squad fusion calculator. Check nine-item "
              "fuse odds for every level bracket, and compare expected Soul "
-             "from fusing versus salvaging. Odds from game client v1.0.2 "
-             "via DPSquad Wiki."),
+             "from fusing versus salvaging. Odds transcribed from client "
+             "v1.0.2 and checked unchanged against the v1.0.6 wiki page."),
     "crumb": "Fuse or Salvage Calculator",
 }
 RU = {
@@ -35,7 +35,7 @@ RU = {
     "desc": ("Бесплатный калькулятор слияния Desktop Pension Squad. "
              "Проверьте шансы слияния девяти предметов для каждого диапазона "
              "уровней и сравните ожидаемый Soul от слияния и от разбора. "
-             "Шансы — из клиента игры v1.0.2, через DPSquad Wiki."),
+             "Шансы переписаны из клиента v1.0.2 и 22 ноября сверены как неизменные со страницей вики v1.0.6."),
     "crumb": "Калькулятор слияния и разбора",
 }
 
@@ -51,12 +51,14 @@ RU_BODY = [
      "Девять предметов одной категории и редкости отправляются в куб мастерской — а выходит один. "
      "Калькулятор использует указанные шансы слияния для каждого диапазона уровней и — если ввести цены продажи — "
      "сравнивает ожидаемый Soul от слияния и от разбора всего."),
-    ("Odds from <a href=\"https://dpsquad.wiki/workshop\" rel=\"noopener noreferrer\">DPSquad Wiki</a> "
-     "(game client, wiki read 12 Nov 2026). BuffForge review: 12 Nov 2026, Pacific Time. "
-     "Listed percentages are rounded and then normalized. <a href=\"#faq\">Source notes</a>.",
-     "Шансы: <a href=\"https://dpsquad.wiki/workshop\" rel=\"noopener noreferrer\">DPSquad Wiki</a> "
-     "(клиент игры, вики прочитана 12 ноября 2026). Проверка BuffForge: 12 ноября 2026, тихоокеанское время. "
-     "Указанные проценты округлены, затем нормализованы. <a href=\"#faq\">Примечания об источниках</a>."),
+    ("Odds from <a href=\"https://dpsquad.wiki/workshop\" rel=\"noopener noreferrer\">DPSquad Wiki</a>. "
+     "Original table: client v1.0.2, build 26611958, wiki read 12 Nov 2026. "
+     "Cross-check 22 Nov 2026: those rows still match the wiki’s v1.0.6 page, build 26804378. Not a new extract. "
+     "Listed percentages are rounded, then scaled so one roll sums to 100%. <a href=\"#faq\">Source notes</a>.",
+     "Шансы: <a href=\"https://dpsquad.wiki/workshop\" rel=\"noopener noreferrer\">DPSquad Wiki</a>. "
+     "Исходная таблица: клиент v1.0.2, сборка 26611958, чтение вики 12 ноября 2026. "
+     "Сверка 22 ноября 2026: те же строки на странице вики v1.0.6, сборка 26804378. Это не новая выгрузка. "
+     "Указанные проценты округлены, затем приведены к сумме 100%. <a href=\"#faq\">Примечания об источниках</a>."),
     ("Your batch", "Ваша партия"),
     ("Level bracket", "Диапазон уровней"),
     ("Input rarity", "Редкость входа"),
@@ -106,15 +108,8 @@ RU_BODY = [
      "редкость и диапазон — не тир и не характеристики самих предметов. Для более высоких диапазонов нужен "
      "более высокий уровень куба. Источник: DPSquad Wiki / Workshop."),
     ("Where do these odds come from?", "Откуда берутся эти шансы?"),
-    ("They are transcribed from the DPSquad Wiki Workshop table, which cites the game client, full-game build 26611958 (v1.0.2), read 12 Nov 2026. "
-     "BuffForge reviewed that table on 12 Nov 2026. The figures are the game’s own rounded percentages; we normalize them so a roll sums to 100%. "
-     "Some older or demo-era databases (for example X1X’s demo notes) list different, simpler results — Unique and above always becoming Epic. "
-     "We follow the full-game client dump, and we will update if the game changes. We never invent a row that the source does not list.",
-     "Они переписаны из таблицы Workshop на DPSquad Wiki, которая ссылается на клиент игры, полную сборку 26611958 (v1.0.2), "
-     "прочитанную 12 ноября 2026 года. BuffForge сверил эту таблицу 12 ноября 2026 года. Цифры — округлённые проценты самой игры; "
-     "мы нормализуем их, чтобы сумма одного броска была 100%. Некоторые старые базы эпохи демо (например, заметки X1X) дают другие, "
-     "более простые результаты — Unique и выше всегда становятся Epic. Мы следуем дампу клиента полной игры и обновим данные, "
-     "если игра изменится. Мы никогда не выдумываем строки, которых нет в источнике."),
+    ("They were transcribed from the DPSquad Wiki Workshop table for game client build 26611958 (v1.0.2), read 12 Nov 2026. On 22 Nov 2026 the same rows were still on that page, which now cites build 26804378 (v1.0.6) and says the Workshop is unchanged. This calculator was not re-extracted from 26804378. The figures are the game’s own rounded percentages; we normalize them so a roll sums to 100%. We never invent a row that the source does not list. Official v1.0.6 notes say fusion results no longer roll back. That is client behavior, not a new odds table.",
+     "Они переписаны из таблицы Workshop на DPSquad Wiki для сборки клиента 26611958 (v1.0.2), чтение 12 ноября 2026 года. 22 ноября 2026 те же строки всё ещё были на странице: вики теперь ссылается на сборку 26804378 (v1.0.6) и пишет, что Workshop не менялся. Калькулятор из 26804378 заново не снимали. Цифры — округлённые проценты игры; мы нормализуем их до 100%. Строк, которых нет в источнике, мы не выдумываем. В официальных заметках v1.0.6 результат слияния больше не откатывается. Это поведение клиента, а не новая таблица шансов."),
     ("When does salvaging make sense?", "Когда разбор выгоден?"),
     ("Salvage converts 1–9 unequipped items with a sell price into Soul equal to the sum of those prices. "
      "Fuse then salvage only “wins” on Soul if the expected output sell value beats nine times the input. "
@@ -135,9 +130,10 @@ RU_BODY = [
     ("Craft (produce) odds calculator", "Калькулятор шансов крафта (производства)"),
     ("Forgestone recipes and their grade distributions. Planned — the wiki already lists these tables.",
      "Рецепты Forgestone и их распределение по грейдам. Запланировано — вики уже публикует эти таблицы."),
-    ("Engraving Soul planner", "Планировщик рун (Soul)"),
-    ("How many Soul (and Soul Stone) the rune tree costs, and what is left to buy.",
-     "Сколько Soul (и Soul Stone) стоит дерево рун и что осталось купить."),
+    ('href="/desktop-pension-squad/wiki/"', 'href="/ru/desktop-pension-squad/wiki/"'),
+    ("Wiki search", "Поиск по вики"),
+    ("Characters, skills, stages and which notes changed after v1.0.3. Fan wiki, not an official database. There is no engraving planner on this site.",
+     "Персонажи, навыки, этапы и какие заметки изменились после v1.0.3. Фанатская вики, не официальная база. Планировщика рун на сайте нет."),
     ("Drop finder", "Поиск дропа"),
     ("Which stage chests can drop a given piece, by difficulty.",
      "Из каких сундуков этапов может выпасть предмет, по сложности."),
@@ -201,8 +197,8 @@ RU_JS = [
      "o.grade + ': ' + percent(o.display) + ' указано'"),
     ("'Salvage all: ' + $('salvage-total').textContent + ' | Fuse then salvage: ' + $('fuse-total').textContent",
      "'Разобрать всё: ' + $('salvage-total').textContent + ' | Слить, потом разобрать: ' + $('fuse-total').textContent"),
-    ("'Source: dpsquad.wiki/workshop (game client v1.0.2, build 26611958). Independent rolls, no pity. Reviewed 12 Nov 2026.'",
-     "'Источник: dpsquad.wiki/workshop (клиент игры v1.0.2, сборка 26611958). Независимые броски, без pity. Проверка 12 ноября 2026.'"),
+    ("'Source: dpsquad.wiki/workshop. Transcribed from client v1.0.2, build 26611958. Same rows on the v1.0.6 page (build 26804378), checked 22 Nov 2026. Not a new extract. Independent rolls, no pity.'",
+     "'Источник: dpsquad.wiki/workshop. Переписано из клиента v1.0.2, сборка 26611958. Те же строки на странице v1.0.6 (сборка 26804378), сверка 22 ноября 2026. Не новая выгрузка. Независимые броски, без pity.'"),
 ]
 
 

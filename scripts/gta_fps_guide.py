@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """GTA 6 PS5 60 FPS guide (EN + RU). Reader question, then a short free setup.
 
-Checked 19 November 2026, used in the closed version note only:
+Checked 22 November 2026:
 - Digital Foundry console comparison: 30 fps target, no 40/60 mode, Pro steadier
-- smoovplay v0.3.8 README: Remote Play, RIFE, Tested vs Experimental, keys, Play / M
-- compare page: GTA VI clips are Rockstar's An Extended Look as a simulated stream;
-  the live PS5 recording is Gotham Knights
+- smoovplay v0.3.8 README drawings for Connect your PS5 and Frame rate
+- smoovplay v0.3.12 release (published 2026-11-21 19:42 UTC): unsigned installer,
+  Auto may pick Half, F fullscreens the window's own monitor
+- compare page: GTA VI clips are still Rockstar's An Extended Look as a simulated stream;
+  the live PS5 recording is Gotham Knights. No live GTA 6 PS5 demo.
 - chiaki-ng configuration: Settings → System → Remote Play → Enable Remote Play,
   and Link Device for a code
 
@@ -15,8 +17,9 @@ No HDCP instructions. No millisecond figures.
 from shell import BASE, breadcrumb_jsonld, crumbs_html, page
 
 DF = "https://www.digitalfoundry.net/features/gta-6-ps5-vs-ps5-pro-xbox-series-x-and-series-s-which-console-plays-best"
-SP_REL = "https://github.com/smoovplay/smoovplay/releases/latest"
+SP_REL = "https://github.com/smoovplay/smoovplay/releases/tag/v0.3.12"
 SP_README = "https://github.com/smoovplay/smoovplay/blob/v0.3.8/README.md"
+SP_README_NEW = "https://github.com/smoovplay/smoovplay/blob/v0.3.12/README.md"
 SP_COMPARE = "https://smoovplay.github.io/compare/"
 CK_CONF = "https://chiaki-ng.github.io/chiaki-ng/setup/configuration/"
 SLUG = "60-fps-ps5"
@@ -177,7 +180,7 @@ def en():
              shot(
                  "/assets/gta-6/smoov-connect.webp", 800, 688,
                  "SmoovPlay illustration: Connect your PS5, with Remote Play, optional wake from rest, and PSN sign-in in chiaki-ng.",
-                 "From the %s (v0.3.8, MIT): their drawing of <b>Connect your PS5</b>. Wake-from-rest is optional; the menu names are on %s. Not a photo from our PC, and not GTA 6 on a console."
+                 "From the %s (v0.3.8, MIT): their drawing of <b>Connect your PS5</b>. Wake-from-rest is optional; the menu names are on %s. Not a photo from our PC, not a v0.3.12 screenshot, and not GTA 6 on a console."
                  % (readme, A(CK_CONF, "chiaki-ng's configuration page")),
              )),
             ("Pair the controller",
@@ -187,14 +190,14 @@ def en():
              shot(
                  "/assets/gta-6/smoov-framerate.webp", 800, 666,
                  "SmoovPlay illustration: Frame rate set to 60 fps, with Auto-detect.",
-                 "From the same README: <b>Frame rate</b> on 60 fps, beside <b>Auto-detect</b>. An illustration of the control, not our screenshot.",
+                 "From the same v0.3.8 README: <b>Frame rate</b> on 60 fps, beside <b>Auto-detect</b>. An illustration of the control, not our screenshot and not a v0.3.12 screenshot.",
              )),
         ],
         "keys_h": "Keys",
         "keys_lead": "The controller plays the game. These keys run SmoovPlay, from the README.",
         "keys": [
             ("M", "Settings while you play, including the frame rate."),
-            ("F", "Fullscreen."),
+            ("F", "Fullscreen on the monitor the window is already on. v0.3.12 changed this; older builds filled the main monitor."),
             ("I", "Extra frames off and on."),
             ("Esc or Q", "Stop."),
         ],
@@ -207,12 +210,12 @@ def en():
         ],
         "more": [
             ("More settings", [
-                "Press <b>Auto-detect</b> on the Settings page if you change monitors. If a 30 FPS game looks uneven, set <b>Settings → Smoothness → Game frame rate</b> to <b>30 fps</b>.",
+                "Press <b>Auto-detect</b> on the Settings page if you change monitors. If a 30 FPS game looks uneven, set <b>Settings → Smoothness → Game frame rate</b> to <b>30 fps</b>. In v0.3.12, Auto motion detail picks Half when Full cannot hold the frame rate you chose. The release notes name an RTX 2080 Ti as a card that does not keep Full even at 60. That note is not a new Tested hardware list. On an existing install, run Auto-detect once.",
                 "On a faster screen the project also lists 90, and up to 120. It says no live 120 measurement is published.",
                 "While SmoovPlay is open, leave NVIDIA Smooth Motion, AMD Fluid Motion Frames, and Lossless Scaling off.",
             ]),
             ("Check the download", [
-                "The release used for this page is v0.3.8, 19 November 2026. To confirm the file, compare its SHA-256 with the hash on that Releases page. In PowerShell: <b>Get-FileHash</b> on the installer.",
+                "The release used for these steps is v0.3.12, published 21 November 2026 at 19:42 UTC. The drawings above stay the v0.3.8 README illustrations. The installer is still not code-signed. GitHub’s asset digest for SmoovPlay-Setup.exe is sha256 7939d7a5c48ba227bf78a84268a0f1d1783a6d8a0b8af34f50d7586a6cd442aa. In PowerShell, <b>Get-FileHash</b> on the installer should match that digest.",
                 "Leave Windows protection as it is. Do not type a PSN password into any site except the sign-in the app opens.",
             ]),
             ("If the picture hitches", [
@@ -238,7 +241,8 @@ def en():
         "sources": [
             A(DF, "Digital Foundry: GTA 6 on PS5, PS5 Pro, Xbox Series X and Series S") + " — 30 FPS target, no 40 or 60 mode.",
             A(SP_REL, "SmoovPlay Releases") + " — the only download. Own code is MIT. The Remote Play client it uses, chiaki-ng, is AGPL-3.0.",
-            A(SP_README, "SmoovPlay README at v0.3.8") + " — hardware, Connect your PS5, Play, and the M key.",
+            A(SP_README, "SmoovPlay README at v0.3.8") + " — the drawings on this page, hardware labels, Connect your PS5, Play, and the M key.",
+            A(SP_REL, "SmoovPlay v0.3.12") + " — installer still unsigned; Auto may pick Half; F uses the window’s monitor. " + A(SP_README_NEW, "README at v0.3.12") + ".",
             A(SP_COMPARE, "SmoovPlay compare page") + " — GTA VI clips are a simulated trailer; the live PS5 clip is Gotham Knights.",
             A(CK_CONF, "chiaki-ng configuration") + " — Remote Play and Link Device menu names. chiaki-ng does not add frames.",
         ],
@@ -311,7 +315,7 @@ def ru():
              shot(
                  "/assets/gta-6/smoov-connect.webp", 800, 688,
                  "Рисунок SmoovPlay: экран Connect your PS5 — Remote Play, необязательное пробуждение и вход в PSN через chiaki-ng.",
-                 "Из %s (v0.3.8, MIT): их рисунок экрана <b>Connect your PS5</b>. Пробуждение из покоя необязательно; названия пунктов — на %s. Это не фото с нашего компьютера и не GTA 6 на приставке."
+                 "Из %s (v0.3.8, MIT): их рисунок экрана <b>Connect your PS5</b>. Пробуждение из покоя необязательно; названия пунктов — на %s. Это не фото с нашего компьютера, не скриншот v0.3.12 и не GTA 6 на приставке."
                  % (readme, A(CK_CONF, "странице настройки chiaki-ng")),
              )),
             ("Подключите геймпад",
@@ -321,14 +325,14 @@ def ru():
              shot(
                  "/assets/gta-6/smoov-framerate.webp", 800, 666,
                  "Рисунок SmoovPlay: частота кадров стоит на 60 fps, рядом кнопка Auto-detect.",
-                 "Из того же README: <b>Frame rate</b> на 60 fps и кнопка <b>Auto-detect</b>. Рисунок органа управления, не наш скриншот.",
+                 "Из того же README v0.3.8: <b>Frame rate</b> на 60 fps и кнопка <b>Auto-detect</b>. Рисунок органа управления, не наш скриншот и не скриншот v0.3.12.",
              )),
         ],
         "keys_h": "Клавиши",
         "keys_lead": "Геймпад играет. Эти клавиши управляют SmoovPlay, как в README.",
         "keys": [
             ("M", "Настройки во время игры, в том числе частота кадров."),
-            ("F", "Полный экран."),
+            ("F", "Полный экран на том мониторе, где уже стоит окно. Так с v0.3.12; раньше заполнялся главный монитор."),
             ("I", "Лишние кадры выкл и вкл."),
             ("Esc или Q", "Стоп."),
         ],
@@ -341,12 +345,12 @@ def ru():
         ],
         "more": [
             ("Ещё настройки", [
-                "Если сменили монитор, нажмите <b>Auto-detect</b> на странице Settings. Если игра на 30 выглядит рвано, поставьте <b>Settings → Smoothness → Game frame rate</b> в <b>30 fps</b>.",
+                "Если сменили монитор, нажмите <b>Auto-detect</b> на странице Settings. Если игра на 30 выглядит рвано, поставьте <b>Settings → Smoothness → Game frame rate</b> в <b>30 fps</b>. В v0.3.12 Auto motion detail выбирает Half, если Full не держит выбранную частоту. В заметках релиза RTX 2080 Ti названа картой, которая не держит Full даже на 60. Это не новый список Tested. На уже установленной копии один раз нажмите Auto-detect.",
                 "На более быстром экране проект также указывает 90 и до 120. Живой замер 120 он не публиковал.",
                 "Пока открыта SmoovPlay, NVIDIA Smooth Motion, AMD Fluid Motion Frames и Lossless Scaling должны быть выключены.",
             ]),
             ("Проверить файл", [
-                "Для этой страницы сверяли релиз v0.3.8 от 19 ноября 2026 года. Чтобы убедиться в файле, сравните SHA-256 с хешем на странице Releases. В PowerShell: <b>Get-FileHash</b> по установщику.",
+                "Шаги сверены с релизом v0.3.12, опубликованным 21 ноября 2026 года в 19:42 UTC. Рисунки выше остаются иллюстрациями README v0.3.8. Установщик по-прежнему без подписи. Дайджест файла SmoovPlay-Setup.exe на GitHub: sha256 7939d7a5c48ba227bf78a84268a0f1d1783a6d8a0b8af34f50d7586a6cd442aa. В PowerShell <b>Get-FileHash</b> по установщику должен совпасть с этим дайджестом.",
                 "Защиту Windows не отключайте. Пароль PSN вводите только на странице входа, которую открывает программа.",
             ]),
             ("Если картинка дёргается", [
@@ -372,7 +376,8 @@ def ru():
         "sources": [
             A(DF, "Digital Foundry: GTA 6 на PS5, PS5 Pro, Xbox Series X и Series S") + " — цель 30 кадров, режима 40 или 60 нет.",
             A(SP_REL, "Релизы SmoovPlay") + " — единственная загрузка. Свой код — MIT. Клиент Remote Play, которым она пользуется, chiaki-ng, — AGPL-3.0.",
-            A(SP_README, "README SmoovPlay, тег v0.3.8") + " — железо, Connect your PS5, Play и клавиша M.",
+            A(SP_README, "README SmoovPlay, тег v0.3.8") + " — рисунки на этой странице, пометки железа, Connect your PS5, Play и клавиша M.",
+            A(SP_REL, "SmoovPlay v0.3.12") + " — установщик без подписи; Auto может выбрать Half; F берёт монитор окна. " + A(SP_README_NEW, "README на теге v0.3.12") + ".",
             A(SP_COMPARE, "Страница сравнения SmoovPlay") + " — ролики GTA VI это имитация трейлера; живой ролик с PS5 — Gotham Knights.",
             A(CK_CONF, "Настройка chiaki-ng") + " — названия пунктов Remote Play и Link Device. Кадры chiaki-ng не добавляет.",
         ],
@@ -449,7 +454,7 @@ def guide_page(lang):
             "description": c["desc"],
             "inLanguage": lang,
             "datePublished": "2026-11-19",
-            "dateModified": "2026-11-19",
+            "dateModified": "2026-11-22",
             "author": {"@type": "Organization", "name": "BuffForge", "url": BASE},
             "publisher": {"@type": "Organization", "name": "BuffForge", "url": BASE},
             "mainEntityOfPage": {"@type": "WebPage", "@id": BASE + canon},

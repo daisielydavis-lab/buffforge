@@ -102,7 +102,7 @@ def tool_url(lang, tool):
 
 def badge(lang, tool):
     if tool["status"] == "pre-launch":
-        label = "Pre-launch" if lang == "en" else "До выхода"
+        label = "Unverified" if lang == "en" else "Не проверено"
         return '<span class="badge prelaunch">%s</span>' % label
     label = "Live" if lang == "en" else "Доступно"
     return '<span class="badge live">%s</span>' % label
@@ -137,8 +137,8 @@ HOME_COPY = {
         "faq_label": "Questions",
         "faq": [
             ("I play MMOs — which tools are actually useful?", "The ones that track what resets. In AION 2, daily duties reset at 07:00 UTC and weekly duties every Wednesday — miss a reset and that day is gone. The AION 2 tracker on this site lists your duties and counts down to each reset, so you can see what is still open before you log off."),
-            ("I play idle games — how do I stop wasting items?", "Check the odds before you commit. In Desktop Pension Squad, nine items go into one fusion and the game never shows the odds. Our calculator uses the real odds from the game client (v1.0.2, build 26611958) and compares fusing against selling, so you can see which one pays off before you spend the batch."),
-            ("I play single-player games — what should I check before launch?", "Four things: disk space, unlock time, edition, and console. For GTA 6 (November 19, 2026) this site has a storage check (at least 212 GB), a countdown by store region, a Standard vs Ultimate comparison ($79.99 vs $99.99), and a console compatibility check — all from official facts only."),
+            ("I play idle games — how do I stop wasting items?", "Check the odds before you commit. In Desktop Pension Squad, nine items go into one fusion and the game never shows the odds. The calculator uses the v1.0.2 Workshop table (build 26611958), checked unchanged on the v1.0.6 wiki page, and compares fusing against selling."),
+            ("I play single-player games — what should I check?", "Four things: disk space, unlock time, edition, and console. GTA 6 has been out since 19 Nov 2026. This site has a 212 GB free-space check, the unlock time by store region, Standard vs Ultimate at US prices, and a console check — official figures only."),
             ("What about FPS games?", "The tools FPS players ask for most are a sensitivity converter, a crosshair overlay, and an FPS/ping monitor — they keep your aim consistent and tell you whether a bad round is you or your connection. BuffForge does not list one yet: we only add tools whose numbers can be sourced and checked."),
             ("How do you check numbers?", "Public sources only. Every tool shows its data version, sources, and review date. Corrections are welcome — see About."),
         ],
@@ -171,8 +171,8 @@ HOME_COPY = {
         "faq_label": "Вопросы",
         "faq": [
             ("Играю в MMO — какие инструменты правда полезны?", "Те, что следят за сбросами. В AION 2 ежедневные задания сбрасываются в 10:00 по Москве, еженедельные — в среду в 10:00: пропустил сброс — и день потерян. Трекер на этом сайте показывает ваши задания и считает время до каждого сброса, так что перед выходом из игры видно, что ещё не сделано."),
-            ("Играю в idle-игры — как не тратить предметы зря?", "Проверяйте шансы до того, как потратить предметы. В Desktop Pension Squad девять предметов уходят в одно слияние, а шансы игра не показывает. Наш калькулятор использует настоящие шансы из клиента игры (v1.0.2, сборка 26611958) и сравнивает слияние с продажей — видно, что выгоднее, до того как потратить партию."),
-            ("Играю в одиночные игры — что проверить перед запуском?", "Четыре вещи: место на диске, время открытия, издание и консоль. Для GTA 6 (19 ноября 2026 года) на сайте есть проверка места (минимум 212 ГБ), обратный отсчёт по региону магазина, сравнение Standard и Ultimate ($79.99 и $99.99) и проверка совместимости консолей — только по официальным фактам."),
+            ("Играю в idle-игры — как не тратить предметы зря?", "Проверяйте шансы до того, как потратить предметы. В Desktop Pension Squad девять предметов уходят в одно слияние, а шансы игра не показывает. Калькулятор использует таблицу Workshop v1.0.2 (сборка 26611958), сверенную как неизменную со страницей вики v1.0.6, и сравнивает слияние с продажей."),
+            ("Играю в одиночные игры — что проверить?", "Четыре вещи: место на диске, время открытия, издание и консоль. GTA 6 вышла 19 ноября 2026 года. На сайте есть проверка минимума 212 ГБ, время открытия по региону магазина, Standard и Ultimate по ценам США и проверка консоли — только официальные цифры."),
             ("А что с FPS-играми?", "Чаще всего игроки в FPS просят конвертер чувствительности, прицел-оверлей и монитор FPS и пинга: они держат прицеливание стабильным и показывают, виноваты ли вы или соединение. На BuffForge такого инструмента пока нет: мы добавляем только то, чьи цифры можно подтвердить и проверить."),
             ("Как вы проверяете цифры?", "Только открытые источники. У каждого инструмента видны версия, источники и дата проверки. Исправления приветствуются — см. «О проекте»."),
         ],
@@ -199,13 +199,13 @@ COVER_ART = {"desktop-pension-squad": DPS_COVER, "aion-2": AION_COVER,
 GSUB = {
     "desktop-pension-squad": {"en": "Steam — Free to play", "ru": "Steam — бесплатно"},
     "aion-2": {"en": "Global servers — 1&nbsp;live tool", "ru": "Глобальные серверы — 1&nbsp;инструмент"},
-    "gta-6": {"en": "PS5 and Xbox Series&nbsp;— Nov&nbsp;19,&nbsp;2026", "ru": "PS5 и Xbox Series&nbsp;— 19&nbsp;ноября&nbsp;2026"},
+    "gta-6": {"en": "PS5 and Xbox Series&nbsp;— out since 19&nbsp;Nov&nbsp;2026", "ru": "PS5 и Xbox Series&nbsp;— вышла 19&nbsp;ноября&nbsp;2026"},
     "rob-run": {"en": "Steam Early Access — free", "ru": "Ранний доступ Steam — бесплатно"},
 }
 PLANNED_HOME = {
     "desktop-pension-squad": {
-        "en": "More tools for this game — craft odds, an engraving Soul planner, and a drop finder — are planned.",
-        "ru": "Планируются и другие инструменты: шансы крафта, планировщик рун (Soul) и поиск дропа."},
+        "en": "A craft-odds calculator and a drop finder are planned, after their tables are checked. There is no engraving planner here.",
+        "ru": "Калькулятор крафта и поиск дропа — в планах, после проверки таблиц. Планировщика рун на сайте нет."},
 }
 GO_LABELS = {
     "dps-fuse-salvage-calculator": {"en": "Open the calculator", "ru": "Открыть калькулятор"},
@@ -244,7 +244,7 @@ HERO_VISUAL = {
         '<div class="device-bar"><i></i><i></i><i></i><span>buffforge.com — fuse calculator</span></div>'
         '<div class="mini"><div class="lab">Desktop Pension Squad <b>LIVE</b></div>'
         '<div class="big">50.12% <small>Legendary, per fuse</small></div>'
-        '<p class="note">Nine Epic items, Lv. 10–15. Listed odds from DPSquad Wiki, game client v1.0.2.</p>'
+        '<p class="note">Nine Epic items, Lv. 10–15. Listed odds from client v1.0.2, same row on the v1.0.6 wiki page.</p>'
         '<div class="odds-row"><div class="odds-pill"><em>Epic</em><strong>49.88%</strong></div>'
         '<div class="odds-pill"><em>Legendary</em><strong>50.12%</strong></div>'
         '<div class="odds-pill"><em>9 items →</em><strong>1 fuse</strong></div></div></div>'
@@ -254,7 +254,7 @@ HERO_VISUAL = {
         '<div class="mini"><div class="lab">GTA 6 storage <b>212 GB</b></div>'
         '<div class="big">Check <small>free space vs PlayStation figure</small></div>'
         '<div class="bar"><span></span></div>'
-        '<p class="note">Official figure, dated. Launches 19 Nov 2026.</p></div>'
+        '<p class="note">Official minimum free space. Out since 19 Nov 2026.</p></div>'
         '</div></div>'
     ),
     "ru": (
@@ -262,7 +262,7 @@ HERO_VISUAL = {
         '<div class="device-bar"><i></i><i></i><i></i><span>buffforge.com — калькулятор слияния</span></div>'
         '<div class="mini"><div class="lab">Desktop Pension Squad <b>LIVE</b></div>'
         '<div class="big">50.12% <small>Legendary за одно слияние</small></div>'
-        '<p class="note">Девять предметов Epic, ур. 10–15. Указанные шансы: DPSquad Wiki, клиент v1.0.2.</p>'
+        '<p class="note">Девять предметов Epic, ур. 10–15. Шансы клиента v1.0.2, та же строка на странице вики v1.0.6.</p>'
         '<div class="odds-row"><div class="odds-pill"><em>Epic</em><strong>49.88%</strong></div>'
         '<div class="odds-pill"><em>Legendary</em><strong>50.12%</strong></div>'
         '<div class="odds-pill"><em>9 шт. →</em><strong>1 слияние</strong></div></div></div>'
@@ -272,7 +272,7 @@ HERO_VISUAL = {
         '<div class="mini"><div class="lab">GTA 6, место на диске <b>212 GB</b></div>'
         '<div class="big">Check <small>свободное место и цифра PlayStation</small></div>'
         '<div class="bar"><span></span></div>'
-        '<p class="note">Официальная цифра, с датой. Выход — 19 ноября 2026.</p></div>'
+        '<p class="note">Официальный минимум свободного места. Вышла 19 ноября 2026.</p></div>'
         '</div></div>'
     ),
 }
@@ -285,7 +285,10 @@ def featured_card(lang, tool, feature=False):
     title = (tool.get("cardTitle") or {}).get(lang) or tool["title"][lang]
     blurb = (tool.get("cardBlurb") or {}).get(lang) or tool["blurb"][lang]
     go = GO_LABELS.get(tool["id"], {}).get(lang, c["open"])
-    status = "Live" if tool["status"] == "live" else "Pre-launch"
+    if tool["status"] == "live":
+        status = "Live" if lang == "en" else "Доступно"
+    else:
+        status = "Unverified" if lang == "en" else "Не проверено"
     extra = " fcard-feature" if feature else ""
     return (
         '<a class="fcard%s" href="%s">'
@@ -405,7 +408,7 @@ ABOUT_COPY = {
             ("What we do not do",
              "We do not datamine game files or reverse-engineer clients. We do not scrape or copy databases or images from Wowhead, Maxroll, Game8, or other sites. We do not publish numbers we have not verified — where sources disagree, we say so and tell you to confirm in-game. We do not write guides for buying games through other regions or bypassing regional restrictions."),
             ("How we check our numbers",
-             "Official announcements first. Community trackers are cited as community sources, never presented as official statements. Pre-launch tools are labelled Pre-launch and are re-checked against the live game after release. If a number turns out to be wrong, we fix the page and update the review date."),
+             "Official announcements first. Community trackers are cited as community sources, never presented as official statements. The Wanted helper stays labelled Unverified until it is checked against the shipped game. If a number turns out to be wrong, we fix the page and update the review date."),
             ("Report a mistake",
              "Found a wrong number? Email <a href=\"mailto:%s\">%s</a> with the page URL and what is wrong. We correct verified mistakes and update the review date on the page." % (EMAIL, EMAIL)),
         ],
@@ -423,7 +426,7 @@ ABOUT_COPY = {
             ("Чего мы не делаем",
              "Мы не разбираем файлы игры и не реверсим клиент. Мы не копируем базы данных и картинки с Wowhead, Maxroll, Game8 и других сайтов. Мы не публикуем непроверенные цифры: если источники расходятся, мы так и пишем и просим свериться в игре. Мы не пишем гайды о покупке игр через другие регионы и обходе региональных ограничений."),
             ("Как мы проверяем цифры",
-             "Сначала — официальные объявления. Данные трекеров сообщества указываются как источники сообщества, а не как официальные заявления. Инструменты до выхода игры помечаются «До выхода» и перепроверяются по живой игре после релиза. Если цифра оказалась неверной, мы исправляем страницу и обновляем дату проверки."),
+             "Сначала — официальные объявления. Данные трекеров сообщества указываются как источники сообщества, а не как официальные заявления. Помощник по уликам помечен «Не проверено», пока его не сверят с вышедшей игрой. Если цифра оказалась неверной, мы исправляем страницу и обновляем дату проверки."),
             ("Сообщить об ошибке",
              "Нашли неверную цифру? Напишите на <a href=\"mailto:%s\">%s</a>: укажите ссылку на страницу и что именно неверно. Подтверждённые ошибки мы исправляем и обновляем дату проверки на странице." % (EMAIL, EMAIL)),
             ("Почему есть русская версия",
@@ -706,16 +709,16 @@ HUB_COPY = {
     "desktop-pension-squad": {
         "en": {
             "title": "Desktop Pension Squad tools and guides — BuffForge",
-            "desc": "Desktop Pension Squad tools and guides: fuse or salvage calculator with sourced odds from the game client (v1.0.2, build 26611958). Free to play on Steam.",
+            "desc": "Desktop Pension Squad tools: fuse or salvage calculator and a fan wiki search. Official client is v1.0.6. Fusion odds are the v1.0.2 table, checked unchanged on 22 Nov 2026.",
             "h1": "Desktop Pension Squad tools and guides",
-            "lede": "Desktop Pension Squad is an idle RPG where nine items go into one fusion, and one wrong call can waste a whole batch. The game never shows you the odds — they sit in the client data — so most players guess. The calculator on this hub uses the real odds from the client (v1.0.2, Steam build 26611958): enter your items and Soul sell prices, and it shows whether fusing or salvaging pays off, and what you are likely to get. The game is free to play on Steam Early Access.",
+            "lede": "Desktop Pension Squad is a free Steam Early Access idle RPG. Nine items go into one fusion, and the game does not show the odds. The official client is v1.0.6. The calculator still uses the Workshop table transcribed from client v1.0.2, Steam build 26611958. On 22 Nov 2026 that same table was still on DPSquad Wiki, which now cites build 26804378 and says the Workshop is unchanged. This is a cross-check, not a new extract. Blank Soul prices stay unknown.",
             "tools_h": "Tools", "guides_h": "Guides",
         },
         "ru": {
             "title": "Desktop Pension Squad: инструменты и гайды — BuffForge",
-            "desc": "Инструменты и гайды по Desktop Pension Squad: калькулятор слияния и разбора с шансами из клиента игры (v1.0.2, сборка 26611958). Игра бесплатна в Steam.",
+            "desc": "Инструменты Desktop Pension Squad: калькулятор слияния и поиск по фанатской вики. Официальный клиент — v1.0.6. Шансы слияния — таблица v1.0.2, 22 ноября 2026 сверена как неизменная.",
             "h1": "Инструменты и гайды по Desktop Pension Squad",
-            "lede": "Desktop Pension Squad — idle-RPG, в которой девять предметов уходят в одно слияние, и один неверный шаг может стоить целой партии. Сама игра шансы не показывает — они лежат в данных клиента, поэтому большинство игроков действуют наугад. Калькулятор на этой странице использует настоящие шансы из клиента (v1.0.2, сборка Steam 26611958): введите предметы и цены продажи Soul, и он покажет, что выгоднее — слияние или продажа, — и что вы, скорее всего, получите. Игра бесплатна в раннем доступе Steam.",
+            "lede": "Desktop Pension Squad — бесплатная idle-RPG в раннем доступе Steam. Девять предметов уходят в одно слияние, и игра шансы не показывает. Официальный клиент — v1.0.6. Калькулятор по-прежнему использует таблицу Workshop, переписанную из клиента v1.0.2, сборка Steam 26611958. 22 ноября 2026 года та же таблица была на DPSquad Wiki: вики ссылается на сборку 26804378 и пишет, что Workshop не менялся. Это сверка, а не новая выгрузка. Пустая цена Soul остаётся неизвестной.",
             "tools_h": "Инструменты", "guides_h": "Гайды",
         },
     },
@@ -738,16 +741,16 @@ HUB_COPY = {
     "gta-6": {
         "en": {
             "title": "GTA 6 tools and guides — BuffForge",
-            "desc": "GTA 6 tools and guides: storage check (at least 212 GB), Nov 19 unlock time, Standard vs Ultimate, and console compatibility. Official public figures only.",
+            "desc": "GTA 6 tools and guides: 212 GB free-space check, launch time by store region, Standard vs Ultimate, and console compatibility. Official public figures only. Out since 19 Nov 2026.",
             "h1": "GTA 6 tools and guides",
-            "lede": "GTA 6 launches November 19, 2026, and launch week is all questions: will 212 GB fit on your drive, when exactly does it unlock in your region, is Ultimate worth $20 more than Standard, and does your console run it at all? This hub answers all four from official facts only: a storage check, a countdown by store region, a Standard vs Ultimate comparison ($79.99 vs $99.99, US MSRP from Take-Two), and a console compatibility check — including the Xbox One cloud-gaming route. There is no officially announced PC version.",
+            "lede": "GTA 6 has been out since 19 Nov 2026 on PS5 and Xbox Series X|S. The questions now are practical: does your free space meet PlayStation’s 212 GB minimum, what time did your store region unlock, what does Ultimate include, and does your console run it? This hub answers those from official pages: a storage check, the unlock time by store region, Standard vs Ultimate, and a compatibility check. Standard $79.99 is an earlier US reference and was not re-checked this round. Ultimate $99.99 is the price the US PlayStation page showed on 22 Nov 2026. Xbox One has no native version; cloud play is the 10 Nov 2026 Xbox Wire claim and was not retested after launch. There is no announced PC version.",
             "tools_h": "Tools — official facts", "guides_h": "Guides",
         },
         "ru": {
-            "title": "GTA 6 инструменты и гайды: 212 ГБ, 19 ноября — BuffForge",
-            "desc": "Инструменты и гайды по GTA 6: сколько весит (не менее 212 ГБ), во сколько выйдет 19 ноября, издания и совместимость. Только официальные цифры.",
+            "title": "GTA 6: инструменты и гайды — BuffForge",
+            "desc": "Инструменты и гайды по GTA 6: минимум 212 ГБ, время выхода по региону, издания и совместимость. Только официальные цифры. Игра вышла 19 ноября 2026 года.",
             "h1": "Инструменты и гайды по GTA 6",
-            "lede": "GTA 6 выходит 19 ноября 2026 года, и перед запуском у всех одни и те же вопросы: влезут ли 212 ГБ на диск, во сколько игра откроется именно в вашем регионе, стоит ли Ultimate своих $20 сверху и запустится ли игра на вашей консоли? На этой странице — ответы на все четыре вопроса и только по официальным фактам: проверка места на диске, обратный отсчёт по региону магазина, сравнение Standard и Ultimate ($79.99 и $99.99, цены Take-Two в США) и проверка совместимости консолей, включая облачный вариант для Xbox One. Версия для ПК официально не анонсирована.",
+            "lede": "GTA 6 вышла 19 ноября 2026 года на PS5 и Xbox Series X|S. Теперь вопросы практические: хватает ли свободного места до минимума PlayStation в 212 ГБ, во сколько открылся ваш регион магазина, что входит в Ultimate и запустится ли игра на вашей консоли. Здесь ответы по официальным страницам: проверка места, время открытия по региону, Standard и Ultimate и совместимость. Standard $79.99 — прежняя справка США, в этом проходе не перепроверялась. Ultimate $99.99 — цена на странице PlayStation США 22 ноября 2026 года. У Xbox One нет нативной версии; облако — заявление Xbox Wire от 10 ноября 2026, после выхода не перепроверялось. Версия для ПК не анонсирована.",
             "tools_h": "Инструменты — официальные данные", "guides_h": "Гайды",
         },
     },
@@ -756,14 +759,14 @@ HUB_COPY = {
             "title": "ROB RUN tools and guides — BuffForge",
             "desc": "ROB RUN tools: Federal Raid countdown, loot and squad calculators, and official Steam server announcements. Not a live EU or East US probe. Free Early Access on Steam since 4 Nov 2026.",
             "h1": "ROB RUN tools and guides",
-            "lede": "ROB RUN is Kefir’s free Early Access game on Steam, out since 4 Nov 2026. Seven days after a server opens, the Federal Raid wipes plots, bases, weapons and cash. Time that raid, total a haul, or split it with your squad. The server page requests Steam’s community announcements. It does not measure EU or East US.",
+            "lede": "ROB RUN is Kefir’s free Early Access game on Steam, out since 4 Nov 2026. Seven days after a server opens, the Federal Raid wipes plots, bases, weapons and cash. Time that raid, total a haul, or split it with your squad. The 20 Nov 2026 Steam patch shows online friends in the server list. The server page requests those announcements. It does not measure EU or East US.",
             "tools_h": "Tools", "guides_h": "Guides",
         },
         "ru": {
             "title": "ROB RUN: инструменты и гайды — BuffForge",
             "desc": "Инструменты ROB RUN: отсчёт до Федеральной облавы, добыча, дележ и официальные объявления Steam. Это не проверка серверов EU и East US. Ранний доступ Steam с 4 ноября 2026 года.",
             "h1": "Инструменты и гайды по ROB RUN",
-            "lede": "ROB RUN — бесплатная игра Kefir в раннем доступе Steam с 4 ноября 2026 года. Через семь дней после открытия сервера Федеральная облава обнуляет земли, базы, оружие и деньги. Здесь — отсчёт до облавы, расчёт добычи и дележ в отряде. Страница про вход запрашивает объявления Steam и не измеряет EU или East US.",
+            "lede": "ROB RUN — бесплатная игра Kefir в раннем доступе Steam с 4 ноября 2026 года. Через семь дней после открытия сервера Федеральная облава обнуляет земли, базы, оружие и деньги. Здесь — отсчёт до облавы, расчёт добычи и дележ в отряде. Патч Steam от 20 ноября 2026 года показывает друзей онлайн в списке серверов. Страница про вход запрашивает эти объявления и не измеряет EU или East US.",
             "tools_h": "Инструменты", "guides_h": "Гайды",
         },
     },
@@ -790,7 +793,7 @@ HUB_BODY = {
             "faq_h": "Frequently asked questions",
             "faq": [
                 ("How does fusion work in Desktop Pension Squad?", "Fusion combines nine items of the same rarity, category and level bracket into one item of a higher rarity. The result rarity is random; the odds are listed in the calculator. Unequip the items first — equipped items cannot be fused."),
-                ("Where do the fusion odds come from?", "The odds are transcribed from DPSquad Wiki, which reads them from the game client (version 1.0.2, Steam build 26611958). We reviewed the table against the wiki on Nov 12, 2026, Pacific Time. The game is in Early Access, so the numbers can change with patches — the calculator shows its data version."),
+                ("Where do the fusion odds come from?", "The odds were transcribed from DPSquad Wiki’s reading of client v1.0.2, Steam build 26611958, reviewed 12 Nov 2026. On 22 Nov 2026 the same Epic rows were still on the wiki’s Workshop page, which now cites build 26804378 (v1.0.6) and says the Workshop is unchanged. The numbers were not re-extracted from that build."),
                 ("Is Desktop Pension Squad free?", "Yes. It is free to play on Steam (Early Access since Nov 11, 2026). There is no official Russian server; the game has a Russian interface."),
             ],
             "other_h": "Other games on BuffForge",
@@ -810,7 +813,7 @@ HUB_BODY = {
             "faq_h": "Частые вопросы",
             "faq": [
                 ("Как работает слияние в Desktop Pension Squad?", "Слияние объединяет девять предметов одной редкости, категории и диапазона уровней в один предмет более высокой редкости. Итоговая редкость случайна, шансы указаны в калькуляторе. Сначала снимите предметы — экипированные предметы слить нельзя."),
-                ("Откуда берутся шансы слияния?", "Шансы переписаны из DPSquad Wiki, которая читает их из клиента игры (версия 1.0.2, сборка Steam 26611958). Мы сверили таблицу с вики 12 ноября 2026 года, тихоокеанское время. Игра в раннем доступе, поэтому цифры могут меняться с патчами — у калькулятора указана версия данных."),
+                ("Откуда берутся шансы слияния?", "Шансы переписаны из чтения DPSquad Wiki клиента v1.0.2, сборка Steam 26611958, сверка 12 ноября 2026 года. 22 ноября 2026 года те же строки Epic всё ещё были на странице Workshop: вики теперь ссылается на сборку 26804378 (v1.0.6) и пишет, что Workshop не менялся. Из этой сборки числа заново не снимали."),
                 ("Desktop Pension Squad бесплатна?", "Да. Игра бесплатна в Steam (ранний доступ с 11 ноября 2026 года). Официального русского сервера нет; русский интерфейс в игре есть."),
             ],
             "other_h": "Другие игры на BuffForge",
@@ -874,23 +877,23 @@ HUB_BODY = {
     },
     "gta-6": {
         "en": {
-            "prelaunch_h": "Pre-launch tool",
-            "prelaunch_note": "Based on pre-release previews. Mechanics will be verified in-game after launch on Nov 19, 2026.",
+            "prelaunch_h": "Unverified tool",
+            "prelaunch_note": "The Wanted Evidence Helper is still based on pre-release previews. It has not been checked against the shipped game.",
             "guides_h": "Guides",
             "guides_note": "No guides published yet. Guides appear here only when we can source the numbers — nothing is listed until then.",
             "planned_h": "Planned tools and guides",
             "planned": [
-                "After launch, the same four tools are updated from official patches — storage, countdown, editions, and compatibility.",
+                "Storage, launch time, editions and compatibility stay tied to official pages.",
                 "Gameplay guides only when we can cite official or verifiable sources.",
                 "No PC spec table until Rockstar officially announces a PC version. No buying guides.",
             ],
             "faq_h": "Frequently asked questions",
             "faq": [
-                ("How big is GTA 6?", "At least 212 GB of free space, according to PlayStation. Check your console with the storage check."),
-                ("When does GTA 6 come out?", "Nov 19, 2026, at local midnight in your store region — see the launch countdown for your time zone."),
-                ("Standard or Ultimate — what is the difference?", "Standard is $79.99 and Ultimate is $99.99 (US MSRP from Take-Two). See the editions comparison for what each one includes."),
+                ("How big is GTA 6?", "PlayStation lists a minimum of 212 GB free. That is not a confirmed exact install size. Use the storage check."),
+                ("When did GTA 6 come out?", "19 Nov 2026, at local midnight in your store region. It is out. The launch-time page shows that midnight and the time since."),
+                ("Standard or Ultimate — what is the difference?", "Standard $79.99 is an earlier US reference and was not re-checked on a store page this round. Ultimate $99.99 is the price the US PlayStation page showed on 22 Nov 2026. Other regions differ. The pre-order window closed on 20 Nov 2026. See the editions page for the PlayStation Ultimate list."),
                 ("Can I play GTA 6 on PC?", "There is no officially announced PC version, and no official PC system requirements. Do not trust spec tables you see online — they are not from Rockstar."),
-                ("Can I play on PS4 or Xbox One?", "PS4: no. Xbox One: no native version, but playable through Xbox Cloud Gaming from Nov 19 (Xbox Wire, Nov 10, 2026)."),
+                ("Can I play on PS4 or Xbox One?", "PS4: no. Xbox One: no native version. Cloud play is only the Xbox Wire claim from 10 Nov 2026. This page has not retested it after launch."),
             ],
             "other_h": "Other games on BuffForge",
             "other": [("Desktop Pension Squad tools and guides", "/desktop-pension-squad/"),
@@ -898,24 +901,24 @@ HUB_BODY = {
                       ("BuffForge game tools and trackers", "/")],
         },
         "ru": {
-            "prelaunch_h": "Инструмент до выхода",
-            "prelaunch_note": "По материалам превью до выхода. После 19 ноября 2026 года сверим механику с игрой.",
+            "prelaunch_h": "Непроверенный инструмент",
+            "prelaunch_note": "Помощник по уликам по-прежнему основан на предрелизных превью и не сверен с вышедшей игрой.",
             "guides_h": "Гайды",
             "guides_note": "Гайдов пока нет. Гайды появятся здесь, только когда мы сможем проверить цифры, — до тех пор ничего не публикуется.",
             "planned_h": "Запланированные инструменты и гайды",
             "planned": [
-                "После выхода те же четыре инструмента обновляются по официальным патчам: место, отсчёт, издания и совместимость.",
+                "Место, время выхода, издания и совместимость остаются привязаны к официальным страницам.",
                 "Гайды по игре — только когда можно сослаться на официальные или проверяемые источники.",
                 "Таблицы системных требований для ПК — только после официального анонса ПК-версии. Гайдов по покупке не будет.",
             ],
             "faq_h": "Частые вопросы",
             "faq": [
-                ("Сколько весит GTA 6?", "Не менее 212 ГБ свободного места по данным PlayStation. Проверьте свою консоль на странице проверки места."),
-                ("Во сколько выйдет GTA 6 19 ноября по Москве?", "Выход — в местную полночь 19 ноября по региону магазина. Точное время для вашего региона — на странице обратного отсчёта."),
+                ("Сколько весит GTA 6?", "PlayStation указывает минимум 212 ГБ свободного места. Это не подтверждённый точный размер установки. Проверка — на странице места."),
+                ("Когда вышла GTA 6?", "19 ноября 2026 года, в местную полночь региона магазина. Игра уже вышла. Страница времени выхода показывает эту полночь и сколько прошло."),
                 ("Какие системные требования на ПК?", "Версия для ПК официально не анонсирована, официальных системных требований нет. Таблицы из интернета — не данные Rockstar, мы их не публикуем."),
-                ("Можно ли играть на PS4 или Xbox One?", "PS4: нет. Xbox One: нативной версии нет, но можно играть через Xbox Cloud Gaming с 19 ноября (Xbox Wire, 10 ноября 2026 года)."),
+                ("Можно ли играть на PS4 или Xbox One?", "PS4: нет. У Xbox One нет нативной версии. Облако — только заявление Xbox Wire от 10 ноября 2026 года. После выхода эта страница его не перепроверяла."),
                 ("Можно ли купить GTA 6 в официальном магазине в России?", "По состоянию на ноябрь 2026 года купить игру в российском PlayStation Store или через Microsoft Store в России по официальным каналам нельзя."),
-                ("Standard или Ultimate — что выбрать?", "Standard — $79.99, Ultimate — $99.99 (рекомендованные цены Take-Two в США). Что входит в каждое издание — на странице сравнения."),
+                ("Standard или Ultimate — в чём разница?", "Standard $79.99 — прежняя справка США, в этом проходе карточку не открывали. Ultimate $99.99 — цена на странице PlayStation США 22 ноября 2026 года. В других регионах цены другие. Окно предзаказа закрылось 20 ноября 2026 года. Список Ultimate — на странице сравнения."),
             ],
             "other_h": "Другие игры на BuffForge",
             "other": [("инструменты и гайды по Desktop Pension Squad", "/ru/desktop-pension-squad/"),
@@ -1072,13 +1075,13 @@ HUB_HERO = {
         "en": {
             "pill": "GAME HUB · EARLY ACCESS",
             "h2": "Your DPS fusion workspace, all in one place.",
-            "para": "A fuse or salvage calculator: nine-item fusion odds for every level bracket, plus a Soul comparison when you enter sell prices. Odds are transcribed from DPSquad Wiki, which reads them from the game client (v1.0.2, build 26611958).",
+            "para": "A fuse or salvage calculator: nine-item fusion odds for every level bracket, plus a Soul comparison when you enter sell prices. Odds were transcribed from client v1.0.2, build 26611958, and matched the fan wiki’s v1.0.6 Workshop page on 22 Nov 2026.",
             "wm": "wm-dps",
         },
         "ru": {
             "pill": "ИГРОВОЙ ХАБ · РАННИЙ ДОСТУП",
             "h2": "Ваш хаб слияний DPS — всё в одном месте.",
-            "para": "Калькулятор слияния и разбора: шансы слияния девяти предметов для каждого диапазона уровней и сравнение Soul при введённых ценах. Шансы переписаны из DPSquad Wiki — из клиента игры (v1.0.2, сборка 26611958).",
+            "para": "Калькулятор слияния и разбора: шансы девяти предметов для каждого диапазона уровней и сравнение Soul по введённым ценам. Шансы переписаны из клиента v1.0.2, сборка 26611958, и 22 ноября 2026 совпали со страницей Workshop вики v1.0.6.",
             "wm": "wm-dps",
         },
     },
@@ -1109,10 +1112,10 @@ HUB_PREVIEW = {
             "bullets": [
                 ("Official facts only",
                  "Storage, launch time, editions and compatibility all cite official sources."),
-                ("Pre-launch until Nov 19, 2026",
-                 "The Wanted Evidence Helper is based on pre-release previews and will be verified in-game after launch."),
-                ("Updated after launch",
-                 "The same tools are updated from official patches once the game is out."),
+                ("Out since 19 Nov 2026",
+                 "PlayStation 5 and Xbox Series X|S. No announced PC version."),
+                ("Wanted helper still unverified",
+                 "It stays on pre-release previews. It is not in the sitemap."),
             ],
             "widget_title": "Storage Space Calculator",
             "widget_small": "Enter your own figures · no assumed GTA 6 install size",
@@ -1132,10 +1135,10 @@ HUB_PREVIEW = {
             "bullets": [
                 ("Только официальные цифры",
                  "Место, время выхода, издания и совместимость — всё с указанием официальных источников."),
-                ("До выхода — 19 ноября 2026",
-                 "Помощник по уликам основан на превью до выхода; после релиза сверим механику с игрой."),
-                ("Обновим после выхода",
-                 "Те же инструменты обновятся по официальным патчам, когда игра выйдет."),
+                ("Вышла 19 ноября 2026",
+                 "PlayStation 5 и Xbox Series X|S. Версия для ПК не анонсирована."),
+                ("Помощник по уликам не сверен",
+                 "Он остаётся на предрелизных превью и не входит в карту сайта."),
             ],
             "widget_title": "Калькулятор места на диске",
             "widget_small": "Введите свои цифры · размер установки не подставляется",
@@ -1195,27 +1198,27 @@ HUB_PREVIEW = {
         "en": {
             "side_h": "One calculator. Every fusion answered.",
             "bullets": [
-                ("Odds from the game client",
-                 "DPSquad Wiki reads them from client v1.0.2, build 26611958."),
+                ("Odds from client v1.0.2",
+                 "Cross-checked 22 Nov 2026 against the fan wiki’s v1.0.6 Workshop page. The table was unchanged. Not a new extract."),
                 ("Early Access — numbers can change",
                  "The calculator shows its data version and is updated when the game changes."),
                 ("No account needed",
                  "Free to use, no login."),
             ],
             "widget_title": "Fusion Preview",
-            "widget_small": "Example: Epic, Lv. 20–30",
+            "widget_small": "Example: Epic, Lv. 10–15",
             "label_items": "How many Epic items do you have?",
             "stat_fusions": "Complete fusions",
             "leftover_init": "0 leftover items",
             "leftover_one": "1 leftover item",
             "leftover_many": "{n} leftover items",
             "stat_per": "Legendary+ per fuse",
-            "stat_per_sub": "Listed odds, Epic Lv. 20–30",
+            "stat_per_sub": "Listed odds, Epic Lv. 10–15",
             "stat_atleast": "At least one Legendary+",
             "stat_atleast_sub": "across your fusions",
             "stat_expected": "Expected Legendary+ hits",
             "stat_expected_sub": "average, not a guarantee",
-            "source_note": "Odds from DPSquad Wiki (game client v1.0.2, build 26611958). Independent rolls, no pity.",
+            "source_note": "Odds transcribed from client v1.0.2, build 26611958. Same Epic row on the fan wiki’s v1.0.6 page (build 26804378), checked 22 Nov 2026. Not a new extract.",
             "cta": "Open the calculator",
             "cta_tool": "dps-fuse-salvage-calculator",
             "hint": "Try \u201cfuse\u201d, \u201csalvage\u201d or \u201codds\u201d.",
@@ -1224,26 +1227,26 @@ HUB_PREVIEW = {
             "side_h": "Один калькулятор. Все слияния посчитаны.",
             "bullets": [
                 ("Шансы — из клиента игры",
-                 "DPSquad Wiki читает их из клиента v1.0.2, сборка 26611958."),
+                 "Таблица v1.0.2. 22 ноября 2026 сверена со страницей Workshop вики v1.0.6: числа те же. Это не новая выгрузка."),
                 ("Ранний доступ — цифры могут меняться",
                  "У калькулятора указана версия данных; при изменении игры данные обновляются."),
                 ("Без регистрации",
                  "Бесплатно, без входа."),
             ],
             "widget_title": "Предпросмотр слияния",
-            "widget_small": "Пример: Epic, ур. 20–30",
+            "widget_small": "Пример: Epic, ур. 10–15",
             "label_items": "Сколько у вас предметов Epic?",
             "stat_fusions": "Полных слияний",
             "leftover_init": "Остаток: 0 шт.",
             "leftover_one": "Остаток: 1 шт.",
             "leftover_many": "Остаток: {n} шт.",
             "stat_per": "Legendary+ за одно слияние",
-            "stat_per_sub": "Указанные шансы, Epic, ур. 20–30",
+            "stat_per_sub": "Указанные шансы, Epic, ур. 10–15",
             "stat_atleast": "Хотя бы один Legendary+",
             "stat_atleast_sub": "по вашим слияниям",
             "stat_expected": "Ожидаемо Legendary+",
             "stat_expected_sub": "в среднем, без гарантии",
-            "source_note": "Шансы: DPSquad Wiki (клиент игры v1.0.2, сборка 26611958). Независимые броски, без pity.",
+            "source_note": "Шансы переписаны из клиента v1.0.2, сборка 26611958. Та же строка Epic на странице вики v1.0.6 (сборка 26804378), сверка 22 ноября 2026. Это не новая выгрузка.",
             "cta": "Открыть калькулятор",
             "cta_tool": "dps-fuse-salvage-calculator",
             "hint": "Попробуйте «слияние», «разбор» или «шансы».",
@@ -1367,9 +1370,9 @@ def preview_widget_aion(lang, ui, pv):
 
 def preview_widget_dps(lang, ui, pv):
     t = tool_by_id(pv["cta_tool"])
-    # Listed odds for Epic input, Lv. 20-30 bracket (bracket index 2):
-    # Epic 49.88 / Legendary 50.12 — from the calculator's table, which is
-    # transcribed from DPSquad Wiki (game client v1.0.2, build 26611958).
+    # Listed odds for Epic input, Lv. 10-15 (bracket index 2):
+    # Epic 49.88 / Legendary 50.12. Lv. 20-30 is 49.88 / 49.88 / 0.25.
+    # Transcribed from client v1.0.2; same row on the v1.0.6 wiki page.
     # Listed odds sum to 100.00, so no normalization is needed here.
     rows = (
         '<div class="outcome-row"><div class="outcome-meta">'
@@ -1574,8 +1577,10 @@ HUB_WIDGET_AION = """
 })();
 """
 
-# DPS widget: fixed Epic, Lv. 20-30. P = 0.5012 Legendary+ per fuse
-# (listed 49.88 Epic / 50.12 Legendary). fusions = floor(items / 9);
+# DPS widget: fixed Epic, Lv. 10-15 (bracket index 2). P = 0.5012 Legendary
+# per fuse (listed 49.88 Epic / 50.12 Legendary). Lv. 20-30 is a different
+# row (49.88 / 49.88 / 0.25) and is not shown here.
+# fusions = floor(items / 9);
 # at-least-one = 1 - (1 - p)^n; expected = n * p. Same math as the
 # calculator (independent rolls, no pity).
 HUB_WIDGET_DPS = """
@@ -2050,15 +2055,13 @@ def sitemap_xml():
                     '    <changefreq>%s</changefreq>\n    <priority>%s</priority>\n  </url>'
                     % (BASE, path, lastmod, freq, prio))
 
-    add("/", "weekly", "1.0")
-    add("/ru/", "weekly", "1.0")
+    add("/", "weekly", "1.0", "2026-11-22")
+    add("/ru/", "weekly", "1.0", "2026-11-22")
     add("/about/", "monthly", "0.6")
     add("/ru/about/", "monthly", "0.6")
     for g in SITE["games"]:
-        if g["slug"] == "rob-run":
-            hub_mod = "2026-11-15"
-        elif g["slug"] == "gta-6":
-            hub_mod = "2026-11-19"
+        if g["slug"] in ("gta-6", "desktop-pension-squad", "rob-run"):
+            hub_mod = "2026-11-22"
         else:
             hub_mod = "2026-11-13"
         add("/%s/" % g["slug"], "weekly", "0.8", hub_mod)

@@ -3,14 +3,15 @@
 
 Run:  cd <repo root> && python3 scripts/build_tools.py
 Uses only verified official facts (see spec section 10.2):
-- launch Nov 19, 2026, PS5 (+Pro) and Xbox Series X|S; PC version not officially announced;
-- PlayStation lists at least 212 GB free space;
-- Standard $79.99 / Ultimate $99.99 (Take-Two US MSRP);
-- Vintage Vice City Pack for purchases before Nov 20, 2026; one month GTA+
-  with digital pre-order (per official announcement).
-No speculative PC spec table anywhere. Xbox preload Moscow time is NOT
-stated (unverified) — pages say to check the Xbox store.
+Re-checked 22 Nov 2026 against Rockstar, PlayStation and Xbox store pages:
+- Out since 19 Nov 2026 on PS5 (+Pro) and Xbox Series X|S. No official PC SKU.
+- PlayStation still says a minimum of 212 GB free space. That is not an exact install size.
+- Standard $79.99 / Ultimate $99.99 remain US MSRP labels. Regional prices differ.
+- The pre-order window closed 20 Nov 2026. Vintage Vice City Pack is a separate
+  US store add-on at $4.99 and requires the game.
+No speculative PC spec table. No single Moscow unlock time.
 """
+import json
 import os
 import sys
 
@@ -45,54 +46,54 @@ def write(rel, content):
 # ---------------------------------------------------------------- storage check
 STORAGE = {
     "en": {
-        "title": "GTA 6 Storage & Preload Check — BuffForge",
-        "desc": "PlayStation lists at least 212 GB of free space for GTA 6. Enter your free space and see if it fits before preload day. No login, no ads.",
-        "h1": "GTA 6 Storage &amp; Preload Check",
-        "lede": "GTA 6 needs a lot of disk. PlayStation's official support page lists <b>at least 212 GB of free space</b>. Check yours before preload day — not after the download fails.",
+        "title": "GTA 6 Storage Check — Will 212 GB Fit? — BuffForge",
+        "desc": "PlayStation asks for a minimum of 212 GB free for GTA 6. Enter your free space and see if you meet that minimum. It is not a confirmed exact install size.",
+        "h1": "GTA 6 Storage Check",
+        "lede": "PlayStation still says to clear a <b>minimum of 212 GB</b> of free space. That is the store’s free-space line, not a Rockstar install size. Enter what your console shows as free.",
         "label": "How much free space do you have? (GB)",
         "hint": "On PS5: Settings → Storage. On Xbox: My games &amp; apps → Manage → Free up space.",
         "platform_label": "Your console",
         "ps5": "PlayStation 5 / PS5 Pro",
         "xbox": "Xbox Series X|S",
         "check": "Check my space",
-        "fits": "It fits.",
-        "fits_p": "212 GB fits in your %s GB free — about %s GB would remain afterwards. Keep some headroom: updates and patches need room too.",
-        "short": "Not enough space yet.",
+        "fits": "Enough free space.",
+        "fits_p": "You have %s GB free. That is %s GB above the 212 GB minimum PlayStation lists. This is not a confirmed exact install size. Leave room for updates.",
+        "short": "Below the 212 GB minimum.",
         "short_p": "You need %s GB more free space to reach the 212 GB PlayStation lists. Delete a game or two, or move games to external storage where your console allows it.",
-        "exact": "Exactly enough — barely.",
-        "exact_p": "212 GB is exactly what you have. It fits on paper, but leave headroom for the day-one patch.",
-        "preload_h": "Preload: what is confirmed",
+        "exact": "Exactly the 212 GB minimum.",
+        "exact_p": "You have 212 GB free, which meets the PlayStation minimum with nothing above it. That is still not a confirmed exact install size.",
+        "preload_h": "What 212 GB means",
         "preload": [
-            "<b>PS5:</b> digital preload starts at local midnight for your account's region. The exact moment depends on your store region, not on one global time.",
-            "<b>Xbox:</b> preload start time is shown in the Xbox store / console for your region. Check the store listing — we do not publish an unverified Moscow time.",
-            "<b>212 GB</b> is the free space PlayStation lists as required. The final download size has not been separately confirmed by Rockstar.",
+            "<b>212 GB</b> is the minimum free space on the PlayStation game page. Rockstar has not published a separate final install size.",
+            "<b>Preload already happened.</b> PlayStation said digital preload for pre-orders started 10 Nov 2026 at local midnight. The game has been available since 19 Nov 2026.",
+            "<b>Xbox:</b> this page does not publish a Moscow preload clock. Use the time on your own Xbox store listing.",
         ],
-        "sources": "Sources: PlayStation official support (GTA VI), checked Nov 13, 2026. Always confirm in-game / in the store.",
+        "sources": "Source: PlayStation game page for Grand Theft Auto VI, “minimum of 212GB”, checked 22 Nov 2026. The PlayStation support article fetched the same day did not repeat the 212 GB line.",
     },
     "ru": {
-        "title": "Проверка места под GTA 6 — BuffForge",
-        "desc": "PlayStation указывает: для GTA 6 нужно не менее 212 ГБ свободного места. Введите, сколько свободно у вас, и узнайте, хватит ли места до предзагрузки.",
+        "title": "Проверка места под GTA 6 — хватит ли 212 ГБ — BuffForge",
+        "desc": "PlayStation просит минимум 212 ГБ свободного места под GTA 6. Введите, сколько свободно, и проверьте этот минимум. Это не точный размер установки.",
         "h1": "Проверка места под GTA 6",
-        "lede": "GTA 6 занимает много места на диске. На официальной странице поддержки PlayStation указано: нужно <b>не менее 212 ГБ свободного места</b>. Проверьте заранее — а не когда загрузка оборвётся.",
+        "lede": "На странице игры PlayStation по-прежнему написано: освободите <b>минимум 212 ГБ</b>. Это свободное место в магазине, а не размер установки от Rockstar. Введите число, которое показывает консоль.",
         "label": "Сколько свободного места у вас? (ГБ)",
         "hint": "На PS5: Настройки → Хранилище. На Xbox: Мои игры и приложения → Управление → Освободить место.",
         "platform_label": "Ваша консоль",
         "ps5": "PlayStation 5 / PS5 Pro",
         "xbox": "Xbox Series X|S",
         "check": "Проверить место",
-        "fits": "Места хватает.",
-        "fits_p": "212 ГБ помещаются в ваши %s ГБ — после установки останется около %s ГБ. Оставьте запас: обновлениям и патчам тоже нужно место.",
-        "short": "Пока не хватает места.",
+        "fits": "Свободного места достаточно.",
+        "fits_p": "Свободно %s ГБ. Это на %s ГБ выше минимума 212 ГБ, который указывает PlayStation. Точный размер установки не подтверждён. Оставьте запас под обновления.",
+        "short": "Меньше минимума 212 ГБ.",
         "short_p": "Чтобы набрать 212 ГБ, нужно освободить ещё %s ГБ. Удалите пару игр или перенесите их на внешний накопитель, если консоль это позволяет.",
-        "exact": "Хватает ровно впритык.",
-        "exact_p": "У вас ровно 212 ГБ. Формально хватает, но оставьте запас под патч первого дня.",
-        "preload_h": "Предзагрузка: что подтверждено",
+        "exact": "Ровно минимум 212 ГБ.",
+        "exact_p": "Свободно ровно 212 ГБ — минимум PlayStation, без запаса сверху. Это всё ещё не подтверждённый точный размер установки.",
+        "preload_h": "Что значит 212 ГБ",
         "preload": [
-            "<b>PS5:</b> цифровая предзагрузка начинается в местную полночь для региона вашего аккаунта. Точный момент зависит от региона магазина, а не от единого мирового времени.",
-            "<b>Xbox:</b> время начала предзагрузки указано в магазине Xbox / на консоли для вашего региона. Смотрите карточку в магазине — непроверенное московское время мы не публикуем.",
-            "<b>212 ГБ</b> — это свободное место, которое указывает PlayStation. Итоговый размер загрузки Rockstar отдельно не подтверждала.",
+            "<b>212 ГБ</b> — минимум свободного места на странице игры PlayStation. Отдельный итоговый размер установки Rockstar не публиковала.",
+            "<b>Предзагрузка уже была.</b> PlayStation писала, что для предзаказов она началась 10 ноября 2026 года в местную полночь. Игра доступна с 19 ноября 2026 года.",
+            "<b>Xbox:</b> московские часы предзагрузки мы не публикуем. Смотрите время в своём магазине Xbox.",
         ],
-        "sources": "Источники: официальная поддержка PlayStation (GTA VI), проверено 13 ноября 2026 года. Всегда сверяйтесь с магазином и игрой.",
+        "sources": "Источник: страница Grand Theft Auto VI на PlayStation, «minimum of 212GB», проверено 22 ноября 2026 года. В статье поддержки PlayStation, открытой в тот же день, строки про 212 ГБ не было.",
     },
 }
 
@@ -137,15 +138,20 @@ def storage_page(lang):
     if (isNaN(free) || free < 0) { result.className = 'result warn show';
       result.innerHTML = '<b class="big">' + STR.invalid + '</b>'; return; }
     var remain = free - NEED;
+    function gb(n) {
+      var c = Math.ceil(n * 10) / 10;
+      if (c < 0.1) c = 0.1;
+      return (c %% 1 === 0) ? String(c) : c.toFixed(1);
+    }
     if (remain > 0) { result.className = 'result ok show';
       result.innerHTML = '<b class="big">' + STR.fits + '</b><p>' +
-        STR.fits_p.replace('%%s', free).replace('%%s', Math.round(remain)) + '</p>' +
+        STR.fits_p.replace('%%s', free).replace('%%s', gb(remain)) + '</p>' +
         '<div class="bar"><i style="width:' + Math.min(100, NEED / free * 100) + '%%"></i></div>';
     } else if (remain === 0) { result.className = 'result warn show';
       result.innerHTML = '<b class="big">' + STR.exact + '</b><p>' + STR.exact_p + '</p>';
     } else { result.className = 'result bad show';
       result.innerHTML = '<b class="big">' + STR.short + '</b><p>' +
-        STR.short_p.replace('%%s', Math.round(-remain)) + '</p>';
+        STR.short_p.replace('%%s', gb(-remain)) + '</p>';
     }
   }
   document.querySelectorAll('.quick button').forEach(function (b) {
@@ -181,44 +187,46 @@ REGIONS = [
 
 COUNTDOWN = {
     "en": {
-        "title": "GTA 6 Launch Countdown — BuffForge",
-        "desc": "GTA 6 launches Nov 19, 2026 at local midnight. Pick your store region and see the unlock time in your time zone and in Moscow time.",
-        "h1": "GTA 6 Launch Countdown",
-        "lede": "GTA 6 unlocks <b>Nov 19, 2026 at local midnight</b> — midnight in your store region's time zone. There is no single official Moscow unlock time: it depends on which region your account's store is in.",
-        "label": "Your store region",
+        "title": "GTA 6 Launch Time by Store Region — BuffForge",
+        "desc": "GTA 6 unlocked on 19 Nov 2026 at local midnight. Pick a store region and see that unlock time, plus how long it has been out.",
+        "h1": "GTA 6 launch time by store region",
+        "lede": "GTA 6 <b>unlocked on 19 Nov 2026 at local midnight</b> in each store region. Rockstar’s site now says “Now Available” on PlayStation 5 and Xbox Series X|S. There is still no single official Moscow unlock time.",
+        "label": "Store region",
         "local_label": "Your time zone",
-        "unlocks": "Unlocks Nov 19, 2026, 00:00 in %s",
-        "moscow": "That is %s in Moscow (MSK, UTC+3).",
+        "unlocks": "Unlocks 19 Nov 2026, 00:00 in %s",
+        "unlocked_at": "Unlocked 19 Nov 2026, 00:00 in %s",
+        "moscow": "That instant is %s in Moscow (MSK, UTC+3).",
         "local": "In your local time: %s.",
-        "released": "Released!",
-        "released_p": "GTA 6 is out in this region. Go play.",
+        "released": "Unlocked",
+        "elapsed_unit_d": "d",
         "note_h": "What is confirmed — and what is not",
         "notes": [
-            "<b>Confirmed:</b> launch date Nov 19, 2026; PS5 (including Pro) and Xbox Series X|S; PC version not officially announced (Rockstar).",
-            "<b>Not a single global moment:</b> because unlock is local midnight per region, the Moscow time differs by region. Any site quoting one Moscow unlock time for everyone is guessing.",
-            "<b>Preload:</b> PS5 digital preload starts at local midnight for your account's region. Xbox preload time is shown in the Xbox store.",
+            "<b>Out now:</b> Rockstar’s VI page says “Now Available” for PlayStation 5 and Xbox Series X|S. The newswire item is dated 19 Nov 2026. No official PC version.",
+            "<b>Not one Moscow minute:</b> unlock was local midnight in the store region, so Moscow time still differs by region.",
+            "<b>After unlock:</b> the clock above is time since that midnight. It does not count backward.",
         ],
-        "sources": "Sources: Rockstar Games official newswire (launch date), PlayStation official support, checked Nov 13, 2026.",
+        "sources": "Sources: rockstargames.com/VI (“Now Available”, 19 Nov 2026) and PlayStation support (midnight local time on 19 Nov 2026). Checked 22 Nov 2026.",
     },
     "ru": {
-        "title": "Обратный отсчёт до выхода GTA 6 — BuffForge",
-        "desc": "GTA 6 выходит 19 ноября 2026 года в местную полночь. Выберите регион магазина и узнайте время выхода в вашем часовом поясе и по Москве.",
-        "h1": "Обратный отсчёт до выхода GTA 6",
-        "lede": "GTA 6 открывается <b>19 ноября 2026 года в местную полночь</b> — в полночь по времени региона вашего магазина. Единого официального московского времени выхода нет: оно зависит от региона магазина вашего аккаунта.",
-        "label": "Регион вашего магазина",
+        "title": "Время выхода GTA 6 по региону магазина — BuffForge",
+        "desc": "GTA 6 открылась 19 ноября 2026 года в местную полночь. Выберите регион магазина: момент открытия и сколько времени уже прошло.",
+        "h1": "Время выхода GTA 6 по региону магазина",
+        "lede": "GTA 6 <b>открылась 19 ноября 2026 года в местную полночь</b> региона магазина. На сайте Rockstar сейчас «Now Available» для PlayStation 5 и Xbox Series X|S. Единого официального московского времени по-прежнему нет.",
+        "label": "Регион магазина",
         "local_label": "Ваш часовой пояс",
-        "unlocks": "Выход 19 ноября 2026 года в 00:00 в регионе: %s",
-        "moscow": "По Москве (МСК, UTC+3) это %s.",
+        "unlocks": "Открытие 19 ноября 2026 года в 00:00, регион: %s",
+        "unlocked_at": "Открылась 19 ноября 2026 года в 00:00, регион: %s",
+        "moscow": "Этот момент по Москве (МСК, UTC+3): %s.",
         "local": "В вашем местном времени: %s.",
-        "released": "Игра вышла!",
-        "released_p": "В этом регионе GTA 6 уже доступна. Можно играть.",
+        "released": "Уже открыта",
+        "elapsed_unit_d": "д",
         "note_h": "Что подтверждено, а что нет",
         "notes": [
-            "<b>Подтверждено:</b> дата выхода 19 ноября 2026 года; PS5 (включая Pro) и Xbox Series X|S; версия для ПК официально не анонсирована (Rockstar).",
-            "<b>Не единый момент для всех:</b> раз выход — в местную полночь для каждого региона, московское время для разных регионов разное. Сайт, называющий одно московское время для всех, просто гадает.",
-            "<b>Предзагрузка:</b> на PS5 цифровая предзагрузка начинается в местную полночь для региона вашего аккаунта. Время предзагрузки на Xbox указано в магазине Xbox.",
+            "<b>Уже вышла:</b> страница Rockstar VI пишет «Now Available» для PlayStation 5 и Xbox Series X|S. Запись ньюсвайра датирована 19 ноября 2026 года. Версии для ПК нет.",
+            "<b>Не одна минута для Москвы:</b> открытие было в местную полночь региона магазина, поэтому московское время по-прежнему зависит от региона.",
+            "<b>После открытия:</b> часы выше считают время с той полуночи. Обратного отсчёта нет.",
         ],
-        "sources": "Источники: официальный ньюсвайр Rockstar Games (дата выхода), официальная поддержка PlayStation, проверено 13 ноября 2026 года.",
+        "sources": "Источники: rockstargames.com/VI («Now Available», 19 ноября 2026) и поддержка PlayStation (местная полночь 19 ноября 2026). Проверено 22 ноября 2026 года.",
     },
 }
 
@@ -290,27 +298,28 @@ def countdown_page(lang):
     var target = targetMs(tz);
     var now = Date.now();
     var label = sel.options[sel.selectedIndex].textContent;
-    unlockLine.textContent = STR.unlocks.replace('%%s', label);
     mskLine.textContent = STR.moscow.replace('%%s', fmt(target, 'Europe/Moscow'));
     try { localLine.textContent = STR.local.replace('%%s', fmt(target)); } catch (e) {}
     var diff = target - now;
-    if (diff <= 0) { cd.textContent = STR.released; return; }
-    var s = Math.floor(diff / 1000);
+    var past = diff <= 0;
+    unlockLine.textContent = (past ? STR.unlocked_at : STR.unlocks).replace('%%s', label);
+    var s = Math.floor(Math.abs(diff) / 1000);
     var d = Math.floor(s / 86400);
     var h = Math.floor((s %% 86400) / 3600);
     var m = Math.floor((s %% 3600) / 60);
     var sec = s %% 60;
-    cd.innerHTML = d + '<span class="unit">d</span>' + pad(h) + '<span class="unit">h</span>' +
+    var clock = d + '<span class="unit">' + STR.unit_d + '</span>' + pad(h) + '<span class="unit">h</span>' +
       pad(m) + '<span class="unit">m</span>' + pad(sec) + '<span class="unit">s</span>';
+    cd.innerHTML = past ? (STR.released + ' ' + clock) : clock;
   }
   sel.addEventListener('change', tick);
   tick();
   setInterval(tick, 1000);
 })();
 </script>
-""" % ('{"unlocks": "%s", "moscow": "%s", "local": "%s", "released": "%s", "local_label": "%s", "locale": "%s"}'
-       % (c["unlocks"], c["moscow"], c["local"], c["released"], c["local_label"],
-          "en-US" if lang == "en" else "ru-RU"))
+""" % ('{"unlocks": "%s", "unlocked_at": "%s", "moscow": "%s", "local": "%s", "released": "%s", "unit_d": "%s", "local_label": "%s", "locale": "%s"}'
+       % (c["unlocks"], c["unlocked_at"], c["moscow"], c["local"], c["released"], c["elapsed_unit_d"],
+          c["local_label"], "en-US" if lang == "en" else "ru-RU"))
     jl = [breadcrumb_jsonld(lang, [(home, home_path), ("GTA 6", hub_path), (c["h1"], "/gta-6/launch-countdown/" if lang == "en" else "/ru/gta-6/launch-countdown/")]),
           webapp_jsonld(lang, c["h1"], "/gta-6/launch-countdown/" if lang == "en" else "/ru/gta-6/launch-countdown/", c["desc"])]
     return tool_page(lang, "gta-6", "launch-countdown", c["title"], c["desc"], body + js,
@@ -318,40 +327,122 @@ def countdown_page(lang):
 
 
 # ---------------------------------------------------------------- editions
+PS_GAME = "https://www.playstation.com/en-us/games/grand-theft-auto-vi/"
+XBOX_PACK = "https://www.xbox.com/en-US/games/store/grand-theft-auto-vi-vintage-vice-city-pack/9plvssh8849x"
+PS_PACK = "https://store.playstation.com/en-us/product/EP1004-PPSA01547_00-CONTENTPACK00001"
+
 EDITIONS = {
     "en": {
         "title": "GTA 6 Editions Compared — Standard vs Ultimate | BuffForge",
-        "desc": "GTA 6 Standard $79.99 vs Ultimate $99.99 — only what Take-Two and the official stores actually say. PC edition not officially announced.",
+        "desc": "GTA 6 Standard $79.99 vs Ultimate $99.99, US store prices. The pre-order window has closed. Ultimate contents follow the PlayStation page.",
         "h1": "GTA 6 Editions Compared",
-        "lede": "Two editions, both on PS5 and Xbox Series X|S. Prices below are the US suggested retail prices announced by Take-Two. Regional prices differ — check your store.",
+        "lede": "Standard and Ultimate are on PS5 and Xbox Series X|S. <b>Standard $79.99</b> is the earlier US reference price. It was not re-checked on an official store page this round. <b>Ultimate $99.99</b> is the price the US PlayStation game page showed on 22 Nov 2026. Other regions differ. The buy-before-20-Nov window has closed.",
+        "when": "Which purchase are you checking?",
+        "opt_now": "Buying now",
+        "opt_before": "Digital edition bought before 20 Nov 2026",
+        "now_h": "Buying now",
+        "now_p": "The pre-order window closed on 20 Nov 2026. A purchase now does not include the Vintage Vice City Pack or the free month of GTA+. The pack is a separate add-on.",
+        "before_h": "Bought before 20 Nov 2026",
+        "before_p": "If the digital Standard or Ultimate edition was bought before 20 Nov 2026, the offer included the Vintage Vice City Pack and one month of GTA+. PlayStation says that month must be claimed by 31 Mar 2027. This page cannot see your account.",
         "rows": [
-            ("Price (US MSRP)", "<b>Standard — $79.99</b>", "<b>Ultimate — $99.99</b>"),
+            ("Price", "<b>Standard — $79.99</b><br>Earlier US reference. Not re-checked this round.", "<b>Ultimate — $99.99</b><br>US PlayStation page, 22 Nov 2026."),
             ("Platforms", "PS5, PS5 Pro, Xbox Series X|S", "PS5, PS5 Pro, Xbox Series X|S"),
-            ("Pre-order bonus", "Vintage Vice City Pack when you buy before Nov 20, 2026", "Vintage Vice City Pack when you buy before Nov 20, 2026"),
-            ("Digital pre-order", "One month of GTA+ (per official announcement)", "One month of GTA+ (per official announcement)"),
-            ("PC version", "PC version not officially announced", "PC version not officially announced"),
+            ("PC version", "Not announced", "Not announced"),
         ],
-        "warn_h": "About the Ultimate edition",
-        "warn": "Take-Two has not published a full, itemised list of everything in the Ultimate edition that we can verify here, so we do not invent one. Before you pay the extra $20, open the official PlayStation or Xbox store page and read the edition contents there.",
-        "sources": "Sources: Take-Two pre-order announcement, PlayStation Store, checked Nov 13, 2026. Prices are US MSRP.",
         "std": "Standard", "ult": "Ultimate",
+        "pack_h": "Vintage Vice City Pack",
+        "pack_p": "Official add-on, released 20 Nov 2026. The US Xbox store and the US PlayStation Store both list <b>$4.99</b>. It requires Grand Theft Auto VI, sold separately. That price is the US store price, not a worldwide price, and it does not mean you already own the pack.",
+        "pack_items": [
+            "’55 Vapid Stanier, stored at the Shore Court garage near Ocean Beach",
+            "Outfits and hairstyles for Jason and Lucia",
+            "A weapon pattern for most guns",
+        ],
+        "ult_h": "What PlayStation lists in Ultimate",
+        "ult_p": "Item names below are from the US PlayStation game page. Descriptions there are longer. Nothing else is added.",
+        "ult_groups": [
+            ("Vehicles and garages", [
+                "’95 Grotti Cheetah",
+                "Jason’s safehouse vehicles: Dinka Enduro, Crest Kayak",
+                "Shitzu Squalo",
+                "’67 Vapid Dominator Buggy and the Paradise Garage",
+            ]),
+            ("Weapons", [
+                "Hawk and Little Morgan revolvers",
+                "Personalized Girardi ES9 and Klose K17",
+            ]),
+            ("Looks", [
+                "Vice City Style outfits, hairstyles and tattoos",
+                "Goodtime Gear",
+            ]),
+            ("Special commission", [
+                "Ganado Retro Build",
+                "Classic car collection",
+            ]),
+            ("Shops only in Ultimate", [
+                "Rideout Customs",
+                "Sara’s Unisex Salon",
+                "Stock 305",
+                "Electric Fang Tattoo",
+                "One-Eyed Willie’s",
+            ]),
+        ],
+        "sources": "Sources, checked 22 Nov 2026: PlayStation game page (Ultimate list, the $99.99 page price, and the pre-order GTA+ FAQ), US Xbox store and US PlayStation Store for the pack ($4.99, 20 Nov 2026). Standard $79.99 is the earlier US reference and was not on a store page opened this round.",
     },
     "ru": {
         "title": "Сравнение изданий GTA 6 — Standard и Ultimate | BuffForge",
-        "desc": "GTA 6 Standard за $79.99 и Ultimate за $99.99 — только то, что официально объявили Take-Two и магазины. Версия для ПК официально не анонсирована.",
+        "desc": "GTA 6 Standard $79.99 и Ultimate $99.99 — цены магазина США. Окно предзаказа закрыто. Состав Ultimate — со страницы PlayStation.",
         "h1": "Сравнение изданий GTA 6",
-        "lede": "Два издания — оба на PS5 и Xbox Series X|S. Цены ниже — рекомендованные цены для США, объявленные Take-Two. В других регионах цены отличаются — смотрите свой магазин.",
+        "lede": "Standard и Ultimate есть на PS5 и Xbox Series X|S. <b>Standard $79.99</b> — прежняя справочная цена США. В этом проходе официальную карточку Standard заново не открывали. <b>Ultimate $99.99</b> — цена на странице игры в американском PlayStation 22 ноября 2026 года. В других регионах цены другие. Окно «купить до 20 ноября» закрыто.",
+        "when": "Какую покупку проверяете?",
+        "opt_now": "Покупаю сейчас",
+        "opt_before": "Цифровое издание куплено до 20 ноября 2026",
+        "now_h": "Покупка сейчас",
+        "now_p": "Окно предзаказа закрылось 20 ноября 2026 года. Покупка сейчас не включает Vintage Vice City Pack и бесплатный месяц GTA+. Набор продаётся отдельно.",
+        "before_h": "Куплено до 20 ноября 2026",
+        "before_p": "Если цифровое Standard или Ultimate купили до 20 ноября 2026 года, в предложение входили Vintage Vice City Pack и месяц GTA+. PlayStation пишет, что месяц нужно получить до 31 марта 2027 года. Эта страница не видит ваш аккаунт.",
         "rows": [
-            ("Цена (США)", "<b>Standard — $79.99</b>", "<b>Ultimate — $99.99</b>"),
+            ("Цена", "<b>Standard — $79.99</b><br>Прежняя справка США. В этом проходе не перепроверялась.", "<b>Ultimate — $99.99</b><br>Страница PlayStation США, 22 ноября 2026."),
             ("Платформы", "PS5, PS5 Pro, Xbox Series X|S", "PS5, PS5 Pro, Xbox Series X|S"),
-            ("Бонус предзаказа", "Набор Vintage Vice City Pack при покупке до 20 ноября 2026 года", "Набор Vintage Vice City Pack при покупке до 20 ноября 2026 года"),
-            ("Цифровой предзаказ", "Месяц GTA+ (по официальному объявлению)", "Месяц GTA+ (по официальному объявлению)"),
-            ("Версия для ПК", "Версия для ПК официально не анонсирована", "Версия для ПК официально не анонсирована"),
+            ("Версия для ПК", "Не анонсирована", "Не анонсирована"),
         ],
-        "warn_h": "Про издание Ultimate",
-        "warn": "Take-Two не опубликовала полный детализированный список содержимого Ultimate, который мы могли бы проверить, поэтому мы его не выдумываем. Прежде чем доплачивать $20, откройте официальную страницу издания в PlayStation Store или Xbox и прочитайте состав там.",
-        "sources": "Источники: объявление Take-Two о предзаказах, PlayStation Store, проверено 13 ноября 2026 года. Цены — рекомендованные для США.",
         "std": "Standard", "ult": "Ultimate",
+        "pack_h": "Vintage Vice City Pack",
+        "pack_p": "Официальное дополнение, дата выхода 20 ноября 2026 года. В магазине Xbox США и в PlayStation Store США цена <b>$4.99</b>. Нужна Grand Theft Auto VI, она продаётся отдельно. Это цена магазина США, не мировая, и она не значит, что набор уже у вас.",
+        "pack_items": [
+            "’55 Vapid Stanier и гараж Shore Court у Ocean Beach",
+            "Одежда и причёски для Джейсона и Люсии",
+            "Узор для большинства видов оружия",
+        ],
+        "ult_h": "Что PlayStation указывает в Ultimate",
+        "ult_p": "Названия ниже — со страницы игры в американском PlayStation. Описания там длиннее. Лишнего не добавлено.",
+        "ult_groups": [
+            ("Транспорт и гаражи", [
+                "’95 Grotti Cheetah",
+                "Транспорт убежища Джейсона: Dinka Enduro, Crest Kayak",
+                "Shitzu Squalo",
+                "’67 Vapid Dominator Buggy и Paradise Garage",
+            ]),
+            ("Оружие", [
+                "Револьверы Hawk и Little Morgan",
+                "Именные Girardi ES9 и Klose K17",
+            ]),
+            ("Внешность", [
+                "Наряды, причёски и тату Vice City Style",
+                "Goodtime Gear",
+            ]),
+            ("Особый заказ", [
+                "Ganado Retro Build",
+                "Коллекция классических машин",
+            ]),
+            ("Магазины только в Ultimate", [
+                "Rideout Customs",
+                "Sara’s Unisex Salon",
+                "Stock 305",
+                "Electric Fang Tattoo",
+                "One-Eyed Willie’s",
+            ]),
+        ],
+        "sources": "Источники, проверено 22 ноября 2026 года: страница игры PlayStation (список Ultimate, цена $99.99 и FAQ про месяц GTA+), магазин Xbox США и PlayStation Store США для набора ($4.99, 20 ноября 2026). Standard $79.99 — прежняя справка США; в этом проходе карточку Standard не открывали.",
     },
 }
 
@@ -362,18 +453,51 @@ def editions_page(lang):
     home_path = "/" if lang == "en" else "/ru/"
     hub_path = "/gta-6/" if lang == "en" else "/ru/gta-6/"
     rows = "".join("<tr><th>%s</th><td>%s</td><td>%s</td></tr>" % r for r in c["rows"])
+    pack_items = "".join("<li>%s</li>" % x for x in c["pack_items"])
+    groups = []
+    for title, items in c["ult_groups"]:
+        groups.append("<h3>%s</h3><ul>%s</ul>" % (title, "".join("<li>%s</li>" % i for i in items)))
     body = (
         '<main id="main" class="wrap narrow">%s'
         '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>'
+        '<div class="checker"><label for="buyWhen">%s</label>'
+        '<select id="buyWhen"><option value="now">%s</option><option value="before">%s</option></select>'
+        '<div class="result" id="editionResult" role="status"></div></div>'
         '<table class="fact-table"><tr><th></th><th>%s</th><th>%s</th></tr>%s</table>'
-        '<div class="note-box amber"><h3>%s</h3><p>%s</p></div>'
+        '<section class="prose"><h2 class="sec">%s</h2><p>%s</p>'
+        '<p><a href="%s" target="_blank" rel="noopener noreferrer">Xbox</a> · '
+        '<a href="%s" target="_blank" rel="noopener noreferrer">PlayStation Store</a></p>'
+        '<ul>%s</ul>'
+        '<h2 class="sec">%s</h2><p>%s</p>'
+        '<p><a href="%s" target="_blank" rel="noopener noreferrer">PlayStation</a></p>%s</section>'
         '<p class="data-line">%s</p></main>'
         % (crumbs_html(lang, [("GTA 6", hub_path), (c["h1"], None)]),
-           c["h1"], c["lede"], c["std"], c["ult"], rows, c["warn_h"], c["warn"], c["sources"])
+           c["h1"], c["lede"], c["when"], c["opt_now"], c["opt_before"],
+           c["std"], c["ult"], rows,
+           c["pack_h"], c["pack_p"], XBOX_PACK, PS_PACK, pack_items,
+           c["ult_h"], c["ult_p"], PS_GAME, "".join(groups), c["sources"])
     )
+    js = """
+<script>
+(function () {
+  var STR = %s;
+  var sel = document.getElementById('buyWhen');
+  var result = document.getElementById('editionResult');
+  function show() {
+    var now = sel.value === 'now';
+    result.className = 'result ' + (now ? 'warn' : 'ok') + ' show';
+    result.innerHTML = '<b class="big">' + (now ? STR.now_h : STR.before_h) + '</b><p>' +
+      (now ? STR.now_p : STR.before_p) + '</p>';
+  }
+  sel.addEventListener('change', show);
+  show();
+})();
+</script>
+""" % ('{"now_h": %s, "now_p": %s, "before_h": %s, "before_p": %s}'
+       % (json.dumps(c["now_h"]), json.dumps(c["now_p"]), json.dumps(c["before_h"]), json.dumps(c["before_p"])))
     jl = [breadcrumb_jsonld(lang, [(home, home_path), ("GTA 6", hub_path), (c["h1"], "/gta-6/editions/" if lang == "en" else "/ru/gta-6/editions/")]),
           webapp_jsonld(lang, c["h1"], "/gta-6/editions/" if lang == "en" else "/ru/gta-6/editions/", c["desc"])]
-    return tool_page(lang, "gta-6", "editions", c["title"], c["desc"], body, None, jl)
+    return tool_page(lang, "gta-6", "editions", c["title"], c["desc"], body + js, None, jl)
 
 
 # ---------------------------------------------------------------- compatibility
@@ -393,41 +517,41 @@ DEVICES = [
 COMPAT = {
     "en": {
         "title": "Can My Console Run GTA 6? — BuffForge",
-        "desc": "GTA 6 runs on PS5, PS5 Pro, and Xbox Series X|S. No PS4 version. Xbox One plays it via Xbox Cloud Gaming (Xbox Wire, Nov 10, 2026). PC version not officially announced.",
+        "desc": "GTA 6 is available on PS5, PS5 Pro, and Xbox Series X|S. No PS4 version. Xbox One plays it via Xbox Cloud Gaming (Xbox Wire, Nov 10, 2026). No announced PC version.",
         "h1": "Can My Console Run GTA 6?",
-        "lede": "Pick your device. GTA 6 launches Nov 19, 2026 on PS5 (including Pro) and Xbox Series X|S; Xbox One plays it through Xbox Cloud Gaming.",
+        "lede": "Pick your device. GTA 6 has been available since 19 Nov 2026 on PS5 (including Pro) and Xbox Series X|S. Xbox One has no native version. Cloud play is the Xbox Wire claim from 10 Nov 2026, and this page has not retested it after launch. PC is not announced.",
         "yes": "Yes — it runs.",
-        "yes_p": "%s is a launch platform for GTA 6. You can buy the Standard ($79.99) or Ultimate ($99.99) edition.",
+        "yes_p": "%s can play GTA 6. Standard $79.99 is an earlier US reference and was not re-checked this round. Ultimate $99.99 is the price the US PlayStation page showed on 22 Nov 2026.",
         "no": "No — there is no version for it.",
         "no_p": "Rockstar has not released GTA 6 for %s. There is no PS4 version (PlayStation official).",
         "pc": "PC version not officially announced.",
         "pc_p": "Rockstar has not announced a PC version of GTA 6, and there is no official PC system requirement. System requirement tables circulating online are not Rockstar's — do not treat them as official.",
-        "cloud": "Yes — via Xbox Cloud Gaming.",
-        "cloud_p": "No native Xbox One version, but Xbox says GTA 6 will be playable on day one through Xbox Cloud Gaming on Xbox One, starting at 1am ET on Nov 19, 2026, using Xbox Series S graphics settings. The game must be purchased separately; cloud playtime can be bought without a Game Pass subscription in supported markets (from Nov 11). Source: Xbox Wire, Nov 10, 2026.",
+        "cloud": "Not native. Cloud is the 10 Nov claim.",
+        "cloud_p": "There is no native Xbox One version. Xbox Wire (10 Nov 2026) said GTA 6 is playable on Xbox One through Xbox Cloud Gaming from 1am ET on 19 Nov 2026, with Xbox Series S graphics settings. The game is purchased separately. This page has not re-tested cloud play after launch.",
         "table_h": "All devices at a glance",
         "th_dev": "Device", "th_verdict": "Verdict",
         "v_yes": "Playable", "v_no": "Not playable", "v_pc": "Not announced",
-        "v_cloud": "Playable via cloud",
-        "sources": "Sources: Rockstar Games official newswire, PlayStation official support, Xbox Wire (Nov 10, 2026, cloud gaming), checked Nov 13, 2026.",
+        "v_cloud": "Cloud only, Xbox Wire 10 Nov",
+        "sources": "Sources: Rockstar VI page (Now Available, PS5 and Xbox Series X|S only) and the PlayStation game page (PS4 not playable; released 19 Nov 2026), checked 22 Nov 2026. Xbox One cloud is only the Xbox Wire article from 10 Nov 2026. It was not retested after launch. No official PC requirements were on those pages.",
     },
     "ru": {
         "title": "На чём можно играть в GTA 6? — BuffForge",
-        "desc": "GTA 6 работает на PS5, PS5 Pro и Xbox Series X|S. Версии для PS4 нет. На Xbox One — через Xbox Cloud Gaming (Xbox Wire, 10 ноября 2026). Версия для ПК официально не анонсирована.",
+        "desc": "GTA 6 доступна на PS5, PS5 Pro и Xbox Series X|S. Версии для PS4 нет. На Xbox One — через Xbox Cloud Gaming (Xbox Wire, 10 ноября 2026). Версия для ПК не анонсирована.",
         "h1": "На чём можно играть в GTA 6?",
-        "lede": "Выберите своё устройство. GTA 6 выходит 19 ноября 2026 года на PS5 (включая Pro) и Xbox Series X|S, а на Xbox One — через Xbox Cloud Gaming.",
+        "lede": "Выберите устройство. GTA 6 доступна с 19 ноября 2026 года на PS5 (включая Pro) и Xbox Series X|S. У Xbox One нет нативной версии. Облако — заявление Xbox Wire от 10 ноября 2026 года, после выхода его заново не проверяли. Версия для ПК не анонсирована.",
         "yes": "Да, игра работает.",
-        "yes_p": "%s — платформа запуска GTA 6. Можно купить издание Standard ($79.99) или Ultimate ($99.99).",
+        "yes_p": "На %s в GTA 6 играть можно. Standard $79.99 — прежняя справка США, в этом проходе не перепроверялась. Ultimate $99.99 — цена на странице PlayStation США 22 ноября 2026 года.",
         "no": "Нет, версии для неё нет.",
         "no_p": "Rockstar не выпускала GTA 6 для %s. Версии для PS4 нет (официально, PlayStation).",
         "pc": "Версия для ПК официально не анонсирована.",
         "pc_p": "Rockstar не анонсировала версию GTA 6 для ПК, официальных системных требований нет. Таблицы требований, которые ходят по интернету, — не от Rockstar, не считайте их официальными.",
-        "cloud": "Да, через Xbox Cloud Gaming.",
-        "cloud_p": "Нативной версии для Xbox One нет, но Xbox сообщает, что в GTA 6 можно будет играть с первого дня через Xbox Cloud Gaming на Xbox One с 1:00 ET 19 ноября 2026 года, с настройками графики Xbox Series S. Игру нужно купить отдельно; облачное время можно купить без подписки Game Pass на поддерживаемых рынках (с 11 ноября). Источник: Xbox Wire, 10 ноября 2026 года.",
+        "cloud": "Не нативная версия. Облако — заявление от 10 ноября.",
+        "cloud_p": "Нативной версии для Xbox One нет. Xbox Wire от 10 ноября 2026 года пишет, что GTA 6 можно играть на Xbox One через Xbox Cloud Gaming с 1:00 ET 19 ноября 2026 года, с графикой Xbox Series S. Игру покупают отдельно. Облачную игру после выхода эта страница заново не проверяла.",
         "table_h": "Все устройства — одной таблицей",
         "th_dev": "Устройство", "th_verdict": "Вердикт",
         "v_yes": "Играть можно", "v_no": "Играть нельзя", "v_pc": "Не анонсирована",
-        "v_cloud": "Можно через облако",
-        "sources": "Источники: официальный ньюсвайр Rockstar Games, официальная поддержка PlayStation, Xbox Wire (10 ноября 2026, облачный гейминг), проверено 13 ноября 2026 года.",
+        "v_cloud": "Только облако, Xbox Wire 10 ноября",
+        "sources": "Источники: страница Rockstar VI (Now Available, только PS5 и Xbox Series X|S) и страница игры PlayStation (на PS4 не идёт; выход 19 ноября 2026), проверено 22 ноября 2026 года. Облако для Xbox One — только Xbox Wire от 10 ноября 2026, после выхода не перепроверялось. Официальных требований для ПК на этих страницах не было.",
     },
 }
 
