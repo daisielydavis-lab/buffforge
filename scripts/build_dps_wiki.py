@@ -108,11 +108,13 @@ EN = {
     },
     "copyKicker": "What is in here",
     "copyH2": "What can you search in this wiki?",
-    "copyP": ("This single-page searchable reference currently covers all five playable "
-              "heroes, 40 active skill names and their triggers, nine obtainable pets "
-              "and their buffs, 160 stage identifiers, all 180 documented equipment "
-              "tiers and key mechanics. Character pages, extra URLs and player-save "
-              "access are not required."),
+    "notOnSale": "not on sale",
+    "notObtainable": "Hidden. Not obtainable.",
+    "copyP": ("This search covers five heroes in the files. Geumeum is not on sale. "
+              "Chopper is the Character Pack DLC. Also here: 40 active skill names, "
+              "nine obtainable pets, 160 stage identifiers, 180 equipment tiers and "
+              "the rules we have checked. Worn Compass stays hidden. Character pages "
+              "and player-save access are not required."),
     "faqKicker": "Questions",
     "faqH2": "Frequently asked questions",
     "faq": [
@@ -132,17 +134,22 @@ EN = {
          "fields are clearly marked. This is a functioning search page but not a "
          "complete extracted game database."),
         ("Where does the game data come from?",
-         "Public game information and third-party reports of data from v1.0.3 "
-         "(Steam build 26637932), checked on November 15, 2026. The database is not "
-         "independently extracted from the game client. Always compare numerical "
-         "balance information with the current release."),
+         "The rows were taken from public reports of v1.0.3 (Steam build 26637932) "
+         "on 15 Nov 2026. They were not extracted again from the current client. "
+         "On 22 Nov 2026 DPSquad Wiki’s current data was v1.0.6, build 26804378. "
+         "That page says stages, gear, boxes and the Workshop are unchanged, and "
+         "that encrypted code still uses the v1.0.3 rule read. A few wording notes "
+         "on this page were re-read that day. The wiki is a fan site, not official."),
         ("Why are there only nine pets?",
-         "The game files hold a tenth pet, Worn Compass, but v1.0.3 hides it until "
-         "its pack is out — no one can unlock or equip it yet, so it is not counted "
-         "among the nine obtainable pets."),
+         "Worn Compass is in the files and hidden until its pack is out. The v1.0.6 "
+         "wiki page, checked 22 Nov 2026, still says nobody can unlock or equip it, "
+         "so it is not one of the nine obtainable pets. Search still finds it, marked "
+         "not obtainable."),
     ],
-    "dataLine": ("Checked 15 Nov 2026 \u00b7 Reference version v1.0.3 "
-                 "(Steam build 26637932) \u00b7 Non-affiliated fan reference."),
+    "dataLine": ("Extracted 15 Nov 2026 \u00b7 dataset v1.0.3 (build 26637932). "
+                 "Checked 22 Nov 2026 against dpsquad.wiki v1.0.6 (build 26804378): "
+                 "workshop, stages, gear and boxes reported unchanged; encrypted rules "
+                 "still from v1.0.3. Not a new extract. Fan wiki, not official."),
     "sourcesLabel": "Sources:",
     "sources": [
         ("Steam", STEAM_SEARCH),
@@ -191,6 +198,9 @@ RU = {
     "statusLabel": {
         "Community-reference checked": "\u041f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043e \u043f\u043e \u0441\u043f\u0440\u0430\u0432\u043a\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u0430",
         "Stage structure verified; individual rewards not reviewed": "\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u044d\u0442\u0430\u043f\u043e\u0432 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u0430; \u043d\u0430\u0433\u0440\u0430\u0434\u044b \u043f\u043e \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u0438 \u043d\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u043b\u0438\u0441\u044c",
+        "Wording checked on dpsquad.wiki 22 Nov 2026; not a new client extract": "\u0424\u043e\u0440\u043c\u0443\u043b\u0438\u0440\u043e\u0432\u043a\u0430 \u0441\u0432\u0435\u0440\u0435\u043d\u0430 \u0441 dpsquad.wiki 22 \u043d\u043e\u044f\u0431\u0440\u044f 2026; \u044d\u0442\u043e \u043d\u0435 \u043d\u043e\u0432\u0430\u044f \u0432\u044b\u0433\u0440\u0443\u0437\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u0430",
+        "Structure from the v1.0.3 extract. Difficulty note checked on dpsquad.wiki 22 Nov 2026; HP not re-extracted.": "\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u0438\u0437 \u0432\u044b\u0433\u0440\u0443\u0437\u043a\u0438 v1.0.3. \u0417\u0430\u043c\u0435\u0442\u043a\u0430 \u043e \u0441\u043b\u043e\u0436\u043d\u043e\u0441\u0442\u0438 \u0441\u0432\u0435\u0440\u0435\u043d\u0430 \u0441 dpsquad.wiki 22 \u043d\u043e\u044f\u0431\u0440\u044f 2026; HP \u0437\u0430\u043d\u043e\u0432\u043e \u043d\u0435 \u0441\u043d\u0438\u043c\u0430\u043b\u0438.",
+        "Hidden, not obtainable": "\u0421\u043a\u0440\u044b\u0442, \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043d\u0435\u043b\u044c\u0437\u044f",
         "Equipment tier catalog cross-checked; exact grade stats not independently verified": "\u041a\u0430\u0442\u0430\u043b\u043e\u0433 \u0442\u0438\u0440\u043e\u0432 \u0441\u0432\u0435\u0440\u0435\u043d; \u0442\u043e\u0447\u043d\u044b\u0435 \u0445\u0430\u0440\u0430\u043a\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043a\u0438 \u0433\u0440\u0435\u0439\u0434\u043e\u0432 \u043d\u0435\u0437\u0430\u0432\u0438\u0441\u0438\u043c\u043e \u043d\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u044b",
     },
     "statLabels": ["\u0433\u0435\u0440\u043e\u0435\u0432", "\u0430\u043a\u0442\u0438\u0432\u043d\u044b\u0445 \u043d\u0430\u0432\u044b\u043a\u043e\u0432",
@@ -251,14 +261,14 @@ RU = {
     },
     "copyKicker": "\u0427\u0442\u043e \u0437\u0434\u0435\u0441\u044c \u0435\u0441\u0442\u044c",
     "copyH2": "\u0427\u0442\u043e \u043c\u043e\u0436\u043d\u043e \u043d\u0430\u0439\u0442\u0438 \u0432 \u044d\u0442\u043e\u0439 \u0432\u0438\u043a\u0438?",
-    "copyP": ("\u042d\u0442\u0430 \u0441\u043f\u0440\u0430\u0432\u043a\u0430 \u0441 \u043f\u043e\u0438\u0441\u043a\u043e\u043c \u043d\u0430 \u043e\u0434\u043d\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435 "
-              "\u0441\u0435\u0439\u0447\u0430\u0441 \u043e\u0445\u0432\u0430\u0442\u044b\u0432\u0430\u0435\u0442 \u0432\u0441\u0435\u0445 \u043f\u044f\u0442\u0435\u0440\u044b\u0445 \u0438\u0433\u0440\u043e\u0432\u044b\u0445 "
-              "\u0433\u0435\u0440\u043e\u0435\u0432, 40 \u0430\u043a\u0442\u0438\u0432\u043d\u044b\u0445 \u043d\u0430\u0432\u044b\u043a\u043e\u0432 \u0441 \u0442\u0440\u0438\u0433\u0433\u0435\u0440\u0430\u043c\u0438, "
-              "\u0434\u0435\u0432\u044f\u0442\u044c \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u0445 \u043f\u0438\u0442\u043e\u043c\u0446\u0435\u0432 \u0441 \u0438\u0445 \u0431\u043e\u043d\u0443\u0441\u0430\u043c\u0438, "
-              "160 \u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440\u043e\u0432 \u044d\u0442\u0430\u043f\u043e\u0432, \u0432\u0441\u0435 180 \u0437\u0430\u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0445 "
-              "\u0442\u0438\u0440\u043e\u0432 \u0441\u043d\u0430\u0440\u044f\u0436\u0435\u043d\u0438\u044f \u0438 \u043a\u043b\u044e\u0447\u0435\u0432\u044b\u0435 \u043c\u0435\u0445\u0430\u043d\u0438\u043a\u0438. "
-              "\u0412\u0441\u0451 \u2014 \u043d\u0430 \u043e\u0434\u043d\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435: \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u044b\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b "
-              "\u043f\u0435\u0440\u0441\u043e\u043d\u0430\u0436\u0435\u0439 \u0438 \u0434\u043e\u0441\u0442\u0443\u043f \u043a \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f\u043c \u043d\u0435 \u043d\u0443\u0436\u043d\u044b."),
+    "notOnSale": "\u043d\u0435 \u0432 \u043f\u0440\u043e\u0434\u0430\u0436\u0435",
+    "notObtainable": "\u0421\u043a\u0440\u044b\u0442. \u041f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043d\u0435\u043b\u044c\u0437\u044f.",
+    "copyP": ("\u041f\u043e\u0438\u0441\u043a \u043e\u0445\u0432\u0430\u0442\u044b\u0432\u0430\u0435\u0442 \u043f\u044f\u0442\u044c \u0433\u0435\u0440\u043e\u0435\u0432 \u0432 \u0444\u0430\u0439\u043b\u0430\u0445. "
+              "Geumeum \u043d\u0435 \u0432 \u043f\u0440\u043e\u0434\u0430\u0436\u0435. Chopper \u2014 DLC Character Pack. "
+              "\u0415\u0449\u0451 \u0437\u0434\u0435\u0441\u044c: 40 \u0430\u043a\u0442\u0438\u0432\u043d\u044b\u0445 \u043d\u0430\u0432\u044b\u043a\u043e\u0432, \u0434\u0435\u0432\u044f\u0442\u044c \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u0445 "
+              "\u043f\u0438\u0442\u043e\u043c\u0446\u0435\u0432, 160 \u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440\u043e\u0432 \u044d\u0442\u0430\u043f\u043e\u0432, 180 \u0442\u0438\u0440\u043e\u0432 "
+              "\u0441\u043d\u0430\u0440\u044f\u0436\u0435\u043d\u0438\u044f \u0438 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u044b\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430. Worn Compass \u0441\u043a\u0440\u044b\u0442. "
+              "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u044b\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u0436\u0435\u0439 \u043d\u0435 \u043d\u0443\u0436\u043d\u044b."),
     "faqKicker": "\u0412\u043e\u043f\u0440\u043e\u0441\u044b",
     "faqH2": "\u0427\u0430\u0441\u0442\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b",
     "faq": [
@@ -283,21 +293,25 @@ RU = {
          "\u043f\u043e\u043c\u0435\u0447\u0435\u043d\u044b. \u042d\u0442\u043e \u0440\u0430\u0431\u043e\u0447\u0430\u044f \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0430 \u043f\u043e\u0438\u0441\u043a\u0430, "
          "\u0430 \u043d\u0435 \u043f\u043e\u043b\u043d\u0430\u044f \u0432\u044b\u0433\u0440\u0443\u0437\u043a\u0430 \u0431\u0430\u0437\u044b \u0438\u0433\u0440\u044b."),
         ("\u041e\u0442\u043a\u0443\u0434\u0430 \u0434\u0430\u043d\u043d\u044b\u0435 \u043e\u0431 \u0438\u0433\u0440\u0435?",
-         "\u041e\u0442\u043a\u0440\u044b\u0442\u0430\u044f \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e\u0431 \u0438\u0433\u0440\u0435 \u0438 \u0441\u0442\u043e\u0440\u043e\u043d\u043d\u0438\u0435 "
-         "\u043f\u0443\u0431\u043b\u0438\u043a\u0430\u0446\u0438\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 v1.0.3 (\u0441\u0431\u043e\u0440\u043a\u0430 Steam 26637932), "
-         "\u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043e 15 \u043d\u043e\u044f\u0431\u0440\u044f 2026 \u0433\u043e\u0434\u0430. \u0411\u0430\u0437\u0430 \u043d\u0435 \u0432\u044b\u0433\u0440\u0443\u0436\u0435\u043d\u0430 "
-         "\u0438\u0437 \u043a\u043b\u0438\u0435\u043d\u0442\u0430 \u0438\u0433\u0440\u044b \u043d\u0435\u0437\u0430\u0432\u0438\u0441\u0438\u043c\u043e. \u0427\u0438\u0441\u043b\u043e\u0432\u044b\u0435 \u0431\u0430\u043b\u0430\u043d\u0441\u043d\u044b\u0435 "
-         "\u0434\u0430\u043d\u043d\u044b\u0435 \u0432\u0441\u0435\u0433\u0434\u0430 \u0441\u0432\u0435\u0440\u044f\u0439\u0442\u0435 \u0441 \u0442\u0435\u043a\u0443\u0449\u0435\u0439 \u0432\u0435\u0440\u0441\u0438\u0435\u0439."),
+         "\u0421\u0442\u0440\u043e\u043a\u0438 \u0432\u0437\u044f\u0442\u044b \u0438\u0437 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u0445 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439 \u043e v1.0.3 "
+         "(\u0441\u0431\u043e\u0440\u043a\u0430 Steam 26637932) 15 \u043d\u043e\u044f\u0431\u0440\u044f 2026 \u0433\u043e\u0434\u0430. \u0418\u0437 \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u043a\u043b\u0438\u0435\u043d\u0442\u0430 "
+         "\u0438\u0445 \u0437\u0430\u043d\u043e\u0432\u043e \u043d\u0435 \u0441\u043d\u0438\u043c\u0430\u043b\u0438. 22 \u043d\u043e\u044f\u0431\u0440\u044f 2026 \u0442\u0435\u043a\u0443\u0449\u0438\u0435 \u0434\u0430\u043d\u043d\u044b\u0435 "
+         "DPSquad Wiki \u0431\u044b\u043b\u0438 v1.0.6, \u0441\u0431\u043e\u0440\u043a\u0430 26804378. \u0422\u0430\u043c \u043d\u0430\u043f\u0438\u0441\u0430\u043d\u043e, \u0447\u0442\u043e \u044d\u0442\u0430\u043f\u044b, "
+         "\u0441\u043d\u0430\u0440\u044f\u0436\u0435\u043d\u0438\u0435, \u0441\u0443\u043d\u0434\u0443\u043a\u0438 \u0438 Workshop \u043d\u0435 \u043c\u0435\u043d\u044f\u043b\u0438\u0441\u044c, \u0430 \u0437\u0430\u0448\u0438\u0444\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 "
+         "\u043a\u043e\u0434 \u043f\u043e-\u043f\u0440\u0435\u0436\u043d\u0435\u043c\u0443 \u0438\u0437 \u0447\u0442\u0435\u043d\u0438\u044f v1.0.3. \u041d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0444\u043e\u0440\u043c\u0443\u043b\u0438\u0440\u043e\u0432\u043e\u043a "
+         "\u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435 \u043f\u0435\u0440\u0435\u0447\u0438\u0442\u0430\u043d\u044b \u0432 \u0442\u043e\u0442 \u0434\u0435\u043d\u044c. \u0412\u0438\u043a\u0438 \u0444\u0430\u043d\u0430\u0442\u0441\u043a\u0430\u044f, \u043d\u0435 \u043e\u0444\u0438\u0446\u0438\u0430\u043b\u044c\u043d\u0430\u044f."),
         ("\u041f\u043e\u0447\u0435\u043c\u0443 \u043f\u0438\u0442\u043e\u043c\u0446\u0435\u0432 \u0442\u043e\u043b\u044c\u043a\u043e \u0434\u0435\u0432\u044f\u0442\u044c?",
-         "\u0412 \u0444\u0430\u0439\u043b\u0430\u0445 \u0438\u0433\u0440\u044b \u0435\u0441\u0442\u044c \u0434\u0435\u0441\u044f\u0442\u044b\u0439 \u043f\u0438\u0442\u043e\u043c\u0435\u0446, Worn Compass, "
-         "\u043d\u043e \u0432 v1.0.3 \u043e\u043d \u0441\u043a\u0440\u044b\u0442 \u0434\u043e \u0432\u044b\u0445\u043e\u0434\u0430 \u0435\u0433\u043e \u043d\u0430\u0431\u043e\u0440\u0430 \u2014 "
-         "\u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u0438 \u044d\u043a\u0438\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0435\u0433\u043e \u043f\u043e\u043a\u0430 \u043d\u0438\u043a\u0442\u043e \u043d\u0435 "
-         "\u043c\u043e\u0436\u0435\u0442, \u043f\u043e\u044d\u0442\u043e\u043c\u0443 \u0441\u0440\u0435\u0434\u0438 \u0434\u0435\u0432\u044f\u0442\u0438 \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u0445 "
-         "\u043f\u0438\u0442\u043e\u043c\u0446\u0435\u0432 \u043e\u043d \u043d\u0435 \u0441\u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044f."),
+         "Worn Compass \u0435\u0441\u0442\u044c \u0432 \u0444\u0430\u0439\u043b\u0430\u0445 \u0438 \u0441\u043a\u0440\u044b\u0442 \u0434\u043e \u0432\u044b\u0445\u043e\u0434\u0430 \u043d\u0430\u0431\u043e\u0440\u0430. "
+         "\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430 \u0432\u0438\u043a\u0438 v1.0.6, \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u0430\u044f 22 \u043d\u043e\u044f\u0431\u0440\u044f 2026, "
+         "\u043f\u043e-\u043f\u0440\u0435\u0436\u043d\u0435\u043c\u0443 \u043f\u0438\u0448\u0435\u0442, \u0447\u0442\u043e \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u0438 \u043d\u0430\u0434\u0435\u0442\u044c \u0435\u0433\u043e \u043d\u0435\u043b\u044c\u0437\u044f, "
+         "\u043f\u043e\u044d\u0442\u043e\u043c\u0443 \u0441\u0440\u0435\u0434\u0438 \u0434\u0435\u0432\u044f\u0442\u0438 \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u0445 \u043f\u0438\u0442\u043e\u043c\u0446\u0435\u0432 \u0435\u0433\u043e \u043d\u0435\u0442. "
+         "\u041f\u043e\u0438\u0441\u043a \u0435\u0433\u043e \u043d\u0430\u0445\u043e\u0434\u0438\u0442 \u0438 \u043f\u043e\u043c\u0435\u0447\u0430\u0435\u0442 \u043a\u0430\u043a \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e\u0433\u043e."),
     ],
-    "dataLine": ("\u041f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043e 15 \u043d\u043e\u044f\u0431\u0440\u044f 2026 \u00b7 \u0412\u0435\u0440\u0441\u0438\u044f \u0434\u0430\u043d\u043d\u044b\u0445 "
-                 "v1.0.3 (\u0441\u0431\u043e\u0440\u043a\u0430 Steam 26637932) \u00b7 \u041d\u0435\u043e\u0444\u0438\u0446\u0438\u0430\u043b\u044c\u043d\u0430\u044f "
-                 "\u0444\u0430\u043d\u0430\u0442\u0441\u043a\u0430\u044f \u0441\u043f\u0440\u0430\u0432\u043a\u0430."),
+    "dataLine": ("\u0412\u044b\u0433\u0440\u0443\u0437\u043a\u0430 15 \u043d\u043e\u044f\u0431\u0440\u044f 2026 \u00b7 \u043d\u0430\u0431\u043e\u0440 v1.0.3 (\u0441\u0431\u043e\u0440\u043a\u0430 26637932). "
+                 "\u0421\u0432\u0435\u0440\u043a\u0430 22 \u043d\u043e\u044f\u0431\u0440\u044f 2026 \u0441 dpsquad.wiki v1.0.6 (\u0441\u0431\u043e\u0440\u043a\u0430 26804378): "
+                 "workshop, \u044d\u0442\u0430\u043f\u044b, \u0441\u043d\u0430\u0440\u044f\u0436\u0435\u043d\u0438\u0435 \u0438 \u0441\u0443\u043d\u0434\u0443\u043a\u0438 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439; "
+                 "\u0437\u0430\u0448\u0438\u0444\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0432\u0441\u0451 \u0435\u0449\u0451 \u0438\u0437 v1.0.3. \u042d\u0442\u043e \u043d\u0435 \u043d\u043e\u0432\u0430\u044f \u0432\u044b\u0433\u0440\u0443\u0437\u043a\u0430. "
+                 "\u0424\u0430\u043d\u0430\u0442\u0441\u043a\u0430\u044f \u0432\u0438\u043a\u0438, \u043d\u0435 \u043e\u0444\u0438\u0446\u0438\u0430\u043b\u044c\u043d\u0430\u044f."),
     "sourcesLabel": "\u0418\u0441\u0442\u043e\u0447\u043d\u0438\u043a\u0438:",
     "sources": [
         ("Steam", STEAM_SEARCH),
@@ -329,7 +343,8 @@ JS = r"""
   var icons = {Character: '\u265F', Skill: '\u2726', Equipment: '\u2692', Pet: '\u2667', Stage: '\u2691', Mechanic: '\u25CE'};
   function titleFor(x) {
     if (x.type === 'Skill') return x.hero + ' \u00b7 ' + x.trigger;
-    if (x.type === 'Character') return x.weapon + ' \u00b7 ' + x.offhand + (x.dlc ? ' \u00b7 DLC' : '');
+    if (x.type === 'Character') return x.weapon + ' \u00b7 ' + x.offhand + (x.sale === false ? ' \u00b7 ' + STR.notOnSale : (x.dlc ? ' \u00b7 DLC' : ''));
+    if (x.type === 'Pet' && x.obtainable === false) return STR.notObtainable;
     if (x.type === 'Equipment') return x.slot + ' \u00b7 Tier ' + x.tier + ' \u00b7 Lv.' + x.level;
     if (x.type === 'Pet') return x.effect + ' ' + x.value;
     if (x.type === 'Stage') return (x.boss ? STR.bossStage : STR.regularStage) + ' \u00b7 ' + STR.chapterWord + ' ' + x.chapter;
@@ -337,7 +352,7 @@ JS = r"""
   }
   function fields(x) {
     var F = STR.f;
-    if (x.type === 'Character') return [[F.mainWeapon, x.weapon], [F.offhand, x.offhand], [F.activeSkills, x.active], [F.passiveSkills, x.passive], [F.availability, x.dlc ? F.dlc : F.baseRoster]];
+    if (x.type === 'Character') return [[F.mainWeapon, x.weapon], [F.offhand, x.offhand], [F.activeSkills, x.active], [F.passiveSkills, x.passive], [F.availability, x.availability || (x.dlc ? F.dlc : F.baseRoster)]];
     if (x.type === 'Skill') return [[F.hero, x.hero], [F.type, F.activeType], [F.trigger, x.trigger], [F.skillDamage, STR.notVerified]];
     if (x.type === 'Equipment') return [[F.hero, x.hero], [F.slot, x.slot], [F.tier, x.tier], [F.reqLevel, x.level], [F.rarities, x.rarities], [F.gradeCount, x.gradeCount], [F.exactStats, STR.notVerified]];
     if (x.type === 'Pet') return [[F.bonus, x.effect + ' ' + x.value], [F.unlock, x.unlock], [F.bonusUnequipped, STR.yes]];
@@ -378,7 +393,7 @@ JS = r"""
     };
   }
   function matches(x, needle) {
-    var s = [x.name, x.type, x.hero, x.weapon, x.offhand, x.trigger, x.slot, x.tier, x.level, x.rarities, x.effect, x.value, x.unlock, x.difficulty, x.chapter, x.stage, x.description, x.group].filter(function (v) { return v !== undefined && v !== null; }).join(' ').toLowerCase();
+    var s = [x.name, x.type, x.hero, x.weapon, x.offhand, x.trigger, x.slot, x.tier, x.level, x.rarities, x.effect, x.value, x.unlock, x.difficulty, x.chapter, x.stage, x.description, x.group, x.availability, x.status].filter(function (v) { return v !== undefined && v !== null; }).join(' ').toLowerCase();
     return needle.trim().toLowerCase().split(/\s+/).filter(Boolean).every(function (w) { return s.indexOf(w) !== -1; });
   }
   function syncFilters() {
@@ -449,7 +464,8 @@ SEARCH_SVG = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 def counts():
     from collections import Counter
     c = Counter(x["type"] for x in DATA)
-    return [c["Character"], c["Skill"], c["Pet"], c["Stage"], c["Equipment"],
+    pets = sum(1 for x in DATA if x["type"] == "Pet" and x.get("obtainable", True))
+    return [c["Character"], c["Skill"], pets, c["Stage"], c["Equipment"],
             c["Mechanic"]]
 
 

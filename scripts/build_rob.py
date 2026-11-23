@@ -103,7 +103,7 @@ COUNT = {
             'The <a href="https://t.me/robrungame/67">11 Nov 2026 Telegram post</a> also names vehicles, real estate, land, unlocked skill-tree items, recorded clan spending and bribes as confiscated, and a B-coin balance as kept. '
             'First raid and the 7-day server life: that post. '
             'EU 17:00 UTC and East US 8:00 PM ET, plus extra servers: <a href="https://store.steampowered.com/news/app/4262460/view/712291399099220569">Steam news, 4 Nov 2026</a>. '
-            'Reviewed 13 Nov 2026.'
+            'FAQ re-read 22 Nov 2026: the seven-day rule is unchanged. The 20 Nov 2026 Steam patch notes do not mention the raid timer.'
         ),
         "planner_link": (
             'Planning what to keep through the raid? <a href="/rob-run/wipe-planner/">Use the ROB RUN wipe planner</a> '
@@ -143,7 +143,7 @@ COUNT = {
             'В <a href="https://t.me/robrungame/67">посте Telegram от 11 ноября 2026</a> к конфискации также отнесены транспорт, недвижимость, земля, открытые предметы древа, учтённые траты на клан и взятки, а баланс B-coin сохраняется. '
             'Первая облава и срок жизни сервера в семь дней — тот же пост. '
             'EU в 17:00 UTC, восток США в 20:00 ET и дополнительные серверы: <a href="https://store.steampowered.com/news/app/4262460/view/712291399099220569">новость Steam от 4 ноября 2026</a>. '
-            'Проверено 13 ноября 2026.'
+            'FAQ перечитан 22 ноября 2026: правило семи дней не изменилось. В патчноутах Steam от 20 ноября 2026 таймер облавы не упоминается.'
         ),
         "planner_link": (
             'Планируете, что сохранить? <a href="/ru/rob-run/wipe-planner/">Планировщик вайпа ROB RUN</a>: '
@@ -396,7 +396,7 @@ PROFIT = {
         "export": "Export haul CSV",
         "note": "Kefir’s help pages call the in-game money cash. No currency symbol is shown here because none is published on those pages.",
         "data_h": "Data & sources",
-        "data_p": "Source: <a href=\"https://robrunwiki.com/en/data/\">ROB RUN Wiki open data</a>, original <a href=\"https://robrunwiki.com/data/items.csv\">items.csv</a>, game version 0.7.0. English and Russian names, categories and the minimum/maximum sale prices come from that catalogue. Intermediate Notoriety tiers use the documented multipliers — the CSV only publishes the two end prices. This tool is not affiliated with Kefir.",
+        "data_p": "Source: <a href=\"https://robrunwiki.com/en/data/\">ROB RUN Wiki open data</a>, original <a href=\"https://robrunwiki.com/data/items.csv\">items.csv</a>, game version 0.7.0. English and Russian names, categories and the minimum/maximum sale prices come from that catalogue. Intermediate Notoriety tiers use the documented multipliers — the CSV only publishes the two end prices. The 20 Nov 2026 official notes did not list price changes. These are still 0.7.0 estimates, not a new price table. This tool is not affiliated with Kefir.",
         "import_label": "Import updated items.csv",
         "reset": "Reset to site data",
         "import_note": "An imported CSV works for this session only and is not saved. To update the site database, it has to be rebuilt from the public catalogue.",
@@ -411,7 +411,7 @@ PROFIT = {
             ("Why isn’t backpack slot optimization included?",
              "The public catalogue does not provide verified occupied-slot data for every loot item. We do not invent slot counts or rank items on unverified storage assumptions."),
         ],
-        "sources": "Item prices: public catalogue at robrunwiki.com, game version 0.7.0. 569 entries, 373 with a published sale price. Not live prices — confirm in game. BuffForge is an independent fan project, not affiliated with Kefir.",
+        "sources": "Item prices: public catalogue at robrunwiki.com, game version 0.7.0. 569 entries, 373 with a published sale price. Not live prices — confirm in game. The 20 Nov 2026 official Steam notes did not list price changes, so these figures stay labelled 0.7.0. BuffForge is an independent fan project, not affiliated with Kefir.",
     },
     "ru": {
         "title": "Калькулятор добычи ROB RUN — BuffForge",
@@ -478,7 +478,7 @@ PROFIT = {
             ("Почему нет оптимизации по клеткам рюкзака?",
              "В открытом каталоге нет проверенных данных о том, сколько клеток занимает каждый предмет. Мы не выдумываем эти числа и не строим на них рейтинг."),
         ],
-        "sources": "Цены предметов: открытый каталог robrunwiki.com, версия игры 0.7.0. Всего 569 записей, 373 — с опубликованной ценой продажи. Цены не живые — проверяйте в игре. BuffForge — независимый фанатский проект, не связан с Kefir.",
+        "sources": "Цены предметов: открытый каталог robrunwiki.com, версия игры 0.7.0. Всего 569 записей, 373 — с опубликованной ценой продажи. Цены не живые — проверяйте в игре. В официальных заметках Steam от 20 ноября 2026 цен нет, поэтому подпись остаётся 0.7.0. BuffForge — независимый фанатский проект, не связан с Kefir.",
     },
 }
 
@@ -763,8 +763,12 @@ PROFIT_JS = r"""
     perOut.textContent = fmt(net / split);
     ratioOut.textContent = costs === 0 ? '—' :
       (sale / costs).toLocaleString(STR.locale, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '×';
-    calcNoticeEl.textContent = unknown ? STR.unknownWarn.replace('{n}', unknown) :
+    var notice = unknown ? STR.unknownWarn.replace('{n}', unknown) :
       haul.length ? STR.estimates : STR.noHaul;
+    var evict = false;
+    for (var e = 0; e < haul.length; e++) if (haul[e].id === 'evict_plot_1') evict = true;
+    if (evict) notice += ' ' + STR.evictWarn;
+    calcNoticeEl.textContent = notice;
   }
   function renderHaul() {
     var lvl = +notorietyEl.value;
@@ -1077,6 +1081,7 @@ def profit_page(lang):
             "each": "{p} each", "qtyFor": "Quantity for {n}",
             "noHaul": "No loot in your haul.",
             "estimates": "Values are estimates. Base and maximum source values are documented; intermediate levels use verified ladder patterns.",
+            "evictWarn": "Eviction Right still shows the v0.7.0 catalogue range. Official 17 Nov notes say it was temporarily removed from barter and publish no new price. That range is not a live barter price.",
             "unknownWarn": "Warning: {n} item(s) have no verified intermediate Notoriety-tier prices. They are excluded from this estimated payout; choose level 1 or 5, or enter an observed custom sale price.",
             "copied": "Link copied",
             "copyReady": "Link ready — select the address bar and press Ctrl+C to copy.",
@@ -1107,6 +1112,7 @@ def profit_page(lang):
             "each": "{p} за шт.", "qtyFor": "Количество: {n}",
             "noHaul": "В добыче пока пусто.",
             "estimates": "Цены примерные. Базовые и максимальные цены взяты из источника; промежуточные уровни рассчитаны по проверенным множителям.",
+            "evictWarn": "Eviction Right по-прежнему показывает диапазон каталога v0.7.0. В официальных заметках от 17 ноября его временно убрали из бартера и новой цены не дали. Этот диапазон — не живая цена бартера.",
             "unknownWarn": "Внимание: для {n} позиций нет подтверждённых цен для промежуточных уровней дурной славы. Они исключены из примерной выручки — выберите уровень 1 или 5 либо введите свою цену продажи.",
             "copied": "Ссылка скопирована",
             "copyReady": "Ссылка готова — выделите адресную строку и нажмите Ctrl+C.",
@@ -1152,7 +1158,7 @@ SPLIT = {
         "total": "Shares add up to",
         "cash": "cash",
         "note": "Weights are yours — the game does not publish a split. Amounts are the cash you typed.",
-        "sources": "No in-game split ratio is used. Cash wording follows Kefir’s FAQ. Reviewed 13 Nov 2026.",
+        "sources": "No in-game split ratio is used. Cash wording follows Kefir’s FAQ. Reviewed 22 Nov 2026: the 20 Nov patch notes do not change this page. You still type the cash.",
     },
     "ru": {
         "title": "Делёж добычи в отряде ROB RUN — BuffForge",
@@ -1173,7 +1179,7 @@ SPLIT = {
         "total": "Доли в сумме",
         "cash": "деньги",
         "note": "Веса задаёте вы: в игре готовой схемы дележа нет. Сумма — те деньги, которые вы ввели.",
-        "sources": "Игрового коэффициента дележа здесь нет. Слово «деньги» — из справки Kefir. Проверено 13 ноября 2026.",
+        "sources": "Игрового коэффициента дележа здесь нет. Слово «деньги» — из справки Kefir. Проверено 22 ноября 2026: патч от 20 ноября эту страницу не меняет. Сумму по-прежнему вводите вы.",
     },
 }
 
@@ -2255,7 +2261,7 @@ WIPE = {
         "rule_h": "Every 7 days",
         "rule_p": "The Federal Raid resets server-held property. Your accumulated jail time and a small set of character progress carry over. Each server has its own clock.",
         "rule_link": "Read the official FAQ",
-        "chips": ["Rules reviewed 18 Nov 2026", "Official / community sources labeled", "Saved in your browser", "No account required"],
+        "chips": ["Keep/lose list re-read 22 Nov 2026", "Official / community sources labeled", "Saved in your browser", "No account required"],
         "ws_h": "Your wipe workspace",
         "server_label": "Server",
         "server_default": "My server",
@@ -2314,7 +2320,7 @@ WIPE = {
         "import_bad": "That file is not a valid wipe-planner backup.",
         "sources_h": "Rules & sources",
         "sources_lede": "Primary source first. Unknowns stay unknown.",
-        "review_note": "Last editorial review: 18 November 2026. Early-access rules can change without notice. If sources conflict, trust newer official information and the in-game interface.",
+        "review_note": "Keep and lose lists re-read against the Kefir FAQ on 22 Nov 2026. The 20 Nov Steam patch notes do not mention wipe rules. The 17 Nov notes introduced daily and overall jail-time limits and did not publish the numbers, so this page does not add a cap. Early-access rules can still change. If sources conflict, trust newer official information and the in-game interface.",
         "check_h": "Your pre-wipe checklist",
         "check_lede": "Suggested preparation steps, plus any tasks you add. Nothing is sent to a server.",
         "check_progress": "Preparation progress",
@@ -2323,7 +2329,7 @@ WIPE = {
         "check_add": "Add task",
         "check_foot": "This is a personal planning checklist. Completing tasks here does not change anything in ROB RUN.",
         "faq_h": "ROB RUN wipe questions, answered",
-        "sources": "Wipe rules: Kefir FAQ “What is the Federal Raid (Wipe)?” (reviewed 18 Nov 2026); extra items: official Telegram post, 11 Nov 2026; community FAQ: ROB RUN Info. BuffForge is an independent fan project, not affiliated with Kefir.",
+        "sources": "Wipe rules: Kefir FAQ “What is the Federal Raid (Wipe)?” (re-read 22 Nov 2026; the 20 Nov patch notes do not mention them); extra items: official Telegram post, 11 Nov 2026; community FAQ: ROB RUN Info. BuffForge is an independent fan project, not affiliated with Kefir.",
         "track": "+ Track",
         "tracked": "✓ Tracked",
         "remove": "Remove",
@@ -2370,7 +2376,7 @@ WIPE = {
         "rule_h": "Каждые 7 дней",
         "rule_p": "Федеральная облава сбрасывает имущество сервера. Накопленный тюремный срок и небольшой набор прогресса персонажа сохраняются. У каждого сервера свой таймер.",
         "rule_link": "Читать справку Kefir",
-        "chips": ["Правила проверены 18 ноября 2026", "Источники помечены: официальные и сообщества", "Сохраняется в вашем браузере", "Без регистрации"],
+        "chips": ["Списки перечитаны 22 ноября 2026", "Источники помечены: официальные и сообщества", "Сохраняется в вашем браузере", "Без регистрации"],
         "ws_h": "Ваше рабочее место для вайпа",
         "server_label": "Сервер",
         "server_default": "Мой сервер",
@@ -2429,7 +2435,7 @@ WIPE = {
         "import_bad": "Этот файл — не резервная копия планировщика вайпа.",
         "sources_h": "Правила и источники",
         "sources_lede": "Сначала основной источник. Неизвестное остаётся неизвестным.",
-        "review_note": "Последняя редакторская проверка: 18 ноября 2026. Правила раннего доступа могут измениться без предупреждения. При конфликте источников доверяйте более свежей официальной информации и внутриигровому интерфейсу.",
+        "review_note": "Списки «сохраняется» и «сбрасывается» перечитаны по справке Kefir 22 ноября 2026. В патчноутах Steam от 20 ноября правил вайпа нет. Заметки от 17 ноября ввели дневной и общий пределы тюремного срока и не назвали числа, поэтому предела здесь нет. Правила раннего доступа всё ещё могут измениться. При конфликте источников доверяйте более свежей официальной информации и игре.",
         "check_h": "Ваш чек-лист перед вайпом",
         "check_lede": "Предлагаемые шаги подготовки и ваши задачи. На сервер ничего не отправляется.",
         "check_progress": "Прогресс подготовки",
@@ -2438,7 +2444,7 @@ WIPE = {
         "check_add": "Добавить задачу",
         "check_foot": "Это личный чек-лист для планирования. Выполнение задач здесь ничего не меняет в ROB RUN.",
         "faq_h": "Вопросы о вайпе ROB RUN — с ответами",
-        "sources": "Правила вайпа: справка Kefir «Что такое облава федералов — вайп?» (проверено 18 ноября 2026); дополнительные предметы: официальный пост в Telegram от 11 ноября 2026; FAQ сообщества: ROB RUN Info. BuffForge — независимый фанатский проект, не связан с Kefir.",
+        "sources": "Правила вайпа: справка Kefir «Что такое облава федералов — вайп?» (перечитано 22 ноября 2026; в патче от 20 ноября их нет); дополнительные предметы: официальный пост в Telegram от 11 ноября 2026; FAQ сообщества: ROB RUN Info. BuffForge — независимый фанатский проект, не связан с Kefir.",
         "track": "+ Отслеживать",
         "tracked": "✓ Отслеживается",
         "remove": "Убрать",
