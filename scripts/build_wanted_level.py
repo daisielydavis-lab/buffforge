@@ -25,6 +25,7 @@ CANON = {"en": "/gta-6/wanted-evidence-helper/",
 
 GTABASE_URL = "https://www.gtabase.com/articles/gta-6/gta-6-wanted-level-explained-police-system-guide"
 POLYGON_URL = "https://www.polygon.com/gta-6-wanted-level-heat-how-to-lower-grand-theft-auto/"
+GAMESPOT_URL = "https://www.gamespot.com/articles/gta-6-safe-codes-and-robberies-guide/"
 
 WLH = {
     "en": {
@@ -32,7 +33,7 @@ WLH = {
         "desc": ("Interactive GTA 6 Wanted Level Helper. Select your wanted stars, "
                  "police search state and evidence icons to get a step-by-step "
                  "escape and heat-clearing plan."),
-        "h1": "GTA 6 Wanted Level & Evidence Helper",
+        "h1": "GTA 6 Wanted Level & Evidence Helper",
         "card_title": "Wanted Level & Evidence Helper",
         "eyebrow": "GTA VI / Interactive game tools",
         "lede": ("See what the police know. Select your wanted stars, search status, "
@@ -113,6 +114,10 @@ WLH = {
                          "unlocked through Randy\u2019s vehicle-theft line."),
         "blood_para": ("<b>Blood stains and dye packs.</b> They make you easier to "
                        "recognise \u2014 a shower at a safehouse clears them."),
+        "six_para": ("<b>Six stars can't be escaped.</b> At six stars the military "
+                     "joins the manhunt and the whole map stays hot. No disguise, "
+                     "vehicle swap or hiding spot clears it \u2014 the pursuit only ends "
+                     "if you're Wasted or Busted."),
         "strat_h": "Escape strategy: pursue, evade, then clear Heat",
         "strat_p1": ("<strong>First, break line of sight.</strong> Use available cover and "
                     "a route that avoids the search area. <strong>Second, check the Heat "
@@ -146,6 +151,10 @@ WLH = {
              "Published guides distinguish cloud CCTV from on-site footage: the cloud "
              "recording cannot be erased by destroying a local device. Focus on "
              "escaping and addressing other recognition details."),
+            ("Can you escape a 6-star wanted level?",
+             "No. At six stars the military joins the manhunt and the wanted level "
+             "can't be cleared \u2014 breaking line of sight or changing your look "
+             "won't end it. The pursuit only ends if you're Wasted or Busted."),
             ("Is this connected to my GTA 6 game?",
              "No. This is an offline-in-the-browser decision helper. It does not read "
              "live HUD data, modify game files, remove police Heat or access Rockstar accounts."),
@@ -155,10 +164,10 @@ WLH = {
             "change with patches, missions and discoveries. Sources: "
             "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">GTABase Wanted &amp; Heat Guide</a>, "
             "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Polygon: How to lower your wanted and heat level in GTA 6</a>, "
-            "GameSpot GTA 6 robbery / CCTV guide. "
+            "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">GameSpot: GTA 6 Safe Codes and Robberies Guide</a>. "
             "BuffForge is an independent fan-made tools site and is not affiliated "
             "with Rockstar Games or Take-Two Interactive. Spotted a mistake? Email "
-            "<a href=\"mailto:%s\">%s</a>." % (GTABASE_URL, POLYGON_URL, EMAIL, EMAIL)),
+            "<a href=\"mailto:%s\">%s</a>." % (GTABASE_URL, POLYGON_URL, GAMESPOT_URL, EMAIL, EMAIL)),
         "webapp_desc": ("Interactive GTA VI wanted level and heat evidence checklist "
                         "for planning a police escape."),
         "js": {
@@ -225,6 +234,11 @@ WLH = {
                            "No active chase is selected. If Heat indicators remain, changing recognized details may reduce future recognition; otherwise you do not need to manufacture a new escape action."],
             "step_high": ["Favor concealment over prolonged open pursuit",
                           "At {n} stars, expect a more demanding response. Avoid relying on a long, exposed straight-line escape; use cover and alternate routes. This is a tactical recommendation, not a guaranteed timer."],
+            "six_warn": ("6 stars can't be escaped. The military manhunt only ends if "
+                         "you're Wasted or Busted \u2014 these steps can only help you "
+                         "survive longer."),
+            "step_six": ["Six stars: survive, don't plan an escape",
+                         "At six stars the military joins the manhunt and the wanted level can't be cleared by breaking line of sight, changing clothes or swapping vehicles. Expect the whole map to stay hot; your only way out is being Wasted or Busted, so focus on staying alive as long as possible."],
             "step_tracker": ["Account for the vehicle tracker",
                              "A tracker may reveal your vehicle or restrict modification. Prefer a different untracked vehicle once it is safe; do not assume respraying alone will remove tracking."],
             "step_noev": ["No red evidence icon selected",
@@ -267,7 +281,7 @@ WLH = {
         "desc": ("Интерактивный помощник по розыску в GTA 6. Выберите звёзды, "
                  "статус полиции и значки улик — и получите пошаговый план побега "
                  "и снятия розыска."),
-        "h1": "Помощник по розыску и уликам в GTA 6",
+        "h1": "Помощник по розыску и уликам в GTA 6",
         "card_title": "Помощник по розыску и уликам",
         "eyebrow": "GTA VI / Интерактивные игровые инструменты",
         "lede": ("Посмотрите, что о вас знает полиция. Выберите звёзды розыска, "
@@ -349,6 +363,10 @@ WLH = {
                          "через линию угона автомобилей у Рэнди."),
         "blood_para": ("<b>Пятна крови и пакеты с красителем.</b> Они делают вас "
                        "заметнее — душ в убежище всё смывает."),
+        "six_para": ("<b>Шесть звёзд сбросить нельзя.</b> При шести звёздах к погоне "
+                     "подключаются военные, и вся карта остаётся горячей. Ни маскировка, "
+                     "ни смена машины, ни укрытие не снимут розыск — облава закончится, "
+                     "только если вас поймают или убьют."),
         "strat_h": "Стратегия побега: уйти, скрыться, снять улики",
         "strat_p1": ("<strong>Сначала разорвите видимость.</strong> Используйте укрытия "
                     "и маршрут в обход зоны поисков. <strong>Затем проверьте значки "
@@ -381,6 +399,10 @@ WLH = {
              "Опубликованные гайды отличают облачные камеры от обычных: облачную "
              "запись нельзя стереть, уничтожив местное устройство. Сосредоточьтесь "
              "на побеге и других признаках опознания."),
+            ("Можно ли уйти от шести звёзд розыска?",
+             "Нет. При шести звёздах к погоне подключаются военные, и розыск нельзя "
+             "снять: ни разрыв видимости, ни смена внешности его не закончат. "
+             "Облава закончится, только если вас поймают или убьют."),
             ("Инструмент связан с моей игрой GTA 6?",
              "Нет. Это офлайн-помощник в браузере. Он не читает данные игры, не "
              "меняет файлы, не снимает розыск и не подключается к аккаунтам Rockstar."),
@@ -390,10 +412,10 @@ WLH = {
             "меняться с патчами, миссиями и открытиями. Источники: "
             "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">GTABase Wanted &amp; Heat Guide</a>, "
             "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Polygon: How to lower your wanted and heat level in GTA 6</a>, "
-            "гайд GameSpot по ограблениям и камерам в GTA 6. "
+            "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">гайд GameSpot по ограблениям и камерам в GTA 6</a>. "
             "BuffForge — независимый фанатский проект, не связанный с Rockstar Games "
             "и Take-Two Interactive. Нашли ошибку? Напишите на "
-            "<a href=\"mailto:%s\">%s</a>." % (GTABASE_URL, POLYGON_URL, EMAIL, EMAIL)),
+            "<a href=\"mailto:%s\">%s</a>." % (GTABASE_URL, POLYGON_URL, GAMESPOT_URL, EMAIL, EMAIL)),
         "webapp_desc": ("Интерактивный чек-лист розыска и улик GTA VI для планирования "
                         "побега от полиции."),
         "js": {
@@ -460,6 +482,11 @@ WLH = {
                            "Активной погони нет. Если значки улик остались, смена опознанных деталей может снизить риск будущего опознания; специально создавать новые действия для побега не нужно."],
             "step_high": ["Выбирайте скрытность, а не долгое открытое бегство",
                           "При {n} звёздах ждите более жёсткой реакции. Не полагайтесь на долгую прямую погоню по открытой местности; используйте укрытия и обходные маршруты. Это тактическая рекомендация, а не гарантированный таймер."],
+            "six_warn": ("Шесть звёзд сбросить нельзя. Военная облава закончится, "
+                         "только если вас поймают или убьют, — эти шаги лишь помогут "
+                         "продержаться дольше."),
+            "step_six": ["Шесть звёзд: выживайте, а не планируйте побег",
+                         "При шести звёздах к погоне подключаются военные, и розыск нельзя снять ни разрывом видимости, ни сменой одежды или машины. Вся карта останется горячей; выйти можно только через арест или гибель, поэтому сосредоточьтесь на том, чтобы продержаться как можно дольше."],
             "step_tracker": ["Учтите трекер на машине",
                              "Трекер может выдать вашу машину или ограничить её переделку. Когда станет безопасно, лучше пересесть в другую машину без трекера; не думайте, что одной перекраски хватит, чтобы снять слежку."],
             "step_noev": ["Красных значков улик не выбрано",
@@ -564,7 +591,7 @@ def body_html(lang):
         '<article class="wlh-article" id="guide">'
         '<p class="wlh-eyebrow">%s</p><h2>%s</h2><p>%s</p>'
         '<h2>%s</h2><div class="wlh-guide-grid">%s</div>'
-        '<p>%s</p><p>%s</p>'
+        '<p>%s</p><p>%s</p><p>%s</p>'
         '<h2>%s</h2><p>%s</p><p>%s</p>'
         '<div class="faq"><h2>%s</h2>%s</div></article>'
         '<p class="data-line">%s</p>'
@@ -584,7 +611,7 @@ def body_html(lang):
            "2 types" if lang == "en" else "2 \u0432\u0438\u0434\u0430",
            c["empty_h"], c["empty_p"],
            c["guide_eyebrow"], c["guide_h1"], c["guide_p1"],
-           c["guide_h2"], cards, c["tracker_para"], c["blood_para"],
+           c["guide_h2"], cards, c["tracker_para"], c["blood_para"], c["six_para"],
            c["strat_h"], c["strat_p1"], c["strat_p2"],
            c["faq_h"], faq, c["research"]))
 
@@ -615,13 +642,14 @@ $('readout-evidence').textContent=state.evidence.length+' '+evWord(state.evidenc
 function add(id,head,desc,tag=''){if(!plan.some(p=>p.id===id))plan.push({id,head,desc,tag})}
 function buildPlan(){plan=[];const s=state;const has=id=>s.evidence.includes(id);
 const active=['pursuit','lost'].includes(s.status);
+if(s.stars===6)add('six-stars',STR.step_six[0],STR.step_six[1],STR.tag_not_removable);
 if(s.status==='responding')add('response',STR.step_response[0],STR.step_response[1]);
 if(s.status==='unknown')add('unknown',STR.step_unknown[0],STR.step_unknown[1]);
 if(s.status==='pursuit')add('break-sight',STR.step_pursuit[0],s.movement==='foot'?STR.step_pursuit[1]:s.movement==='car'?STR.step_pursuit[2]:STR.step_pursuit[3],STR.tag_priority);
 if(s.status==='lost')add('leave-search',STR.step_lost[0],STR.step_lost[1],STR.tag_priority);
 if(s.status==='heat')add('heat-zone',STR.step_heat[0],STR.step_heat[1],STR.tag_priority);
 if(s.status==='clear')add('no-chase',STR.step_clear[0],STR.step_clear[1]);
-if(active&&s.stars>=4)add('high-stars',STR.step_high[0],STR.step_high[1].replace('{n}',s.stars));
+if(active&&s.stars>=4&&s.stars<6)add('high-stars',STR.step_high[0],STR.step_high[1].replace('{n}',s.stars));
 if(s.tracker==='yes'&&s.movement!=='foot')add('tracker',STR.step_tracker[0],STR.step_tracker[1],STR.tag_check);
 if(s.evidence.length){evTypes.filter(e=>has(e.id)).sort((a,b)=>a.weight-b.weight).forEach(e=>{
 let desc=e.desc;if(e.id==='outfit'&&s.clothes==='no')desc=STR.ov_outfit_no;
@@ -632,13 +660,13 @@ add(e.id,e.head,desc,e.id==='cloud'?STR.tag_not_removable:e.id==='cctv'?STR.tag_
 });}else add('no-evidence',STR.step_noev[0],STR.step_noev[1]);
 if(s.mission==='mission')add('mission',STR.step_mission[0],STR.step_mission[1],STR.tag_mission);
 if(s.mission==='robbery')add('alarm',STR.step_robbery[0],STR.step_robbery[1]);
-if(s.status!=='heat'&&s.status!=='clear')add('final-check',STR.step_final[0],STR.step_final[1]);
+if(s.status!=='heat'&&s.status!=='clear'&&s.stars<6)add('final-check',STR.step_final[0],STR.step_final[1]);
 checked=new Set();generated=true;renderResult();
 }
 function renderResult(){if(!generated)return;
 const pct=plan.length?Math.round(100*checked.size/plan.length):0;
 $('result-summary').textContent=statusOptions.find(x=>x.id===state.status).title+' \u00b7 '+state.evidence.length+' '+evWord(state.evidence.length);
-$('result-body').innerHTML=`<div class="wlh-sec-head"><h3>${STR.list_h}</h3><span class="wlh-small">${STR.complete.replace('{a}',checked.size).replace('{b}',plan.length)}</span></div><div class="wlh-progress" aria-label="${STR.progress_label.replace('{p}',pct)}"><span style="width:${pct}%"></span></div><ol class="wlh-steps">${plan.map((p,i)=>`<li class="${checked.has(p.id)?'done':''}"><input type="checkbox" id="step-${i}" data-step="${escapeText(p.id)}" ${checked.has(p.id)?'checked':''}><label for="step-${i}">${p.tag?`<span class="wlh-tag ${p.tag===STR.tag_not_removable||p.tag===STR.tag_mission?'warn':p.tag===STR.tag_priority?'good':''}">${escapeText(p.tag)}</span>`:''}<strong>${i+1}. ${escapeText(p.head)}</strong><p>${escapeText(p.desc)}</p></label></li>`).join('')}</ol><p class="wlh-note">${STR.note}</p><div class="wlh-result-btns"><button class="btn btn-secondary" type="button" id="copy-plan">${STR.btn_copy}</button><button class="btn btn-secondary" type="button" id="share-plan">${STR.btn_share}</button><button class="btn btn-secondary" type="button" id="print-plan">${STR.btn_print}</button></div>`;
+$('result-body').innerHTML=`${state.stars===6?`<p class="wlh-note">${STR.six_warn}</p>`:''}<div class="wlh-sec-head"><h3>${STR.list_h}</h3><span class="wlh-small">${STR.complete.replace('{a}',checked.size).replace('{b}',plan.length)}</span></div><div class="wlh-progress" aria-label="${STR.progress_label.replace('{p}',pct)}"><span style="width:${pct}%"></span></div><ol class="wlh-steps">${plan.map((p,i)=>`<li class="${checked.has(p.id)?'done':''}"><input type="checkbox" id="step-${i}" data-step="${escapeText(p.id)}" ${checked.has(p.id)?'checked':''}><label for="step-${i}">${p.tag?`<span class="wlh-tag ${p.tag===STR.tag_not_removable||p.tag===STR.tag_mission?'warn':p.tag===STR.tag_priority?'good':''}">${escapeText(p.tag)}</span>`:''}<strong>${i+1}. ${escapeText(p.head)}</strong><p>${escapeText(p.desc)}</p></label></li>`).join('')}</ol><p class="wlh-note">${STR.note}</p><div class="wlh-result-btns"><button class="btn btn-secondary" type="button" id="copy-plan">${STR.btn_copy}</button><button class="btn btn-secondary" type="button" id="share-plan">${STR.btn_share}</button><button class="btn btn-secondary" type="button" id="print-plan">${STR.btn_print}</button></div>`;
 }
 function plainPlan(){return STR.plain_title+'\n'+STR.plain_stars.replace('{n}',state.stars).replace('{status}',statusOptions.find(x=>x.id===state.status).title)+'\n'+(state.evidence.length?STR.plain_ev.replace('{list}',state.evidence.map(id=>evTypes.find(e=>e.id===id).title).join(', ')):STR.plain_ev_none)+'\n\n'+plan.map((p,i)=>`${checked.has(p.id)?'[x]':'[ ]'} ${i+1}. ${p.head}\n${p.desc}`).join('\n\n')+'\n\n'+STR.plain_footer;}
 async function copy(str){try{await navigator.clipboard.writeText(str);toast(STR.toast_copied);}catch(e){const ta=document.createElement('textarea');ta.value=str;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(STR.toast_copied)}catch(x){toast(STR.toast_nocopy)}ta.remove()}}
