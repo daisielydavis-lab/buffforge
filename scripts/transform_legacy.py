@@ -6,9 +6,8 @@ Run:  cd <repo root> && python3 scripts/transform_legacy.py
   logic is preserved VERBATIM — only the <head>, CSS, header and footer
   change. Google Fonts links are removed; the tracker now uses
   assets/site.css (.tracker styles, light shell only).
-- GTA 6 Wanted Evidence Helper (EN + RU): same treatment; the heat scale
-  stays the tool's own scale, the Pre-launch badge is added, and the RU
-  version localises the UI while keeping the same logic.
+- GTA 6 Wanted Evidence Helper moved out 2026-11-23: it is now a live
+  tool built by scripts/build_wanted_level.py (same URL).
 """
 import json
 import os
@@ -21,7 +20,6 @@ from shell import (EMAIL, breadcrumb_jsonld, crumbs_html, page)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 TRACKER_SRC = os.path.join(ROOT, "scripts", "legacy", "aion-2-daily-tracker.html")
-WANTED_SRC = os.path.join(ROOT, "scripts", "legacy", "gta-6-wanted-evidence-helper.html")
 # NOTE: these are the pre-shell artifact originals (git 92c3234). The transform
 # reads them, never the generated pages — so re-running is idempotent.
 
@@ -280,205 +278,9 @@ def tracker_page(lang):
                 games=("aion-2",), tail="<script>%s</script>\n" % script)
 
 
-# ---------------------------------------------------------------- wanted evidence helper
-RU_EVIDENCE = {
-    "face": {"name": "Лицо", "action": "Смените внешность и не высовывайтесь, пока не остынете."},
-    "clothes": {"name": "Одежда", "action": "Смените одежду — именно её описали свидетели."},
-    "cctv": {"name": "Камеры", "action": "Покиньте район и не попадайтесь на камеры."},
-    "duo": {"name": "Дуэт", "action": "Разойдитесь с напарником на время."},
-    "car": {"name": "Транспорт", "action": "Бросьте машину или пересядьте на другую."},
-    "weapon": {"name": "Оружие", "action": "Спрячьте его в багажник — при себе остаются только две винтовки и два пистолета."},
-}
-
-
-def wanted_body_en():
-    main = extract_main(read(WANTED_SRC))
-    main = main.replace('<section class="hero">', '<section class="tool-hero">')
-    main = main.replace('<section class="how">', '<section class="how-box">')
-    main = main.replace('<section class="plan">', '<section class="plan-box">')
-    main = main.replace('<h2>What evidence do they have on you?</h2>',
-                        '<h2 class="sec">What evidence do they have on you?</h2>')
-    main = main.replace('<button class="reset" ', '<button class="reset-btn" ')
-    return main
-
-
-def wanted_body_ru():
-    return """
-  <section class="tool-hero">
-    <h1>Помощник по уликам розыска GTA 6 — <span>что о вас знает полиция?</span></h1>
-    <p class="sub">В GTA 6 вернулись шесть звёзд розыска — и теперь полиция действует по уликам, которых шесть видов. Отметьте, что у них на вас есть, и получите план, как «остыть».</p>
-  </section>
-
-  <div class="note-box amber" style="margin-top:24px"><h3>До выхода — по материалам превью</h3>
-  <p>Механика описана по предрелизным превью. Шкала нагрева — собственная шкала инструмента, а не цифра из игры. После выхода 19 ноября 2026 года сверим с живой игрой.</p></div>
-
-  <section class="how-box">
-    <h2>Как работает система улик</h2>
-    <ul>
-      <li><b>Шесть звёзд вернулись.</b> В GTA 5 было пять, в GTA 6 — шесть.</li>
-      <li><b>Звёзды зависят от улик, а не только от шума.</b> То, что полиция о вас знает, влияет на то, как сильно вас ищут, — и это знание бывает шести видов (ниже).</li>
-      <li><b>Свидетели важны.</b> Полиция действует по тому, что люди реально видели и сообщили.</li>
-      <li><b>Наличные под риском.</b> Наличные при себе теряются при смерти или аресте; деньги на совместном банковском счёте в безопасности.</li>
-      <li><b>«Криминальный профиль» — отдельная система.</b> Она отслеживает, как именно вы совершаете преступления. Это не шкала «добро-зло».</li>
-    </ul>
-  </section>
-
-  <h2 class="sec">Какие улики есть на вас?</h2>
-  <p>Отметьте всё, что подходит прямо сейчас. Галочки сохраняются в этом браузере.</p>
-
-  <div class="ev-grid" id="evidenceGrid">
-    <label class="ev" data-ev="face">
-      <input type="checkbox" value="face">
-      <span class="name"><span class="emoji">&#128100;</span> Лицо <span class="box">&#10003;</span></span>
-      <span class="desc">Свидетели видели ваше лицо.</span>
-    </label>
-    <label class="ev" data-ev="clothes">
-      <input type="checkbox" value="clothes">
-      <span class="name"><span class="emoji">&#128090;</span> Одежда <span class="box">&#10003;</span></span>
-      <span class="desc">Очевидцы сообщили о вашей одежде.</span>
-    </label>
-    <label class="ev" data-ev="cctv">
-      <input type="checkbox" value="cctv">
-      <span class="name"><span class="emoji">&#128250;</span> Камеры <span class="box">&#10003;</span></span>
-      <span class="desc">Камеры вас засняли.</span>
-    </label>
-    <label class="ev" data-ev="duo">
-      <input type="checkbox" value="duo">
-      <span class="name"><span class="emoji">&#128101;</span> Дуэт <span class="box">&#10003;</span></span>
-      <span class="desc">Вашего напарника опознали вместе с вами.</span>
-    </label>
-    <label class="ev" data-ev="car">
-      <input type="checkbox" value="car">
-      <span class="name"><span class="emoji">&#128663;</span> Транспорт <span class="box">&#10003;</span></span>
-      <span class="desc">Вашу машину заметили.</span>
-    </label>
-    <label class="ev" data-ev="weapon">
-      <input type="checkbox" value="weapon">
-      <span class="name"><span class="emoji">&#128299;</span> Оружие <span class="box">&#10003;</span></span>
-      <span class="desc">Ваше оружие видели.</span>
-    </label>
-  </div>
-
-  <div class="heat">
-    <div class="top">
-      <div class="stars" id="stars" aria-hidden="true">
-        <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
-      </div>
-      <div class="lights" id="lights" aria-hidden="true">
-        <span class="light red"></span><span class="light blue"></span><span class="light calm"></span>
-      </div>
-    </div>
-    <div class="row">
-      <span class="label clean" id="heatLabel">Чисто</span>
-      <span class="count" id="heatCount">0 из 6 типов улик</span>
-    </div>
-    <div class="bar"><i id="heatBar"></i></div>
-    <p class="note">Нагрев — собственная шкала инструмента по числу отмеченных типов улик, а не цифра из игры. Чем больше типов улик у полиции, тем сложнее оторваться.</p>
-  </div>
-
-  <div class="actions-grid" id="actions"></div>
-
-  <section class="plan-box">
-    <h2>Ваш план «остыть»</h2>
-    <div id="planBody"></div>
-    <button class="reset-btn" id="resetBtn" type="button">Сбросить всё</button>
-  </section>
-
-  <section class="unknown">
-    <h2>Чего мы пока не знаем</h2>
-    <ul>
-      <li>Сколько именно звёзд даёт каждый тип улик и как быстро спадает нагрев — в вышедшей игре не проверено.</li>
-      <li>Как именно работают поиски и периметры полиции — в превью описано, но цифр в открытом доступе нет.</li>
-      <li>Страница по-прежнему основана на предрелизных превью и не сверена с вышедшей игрой.</li>
-    </ul>
-  </section>
-"""
-
-
-def wanted_ru_script():
-    script = extract_script(read(WANTED_SRC))
-    # Replace the EVIDENCE dict with the Russian one.
-    pat = re.compile(r"var EVIDENCE = \{.*?\n  \};", re.S)
-    assert pat.search(script), "EVIDENCE dict not found"
-    ru = "var EVIDENCE = {\n" + ",\n".join(
-        '    %s: { name: %s, action: %s }' % (k, json.dumps(v["name"], ensure_ascii=False),
-                                              json.dumps(v["action"], ensure_ascii=False))
-        for k, v in RU_EVIDENCE.items()) + "\n  };"
-    script = pat.sub(ru, script, count=1)
-    script = script.replace("var KEY = 'bf-gta6-evidence-v1';",
-                            "var KEY = 'bf-gta6-evidence-v1-ru';")
-    script = script.replace(
-        "var level = n === 0 ? 'Clean' : n <= 2 ? 'Warm' : n <= 4 ? 'Hot' : 'Burned';",
-        "var levelKey = n === 0 ? 'clean' : n <= 2 ? 'warm' : n <= 4 ? 'hot' : 'burned';\n"
-        "    var level = {clean: 'Чисто', warm: 'Тепло', hot: 'Горячо', burned: 'Пожар'}[levelKey];")
-    script = script.replace("heatLabel.className = 'label ' + level.toLowerCase();",
-                            "heatLabel.className = 'label ' + levelKey;")
-    script = script.replace("heatCount.textContent = n + ' of 6 evidence types';",
-                            "heatCount.textContent = n + ' из 6 типов улик';")
-    script = script.replace("txt.innerHTML = '<b>You are clean.</b> No evidence on file — nothing to clear.';",
-                            "txt.innerHTML = '<b>Вы чисты.</b> Улик нет — очищать нечего.';")
-    script = script.replace("li1.innerHTML = '<b>Break line of sight and leave the search area.</b>';",
-                            "li1.innerHTML = '<b>Оторвитесь от погони и покиньте зону поисков.</b>';")
-    return script
-
-
-def wanted_page(lang):
-    home = "Home" if lang == "en" else "Главная"
-    home_path = "/" if lang == "en" else "/ru/"
-    hub_path = "/gta-6/" if lang == "en" else "/ru/gta-6/"
-    if lang == "en":
-        title = "GTA 6 Wanted Evidence Helper — What Do the Cops Know About You? | BuffForge"
-        desc = ("Tick the evidence the police hold on you in GTA 6 — face, clothes, CCTV, "
-                "the duo, your car, your weapon — and get a plan to go cold. "
-                "Based on confirmed pre-release previews.")
-        name = "Wanted Evidence Helper"
-        inner = wanted_body_en()
-        script = extract_script(read(WANTED_SRC))
-        badge_html = ('<div class="note-box amber" style="margin-top:24px"><h3>Not yet verified in the live game</h3>'
-                      '<p>The heat scale is the tool\u2019s own scale, not an in-game number. '
-                      'Star values and fade speed come from pre-release previews and have not been checked against the shipped game.</p></div>')
-        inner = inner.replace('<section class="how-box">', badge_html + '\n  <section class="how-box">', 1)
-        # Sources + correction line (the original page footer is replaced by the shell footer).
-        inner += ('<p class="data-line">Based on pre-release hands-on previews '
-                  '(Rockstar North, Nov 2026). Not checked against the shipped game. '
-                  'Sources: gta6.how gameplay page; Flow Games preview via gtavice.net. '
-                  'Data version: Nov 12, 2026. Spotted a wrong number? Email '
-                  '<a href="mailto:%s">%s</a>.</p>' % (EMAIL, EMAIL))
-    else:
-        title = "Помощник по уликам розыска GTA 6 — что о вас знает полиция? | BuffForge"
-        desc = ("Отметьте улики, которые есть у полиции в GTA 6: лицо, одежду, камеры, "
-                "дуэт, транспорт, оружие — и получите план, как «остыть». По предрелизным превью.")
-        name = "Помощник по уликам розыска"
-        inner = wanted_body_ru()
-        script = wanted_ru_script()
-        inner = inner.replace(
-            '<section class="how-box">',
-            '<div class="note-box amber" style="margin-top:24px"><h3>В вышедшей игре ещё не проверено</h3>'
-            '<p>Шкала нагрева — шкала этого инструмента, не цифра из игры. '
-            'Звёзды и скорость спада взяты из предрелизных превью и с вышедшей игрой не сверены.</p></div>\n  <section class="how-box">',
-            1)
-        inner += ('<p class="data-line">По предрелизным превью (Rockstar North, ноябрь 2026). '
-                  'С вышедшей игрой не сверено. Данные на 12 ноября 2026 года. '
-                  'Нашли ошибку? Напишите на <a href="mailto:%s">%s</a>.</p>' % (EMAIL, EMAIL))
-    canon = "/gta-6/wanted-evidence-helper/" if lang == "en" else "/ru/gta-6/wanted-evidence-helper/"
-    alt = {"en": "/gta-6/wanted-evidence-helper/", "ru": "/ru/gta-6/wanted-evidence-helper/"}
-    jl = [breadcrumb_jsonld(lang, [(home, home_path), ("GTA 6", hub_path), (name, canon)]),
-          {"@context": "https://schema.org", "@type": "WebApplication",
-           "name": name, "url": "https://buffforge.com" + canon, "inLanguage": lang,
-           "applicationCategory": "GameApplication", "operatingSystem": "Any modern browser",
-           "offers": {"@type": "Offer", "price": "0"}}]
-    body = ('<main id="main" class="wrap">%s%s</main>'
-            % (crumbs_html(lang, [("GTA 6", hub_path), (name, None)]), inner))
-    return page(lang, title, desc, canon, alt, body, jsonld=jl,
-                games=("gta-6",), tail="<script>%s</script>\n" % script,
-                noindex=True)
-
-
 def main():
     write("aion-2/daily-tracker/index.html", tracker_page("en"))
     write("ru/aion-2/daily-tracker/index.html", tracker_page("ru"))
-    write("gta-6/wanted-evidence-helper/index.html", wanted_page("en"))
-    write("ru/gta-6/wanted-evidence-helper/index.html", wanted_page("ru"))
     print("legacy transform done")
 
 

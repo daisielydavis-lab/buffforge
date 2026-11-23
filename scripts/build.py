@@ -8,9 +8,10 @@ gta-6/index.html, ru/gta-6/index.html, 404.html, sitemap.xml, robots.txt,
 _headers, _redirects.
 
 Tool pages are hand-written static HTML that share assets/site.css and the
-same shell markup (see scripts/shell.py); the AION 2 tracker and the GTA 6
-Wanted Evidence Helper were re-skinned from their originals by
-scripts/transform_legacy.py, which preserves their JavaScript verbatim.
+same shell markup (see scripts/shell.py); the AION 2 tracker was re-skinned
+from its original by scripts/transform_legacy.py, which preserves its
+JavaScript verbatim. The GTA 6 Wanted Level & Evidence Helper is built by
+scripts/build_wanted_level.py.
 
 To add a game: add it to data/site.json (games + tools), re-run this script,
 then add the tool pages. No HTML copy-paste needed for home / hubs.
