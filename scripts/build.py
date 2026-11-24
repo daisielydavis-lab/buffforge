@@ -409,7 +409,7 @@ ABOUT_COPY = {
             ("What we do not do",
              "We do not datamine game files or reverse-engineer clients. We do not scrape or copy databases or images from Wowhead, Maxroll, Game8, or other sites. We do not publish numbers we have not verified — where sources disagree, we say so and tell you to confirm in-game. We do not write guides for buying games through other regions or bypassing regional restrictions."),
             ("How we check our numbers",
-             "Official announcements first. Community trackers are cited as community sources, never presented as official statements. The Wanted helper stays labelled Unverified until it is checked against the shipped game. If a number turns out to be wrong, we fix the page and update the review date."),
+             "Official announcements first. Community trackers are cited as community sources, never presented as official statements. The Wanted helper was checked against the shipped game on 23 Nov 2026 and is labelled Live. If a number turns out to be wrong, we fix the page and update the review date."),
             ("Report a mistake",
              "Found a wrong number? Email <a href=\"mailto:%s\">%s</a> with the page URL and what is wrong. We correct verified mistakes and update the review date on the page." % (EMAIL, EMAIL)),
         ],
@@ -427,7 +427,7 @@ ABOUT_COPY = {
             ("Чего мы не делаем",
              "Мы не разбираем файлы игры и не реверсим клиент. Мы не копируем базы данных и картинки с Wowhead, Maxroll, Game8 и других сайтов. Мы не публикуем непроверенные цифры: если источники расходятся, мы так и пишем и просим свериться в игре. Мы не пишем гайды о покупке игр через другие регионы и обходе региональных ограничений."),
             ("Как мы проверяем цифры",
-             "Сначала — официальные объявления. Данные трекеров сообщества указываются как источники сообщества, а не как официальные заявления. Помощник по уликам помечен «Не проверено», пока его не сверят с вышедшей игрой. Если цифра оказалась неверной, мы исправляем страницу и обновляем дату проверки."),
+             "Сначала — официальные объявления. Данные трекеров сообщества указываются как источники сообщества, а не как официальные заявления. Помощник по уликам сверен с вышедшей игрой 23 ноября 2026 и помечен «Доступно». Если цифра оказалась неверной, мы исправляем страницу и обновляем дату проверки."),
             ("Сообщить об ошибке",
              "Нашли неверную цифру? Напишите на <a href=\"mailto:%s\">%s</a>: укажите ссылку на страницу и что именно неверно. Подтверждённые ошибки мы исправляем и обновляем дату проверки на странице." % (EMAIL, EMAIL)),
             ("Почему есть русская версия",
@@ -1046,15 +1046,15 @@ HUB_UI = {
 HUB_HERO = {
     "gta-6": {
         "en": {
-            "pill": "GAME HUB · PRE-LAUNCH",
+            "pill": "GAME HUB · LIVE",
             "h2": "Your GTA 6 workspace, all in one place.",
-            "para": "Four tools built on official facts only: a storage check, a launch countdown, an editions comparison, and a console compatibility check. No PC version has been officially announced.",
+            "para": "Five tools built on official facts only: a storage check, a launch countdown, an editions comparison, a console compatibility check, and a wanted level helper. No PC version has been officially announced.",
             "wm": "wm-vi",
         },
         "ru": {
-            "pill": "ИГРОВОЙ ХАБ · ДО ВЫХОДА",
+            "pill": "ИГРОВОЙ ХАБ · АКТИВЕН",
             "h2": "Ваш хаб GTA 6 — всё в одном месте.",
-            "para": "Четыре инструмента только по официальным цифрам: проверка места, обратный отсчёт, сравнение изданий и проверка совместимости. Версия для ПК официально не анонсирована.",
+            "para": "Пять инструментов только по официальным цифрам: проверка места, обратный отсчёт, сравнение изданий, проверка совместимости и помощник по розыску. Версия для ПК официально не анонсирована.",
             "wm": "wm-vi",
         },
     },
@@ -1115,8 +1115,8 @@ HUB_PREVIEW = {
                  "Storage, launch time, editions and compatibility all cite official sources."),
                 ("Out since 19 Nov 2026",
                  "PlayStation 5 and Xbox Series X|S. No announced PC version."),
-                ("Wanted helper still unverified",
-                 "It stays on pre-release previews. It is not in the sitemap."),
+                ("Wanted helper reviewed 23 Nov 2026",
+                 "Built on post-launch guides; it is in the sitemap."),
             ],
             "widget_title": "Storage Space Calculator",
             "widget_small": "Enter your own figures · no assumed GTA 6 install size",
@@ -1138,8 +1138,8 @@ HUB_PREVIEW = {
                  "Место, время выхода, издания и совместимость — всё с указанием официальных источников."),
                 ("Вышла 19 ноября 2026",
                  "PlayStation 5 и Xbox Series X|S. Версия для ПК не анонсирована."),
-                ("Помощник по уликам не сверен",
-                 "Он остаётся на предрелизных превью и не входит в карту сайта."),
+                ("Помощник по уликам сверен 23 ноября 2026",
+                 "Построен на гайдах после выхода игры; он есть в карте сайта."),
             ],
             "widget_title": "Калькулятор места на диске",
             "widget_small": "Введите свои цифры · размер установки не подставляется",
@@ -1854,11 +1854,11 @@ def hub_page(game_id, lang):
 
 # ---------------------------------------------------------------- 404
 # Search index for the 404 page: live pages only (home, about, hubs,
-# live tools and live guides). The pre-launch Wanted Helper is excluded.
+# live tools and live guides).
 NF_HUB_CARDS = {
     "desktop-pension-squad": ("▦", "fuse or salvage calculator", "калькулятор слияния и разбора"),
     "aion-2": ("✦", "daily & weekly tracker", "трекер ежедневных и еженедельных заданий"),
-    "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility", "проверка места, обратный отсчёт, издания, совместимость"),
+    "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility, wanted level helper", "проверка места, обратный отсчёт, издания, совместимость, помощник по розыску"),
     "rob-run": ("⬢", "federal raid countdown, loot calculator, server news", "обратный отсчёт облавы, калькулятор добычи, новости серверов"),
 }
 
