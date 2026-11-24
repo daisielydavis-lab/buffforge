@@ -939,7 +939,7 @@ def body_html(lang):
           '<button id="clearLogsBtn" type="button" class="jt-link-btn danger jt-hidden">%s</button></div>' % (c["hist_h"], c["hist_clear"])
         + '<div id="logsEmpty" class="jt-empty" style="padding:18px;">%s</div>' % c["hist_empty"]
         + '<div id="logsList" class="jt-hidden"></div></div></div></section>'
-        + '<article class="wlh-article" id="guide">'
+        + '<article class="wlh-article jt-article" id="guide">'
         + '<p class="wlh-eyebrow">%s</p><h2>%s</h2><p>%s</p>' % (c["eyebrow"], c["guide_h"], c["guide_p1"])
         + '<h3>%s</h3><p>%s</p><p class="wlh-note">%s</p>' % (c["guide_h3a"], c["guide_p2"], c["caveat"])
         + '<h3>%s</h3><p>%s</p>' % (c["guide_h3b"], c["guide_p3"])

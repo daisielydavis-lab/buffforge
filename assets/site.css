@@ -1829,6 +1829,10 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 .wlh-result-btns .btn { font-size: var(--fs-small); padding: 10px 12px; height: auto; }
 .wlh-note { font-size: var(--fs-small); color: var(--body); background: var(--warm-dim); border-left: 3px solid var(--warm); padding: 13px; border-radius: 7px; margin-top: 15px; }
 .wlh-article { max-width: 980px; margin: 8px 0 70px; padding: 0 22px; }
+/* Jail calculator: the text directly above the guide sits inside nested
+   field boxes (panel 22px + field-box border 1px + padding 14px), so the
+   guide needs 38px to sit on the same left edge. */
+.jt-article { padding-left: 38px; }
 .wlh-article h2 { font-size: var(--fs-h2); letter-spacing: -.02em; line-height: 1.25; margin: 38px 0 12px; color: var(--ink); }
 .wlh-article h3 { font-size: var(--fs-h3); margin: 24px 0 7px; color: var(--ink); }
 .wlh-article p, .wlh-article li { color: var(--body); }
