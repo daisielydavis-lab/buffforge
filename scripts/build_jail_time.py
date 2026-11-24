@@ -30,6 +30,7 @@ Verified fixes vs the demo (facts checked 2026-11-24):
 """
 import json
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -150,7 +151,7 @@ JT = {
         "hist_empty": "No wipe logs recorded yet.",
         "guide_h": "How ROB RUN Jail Time & Authority Work (2026 Guide)",
         "guide_p1": ("In <b>ROB RUN</b>, there is no traditional XP bar. Every "
-                     "seven days, the <b>Federal Raid</b> wipes all plots, bases, "
+                     "seven days, the <a href=\"/rob-run/wipe-planner/\"><b>Federal Raid</b></a> wipes all plots, bases, "
                      "weapons, vehicles, and cash on your server and converts that "
                      "wealth into permanent <b>Jail Time</b> \u2014 which directly "
                      "equals your <b>Authority</b> level."),
@@ -187,6 +188,13 @@ JT = {
              ROBRUNGAME_URL, "unlock table, game config 0.7.0"),
         ],
         "faq_h": "Frequently Asked Questions",
+        "related_h": "ROB RUN tools",
+        "related": [
+            ("/rob-run/wipe-planner/", "ROB RUN Wipe Planner",
+             "What resets and what stays at the wipe — check each item and build your pre-wipe checklist."),
+            ("/rob-run/federal-raid-countdown/", "Federal Raid countdown",
+             "Seven days from the server opening — in your time, Moscow time and UTC."),
+        ],
         "faq": [
             ("How is Jail Time calculated at the Federal Raid?",
              "Players report 1 year of Jail Time per $500,000 of confiscated "
@@ -194,7 +202,8 @@ JT = {
             ("Do I need to surrender to the Feds before the wipe?",
              "No. Your server assets convert automatically during the 7-day "
              "Federal Raid wipe even while offline. Early Federal Surrender is "
-             "mainly used to switch servers immediately."),
+             "mainly used to switch servers immediately. Check when your server "
+             "wipes on the <a href=\"/rob-run/federal-raid-countdown/\">Federal Raid countdown</a>."),
             ("What is the fastest solo route to farm Authority?",
              "Without a plot, solo Store Runs sold to the Fence average "
              "~$200,000/hr (~2.5 hrs/year). Once you own a plot, a maxed Grow "
@@ -496,8 +505,8 @@ JT = {
     "hist_empty": "\u0417\u0430\u043f\u0438\u0441\u0435\u0439 \u043e \u0432\u0430\u0439\u043f\u0430\u0445 \u043f\u043e\u043a\u0430 \u043d\u0435\u0442.",
     "guide_h": "\u041a\u0430\u043a \u0440\u0430\u0431\u043e\u0442\u0430\u044e\u0442 \u0442\u044e\u0440\u0435\u043c\u043d\u044b\u0439 \u0441\u0440\u043e\u043a \u0438 \u0430\u0432\u0442\u043e\u0440\u0438\u0442\u0435\u0442 \u0432 ROB RUN (\u0433\u0430\u0439\u0434 2026)",
     "guide_p1": ("\u0412 <b>ROB RUN</b> \u043d\u0435\u0442 \u043f\u0440\u0438\u0432\u044b\u0447\u043d\u043e\u0439 \u0448\u043a\u0430\u043b\u044b "
-                 "\u043e\u043f\u044b\u0442\u0430. \u041a\u0430\u0436\u0434\u044b\u0435 \u0441\u0435\u043c\u044c \u0434\u043d\u0435\u0439 <b>\u0424\u0435\u0434\u0435\u0440\u0430\u043b\u044c\u043d\u0430\u044f "
-                 "\u043e\u0431\u043b\u0430\u0432\u0430</b> \u0441\u0442\u0438\u0440\u0430\u0435\u0442 \u0432\u0441\u0435 \u0443\u0447\u0430\u0441\u0442\u043a\u0438, \u0431\u0430\u0437\u044b, "
+                 "\u043e\u043f\u044b\u0442\u0430. \u041a\u0430\u0436\u0434\u044b\u0435 \u0441\u0435\u043c\u044c \u0434\u043d\u0435\u0439 <a href=\"/ru/rob-run/wipe-planner/\"><b>\u0424\u0435\u0434\u0435\u0440\u0430\u043b\u044c\u043d\u0430\u044f "
+                 "\u043e\u0431\u043b\u0430\u0432\u0430</b></a> \u0441\u0442\u0438\u0440\u0430\u0435\u0442 \u0432\u0441\u0435 \u0443\u0447\u0430\u0441\u0442\u043a\u0438, \u0431\u0430\u0437\u044b, "
                  "\u043e\u0440\u0443\u0436\u0438\u0435, \u0442\u0440\u0430\u043d\u0441\u043f\u043e\u0440\u0442 \u0438 \u0434\u0435\u043d\u044c\u0433\u0438 \u043d\u0430 \u0432\u0430\u0448\u0435\u043c "
                  "\u0441\u0435\u0440\u0432\u0435\u0440\u0435 \u0438 \u043f\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u044d\u0442\u043e \u0431\u043e\u0433\u0430\u0442\u0441\u0442\u0432\u043e "
                  "\u0432 \u043f\u043e\u0441\u0442\u043e\u044f\u043d\u043d\u044b\u0439 <b>\u0442\u044e\u0440\u0435\u043c\u043d\u044b\u0439 \u0441\u0440\u043e\u043a</b> \u2014 "
@@ -542,6 +551,13 @@ JT = {
          ROBRUNGAME_URL, "\u0442\u0430\u0431\u043b\u0438\u0446\u0430 \u0440\u0430\u0437\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u043e\u043a, \u043a\u043e\u043d\u0444\u0438\u0433 \u0438\u0433\u0440\u044b 0.7.0"),
     ],
     "faq_h": "\u0427\u0430\u0441\u0442\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b",
+    "related_h": "\u0418\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b ROB RUN",
+    "related": [
+        ("/ru/rob-run/wipe-planner/", "\u041f\u043b\u0430\u043d\u0438\u0440\u043e\u0432\u0449\u0438\u043a \u0432\u0430\u0439\u043f\u0430 ROB RUN",
+         "\u0427\u0442\u043e \u0441\u0431\u0440\u0430\u0441\u044b\u0432\u0430\u0435\u0442\u0441\u044f, \u0430 \u0447\u0442\u043e \u043e\u0441\u0442\u0430\u0451\u0442\u0441\u044f \u2014 \u043f\u0440\u043e\u0432\u0435\u0440\u044c\u0442\u0435 \u043a\u0430\u0436\u0434\u044b\u0439 \u043f\u0440\u0435\u0434\u043c\u0435\u0442 \u0438 \u043e\u0442\u043c\u0435\u0442\u044c\u0442\u0435 \u0447\u0435\u043a-\u043b\u0438\u0441\u0442."),
+        ("/ru/rob-run/federal-raid-countdown/", "\u041e\u0442\u0441\u0447\u0451\u0442 \u0434\u043e \u0424\u0435\u0434\u0435\u0440\u0430\u043b\u044c\u043d\u043e\u0439 \u043e\u0431\u043b\u0430\u0432\u044b",
+         "\u0421\u0435\u043c\u044c \u0434\u043d\u0435\u0439 \u043e\u0442 \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f \u0441\u0435\u0440\u0432\u0435\u0440\u0430 \u2014 \u0432\u0430\u0448\u0435 \u0432\u0440\u0435\u043c\u044f, \u041c\u043e\u0441\u043a\u0432\u0430 \u0438 UTC."),
+    ],
     "faq": [
         ("\u041a\u0430\u043a \u0441\u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044f \u0442\u044e\u0440\u0435\u043c\u043d\u044b\u0439 \u0441\u0440\u043e\u043a \u043f\u0440\u0438 \u0424\u0435\u0434\u0435\u0440\u0430\u043b\u044c\u043d\u043e\u0439 \u043e\u0431\u043b\u0430\u0432\u0435?",
          "\u0418\u0433\u0440\u043e\u043a\u0438 \u0441\u043e\u043e\u0431\u0449\u0430\u044e\u0442: 1 \u0433\u043e\u0434 \u0442\u044e\u0440\u0435\u043c\u043d\u043e\u0433\u043e \u0441\u0440\u043e\u043a\u0430 "
@@ -552,7 +568,7 @@ JT = {
          "\u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0432\u043e \u0432\u0440\u0435\u043c\u044f 7-\u0434\u043d\u0435\u0432\u043d\u043e\u0433\u043e \u0432\u0430\u0439\u043f\u0430 "
          "\u0424\u0435\u0434\u0435\u0440\u0430\u043b\u044c\u043d\u043e\u0439 \u043e\u0431\u043b\u0430\u0432\u044b, \u0434\u0430\u0436\u0435 \u0435\u0441\u043b\u0438 \u0432\u044b \u043e\u0444\u043b\u0430\u0439\u043d. "
          "\u0420\u0430\u043d\u043d\u044f\u044f \u0441\u0434\u0430\u0447\u0430 \u0444\u0435\u0434\u0435\u0440\u0430\u043b\u0430\u043c \u043d\u0443\u0436\u043d\u0430 \u0432 \u043e\u0441\u043d\u043e\u0432\u043d\u043e\u043c, "
-         "\u0447\u0442\u043e\u0431\u044b \u0441\u0440\u0430\u0437\u0443 \u0441\u043c\u0435\u043d\u0438\u0442\u044c \u0441\u0435\u0440\u0432\u0435\u0440."),
+         "\u0447\u0442\u043e\u0431\u044b \u0441\u0440\u0430\u0437\u0443 \u0441\u043c\u0435\u043d\u0438\u0442\u044c \u0441\u0435\u0440\u0432\u0435\u0440. \u041a\u043e\u0433\u0434\u0430 \u0432\u0430\u0439\u043f\u043d\u0435\u0442\u0441\u044f \u0432\u0430\u0448 \u0441\u0435\u0440\u0432\u0435\u0440 \u2014 \u043d\u0430 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435 <a href=\"/ru/rob-run/federal-raid-countdown/\">\u043e\u0442\u0441\u0447\u0451\u0442\u0430 \u0434\u043e \u0424\u0435\u0434\u0435\u0440\u0430\u043b\u044c\u043d\u043e\u0439 \u043e\u0431\u043b\u0430\u0432\u044b</a>."),
         ("\u041a\u0430\u043a\u043e\u0439 \u0441\u0430\u043c\u044b\u0439 \u0431\u044b\u0441\u0442\u0440\u044b\u0439 \u0441\u043e\u043b\u043e-\u043c\u0430\u0440\u0448\u0440\u0443\u0442 \u0444\u0430\u0440\u043c\u0430 \u0430\u0432\u0442\u043e\u0440\u0438\u0442\u0435\u0442\u0430?",
          "\u0411\u0435\u0437 \u0443\u0447\u0430\u0441\u0442\u043a\u0430 \u0441\u043e\u043b\u043e-\u043e\u0433\u0440\u0430\u0431\u043b\u0435\u043d\u0438\u044f \u043c\u0430\u0433\u0430\u0437\u0438\u043d\u043e\u0432 "
          "\u0441 \u043f\u0440\u043e\u0434\u0430\u0436\u0435\u0439 \u0441\u043a\u0443\u043f\u0449\u0438\u043a\u0443 \u0434\u0430\u044e\u0442 \u0432 \u0441\u0440\u0435\u0434\u043d\u0435\u043c "
@@ -791,6 +807,9 @@ def body_html(lang):
     faq = "".join(
         '<details><summary><h3>%s</h3><span class="plus">+</span></summary>'
         '<p>%s</p></details>' % (q, a) for q, a in c["faq"])
+    related_html = "".join(
+        '<a class="rel" href="%s"><b>%s</b><span>%s</span></a>' % (href, t, b)
+        for href, t, b in c["related"])
     grow_std, grow_max = GROW_LABELS[lang]
     tabs = (
         '<button type="button" role="tab" data-tab="calculator" aria-selected="true" class="jt-tab">%s</button>'
@@ -926,6 +945,7 @@ def body_html(lang):
         + '<h3>%s</h3><p>%s</p>' % (c["guide_h3b"], c["guide_p3"])
         + '<h3>%s</h3><ul>%s</ul>' % (c["guide_h3c"], sources)
         + '<div class="faq"><h2>%s</h2>%s</div></article>' % (c["faq_h"], faq)
+        + '<section class="related"><h2>%s</h2><div class="related-grid">%s</div></section>' % (c["related_h"], related_html)
         + '<p class="data-line">%s</p>' % c["research"]
         + '<div class="wlh-toast" id="toast" role="status" aria-live="polite"></div>')
 
@@ -1130,7 +1150,7 @@ def jail_page(lang):
     alt = {"en": JT["en"]["canonical"], "ru": JT["ru"]["canonical"]}
     faq_ld = {"@context": "https://schema.org", "@type": "FAQPage",
               "mainEntity": [{"@type": "Question", "name": q,
-                              "acceptedAnswer": {"@type": "Answer", "text": a}}
+                              "acceptedAnswer": {"@type": "Answer", "text": re.sub(r"<[^>]+>", "", a)}}
                              for q, a in c["faq"]]}
     jl = [breadcrumb_jsonld(lang, [(home, home_path), ("ROB RUN", hub_path),
                                    (c["card_title"], canon)]),
