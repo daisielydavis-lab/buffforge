@@ -1833,6 +1833,10 @@ a.hub-result-item:hover { color: var(--teal-deep); }
    field boxes (panel 22px + field-box border 1px + padding 14px), so the
    guide needs 38px to sit on the same left edge. */
 .jt-article { padding-left: 38px; }
+@media (max-width: 640px) {
+  /* 手机端面板 padding 缩到 16px：1(面板边框)+16+1(输入框边框)+14 = 32，与输入框文字对齐 */
+  .jt-article { padding-left: 32px; }
+}
 .wlh-article h2 { font-size: var(--fs-h2); letter-spacing: -.02em; line-height: 1.25; margin: 38px 0 12px; color: var(--ink); }
 .wlh-article h3 { font-size: var(--fs-h3); margin: 24px 0 7px; color: var(--ink); }
 .wlh-article p, .wlh-article li { color: var(--body); }
