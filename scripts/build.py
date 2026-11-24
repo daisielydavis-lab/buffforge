@@ -1859,7 +1859,7 @@ NF_HUB_CARDS = {
     "desktop-pension-squad": ("▦", "fuse or salvage calculator", "калькулятор слияния и разбора"),
     "aion-2": ("✦", "daily & weekly tracker", "трекер ежедневных и еженедельных заданий"),
     "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility, wanted level helper", "проверка места, обратный отсчёт, издания, совместимость, помощник по розыску"),
-    "rob-run": ("⬢", "federal raid countdown, loot calculator, server news", "обратный отсчёт облавы, калькулятор добычи, новости серверов"),
+    "rob-run": ("⬢", "federal raid countdown, loot calculator, server news, jail time calculator", "обратный отсчёт облавы, калькулятор добычи, новости серверов, калькулятор тюремного срока"),
 }
 
 NF_SEARCH_JS = """
