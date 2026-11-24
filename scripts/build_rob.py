@@ -16,6 +16,7 @@ Cash has no verified symbol. Calculators say "cash" / «деньги».
 """
 import json
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -90,7 +91,7 @@ COUNT = {
         "keep_h": "You keep",
         "lose_h": "You lose",
         "keep": ["Cosmetics", "Player name", "Tutorial progress", "Settings", "Accumulated jail time"],
-        "lose": ["Plots", "Bases", "Weapons", "Cash — turned into jail time and authority"],
+        "lose": ["Plots", "Bases", "Weapons", "Cash — turned into <a href=\"/rob-run/jail-time-authority-calculator/\">jail time and authority</a>"],
         "passed": "This raid time has passed.",
         "need": "Enter an opening date and time.",
         "open_prefix": "Opening",
@@ -109,6 +110,13 @@ COUNT = {
             'Planning what to keep through the raid? <a href="/rob-run/wipe-planner/">Use the ROB RUN wipe planner</a> '
             'to check what resets, what carries over, and build your pre-wipe checklist.'
         ),
+        "related_h": "ROB RUN tools",
+        "related": [
+            ("/rob-run/wipe-planner/", "ROB RUN Wipe Planner",
+             "What resets and what stays — check each item and build your pre-wipe checklist."),
+            ("/rob-run/jail-time-authority-calculator/", "Jail Time & Authority Calculator",
+             "Work out your wipe sentence: $500,000 = +1 year, capped at 40 years per server."),
+        ],
     },
     "ru": {
         "title": "Отсчёт до Федеральной облавы в ROB RUN — BuffForge",
@@ -130,7 +138,7 @@ COUNT = {
         "keep_h": "Остаётся",
         "lose_h": "Обнуляется",
         "keep": ["Косметика", "Ник", "Прогресс обучения", "Настройки", "Накопленный тюремный срок"],
-        "lose": ["Земли", "Базы", "Оружие", "Деньги — они становятся тюремным сроком и авторитетом"],
+        "lose": ["Земли", "Базы", "Оружие", "Деньги — они становятся <a href=\"/ru/rob-run/jail-time-authority-calculator/\">тюремным сроком и авторитетом</a>"],
         "passed": "Это время облавы уже прошло.",
         "need": "Укажите дату и время открытия.",
         "open_prefix": "Открытие",
@@ -149,6 +157,13 @@ COUNT = {
             'Планируете, что сохранить? <a href="/ru/rob-run/wipe-planner/">Планировщик вайпа ROB RUN</a>: '
             'что сбрасывается, что остаётся, и чек-лист перед вайпом.'
         ),
+        "related_h": "Инструменты ROB RUN",
+        "related": [
+            ("/ru/rob-run/wipe-planner/", "Планировщик вайпа ROB RUN",
+             "Что сбрасывается, а что остаётся — проверьте каждый предмет и отметьте чек-лист."),
+            ("/ru/rob-run/jail-time-authority-calculator/", "Калькулятор тюремного срока и авторитета",
+             "Посчитайте срок за вайп: $500 000 = +1 год, максимум 40 лет с сервера."),
+        ],
     },
 }
 
@@ -292,6 +307,9 @@ def countdown_page(lang):
         for zid, en, ru in ZONES)
     keep = "".join("<li>%s</li>" % x for x in c["keep"])
     lose = "".join("<li>%s</li>" % x for x in c["lose"])
+    related_html = "".join(
+        '<a class="rel" href="%s"><b>%s</b><span>%s</span></a>' % (href, t, b)
+        for href, t, b in c["related"])
     body = (
         '<main id="main" class="wrap narrow">%s'
         '<h1 class="page-h1">%s</h1><p class="page-lede">%s</p>'
@@ -315,11 +333,13 @@ def countdown_page(lang):
         '<div class="keep-grid"><div class="note-box"><h2>%s</h2><ul>%s</ul></div>'
         '<div class="note-box amber"><h2>%s</h2><ul>%s</ul></div></div>'
         '<p class="hint">%s</p>'
+        '<section class="related"><h2>%s</h2><div class="related-grid">%s</div></section>'
         '<p class="data-line">%s</p></main>'
         % (crumbs_html(lang, [("ROB RUN", hub), (c["h1"], None)]),
            c["h1"], c["lede"], c["mode"], opts, c["opened"], c["zone"], zones,
            c["open_date"], c["local"], c["msk"], c["utc"],
-           c["keep_h"], keep, c["lose_h"], lose, c["planner_link"], c["sources"])
+           c["keep_h"], keep, c["lose_h"], lose, c["planner_link"],
+           c["related_h"], related_html, c["sources"])
     )
     strings = {
         "locale": "en-US" if lang == "en" else "ru-RU",
@@ -2329,6 +2349,13 @@ WIPE = {
         "check_add": "Add task",
         "check_foot": "This is a personal planning checklist. Completing tasks here does not change anything in ROB RUN.",
         "faq_h": "ROB RUN wipe questions, answered",
+        "related_h": "ROB RUN tools",
+        "related": [
+            ("/rob-run/federal-raid-countdown/", "Federal Raid countdown",
+             "Seven days from the server opening — in your time, Moscow time and UTC."),
+            ("/rob-run/jail-time-authority-calculator/", "Jail Time & Authority Calculator",
+             "Work out your wipe sentence: $500,000 = +1 year, capped at 40 years per server."),
+        ],
         "sources": "Wipe rules: Kefir FAQ “What is the Federal Raid (Wipe)?” (re-read 22 Nov 2026; the 20 Nov patch notes do not mention them); extra items: official Telegram post, 11 Nov 2026; community FAQ: ROB RUN Info. BuffForge is an independent fan project, not affiliated with Kefir.",
         "track": "+ Track",
         "tracked": "✓ Tracked",
@@ -2354,7 +2381,7 @@ WIPE = {
         ],
         "faq": [
             ("What disappears during the Federal Raid?",
-             "Officially: plots, bases, weapons, and cash are wiped. Confiscated holdings are converted into jail time and Authority. The tool does not estimate that conversion."),
+             "Officially: plots, bases, weapons, and cash are wiped. Confiscated holdings are converted into jail time and Authority. The tool does not estimate that conversion — the <a href=\"/rob-run/jail-time-authority-calculator/\">Jail Time & Authority Calculator</a> does."),
             ("What definitely carries over?",
              "Kefir lists cosmetics, player name, tutorial progress, settings, and accumulated jail time. Other items receive a separate evidence label in the checker."),
             ("Is every server wiped at the same time?",
@@ -2444,6 +2471,13 @@ WIPE = {
         "check_add": "Добавить задачу",
         "check_foot": "Это личный чек-лист для планирования. Выполнение задач здесь ничего не меняет в ROB RUN.",
         "faq_h": "Вопросы о вайпе ROB RUN — с ответами",
+        "related_h": "Инструменты ROB RUN",
+        "related": [
+            ("/ru/rob-run/federal-raid-countdown/", "Отсчёт до Федеральной облавы",
+             "Семь дней от открытия сервера — ваше время, Москва и UTC."),
+            ("/ru/rob-run/jail-time-authority-calculator/", "Калькулятор тюремного срока и авторитета",
+             "Посчитайте срок за вайп: $500 000 = +1 год, максимум 40 лет с сервера."),
+        ],
         "sources": "Правила вайпа: справка Kefir «Что такое облава федералов — вайп?» (перечитано 22 ноября 2026; в патче от 20 ноября их нет); дополнительные предметы: официальный пост в Telegram от 11 ноября 2026; FAQ сообщества: ROB RUN Info. BuffForge — независимый фанатский проект, не связан с Kefir.",
         "track": "+ Отслеживать",
         "tracked": "✓ Отслеживается",
@@ -2469,7 +2503,7 @@ WIPE = {
         ],
         "faq": [
             ("Что исчезает во время Федеральной облавы?",
-             "Официально: участки, базы, оружие и деньги сбрасываются. Конфискованное имущество конвертируется в тюремный срок и авторитет. Инструмент не оценивает эту конвертацию."),
+             "Официально: участки, базы, оружие и деньги сбрасываются. Конфискованное имущество конвертируется в тюремный срок и авторитет. Инструмент не оценивает эту конвертацию — это делает <a href=\"/ru/rob-run/jail-time-authority-calculator/\">калькулятор тюремного срока и авторитета</a>."),
             ("Что точно сохраняется?",
              "Kefir называет косметику, имя игрока, прогресс обучения, настройки и накопленный тюремный срок. У остальных предметов в списке — отдельная пометка об источнике."),
             ("Все серверы вайпаются одновременно?",
@@ -2862,6 +2896,9 @@ def wipe_page(lang):
     faq_html = "".join(
         '<details><summary><h3>%s</h3><span class="plus">+</span></summary><p>%s</p></details>'
         % (q, a) for q, a in w["faq"])
+    related_html = "".join(
+        '<a class="rel" href="%s"><b>%s</b><span>%s</span></a>' % (href, t, b)
+        for href, t, b in w["related"])
     # Strings the client script needs; server-rendered copy stays the source
     # of truth for SEO copy (title, desc, h1, hero, sources, FAQ).
     js_keys = ["server_default", "server_n", "delete_server", "del_confirm",
@@ -2968,11 +3005,12 @@ def wipe_page(lang):
         + '<div class="wipe-stack">%s</div>' % src_html
         + '<p class="hint">%s</p></section>' % w["review_note"]
         + '<section class="faq" id="faq"><h2 class="sec">%s</h2>%s</section>' % (w["faq_h"], faq_html)
+        + '<section class="related"><h2>%s</h2><div class="related-grid">%s</div></section>' % (w["related_h"], related_html)
         + '<p class="data-line">%s</p></main>' % w["sources"]
     )
     faq_jl = {"@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": q,
-         "acceptedAnswer": {"@type": "Answer", "text": a}}
+         "acceptedAnswer": {"@type": "Answer", "text": re.sub(r"<[^>]+>", "", a)}}
         for q, a in w["faq"]]}
     return tool_page(lang, "wipe-planner", w["title"], w["desc"], body + js, w["h1"], extra_jsonld=[faq_jl])
 

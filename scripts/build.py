@@ -933,8 +933,8 @@ HUB_BODY = {
             "guides_note": "No guides published yet. Guides appear here only when we can source the numbers — nothing is listed until then.",
             "faq_h": "Frequently asked questions",
             "faq": [
-                ("When is the Federal Raid?", "Seven days after that server opened. Servers launched on 4 Nov 2026 were raided on 11 Nov 2026 at 20:00 MSK (17:00 UTC). A server opened later keeps its own clock."),
-                ("What is wiped, and what stays?", "Plots, bases, weapons and cash are wiped and turned into jail time and authority. Cosmetics, your name, tutorial progress, settings and accumulated jail time stay. Source: Kefir’s Federal Raid FAQ."),
+                ("When is the Federal Raid?", "Seven days after that server opened. Servers launched on 4 Nov 2026 were raided on 11 Nov 2026 at 20:00 MSK (17:00 UTC). A server opened later keeps its own clock. Check your server on the <a href=\"/rob-run/federal-raid-countdown/\">Federal Raid countdown</a>."),
+                ("What is wiped, and what stays?", "Plots, bases, weapons and cash are wiped and turned into <a href=\"/rob-run/jail-time-authority-calculator/\">jail time and authority</a>. Cosmetics, your name, tutorial progress, settings and accumulated jail time stay. The <a href=\"/rob-run/wipe-planner/\">Wipe Planner</a> lists each item. Source: Kefir’s Federal Raid FAQ."),
                 ("Do the calculators know in-game prices?", "No. You type the cash amounts. This site is not connected to the game."),
                 ("Is the ROB RUN EU server down right now?", "This site cannot say. The server-news page requests official Steam announcements and still does not measure EU or East US."),
             ],
@@ -944,8 +944,8 @@ HUB_BODY = {
             "guides_note": "Гайдов пока нет. Гайды появятся здесь, только когда мы сможем проверить цифры, — до тех пор ничего не публикуется.",
             "faq_h": "Частые вопросы",
             "faq": [
-                ("Когда Федеральная облава?", "Через семь дней после открытия этого сервера. Серверы, запущенные 4 ноября 2026 года, прошли облаву 11 ноября в 20:00 МСК (17:00 UTC). У сервера, открытого позже, свой отсчёт."),
-                ("Что обнуляется, а что остаётся?", "Земли, базы, оружие и деньги обнуляются и превращаются в тюремный срок и авторитет. Косметика, ник, прогресс обучения, настройки и накопленный срок остаются. Источник — справка Kefir о Федеральной облаве."),
+                ("Когда Федеральная облава?", "Через семь дней после открытия этого сервера. Серверы, запущенные 4 ноября 2026 года, прошли облаву 11 ноября в 20:00 МСК (17:00 UTC). У сервера, открытого позже, свой отсчёт. Проверьте свой сервер на странице <a href=\"/ru/rob-run/federal-raid-countdown/\">отсчёта до Федеральной облавы</a>."),
+                ("Что обнуляется, а что остаётся?", "Земли, базы, оружие и деньги обнуляются и превращаются в <a href=\"/ru/rob-run/jail-time-authority-calculator/\">тюремный срок и авторитет</a>. Косметика, ник, прогресс обучения, настройки и накопленный срок остаются. Каждый предмет — в <a href=\"/ru/rob-run/wipe-planner/\">планировщике вайпа</a>. Источник — справка Kefir о Федеральной облаве."),
                 ("Калькулятор знает игровые цены?", "Нет. Суммы вводите вы. Сайт к игре не подключён."),
                 ("ROB RUN не работает — это сервер EU?", "Сайт так не отвечает. Страница про вход запрашивает официальные объявления Steam и не измеряет EU или East US."),
             ],
@@ -1859,7 +1859,7 @@ NF_HUB_CARDS = {
     "desktop-pension-squad": ("▦", "fuse or salvage calculator", "калькулятор слияния и разбора"),
     "aion-2": ("✦", "daily & weekly tracker", "трекер ежедневных и еженедельных заданий"),
     "gta-6": ("Ⅵ", "storage check, launch countdown, editions, compatibility, wanted level helper", "проверка места, обратный отсчёт, издания, совместимость, помощник по розыску"),
-    "rob-run": ("⬢", "federal raid countdown, loot calculator, server news", "обратный отсчёт облавы, калькулятор добычи, новости серверов"),
+    "rob-run": ("⬢", "federal raid countdown, loot calculator, server news, jail time calculator", "обратный отсчёт облавы, калькулятор добычи, новости серверов, калькулятор тюремного срока"),
 }
 
 NF_SEARCH_JS = """
