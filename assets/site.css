@@ -39,6 +39,9 @@
   --rob: #7A3E32;
   --rob-wash: #F8E8E4;
   --rob-deep: #5A2C24;
+  --poe: #8C1D18;
+  --poe-wash: #F6E3E1;
+  --poe-deep: #5C130F;
 
   --r-sm: 6px;
   --r: 10px;
@@ -193,6 +196,7 @@ h4 { line-height: 1.4; }
 .dot-gta { background: var(--gta); }
 .dot-dps { background: var(--dps); }
 .dot-rob { background: var(--rob); }
+.dot-poe { background: var(--poe); }
 .lang {
   display: inline-flex; align-items: center;
   margin-left: 10px;
@@ -439,6 +443,7 @@ h1 {
 .game-cover.gta { background: linear-gradient(180deg, #DCEFED 0%, #B5D9D5 100%); }
 .game-cover.dps { background: linear-gradient(180deg, #DCEEEC 0%, #B4D6D3 100%); }
 .game-cover.rob { background: linear-gradient(180deg, #F8E8E4 0%, #E4C4BB 100%); }
+.game-cover.poe { background: linear-gradient(180deg, #F6E3E1 0%, #D8A9A4 100%); }
 /* Bottom scrim so the white cover labels stay readable over real game art. */
 .game-cover::after {
   content: ""; position: absolute; inset: 0; z-index: 0;
@@ -1081,6 +1086,7 @@ h2.sec { font-size: var(--fs-h2); line-height: 1.25; font-weight: 600; letter-sp
 .hub-stat.wm-2::after { content: "2"; font-size: 200px; letter-spacing: -10px; }
 .hub-stat.wm-dps::after { content: "DPS"; font-size: 110px; letter-spacing: -8px; }
 .hub-stat.wm-rob::after { content: "ROB"; font-size: 110px; letter-spacing: -8px; }
+.hub-stat.wm-poe::after { content: "II"; font-size: 175px; letter-spacing: -12px; }
 .hub-pill {
   background: var(--teal-dim); border: 1px solid #C4E5DC;
   padding: 6px 10px; border-radius: 99px;
@@ -1981,3 +1987,26 @@ table.jt-table { width: 100%; min-width: 680px; border-collapse: collapse; font-
 .jt-tag { display: inline-flex; align-items: center; font-size: var(--fs-badge); font-weight: 700; letter-spacing: .04em; padding: 2px 7px; border-radius: 6px; border: 1px solid var(--line-strong); color: var(--body); background: var(--paper); }
 .jt-tag.good { border-color: var(--teal); color: var(--teal-deep); background: var(--teal-dim); }
 .jt-tag.warn { border-color: var(--warm); color: var(--warm-ink); background: var(--warm-dim); }
+
+/* ——— Path of Exile 2 tools (.poe-*) ——— */
+.poe-good { color: var(--ok); font-weight: 700; }
+.poe-bad { color: var(--danger); font-weight: 700; }
+.poe-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.poe-grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.poe-window { font-size: 21px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.poe-table input[type="number"] { width: 78px; padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--paper); font: inherit; color: var(--ink); }
+.poe-table input[type="number"]:focus { outline: 0; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-dim); }
+.table-scroll { overflow-x: auto; }
+.poe-table { width: 100%; border-collapse: collapse; }
+.poe-table th, .poe-table td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.poe-table thead th { font-size: var(--fs-small); color: var(--muted); font-weight: 600; }
+.poe-table tbody th { color: var(--ink); font-weight: 600; }
+.poe-table td small { color: var(--muted); }
+.poe-reward { display: flex; align-items: flex-start; gap: 14px; border-bottom: 1px solid var(--line); padding: 12px 0; }
+.poe-reward:last-child { border-bottom: 0; }
+.poe-reward input { width: 20px; height: 20px; accent-color: var(--teal); flex-shrink: 0; margin-top: 2px; }
+.poe-reward label { margin: 0; flex: 1; font-size: var(--fs-body); color: var(--ink); }
+.poe-reward small { color: var(--muted); }
+.poe-reward.done label { opacity: .62; text-decoration: line-through; }
+@media (max-width: 900px) { .poe-grid, .poe-grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .poe-grid, .poe-grid4 { grid-template-columns: 1fr; } }

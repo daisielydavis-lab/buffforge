@@ -25,7 +25,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from shell import (BASE, EMAIL, GAMES, REVIEWED_EN, REVIEWED_RU, breadcrumb_jsonld,
                    crumbs_html, footer_html, head, header_html, org_website_jsonld, page)
 from art import (AION_COVER, AION_FEATURE, DPS_COVER, DPS_FEATURE,
-                 GTA_COVER, GTA_FEATURE, ROB_COVER, ROB_FEATURE)
+                 GTA_COVER, GTA_FEATURE, POE2_COVER, POE2_FEATURE,
+                 ROB_COVER, ROB_FEATURE)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -192,16 +193,19 @@ ARROW_SVG = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
              'stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>')
 
 GAME_CLS = {"desktop-pension-squad": "dps", "aion-2": "aion", "gta-6": "gta",
-            "rob-run": "rob"}
+            "rob-run": "rob", "path-of-exile-2": "poe"}
 FEATURE_ART = {"desktop-pension-squad": DPS_FEATURE, "aion-2": AION_FEATURE,
-               "gta-6": GTA_FEATURE, "rob-run": ROB_FEATURE}
+               "gta-6": GTA_FEATURE, "rob-run": ROB_FEATURE,
+               "path-of-exile-2": POE2_FEATURE}
 COVER_ART = {"desktop-pension-squad": DPS_COVER, "aion-2": AION_COVER,
-             "gta-6": GTA_COVER, "rob-run": ROB_COVER}
+             "gta-6": GTA_COVER, "rob-run": ROB_COVER,
+             "path-of-exile-2": POE2_COVER}
 GSUB = {
     "desktop-pension-squad": {"en": "Steam — Free to play", "ru": "Steam — бесплатно"},
     "aion-2": {"en": "Global servers — 1&nbsp;live tool", "ru": "Глобальные серверы — 1&nbsp;инструмент"},
     "gta-6": {"en": "PS5 and Xbox Series&nbsp;— out since 19&nbsp;Nov&nbsp;2026", "ru": "PS5 и Xbox Series&nbsp;— вышла 19&nbsp;ноября&nbsp;2026"},
     "rob-run": {"en": "Steam Early Access — free", "ru": "Ранний доступ Steam — бесплатно"},
+    "path-of-exile-2": {"en": "Steam — 1.0 launches 11&nbsp;Dec&nbsp;2026", "ru": "Steam — 1.0 выйдет 11&nbsp;декабря&nbsp;2026"},
 }
 PLANNED_HOME = {
     "desktop-pension-squad": {
@@ -230,6 +234,10 @@ ICONS = {
     "rob-run-server-status": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M7 7h.01M7 17h.01M12 7h6"/></svg>',
     "rob-run-wipe-planner": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4a3 3 0 0 1 6 0M9 11l2 2 4-4"/></svg>',
     "rob-run-kak-ubrat-lagi": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16V11"/><path d="M12 16V7"/><path d="M16 16v-6"/></svg>',
+    "poe2-launch-countdown": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+    "poe2-class-selector": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-3.5 3.5-5 7-5s6 1.5 7 5"/></svg>',
+    "poe2-resistance-calculator": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    "poe2-campaign-checklist": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4a3 3 0 0 1 6 0M9 11l2 2 4-4"/></svg>',
 }
 CHIP_ICONS = [
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>',
@@ -771,6 +779,22 @@ HUB_COPY = {
             "tools_h": "Инструменты", "guides_h": "Гайды",
         },
     },
+    "path-of-exile-2": {
+        "en": {
+            "title": "Path of Exile 2 tools and guides — BuffForge",
+            "desc": "Path of Exile 2 tools and guides: 1.0 launch countdown, class selector, resistance calculator, and campaign reward checklist. Early Access 0.5.5 data reviewed 25 Nov 2026. No login, no ads.",
+            "h1": "Path of Exile 2 tools and guides",
+            "lede": "Path of Exile 2 leaves Early Access on 11 Dec 2026 (PST) and goes free to play, with a six-act campaign, two new classes — Shadow and Duelist — and a new challenge league. Until then, everything here is Early Access 0.5.5 data, reviewed 25 Nov 2026: count down to launch, find a class that fits how you play, check your resistances against the campaign penalty, and tick off every permanent campaign reward.",
+            "tools_h": "Tools", "guides_h": "Guides",
+        },
+        "ru": {
+            "title": "Path of Exile 2: инструменты и гайды — BuffForge",
+            "desc": "Инструменты и гайды по Path of Exile 2: отсчёт до 1.0, выбор класса, калькулятор сопротивлений и чек-лист наград кампании. Данные раннего доступа 0.5.5, сверка 25 ноября 2026. Без регистрации и рекламы.",
+            "h1": "Инструменты и гайды по Path of Exile 2",
+            "lede": "Path of Exile 2 выходит из раннего доступа 11 декабря 2026 года (тихоокеанское время) и становится бесплатной: шесть актов кампании, два новых класса — Тень и Дуэлянт — и новая лига испытаний. До этого момента здесь данные раннего доступа 0.5.5, сверенные 25 ноября 2026 года: отсчёт до выхода, подбор класса под ваш стиль игры, проверка сопротивлений с учётом штрафа кампании и чек-лист всех постоянных наград кампании.",
+            "tools_h": "Инструменты", "guides_h": "Гайды",
+        },
+    },
 }
 
 
@@ -951,6 +975,40 @@ HUB_BODY = {
             ],
         },
     },
+    "path-of-exile-2": {
+        "en": {
+            "guides_h": "Guides",
+            "guides_note": "No guides published yet. Guides appear here only when we can source the numbers — nothing is listed until then.",
+            "faq_h": "Frequently asked questions",
+            "faq": [
+                ("When does Path of Exile 2 1.0 come out?", "11 Dec 2026 (PST). The exact launch hour has not been announced. The game becomes free to play at launch."),
+                ("Are these tools updated for 1.0?", "Not yet. The class list, resistance penalties and campaign rewards reflect Early Access 0.5.5, reviewed 25 Nov 2026. Acts 5–6 and the new classes' final numbers are not presented as confirmed until they are verified after launch."),
+                ("Which class should I start with?", "Start with the combat pattern you enjoy, not a damage ranking. The Class Selector matches the eight Early Access classes by playstyle. Shadow and Duelist arrive with 1.0 and are not scored until their final mechanics are verified."),
+                ("Do I need an account?", "No. The tools run in your browser; the campaign checklist saves locally."),
+            ],
+            "other_h": "Other games on BuffForge",
+            "other": [("Desktop Pension Squad tools and guides", "/desktop-pension-squad/"),
+                      ("AION 2 tools and guides", "/aion-2/"),
+                      ("GTA 6 tools and guides", "/gta-6/"),
+                      ("ROB RUN tools and guides", "/rob-run/")],
+        },
+        "ru": {
+            "guides_h": "Гайды",
+            "guides_note": "Гайдов пока нет. Гайды появятся здесь, только когда мы сможем проверить цифры, — до тех пор ничего не публикуется.",
+            "faq_h": "Частые вопросы",
+            "faq": [
+                ("Когда выходит Path of Exile 2 1.0?", "11 декабря 2026 года (тихоокеанское время). Точный час запуска пока не объявлен. При выходе игра становится бесплатной."),
+                ("Инструменты обновлены под 1.0?", "Пока нет. Список классов, штрафы сопротивлений и награды кампании — по раннему доступу 0.5.5, сверка 25 ноября 2026 года. Акты 5–6 и финальные цифры новых классов не выдаются за подтверждённые, пока не будут сверены после выхода."),
+                ("С какого класса начать?", "С того стиля боя, который нравится, а не с рейтинга урона. Подборщик классов сопоставляет восемь классов раннего доступа по стилю игры. Тень и Дуэлянт появятся в 1.0 и не оцениваются, пока их финальная механика не проверена."),
+                ("Нужна ли регистрация?", "Нет. Инструменты работают в браузере, а чек-лист кампании сохраняется локально."),
+            ],
+            "other_h": "Другие игры на BuffForge",
+            "other": [("инструменты и гайды по Desktop Pension Squad", "/ru/desktop-pension-squad/"),
+                      ("инструменты и гайды по AION 2", "/ru/aion-2/"),
+                      ("инструменты и гайды по GTA 6", "/ru/gta-6/"),
+                      ("инструменты и гайды по ROB RUN", "/ru/rob-run/")],
+        },
+    },
 }
 
 
@@ -1098,6 +1156,20 @@ HUB_HERO = {
             "h2": "Хаб ROB RUN — всё в одном месте.",
             "para": "Отсчёт до Федеральной облавы, калькулятор добычи и дележ в отряде. Суммы в деньгах вводите вы. Новости серверов — отдельная страница с объявлениями Steam, без замера EU или East US.",
             "wm": "wm-rob",
+        },
+    },
+    "path-of-exile-2": {
+        "en": {
+            "pill": "GAME HUB · EARLY ACCESS",
+            "h2": "Your Path of Exile 2 launch workspace, all in one place.",
+            "para": "A 1.0 launch countdown, a class selector for the eight Early Access classes, a resistance calculator with the campaign penalty table, and a checklist of the campaign's permanent rewards. All Early Access 0.5.5 data, reviewed 25 Nov 2026.",
+            "wm": "wm-poe",
+        },
+        "ru": {
+            "pill": "ИГРОВОЙ ХАБ · РАННИЙ ДОСТУП",
+            "h2": "Ваш хаб запуска Path of Exile 2 — всё в одном месте.",
+            "para": "Отсчёт до выхода 1.0, подборщик классов из восьми классов раннего доступа, калькулятор сопротивлений с таблицей штрафов кампании и чек-лист постоянных наград кампании. Все данные — ранний доступ 0.5.5, сверка 25 ноября 2026 года.",
+            "wm": "wm-poe",
         },
     },
 }
@@ -1295,6 +1367,50 @@ HUB_PREVIEW = {
             "hint": "Попробуйте «облава», «добыча», «делёж» или «сервер».",
         },
     },
+    "path-of-exile-2": {
+        "en": {
+            "side_h": "One game. Launch day covered.",
+            "bullets": [
+                ("1.0 launches 11 Dec 2026 (PST)",
+                 "Free to play. Exact launch hour not announced yet."),
+                ("10 classes at 1.0",
+                 "Eight Early Access classes plus Shadow and Duelist."),
+                ("Early Access data, reviewed 25 Nov 2026",
+                 "Campaign rewards and resistance penalties are 0.5.5; Acts 5–6 are not presented as confirmed."),
+            ],
+            "widget_title": "1.0 Launch Countdown",
+            "widget_small": "Dec 11, 2026 (PST) · free to play",
+            "days_one": "day",
+            "days_few": "days",
+            "days_many": "days",
+            "until_suffix": "until release date",
+            "released": "Release date is here — check the official announcement for live availability.",
+            "cta": "Open the countdown",
+            "cta_tool": "poe2-launch-countdown",
+            "hint": "Try “countdown”, “class”, “resistance” or “checklist”.",
+        },
+        "ru": {
+            "side_h": "Одна игра. День выхода учтён.",
+            "bullets": [
+                ("1.0 выйдет 11 декабря 2026 (Тихоокеанское время)",
+                 "Игра станет бесплатной. Точный час запуска пока не объявлен."),
+                ("10 классов в 1.0",
+                 "Восемь классов раннего доступа плюс Тень и Дуэлянт."),
+                ("Данные раннего доступа, сверка 25 ноября 2026",
+                 "Награды кампании и штрафы сопротивлений — 0.5.5; акты 5–6 не выдаются за подтверждённые."),
+            ],
+            "widget_title": "Отсчёт до выхода 1.0",
+            "widget_small": "11 декабря 2026 (Тихоокеанское время) · бесплатно",
+            "days_one": "день",
+            "days_few": "дня",
+            "days_many": "дней",
+            "until_suffix": "до даты выхода",
+            "released": "День выхода настал — смотрите официальное объявление о доступности.",
+            "cta": "Открыть отсчёт",
+            "cta_tool": "poe2-launch-countdown",
+            "hint": "Попробуйте «отсчёт», «класс», «сопротивления» или «чек-лист».",
+        },
+    },
 }
 
 
@@ -1429,6 +1545,20 @@ def preview_widget_rob(lang, ui, pv):
         % (ICONS["rob-run-loot-profit-calculator"], pv["widget_title"], pv["widget_small"],
            pv["label_haul"], pv["label_cost"], pv["result_net"], pv["note"],
            tool_url(lang, t), pv["cta"], ARROW_SVG)
+    )
+
+
+def preview_widget_poe2(lang, ui, pv):
+    t = tool_by_id(pv["cta_tool"])
+    return (
+        '<div class="hub-calc"><div class="hub-calc-head">'
+        '<div class="hub-calc-icon" aria-hidden="true">%s</div>'
+        '<div><h3>%s</h3><small>%s</small></div></div>'
+        '<div class="countdown-big" id="hub-poe2-count">--</div>'
+        '<p class="hub-note" id="hub-poe2-meta">%s</p>'
+        '<p style="margin-top:16px"><a class="btn btn-primary" href="%s">%s %s</a></p></div>'
+        % (ICONS["poe2-launch-countdown"], pv["widget_title"], pv["widget_small"],
+           pv["until_suffix"], tool_url(lang, t), pv["cta"], ARROW_SVG)
     )
 
 
@@ -1639,6 +1769,36 @@ HUB_WIDGET_ROB = """
 """
 
 
+HUB_WIDGET_POE2 = """
+(function () {
+  var STR = __WIDGET_STR__;
+  var start = new Date('2026-12-11T00:00:00-08:00');
+  var countEl = document.getElementById('hub-poe2-count');
+  var metaEl = document.getElementById('hub-poe2-meta');
+  function plural(n, forms) {
+    var m = Math.abs(n) % 100, d = m % 10;
+    if (m > 10 && m < 20) return forms[2];
+    if (d > 1 && d < 5) return forms[1];
+    if (d === 1) return forms[0];
+    return forms[2];
+  }
+  function tick() {
+    var now = new Date();
+    if (now < start) {
+      var d = Math.max(0, Math.ceil((start - now) / 86400000));
+      countEl.textContent = d;
+      metaEl.textContent = d + ' ' + plural(d, [STR.daysOne, STR.daysFew, STR.daysMany]) + ' ' + STR.untilSuffix;
+    } else {
+      countEl.textContent = '0';
+      metaEl.textContent = STR.released;
+    }
+  }
+  tick();
+  setInterval(tick, 60000);
+})();
+"""
+
+
 def hub_js(game_id, lang):
     ui = HUB_UI[lang]
     pv = HUB_PREVIEW[game_id][lang]
@@ -1680,6 +1840,13 @@ def hub_js(game_id, lang):
         wstr = json.dumps({"locale": "en-US" if lang == "en" else "ru-RU"},
                           ensure_ascii=False)
         js += HUB_WIDGET_ROB.replace("__WIDGET_STR__", wstr)
+    elif game_id == "path-of-exile-2":
+        wstr = json.dumps({"daysOne": pv["days_one"], "daysFew": pv["days_few"],
+                           "daysMany": pv["days_many"],
+                           "untilSuffix": pv["until_suffix"],
+                           "released": pv["released"]},
+                          ensure_ascii=False)
+        js += HUB_WIDGET_POE2.replace("__WIDGET_STR__", wstr)
     else:
         wstr = json.dumps({"leftoverOne": pv["leftover_one"],
                            "leftoverMany": pv["leftover_many"]}, ensure_ascii=False)
@@ -1764,6 +1931,8 @@ def hub_page(game_id, lang):
         widget = preview_widget_aion(lang, ui, pv)
     elif game_id == "rob-run":
         widget = preview_widget_rob(lang, ui, pv)
+    elif game_id == "path-of-exile-2":
+        widget = preview_widget_poe2(lang, ui, pv)
     else:
         widget = preview_widget_dps(lang, ui, pv)
     preview_html = (
@@ -1957,7 +2126,7 @@ def not_found_entries(lang):
         {"name": c["about_name"], "type": c["about_type"], "href": "/%sabout/" % prefix,
          "key": c["about_key"]},
     ]
-    for gid in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run"):
+    for gid in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run", "path-of-exile-2"):
         live = [t for t in tools_for(gid) if t["status"] == "live"]
         entries.append({
             "name": HUB_COPY[gid][lang]["h1"], "type": c["hub_type"],
@@ -2061,10 +2230,9 @@ def sitemap_xml():
     add("/about/", "monthly", "0.6")
     add("/ru/about/", "monthly", "0.6")
     for g in SITE["games"]:
-        if g["slug"] in ("gta-6", "desktop-pension-squad", "rob-run"):
-            hub_mod = "2026-11-22"
-        else:
-            hub_mod = "2026-11-13"
+        hub_mod = {"gta-6": "2026-11-22", "desktop-pension-squad": "2026-11-22",
+                   "rob-run": "2026-11-22",
+                   "path-of-exile-2": "2026-11-25"}.get(g["slug"], "2026-11-13")
         add("/%s/" % g["slug"], "weekly", "0.8", hub_mod)
         add("/ru/%s/" % g["slug"], "weekly", "0.8", hub_mod)
     for t in TOOLS:
@@ -2101,7 +2269,7 @@ def main():
     write("ru/index.html", home_page("ru"))
     write("about/index.html", about_page("en"))
     write("ru/about/index.html", about_page("ru"))
-    for gid in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run"):
+    for gid in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run", "path-of-exile-2"):
         write("%s/index.html" % gid, hub_page(gid, "en"))
         write("ru/%s/index.html" % gid, hub_page(gid, "ru"))
     write("404.html", not_found_page("en"))

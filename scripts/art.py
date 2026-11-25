@@ -26,3 +26,8 @@ GTA_COVER = '<img src="/assets/games/gta-6-cover.jpg" alt="" loading="lazy">'
 # official store page background. No library_600x900 on the CDN.
 ROB_FEATURE = '<img src="/assets/games/rob-run-wide.jpg" alt="ROB RUN" loading="lazy">'
 ROB_COVER = '<img src="/assets/games/rob-run-cover.jpg" alt="ROB RUN" loading="lazy">'
+# Path of Exile 2: official Steam key art (logo on red smoke), verified
+# visually 25 Nov 2026. library_600x900 exists (served 300x450) and
+# capsule_616x353 is the wide art. Steam app 2694490.
+POE2_FEATURE = '<img src="/assets/games/path-of-exile-2-wide.jpg" alt="Path of Exile 2" loading="lazy">'
+POE2_COVER = '<img src="/assets/games/path-of-exile-2-cover.jpg" alt="Path of Exile 2" loading="lazy">'
