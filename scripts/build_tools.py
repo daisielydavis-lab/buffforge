@@ -3,12 +3,17 @@
 
 Run:  cd <repo root> && python3 scripts/build_tools.py
 Uses only verified official facts (see spec section 10.2):
-Re-checked 22 Nov 2026 against Rockstar, PlayStation and Xbox store pages:
+Re-checked 25 Nov 2026 against Rockstar, PlayStation and Xbox store pages:
 - Out since 19 Nov 2026 on PS5 (+Pro) and Xbox Series X|S. No official PC SKU.
-- PlayStation still says a minimum of 212 GB free space. That is not an exact install size.
-- Standard $79.99 / Ultimate $99.99 remain US MSRP labels. Regional prices differ.
-- The pre-order window closed 20 Nov 2026. Vintage Vice City Pack is a separate
-  US store add-on at $4.99 and requires the game.
+- PlayStation still says a minimum of 212 GB free space. Measured downloads about
+  209.75 GB (PS5) / 209.86 GB (Xbox), installed at about 212 GB. Leave about
+  230 GB free. Patches 1.002.000/1.002.001 pre-launch, 1.002.002 on 23 Nov 2026.
+- Standard $79.99 / Ultimate $99.99 confirmed after launch, US store prices.
+  Regional prices differ.
+- The pre-order window closed at the end of 19 Nov 2026. Vintage Vice City Pack
+  is a separate US store add-on at $4.99 and requires the game.
+- Xbox One cloud play is live since 19 Nov 2026: separate $79.99 purchase,
+  not in Game Pass, streams to Xbox consoles only.
 No speculative PC spec table. No single Moscow unlock time.
 """
 import json
@@ -47,9 +52,9 @@ def write(rel, content):
 STORAGE = {
     "en": {
         "title": "GTA 6 Storage Check — Will 212 GB Fit? — BuffForge",
-        "desc": "PlayStation asks for a minimum of 212 GB free for GTA 6. Enter your free space and see if you meet that minimum. It is not a confirmed exact install size.",
+        "desc": "PlayStation asks for a minimum of 212 GB free for GTA 6. Measured downloads are about 209.75 GB on PS5 and 209.86 GB on Xbox, installed at about 212 GB. Leave about 230 GB free.",
         "h1": "GTA 6 Storage Check",
-        "lede": "PlayStation still says to clear a <b>minimum of 212 GB</b> of free space. That is the store’s free-space line, not a Rockstar install size. Enter what your console shows as free.",
+        "lede": "PlayStation still says to clear a <b>minimum of 212 GB</b> of free space. That is the store’s free-space line, not a Rockstar install size. Measured downloads are about <b>209.75 GB on PS5</b> and <b>209.86 GB on Xbox</b>, installed at about 212 GB. Enter what your console shows as free.",
         "label": "How much free space do you have? (GB)",
         "hint": "On PS5: Settings → Storage. On Xbox: My games &amp; apps → Manage → Free up space.",
         "platform_label": "Your console",
@@ -67,14 +72,15 @@ STORAGE = {
             "<b>212 GB</b> is the minimum free space on the PlayStation game page. Rockstar has not published a separate final install size.",
             "<b>Preload already happened.</b> PlayStation said digital preload for pre-orders started 10 Nov 2026 at local midnight. The game has been available since 19 Nov 2026.",
             "<b>Xbox:</b> this page does not publish a Moscow preload clock. Use the time on your own Xbox store listing.",
+            "<b>Patches:</b> 1.002.000 and 1.002.001 were out before launch; 1.002.002 followed on 23 Nov 2026. Leave about <b>230 GB</b> free so updates fit.",
         ],
-        "sources": "Source: PlayStation game page for Grand Theft Auto VI, “minimum of 212GB”, checked 22 Nov 2026. The PlayStation support article fetched the same day did not repeat the 212 GB line.",
+        "sources": "Source: PlayStation game page for Grand Theft Auto VI, “minimum of 212GB”, checked 25 Nov 2026. Download sizes are measured reports (about 209.75 GB on PS5, about 209.86 GB on Xbox), not an official Rockstar figure.",
     },
     "ru": {
         "title": "Проверка места под GTA 6 — хватит ли 212 ГБ — BuffForge",
-        "desc": "PlayStation просит минимум 212 ГБ свободного места под GTA 6. Введите, сколько свободно, и проверьте этот минимум. Это не точный размер установки.",
+        "desc": "PlayStation просит минимум 212 ГБ свободного места под GTA 6. Замеры загрузки: около 209,75 ГБ на PS5 и 209,86 ГБ на Xbox, после установки — около 212 ГБ. Оставьте около 230 ГБ свободными.",
         "h1": "Проверка места под GTA 6",
-        "lede": "На странице игры PlayStation по-прежнему написано: освободите <b>минимум 212 ГБ</b>. Это свободное место в магазине, а не размер установки от Rockstar. Введите число, которое показывает консоль.",
+        "lede": "На странице игры PlayStation по-прежнему написано: освободите <b>минимум 212 ГБ</b>. Это свободное место в магазине, а не размер установки от Rockstar. Замеры загрузки: около <b>209,75 ГБ на PS5</b> и <b>209,86 ГБ на Xbox</b>, после установки — около 212 ГБ. Введите число, которое показывает консоль.",
         "label": "Сколько свободного места у вас? (ГБ)",
         "hint": "На PS5: Настройки → Хранилище. На Xbox: Мои игры и приложения → Управление → Освободить место.",
         "platform_label": "Ваша консоль",
@@ -92,8 +98,9 @@ STORAGE = {
             "<b>212 ГБ</b> — минимум свободного места на странице игры PlayStation. Отдельный итоговый размер установки Rockstar не публиковала.",
             "<b>Предзагрузка уже была.</b> PlayStation писала, что для предзаказов она началась 10 ноября 2026 года в местную полночь. Игра доступна с 19 ноября 2026 года.",
             "<b>Xbox:</b> московские часы предзагрузки мы не публикуем. Смотрите время в своём магазине Xbox.",
+            "<b>Патчи:</b> 1.002.000 и 1.002.001 вышли до запуска, 1.002.002 — 23 ноября 2026 года. Держите около <b>230 ГБ</b> свободными, чтобы обновления помещались.",
         ],
-        "sources": "Источник: страница Grand Theft Auto VI на PlayStation, «minimum of 212GB», проверено 22 ноября 2026 года. В статье поддержки PlayStation, открытой в тот же день, строки про 212 ГБ не было.",
+        "sources": "Источник: страница Grand Theft Auto VI на PlayStation, «minimum of 212GB», проверено 25 ноября 2026 года. Размеры загрузки — замеры (около 209,75 ГБ на PS5, около 209,86 ГБ на Xbox), а не официальная цифра Rockstar.",
     },
 }
 
@@ -205,7 +212,7 @@ COUNTDOWN = {
             "<b>Not one Moscow minute:</b> unlock was local midnight in the store region, so Moscow time still differs by region.",
             "<b>After unlock:</b> the clock above is time since that midnight. It does not count backward.",
         ],
-        "sources": "Sources: rockstargames.com/VI (“Now Available”, 19 Nov 2026) and PlayStation support (midnight local time on 19 Nov 2026). Checked 22 Nov 2026.",
+        "sources": "Sources: rockstargames.com/VI (“Now Available”, 19 Nov 2026) and PlayStation support (midnight local time on 19 Nov 2026). Checked 25 Nov 2026.",
     },
     "ru": {
         "title": "Время выхода GTA 6 по региону магазина — BuffForge",
@@ -226,7 +233,7 @@ COUNTDOWN = {
             "<b>Не одна минута для Москвы:</b> открытие было в местную полночь региона магазина, поэтому московское время по-прежнему зависит от региона.",
             "<b>После открытия:</b> часы выше считают время с той полуночи. Обратного отсчёта нет.",
         ],
-        "sources": "Источники: rockstargames.com/VI («Now Available», 19 ноября 2026) и поддержка PlayStation (местная полночь 19 ноября 2026). Проверено 22 ноября 2026 года.",
+        "sources": "Источники: rockstargames.com/VI («Now Available», 19 ноября 2026) и поддержка PlayStation (местная полночь 19 ноября 2026). Проверено 25 ноября 2026 года.",
     },
 }
 
@@ -334,18 +341,18 @@ PS_PACK = "https://store.playstation.com/en-us/product/EP1004-PPSA01547_00-CONTE
 EDITIONS = {
     "en": {
         "title": "GTA 6 Editions Compared — Standard vs Ultimate | BuffForge",
-        "desc": "GTA 6 Standard $79.99 vs Ultimate $99.99, US store prices. The pre-order window has closed. Ultimate contents follow the PlayStation page.",
+        "desc": "GTA 6 Standard $79.99 vs Ultimate $99.99, US store prices confirmed after launch. The pre-order window closed 19 Nov 2026. Ultimate contents follow the PlayStation page.",
         "h1": "GTA 6 Editions Compared",
-        "lede": "Standard and Ultimate are on PS5 and Xbox Series X|S. <b>Standard $79.99</b> is the earlier US reference price. It was not re-checked on an official store page this round. <b>Ultimate $99.99</b> is the price the US PlayStation game page showed on 22 Nov 2026. Other regions differ. The buy-before-20-Nov window has closed.",
+        "lede": "Standard and Ultimate are on PS5 and Xbox Series X|S. <b>Standard $79.99</b> and <b>Ultimate $99.99</b> are the US store prices, confirmed after launch. Other regions differ. The buy-before-20-Nov window closed at the end of 19 Nov 2026.",
         "when": "Which purchase are you checking?",
         "opt_now": "Buying now",
         "opt_before": "Digital edition bought before 20 Nov 2026",
         "now_h": "Buying now",
-        "now_p": "The pre-order window closed on 20 Nov 2026. A purchase now does not include the Vintage Vice City Pack or the free month of GTA+. The pack is a separate add-on.",
+        "now_p": "The pre-order window closed at the end of 19 Nov 2026. A purchase now does not include the Vintage Vice City Pack or the free month of GTA+. The pack is a separate add-on.",
         "before_h": "Bought before 20 Nov 2026",
         "before_p": "If the digital Standard or Ultimate edition was bought before 20 Nov 2026, the offer included the Vintage Vice City Pack and one month of GTA+. PlayStation says that month must be claimed by 31 Mar 2027. This page cannot see your account.",
         "rows": [
-            ("Price", "<b>Standard — $79.99</b><br>Earlier US reference. Not re-checked this round.", "<b>Ultimate — $99.99</b><br>US PlayStation page, 22 Nov 2026."),
+            ("Price", "<b>Standard — $79.99</b><br>US store price, confirmed after launch.", "<b>Ultimate — $99.99</b><br>US PlayStation page, confirmed after launch."),
             ("Platforms", "PS5, PS5 Pro, Xbox Series X|S", "PS5, PS5 Pro, Xbox Series X|S"),
             ("PC version", "Not announced", "Not announced"),
         ],
@@ -386,22 +393,22 @@ EDITIONS = {
                 "One-Eyed Willie’s",
             ]),
         ],
-        "sources": "Sources, checked 22 Nov 2026: PlayStation game page (Ultimate list, the $99.99 page price, and the pre-order GTA+ FAQ), US Xbox store and US PlayStation Store for the pack ($4.99, 20 Nov 2026). Standard $79.99 is the earlier US reference and was not on a store page opened this round.",
+        "sources": "Sources, checked 25 Nov 2026: PlayStation game page (Ultimate list, the $99.99 page price, and the pre-order GTA+ FAQ), US Xbox store and US PlayStation Store for the pack ($4.99, 20 Nov 2026). Standard $79.99 and Ultimate $99.99 are the US store prices, confirmed after launch.",
     },
     "ru": {
         "title": "Сравнение изданий GTA 6 — Standard и Ultimate | BuffForge",
-        "desc": "GTA 6 Standard $79.99 и Ultimate $99.99 — цены магазина США. Окно предзаказа закрыто. Состав Ultimate — со страницы PlayStation.",
+        "desc": "GTA 6 Standard $79.99 и Ultimate $99.99 — цены магазина США, подтверждены после выхода. Окно предзаказа закрыто 19 ноября 2026 года. Состав Ultimate — со страницы PlayStation.",
         "h1": "Сравнение изданий GTA 6",
-        "lede": "Standard и Ultimate есть на PS5 и Xbox Series X|S. <b>Standard $79.99</b> — прежняя справочная цена США. В этом проходе официальную карточку Standard заново не открывали. <b>Ultimate $99.99</b> — цена на странице игры в американском PlayStation 22 ноября 2026 года. В других регионах цены другие. Окно «купить до 20 ноября» закрыто.",
+        "lede": "Standard и Ultimate есть на PS5 и Xbox Series X|S. <b>Standard $79.99</b> и <b>Ultimate $99.99</b> — цены магазина США, подтверждены после выхода. В других регионах цены другие. Окно «купить до 20 ноября» закрылось в конце 19 ноября 2026 года.",
         "when": "Какую покупку проверяете?",
         "opt_now": "Покупаю сейчас",
         "opt_before": "Цифровое издание куплено до 20 ноября 2026",
         "now_h": "Покупка сейчас",
-        "now_p": "Окно предзаказа закрылось 20 ноября 2026 года. Покупка сейчас не включает Vintage Vice City Pack и бесплатный месяц GTA+. Набор продаётся отдельно.",
+        "now_p": "Окно предзаказа закрылось в конце 19 ноября 2026 года. Покупка сейчас не включает Vintage Vice City Pack и бесплатный месяц GTA+. Набор продаётся отдельно.",
         "before_h": "Куплено до 20 ноября 2026",
         "before_p": "Если цифровое Standard или Ultimate купили до 20 ноября 2026 года, в предложение входили Vintage Vice City Pack и месяц GTA+. PlayStation пишет, что месяц нужно получить до 31 марта 2027 года. Эта страница не видит ваш аккаунт.",
         "rows": [
-            ("Цена", "<b>Standard — $79.99</b><br>Прежняя справка США. В этом проходе не перепроверялась.", "<b>Ultimate — $99.99</b><br>Страница PlayStation США, 22 ноября 2026."),
+            ("Цена", "<b>Standard — $79.99</b><br>Цена магазина США, подтверждена после выхода.", "<b>Ultimate — $99.99</b><br>Страница PlayStation США, подтверждена после выхода."),
             ("Платформы", "PS5, PS5 Pro, Xbox Series X|S", "PS5, PS5 Pro, Xbox Series X|S"),
             ("Версия для ПК", "Не анонсирована", "Не анонсирована"),
         ],
@@ -442,7 +449,7 @@ EDITIONS = {
                 "One-Eyed Willie’s",
             ]),
         ],
-        "sources": "Источники, проверено 22 ноября 2026 года: страница игры PlayStation (список Ultimate, цена $99.99 и FAQ про месяц GTA+), магазин Xbox США и PlayStation Store США для набора ($4.99, 20 ноября 2026). Standard $79.99 — прежняя справка США; в этом проходе карточку Standard не открывали.",
+        "sources": "Источники, проверено 25 ноября 2026 года: страница игры PlayStation (список Ultimate, цена $99.99 и FAQ про месяц GTA+), магазин Xbox США и PlayStation Store США для набора ($4.99, 20 ноября 2026). Standard $79.99 и Ultimate $99.99 — цены магазина США, подтверждены после выхода.",
     },
 }
 
@@ -517,41 +524,41 @@ DEVICES = [
 COMPAT = {
     "en": {
         "title": "Can My Console Run GTA 6? — BuffForge",
-        "desc": "GTA 6 is available on PS5, PS5 Pro, and Xbox Series X|S. No PS4 version. Xbox One plays it via Xbox Cloud Gaming (Xbox Wire, Nov 10, 2026). No announced PC version.",
+        "desc": "GTA 6 is available on PS5, PS5 Pro, and Xbox Series X|S. No PS4 version. Xbox One plays it via Xbox Cloud Gaming, live since 19 Nov 2026 — a separate $79.99 purchase, not in Game Pass, streams to Xbox consoles only. No announced PC version.",
         "h1": "Can My Console Run GTA 6?",
-        "lede": "Pick your device. GTA 6 has been available since 19 Nov 2026 on PS5 (including Pro) and Xbox Series X|S. Xbox One has no native version. Cloud play is the Xbox Wire claim from 10 Nov 2026, and this page has not retested it after launch. PC is not announced.",
+        "lede": "Pick your device. GTA 6 has been available since 19 Nov 2026 on PS5 (including Pro) and Xbox Series X|S. Xbox One has no native version. Cloud play is live since 19 Nov 2026: a separate $79.99 purchase, not in Game Pass, and it streams to Xbox consoles only — not to PC, phones, or TVs. PC is not announced.",
         "yes": "Yes — it runs.",
-        "yes_p": "%s can play GTA 6. Standard $79.99 is an earlier US reference and was not re-checked this round. Ultimate $99.99 is the price the US PlayStation page showed on 22 Nov 2026.",
+        "yes_p": "%s can play GTA 6. Standard $79.99 / Ultimate $99.99 are the US store prices, confirmed after launch.",
         "no": "No — there is no version for it.",
         "no_p": "Rockstar has not released GTA 6 for %s. There is no PS4 version (PlayStation official).",
         "pc": "PC version not officially announced.",
         "pc_p": "Rockstar has not announced a PC version of GTA 6, and there is no official PC system requirement. System requirement tables circulating online are not Rockstar's — do not treat them as official.",
-        "cloud": "Not native. Cloud is the 10 Nov claim.",
-        "cloud_p": "There is no native Xbox One version. Xbox Wire (10 Nov 2026) said GTA 6 is playable on Xbox One through Xbox Cloud Gaming from 1am ET on 19 Nov 2026, with Xbox Series S graphics settings. The game is purchased separately. This page has not re-tested cloud play after launch.",
+        "cloud": "Not native. Cloud is live since 19 Nov 2026.",
+        "cloud_p": "There is no native Xbox One version. Xbox Cloud Gaming has carried GTA 6 on Xbox One since 19 Nov 2026 (Xbox Wire announced it on 10 Nov 2026), with Xbox Series S graphics settings. The game is purchased separately for $79.99 and is not in Game Pass. It streams to Xbox consoles only — not to PC, phones, or TVs.",
         "table_h": "All devices at a glance",
         "th_dev": "Device", "th_verdict": "Verdict",
         "v_yes": "Playable", "v_no": "Not playable", "v_pc": "Not announced",
-        "v_cloud": "Cloud only, Xbox Wire 10 Nov",
-        "sources": "Sources: Rockstar VI page (Now Available, PS5 and Xbox Series X|S only) and the PlayStation game page (PS4 not playable; released 19 Nov 2026), checked 22 Nov 2026. Xbox One cloud is only the Xbox Wire article from 10 Nov 2026. It was not retested after launch. No official PC requirements were on those pages.",
+        "v_cloud": "Cloud only, live since 19 Nov",
+        "sources": "Sources: Rockstar VI page (Now Available, PS5 and Xbox Series X|S only) and the PlayStation game page (PS4 not playable; released 19 Nov 2026), checked 25 Nov 2026. Xbox One cloud play is live since 19 Nov 2026 (Xbox Wire, 10 Nov 2026 announcement): separate $79.99 purchase, not in Game Pass, streams to Xbox consoles only. No official PC requirements were on those pages.",
     },
     "ru": {
         "title": "На чём можно играть в GTA 6? — BuffForge",
-        "desc": "GTA 6 доступна на PS5, PS5 Pro и Xbox Series X|S. Версии для PS4 нет. На Xbox One — через Xbox Cloud Gaming (Xbox Wire, 10 ноября 2026). Версия для ПК не анонсирована.",
+        "desc": "GTA 6 доступна на PS5, PS5 Pro и Xbox Series X|S. Версии для PS4 нет. На Xbox One — через Xbox Cloud Gaming, работает с 19 ноября 2026 года: отдельная покупка $79.99, не входит в Game Pass, трансляция только на консоли Xbox. Версия для ПК не анонсирована.",
         "h1": "На чём можно играть в GTA 6?",
-        "lede": "Выберите устройство. GTA 6 доступна с 19 ноября 2026 года на PS5 (включая Pro) и Xbox Series X|S. У Xbox One нет нативной версии. Облако — заявление Xbox Wire от 10 ноября 2026 года, после выхода его заново не проверяли. Версия для ПК не анонсирована.",
+        "lede": "Выберите устройство. GTA 6 доступна с 19 ноября 2026 года на PS5 (включая Pro) и Xbox Series X|S. У Xbox One нет нативной версии. Облачная игра работает с 19 ноября 2026 года: отдельная покупка за $79.99, не входит в Game Pass, трансляция только на консоли Xbox — не на ПК, телефоны или телевизоры. Версия для ПК не анонсирована.",
         "yes": "Да, игра работает.",
-        "yes_p": "На %s в GTA 6 играть можно. Standard $79.99 — прежняя справка США, в этом проходе не перепроверялась. Ultimate $99.99 — цена на странице PlayStation США 22 ноября 2026 года.",
+        "yes_p": "На %s в GTA 6 играть можно. Standard $79.99 / Ultimate $99.99 — цены магазина США, подтверждены после выхода.",
         "no": "Нет, версии для неё нет.",
         "no_p": "Rockstar не выпускала GTA 6 для %s. Версии для PS4 нет (официально, PlayStation).",
         "pc": "Версия для ПК официально не анонсирована.",
         "pc_p": "Rockstar не анонсировала версию GTA 6 для ПК, официальных системных требований нет. Таблицы требований, которые ходят по интернету, — не от Rockstar, не считайте их официальными.",
-        "cloud": "Не нативная версия. Облако — заявление от 10 ноября.",
-        "cloud_p": "Нативной версии для Xbox One нет. Xbox Wire от 10 ноября 2026 года пишет, что GTA 6 можно играть на Xbox One через Xbox Cloud Gaming с 1:00 ET 19 ноября 2026 года, с графикой Xbox Series S. Игру покупают отдельно. Облачную игру после выхода эта страница заново не проверяла.",
+        "cloud": "Не нативная версия. Облако работает с 19 ноября 2026 года.",
+        "cloud_p": "Нативной версии для Xbox One нет. Xbox Cloud Gaming показывает GTA 6 на Xbox One с 19 ноября 2026 года (анонс Xbox Wire от 10 ноября 2026 года), с графикой Xbox Series S. Игра покупается отдельно за $79.99 и не входит в Game Pass. Трансляция — только на консоли Xbox, не на ПК, телефоны или телевизоры.",
         "table_h": "Все устройства — одной таблицей",
         "th_dev": "Устройство", "th_verdict": "Вердикт",
         "v_yes": "Играть можно", "v_no": "Играть нельзя", "v_pc": "Не анонсирована",
-        "v_cloud": "Только облако, Xbox Wire 10 ноября",
-        "sources": "Источники: страница Rockstar VI (Now Available, только PS5 и Xbox Series X|S) и страница игры PlayStation (на PS4 не идёт; выход 19 ноября 2026), проверено 22 ноября 2026 года. Облако для Xbox One — только Xbox Wire от 10 ноября 2026, после выхода не перепроверялось. Официальных требований для ПК на этих страницах не было.",
+        "v_cloud": "Только облако, работает с 19 ноября",
+        "sources": "Источники: страница Rockstar VI (Now Available, только PS5 и Xbox Series X|S) и страница игры PlayStation (на PS4 не идёт; выход 19 ноября 2026), проверено 25 ноября 2026 года. Облачная игра на Xbox One работает с 19 ноября 2026 года (анонс Xbox Wire от 10 ноября 2026): отдельная покупка $79.99, не входит в Game Pass, трансляция только на консоли Xbox. Официальных требований для ПК на этих страницах не было.",
     },
 }
 
