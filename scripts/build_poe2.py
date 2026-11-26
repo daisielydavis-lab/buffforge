@@ -512,7 +512,7 @@ def tool_page(lang, key, body, js):
            "operatingSystem": "Any modern browser",
            "offers": {"@type": "Offer", "price": "0"}},
           faq_ld]
-    full = ('<main id="main" class="wrap">%s%s%s%s%s</main>'
+    full = ('<main id="main" class="wrap poe-flow">%s%s%s%s%s</main>'
             % (crumbs_html(lang, [("Path of Exile 2", hub_path), (c["card_title"], None)]),
                body, sources_block(lang, c), faq_block(lang, c), related_block(lang, key)))
     return page(lang, c["title"], c["desc"], canon, alt, full, jsonld=jl,

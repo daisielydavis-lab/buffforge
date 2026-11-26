@@ -2004,6 +2004,20 @@ table.jt-table { width: 100%; min-width: 680px; border-collapse: collapse; font-
 .poe-table thead th { font-size: var(--fs-small); color: var(--muted); font-weight: 600; }
 .poe-table tbody th { color: var(--ink); font-weight: 600; }
 .poe-table td small { color: var(--muted); }
+
+/* PoE 2 tool pages: deterministic vertical rhythm (2026-11-26).
+   .panel and bare <section> carry no vertical margin on this site, so
+   blocks touched with 0px gaps; bare h2s also keep UA 0.83em margins.
+   One 20px sibling rhythm + margin resets, scoped to these pages. */
+.poe-flow > * + * { margin-top: 20px; }
+.poe-flow > .tool-hero { margin-top: 0; }
+.poe-flow > .stats { margin-bottom: 0; }
+.poe-flow > .note-box { margin: 0; }
+.poe-flow > .faq { padding-top: 0; }
+.poe-flow > .related { margin-top: 0; }
+.poe-flow .sec-head h2,
+.poe-flow .panel-title h2 { margin: 0; }
+.poe-flow .faq > h2 { margin: 0 0 8px; }
 .poe-reward { display: flex; align-items: flex-start; gap: 14px; border-bottom: 1px solid var(--line); padding: 12px 0; }
 .poe-reward:last-child { border-bottom: 0; }
 .poe-reward input { width: 20px; height: 20px; accent-color: var(--teal); flex-shrink: 0; margin-top: 2px; }
