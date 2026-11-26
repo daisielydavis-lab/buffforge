@@ -55,11 +55,9 @@ jobs:
               if updated != text:
                   shell_path.write_text(updated, encoding="utf-8")
                   print(f"Updated scripts/shell.py to v={css_hash}")
-              else:
-                  print("scripts/shell.py already up to date")
           PY
 
-      - name: Run BuffForge Python build scripts
+      - name: Run all BuffForge Python build scripts
         run: |
           set -e
           for script in \
@@ -67,9 +65,12 @@ jobs:
             scripts/build_tools.py \
             scripts/transform_legacy.py \
             scripts/build_wanted_level.py \
+            scripts/gta_fps_guide.py \
             scripts/build_dps.py \
+            scripts/build_dps_wiki.py \
             scripts/build_rob.py \
-            scripts/build_jail_time.py; do
+            scripts/build_jail_time.py \
+            scripts/build_poe2.py; do
             if [ -f "$script" ]; then
               echo "==> Running $script"
               python3 "$script"
@@ -78,7 +79,7 @@ jobs:
             fi
           done
 
-      - name: Sync site.css hash across any remaining static HTML files
+      - name: Sync site.css hash across all static HTML files
         run: |
           python3 - "${CSS_HASH}" << 'PY'
           import pathlib, re, sys
