@@ -471,14 +471,14 @@ def sources_block(lang, c):
     items = "".join(
         '<li><a href="%s" target="_blank" rel="noopener noreferrer">%s</a> (%s)</li>'
         % (url, text, note) for text, url, note in c["sources"])
-    return '<section class="panel"><h2>%s</h2><ul>%s</ul></section>' % (POE[lang]["sources_h"], items)
+    return '<section class="panel"><div class="panel-title"><h2>%s</h2></div><ul>%s</ul></section>' % (POE[lang]["sources_h"], items)
 
 
 def faq_block(lang, c):
     items = "".join(
         '<details><summary><h3>%s</h3><span class="plus">+</span></summary>'
         '<p>%s</p></details>' % (q, a) for q, a in c["faq"])
-    return '<section><h2>%s</h2>%s</section>' % (
+    return '<section class="faq"><h2>%s</h2>%s</section>' % (
         "Frequently asked questions" if lang == "en" else "Частые вопросы", items)
 
 
@@ -539,17 +539,16 @@ def countdown_body(lang):
         hero(lang, c)
         + '<section class="panel"><p class="wlh-eyebrow">%s</p>' % pending
         + '<div class="countdown-big" id="cdDays">--</div>'
-        + '<p id="cdStatus"></p>'
-        + '<div class="wlh-progress"><span id="cdBar" style="width:0%"></span></div></section>'
-        + '<div class="stats">'
+        + '<p id="cdStatus"></p></section>'
+        + '<div class="stats three">'
         + '<div class="stat"><em>%s</em><strong>%s</strong></div>' % (c["date_label"], c["date_val"])
         + '<div class="stat"><em>%s</em><strong>%s</strong></div>' % (c["access_label"], c["access_val"])
         + '<div class="stat"><em>%s</em><strong>%s</strong></div></div>' % (c["hour_label"], c["hour_val"])
-        + '<section class="panel"><h2>%s</h2><p>%s</p>' % (c["window_h"], c["window_p"])
+        + '<section class="panel"><div class="panel-title"><h2>%s</h2></div><p>%s</p>' % (c["window_h"], c["window_p"])
         + '<div class="field"><label for="cdZone">%s</label>'
           '<div class="select-wrap"><select id="cdZone">%s</select></div></div>' % (c["zone_label"], opts)
         + '<div class="poe-window" id="cdWindow" style="margin-top:14px"></div></section>'
-        + '<section class="panel"><h2>%s</h2><p>%s</p>' % (c["what_h"], c["what_p"])
+        + '<section class="panel"><div class="panel-title"><h2>%s</h2></div><p>%s</p>' % (c["what_h"], c["what_p"])
         + '<p><a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p></section>'
         % (STEAM_URL, c["steam_link"])
     )
@@ -580,7 +579,6 @@ CD_JS = """
     var n = Date.now();
     var daysEl = document.getElementById('cdDays');
     var statusEl = document.getElementById('cdStatus');
-    var barEl = document.getElementById('cdBar');
     if (n < start) {
       var d = Math.max(0, Math.ceil((start - n) / 86400000));
       daysEl.textContent = d + ' ' + plural(d, [STR.days_one, STR.days_few, STR.days_many]) + ' ' + STR.until_suffix;
@@ -589,7 +587,6 @@ CD_JS = """
       daysEl.textContent = STR.released;
       statusEl.textContent = STR.check_official;
     }
-    barEl.style.width = Math.min(100, Math.max(0, (1 - (start - n) / (16 * 86400000)) * 100)) + '%';
     try {
       var f = new Intl.DateTimeFormat('en', {timeZone: z.value, dateStyle: 'medium', timeStyle: 'short'});
       document.getElementById('cdWindow').textContent = f.format(start) + ' \\u2013 ' + f.format(end);
@@ -648,10 +645,10 @@ def class_body(lang):
           '<select id="priority">%s</select></div></div></div>' % (c["priority_label"], pr_opts)
         + '<p style="margin-top:16px"><button id="reset" type="button" class="btn btn-secondary">%s</button></p></section>'
         % c["reset"]
-        + '<section><h2>%s</h2><div id="results" class="poe-grid"></div></section>' % c["top_h"]
-        + '<section><h2>%s</h2><div id="all" class="poe-grid"></div></section>' % c["all_h"]
+        + '<section><div class="sec-head"><h2>%s</h2></div><div id="results" class="poe-grid"></div></section>' % c["top_h"]
+        + '<section><div class="sec-head"><h2>%s</h2></div><div id="all" class="poe-grid"></div></section>' % c["all_h"]
         + '<div class="note-box amber"><p>%s</p></div>' % c["note"]
-        + '<section class="panel"><h2 id="guide">%s</h2><p>%s</p>' % (c["guide_h"], c["guide_p"])
+        + '<section class="panel"><div class="panel-title"><h2 id="guide">%s</h2></div><p>%s</p>' % (c["guide_h"], c["guide_p"])
         + '<p><a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p></section>'
         % (POE2DB_CLASS_URL, c["guide_link"])
     )
@@ -733,7 +730,7 @@ def resistance_body(lang):
         + '<p id="summary" style="margin-top:14px"></p>'
         + '<p><button id="reset" type="button" class="btn btn-secondary">%s</button></p></section>'
         % c["reset"]
-        + '<section class="panel"><h2 id="guide">%s</h2><p>%s</p>' % (c["guide_h"], c["guide_p"])
+        + '<section class="panel"><div class="panel-title"><h2 id="guide">%s</h2></div><p>%s</p>' % (c["guide_h"], c["guide_p"])
         + '<p><a href="%s" target="_blank" rel="noopener noreferrer">%s</a> \u00b7 '
           '<a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p></section>'
         % (WIKI_RES_URL, c["guide_link1"], POE2REF_URL, c["guide_link2"])
@@ -809,7 +806,7 @@ def checklist_body(lang):
         + '<button class="btn btn-secondary" id="reset" type="button">%s</button></p>' % c["reset"]
         + '<small id="saveState"></small></section>'
         + '<section class="panel" id="list"></section>'
-        + '<section class="panel"><h2 id="guide">%s</h2><p>%s</p>' % (c["guide_h"], c["guide_p"])
+        + '<section class="panel"><div class="panel-title"><h2 id="guide">%s</h2></div><p>%s</p>' % (c["guide_h"], c["guide_p"])
         + '<p><a href="%s" target="_blank" rel="noopener noreferrer">%s</a> \u00b7 '
           '<a href="%s" target="_blank" rel="noopener noreferrer">%s</a> \u00b7 '
           '<a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p></section>'

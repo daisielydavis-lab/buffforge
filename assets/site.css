@@ -1738,6 +1738,7 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 .wipe-rule p { color: var(--body); font-size: var(--fs-body); margin-bottom: 10px; }
 .wipe-rule p:last-child { margin-bottom: 0; }
 .stats.four { grid-template-columns: repeat(4, 1fr); }
+.stats.three { grid-template-columns: repeat(3, 1fr); }
 .wipe-panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--shadow); padding: 22px 26px; margin: 20px 0; }
 .wipe-panel > h2 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin: 0 0 6px; }
 .wipe-panel .sub { color: var(--body); font-size: var(--fs-card); margin-bottom: 14px; }
@@ -1769,6 +1770,7 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 @media (max-width: 860px) {
   .wipe-hero { grid-template-columns: 1fr; }
   .stats.four { grid-template-columns: 1fr 1fr; }
+  .stats.three { grid-template-columns: 1fr; }
 }
 .profit-grid .wipe-panel { margin: 0 0 20px; }
 .wipe-panel h3 { margin: 20px 0 10px; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
