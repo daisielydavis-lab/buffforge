@@ -2135,3 +2135,61 @@ h3, .fcard-body h3 {
     font-size: 16px;
   }
 }
+
+/* UI v2.1: Fix list bullet alignment and card-to-prose spacing */
+main ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]),
+article ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]),
+section ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]),
+.card ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]),
+[class*="card"] ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0 14px;
+}
+
+main ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li,
+article ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li,
+section ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li,
+.card ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li,
+[class*="card"] ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 7px;
+  line-height: 1.62;
+}
+
+main ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before,
+article ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before,
+section ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before,
+.card ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before,
+[class*="card"] ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--faint);
+}
+
+[class*="grid"] + p,
+[class*="cards"] + p,
+[class*="icons"] + p,
+.grid + p,
+.cards + p {
+  margin-top: 24px !important;
+}
+
+main p + p,
+section p + p,
+article p + p {
+  margin-top: 12px !important;
+}
+
+main h2:not(:first-child),
+article h2:not(:first-child),
+section h2:not(:first-child) {
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
