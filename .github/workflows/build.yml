@@ -1,0 +1,113 @@
+name: Build BuffForge Static Site
+
+on:
+  push:
+    branches:
+      - preview
+      - main
+    paths:
+      - 'assets/site.css'
+      - 'data/**'
+      - 'scripts/**'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-commit:
+    if: github.actor != 'github-actions[bot]' && !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Sync site.css cache-busting hash in scripts/shell.py
+        run: |
+          CSS_HASH=$(git hash-object assets/site.css | cut -c1-7)
+          echo "CSS_HASH=${CSS_HASH}" >> "$GITHUB_ENV"
+          echo "Computed assets/site.css short hash: ${CSS_HASH}"
+          python3 - "${CSS_HASH}" << 'PY'
+          import pathlib, re, sys
+
+          css_hash = sys.argv[1]
+          shell_path = pathlib.Path("scripts/shell.py")
+          if shell_path.exists():
+              text = shell_path.read_text(encoding="utf-8")
+              updated = re.sub(
+                  r"/assets/site\.css\?v=[a-zA-Z0-9_-]+",
+                  f"/assets/site.css?v={css_hash}",
+                  text,
+              )
+              if updated != text:
+                  shell_path.write_text(updated, encoding="utf-8")
+                  print(f"Updated scripts/shell.py to v={css_hash}")
+              else:
+                  print("scripts/shell.py already up to date")
+          PY
+
+      - name: Run BuffForge Python build scripts
+        run: |
+          set -e
+          for script in \
+            scripts/build.py \
+            scripts/build_tools.py \
+            scripts/transform_legacy.py \
+            scripts/build_wanted_level.py \
+            scripts/build_dps.py \
+            scripts/build_rob.py \
+            scripts/build_jail_time.py; do
+            if [ -f "$script" ]; then
+              echo "==> Running $script"
+              python3 "$script"
+            else
+              echo "==> Skipping missing $script"
+            fi
+          done
+
+      - name: Sync site.css hash across any remaining static HTML files
+        run: |
+          python3 - "${CSS_HASH}" << 'PY'
+          import pathlib, re, sys
+
+          css_hash = sys.argv[1]
+          pattern = re.compile(r"/assets/site\.css\?v=[a-zA-Z0-9_-]+")
+          replacement = f"/assets/site.css?v={css_hash}"
+          count = 0
+
+          for html_file in pathlib.Path(".").rglob("*.html"):
+              if ".git" in html_file.parts:
+                  continue
+              text = html_file.read_text(encoding="utf-8", errors="ignore")
+              updated = pattern.sub(replacement, text)
+              if updated != text:
+                  html_file.write_text(updated, encoding="utf-8")
+                  count += 1
+
+          print(f"Synced CSS cache-buster (v={css_hash}) in {count} HTML files")
+          PY
+
+      - name: Commit and push rebuilt static site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "No generated changes to commit."
+            exit 0
+          fi
+          git add -A
+          git commit -m "Auto-build static site & sync site.css?v=${CSS_HASH} [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}

@@ -8,10 +8,10 @@
   --bg-elev: #EEF1F5;
   --paper: #FFFFFF;
   --paper-2: #F7F8FA;
-  --ink: #14181F;
-  --body: #3A4250;
-  --muted: #3A4250;
-  --faint: #3A4250; /* AA on white; do not lighten for running text */
+  --ink: #111827;
+  --body: #2D3644;
+  --muted: #525E70;
+  --faint: #5E6B7D; /* AA on white; do not lighten for running text */
   --line: #E2E6ED;
   --line-strong: #CDD3DC;
   --teal: #0C706C;
@@ -39,6 +39,9 @@
   --rob: #7A3E32;
   --rob-wash: #F8E8E4;
   --rob-deep: #5A2C24;
+  --poe: #8C1D18;
+  --poe-wash: #F6E3E1;
+  --poe-deep: #5C130F;
 
   --r-sm: 6px;
   --r: 10px;
@@ -193,6 +196,7 @@ h4 { line-height: 1.4; }
 .dot-gta { background: var(--gta); }
 .dot-dps { background: var(--dps); }
 .dot-rob { background: var(--rob); }
+.dot-poe { background: var(--poe); }
 .lang {
   display: inline-flex; align-items: center;
   margin-left: 10px;
@@ -439,6 +443,7 @@ h1 {
 .game-cover.gta { background: linear-gradient(180deg, #DCEFED 0%, #B5D9D5 100%); }
 .game-cover.dps { background: linear-gradient(180deg, #DCEEEC 0%, #B4D6D3 100%); }
 .game-cover.rob { background: linear-gradient(180deg, #F8E8E4 0%, #E4C4BB 100%); }
+.game-cover.poe { background: linear-gradient(180deg, #F6E3E1 0%, #D8A9A4 100%); }
 /* Bottom scrim so the white cover labels stay readable over real game art. */
 .game-cover::after {
   content: ""; position: absolute; inset: 0; z-index: 0;
@@ -1081,6 +1086,7 @@ h2.sec { font-size: var(--fs-h2); line-height: 1.25; font-weight: 600; letter-sp
 .hub-stat.wm-2::after { content: "2"; font-size: 200px; letter-spacing: -10px; }
 .hub-stat.wm-dps::after { content: "DPS"; font-size: 110px; letter-spacing: -8px; }
 .hub-stat.wm-rob::after { content: "ROB"; font-size: 110px; letter-spacing: -8px; }
+.hub-stat.wm-poe::after { content: "II"; font-size: 175px; letter-spacing: -12px; }
 .hub-pill {
   background: var(--teal-dim); border: 1px solid #C4E5DC;
   padding: 6px 10px; border-radius: 99px;
@@ -1732,6 +1738,7 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 .wipe-rule p { color: var(--body); font-size: var(--fs-body); margin-bottom: 10px; }
 .wipe-rule p:last-child { margin-bottom: 0; }
 .stats.four { grid-template-columns: repeat(4, 1fr); }
+.stats.three { grid-template-columns: repeat(3, 1fr); }
 .wipe-panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--shadow); padding: 22px 26px; margin: 20px 0; }
 .wipe-panel > h2 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin: 0 0 6px; }
 .wipe-panel .sub { color: var(--body); font-size: var(--fs-card); margin-bottom: 14px; }
@@ -1763,6 +1770,7 @@ a.hub-result-item:hover { color: var(--teal-deep); }
 @media (max-width: 860px) {
   .wipe-hero { grid-template-columns: 1fr; }
   .stats.four { grid-template-columns: 1fr 1fr; }
+  .stats.three { grid-template-columns: 1fr; }
 }
 .profit-grid .wipe-panel { margin: 0 0 20px; }
 .wipe-panel h3 { margin: 20px 0 10px; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
@@ -1981,3 +1989,207 @@ table.jt-table { width: 100%; min-width: 680px; border-collapse: collapse; font-
 .jt-tag { display: inline-flex; align-items: center; font-size: var(--fs-badge); font-weight: 700; letter-spacing: .04em; padding: 2px 7px; border-radius: 6px; border: 1px solid var(--line-strong); color: var(--body); background: var(--paper); }
 .jt-tag.good { border-color: var(--teal); color: var(--teal-deep); background: var(--teal-dim); }
 .jt-tag.warn { border-color: var(--warm); color: var(--warm-ink); background: var(--warm-dim); }
+
+/* ——— Path of Exile 2 tools (.poe-*) ——— */
+.poe-good { color: var(--ok); font-weight: 700; }
+.poe-bad { color: var(--danger); font-weight: 700; }
+.poe-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.poe-grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.poe-window { font-size: 21px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.poe-table input[type="number"] { width: 78px; padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--paper); font: inherit; color: var(--ink); }
+.poe-table input[type="number"]:focus { outline: 0; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-dim); }
+.table-scroll { overflow-x: auto; }
+.poe-table { width: 100%; border-collapse: collapse; }
+.poe-table th, .poe-table td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.poe-table thead th { font-size: var(--fs-small); color: var(--muted); font-weight: 600; }
+.poe-table tbody th { color: var(--ink); font-weight: 600; }
+.poe-table td small { color: var(--muted); }
+
+/* PoE 2 tool pages: deterministic vertical rhythm (2026-11-26).
+   .panel and bare <section> carry no vertical margin on this site, so
+   blocks touched with 0px gaps; bare h2s also keep UA 0.83em margins.
+   One 20px sibling rhythm + margin resets, scoped to these pages. */
+.poe-flow > * + * { margin-top: 20px; }
+.poe-flow > .tool-hero { margin-top: 0; }
+.poe-flow > .stats { margin-bottom: 0; }
+.poe-flow > .note-box { margin: 0; }
+.poe-flow > .faq { padding-top: 0; }
+.poe-flow > .related { margin-top: 0; }
+.poe-flow .sec-head h2 { margin: 0; font-size: var(--fs-h4); font-weight: 600; line-height: 1.4; letter-spacing: -.01em; }
+.poe-flow .panel-title h2 { margin: 0; }
+.poe-flow .sec-head { margin-bottom: 14px; }
+.poe-flow .faq > h2 { margin: 0 0 8px; }
+.poe-reward { display: flex; align-items: flex-start; gap: 14px; border-bottom: 1px solid var(--line); padding: 12px 0; }
+.poe-reward:last-child { border-bottom: 0; }
+.poe-reward input { width: 20px; height: 20px; accent-color: var(--teal); flex-shrink: 0; margin-top: 2px; }
+.poe-reward label { margin: 0; flex: 1; font-size: var(--fs-body); color: var(--ink); }
+.poe-reward small { color: var(--muted); }
+.poe-reward.done label { opacity: .62; text-decoration: line-through; }
+@media (max-width: 900px) { .poe-grid, .poe-grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .poe-grid, .poe-grid4 { grid-template-columns: 1fr; } }
+
+/* === Daylight Forge v2: Typography Hierarchy, Line-Height & Grid Fixes === */
+:root {
+  --ink: #111827;
+  --body: #2D3644;
+  --muted: #525E70;
+  --faint: #5E6B7D;
+  --fs-h1: clamp(30px, 3.6vw, 42px);
+  --fs-h2: 26px;
+  --fs-h3: 19px;
+  --fs-h4: 16px;
+  --fs-lede: 17px;
+  --fs-body: 16px;
+  --fs-card: 14px;
+  --fs-small: 13px;
+}
+
+body {
+  line-height: 1.65;
+  color: var(--body);
+}
+
+h1, .page-h1, .tool-hero h1 {
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+h2, h2.sec, .sec-head {
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+h3, .fcard-body h3 {
+  line-height: 1.32;
+  color: var(--ink);
+}
+
+.lede, .tool-hero .lede {
+  line-height: 1.6;
+  max-width: 56ch;
+  margin-top: 16px;
+  color: var(--body);
+}
+
+.fcard-body p, .t-blurb, .tagline, .sec-sub, .intro {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.field-help, .data-line, .mini .note, .meta, footer p, footer small {
+  color: var(--faint);
+  line-height: 1.5;
+}
+
+/* Fix Featured Tools 3-card row orphan gap on desktop */
+@media (min-width: 900px) {
+  .featured-secondary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Fix single-card Guides grid leaving 2 empty columns */
+.guides-grid:has(> :only-child),
+.grid-3:has(> :only-child),
+.cards-3:has(> :only-child),
+.fgrid:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+/* Fix tool page container balance & related tools section */
+.tcard {
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.related {
+  margin: 48px auto 56px;
+  max-width: var(--wrap);
+}
+
+.related h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+/* Prevent Hero card watermark clipping */
+.hero-art, .hub-art, .game-art {
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --fs-h2: 22px;
+    --fs-h3: 17px;
+    --fs-h4: 15px;
+    --fs-lede: 16px;
+    --fs-body: 15px;
+  }
+  .featured-secondary {
+    grid-template-columns: 1fr;
+  }
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
+
+/* UI v2.1: Fix list bullet alignment and card-to-prose spacing */
+main ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]),
+article ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]),
+section ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]),
+.card ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]),
+[class*="card"] ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0 14px;
+}
+
+main ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li,
+article ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li,
+section ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li,
+.card ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li,
+[class*="card"] ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 7px;
+  line-height: 1.62;
+}
+
+main ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before,
+article ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before,
+section ul:not(nav ul):not([class*="nav"] ul):not([class*="tag"] ul):not([class*="crumb"] ul):not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before,
+.card ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before,
+[class*="card"] ul:not([class*="nav"]):not([class*="tag"]):not([class*="crumb"]) > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--faint);
+}
+
+[class*="grid"] + p,
+[class*="cards"] + p,
+[class*="icons"] + p,
+.grid + p,
+.cards + p {
+  margin-top: 24px !important;
+}
+
+main p + p,
+section p + p,
+article p + p {
+  margin-top: 12px !important;
+}
+
+main h2:not(:first-child),
+article h2:not(:first-child),
+section h2:not(:first-child) {
+  margin-top: 40px;
+  margin-bottom: 12px;
+}

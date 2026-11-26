@@ -49,6 +49,15 @@ GAMES = {
             "ru": "ROB RUN разработана и издаётся Kefir.",
         },
     },
+    "path-of-exile-2": {
+        "name": "Path of Exile 2",
+        "short": "PoE 2",
+        "hub": {"en": "/path-of-exile-2/", "ru": "/ru/path-of-exile-2/"},
+        "tm": {
+            "en": "Path of Exile 2 is a trademark of Grinding Gear Games.",
+            "ru": "Path of Exile 2 — товарный знак Grinding Gear Games.",
+        },
+    },
 }
 
 ANVIL_SVG = (
@@ -119,7 +128,7 @@ def head(lang, title, desc, canon_path=None, alternates=None, jsonld=None, noind
         '<meta property="og:locale" content="%s">' % ("en_US" if lang == "en" else "ru_RU"),
         '<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">',
         '<link rel="stylesheet" href="/assets/fonts.css">',
-        '<link rel="stylesheet" href="/assets/site.css?v=63d767e">',
+        '<link rel="stylesheet" href="/assets/site.css?v=bd6960f">',
     ]
     if alternates:
         for hl, p in sorted(alternates.items()):
@@ -179,11 +188,12 @@ def header_html(lang, current_path, switch_path):
         "aion-2": "aion",
         "gta-6": "gta",
         "rob-run": "rob",
+        "path-of-exile-2": "poe",
     }
     games_links = "".join(
         '<a href="%s"><span class="dot dot-%s"></span>%s</a>'
         % (GAMES[g]["hub"][lang], dots[g], GAMES[g]["name"])
-        for g in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run"))
+        for g in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run", "path-of-exile-2"))
     en_href = current_path if lang == "en" else switch_path
     ru_href = switch_path if lang == "en" else current_path
     return (
@@ -226,7 +236,7 @@ def footer_html(lang, games):
     c = COPY[lang]
     game_links = "".join(
         '<a href="%s">%s</a>' % (GAMES[g]["hub"][lang], GAMES[g]["name"])
-        for g in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run"))
+        for g in ("desktop-pension-squad", "aion-2", "gta-6", "rob-run", "path-of-exile-2"))
     if lang == "en":
         lang_items = ('<a href="/" class="current" aria-current="true">English</a>'
                       '<a href="/ru/">Русская версия</a>')
