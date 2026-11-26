@@ -8,10 +8,10 @@
   --bg-elev: #EEF1F5;
   --paper: #FFFFFF;
   --paper-2: #F7F8FA;
-  --ink: #14181F;
-  --body: #3A4250;
-  --muted: #3A4250;
-  --faint: #3A4250; /* AA on white; do not lighten for running text */
+  --ink: #111827;
+  --body: #2D3644;
+  --muted: #525E70;
+  --faint: #5E6B7D; /* AA on white; do not lighten for running text */
   --line: #E2E6ED;
   --line-strong: #CDD3DC;
   --teal: #0C706C;
@@ -2027,3 +2027,111 @@ table.jt-table { width: 100%; min-width: 680px; border-collapse: collapse; font-
 .poe-reward.done label { opacity: .62; text-decoration: line-through; }
 @media (max-width: 900px) { .poe-grid, .poe-grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .poe-grid, .poe-grid4 { grid-template-columns: 1fr; } }
+
+/* === Daylight Forge v2: Typography Hierarchy, Line-Height & Grid Fixes === */
+:root {
+  --ink: #111827;
+  --body: #2D3644;
+  --muted: #525E70;
+  --faint: #5E6B7D;
+  --fs-h1: clamp(30px, 3.6vw, 42px);
+  --fs-h2: 26px;
+  --fs-h3: 19px;
+  --fs-h4: 16px;
+  --fs-lede: 17px;
+  --fs-body: 16px;
+  --fs-card: 14px;
+  --fs-small: 13px;
+}
+
+body {
+  line-height: 1.65;
+  color: var(--body);
+}
+
+h1, .page-h1, .tool-hero h1 {
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+h2, h2.sec, .sec-head {
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+h3, .fcard-body h3 {
+  line-height: 1.32;
+  color: var(--ink);
+}
+
+.lede, .tool-hero .lede {
+  line-height: 1.6;
+  max-width: 56ch;
+  margin-top: 16px;
+  color: var(--body);
+}
+
+.fcard-body p, .t-blurb, .tagline, .sec-sub, .intro {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.field-help, .data-line, .mini .note, .meta, footer p, footer small {
+  color: var(--faint);
+  line-height: 1.5;
+}
+
+/* Fix Featured Tools 3-card row orphan gap on desktop */
+@media (min-width: 900px) {
+  .featured-secondary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Fix single-card Guides grid leaving 2 empty columns */
+.guides-grid:has(> :only-child),
+.grid-3:has(> :only-child),
+.cards-3:has(> :only-child),
+.fgrid:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+/* Fix tool page container balance & related tools section */
+.tcard {
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.related {
+  margin: 48px auto 56px;
+  max-width: var(--wrap);
+}
+
+.related h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+/* Prevent Hero card watermark clipping */
+.hero-art, .hub-art, .game-art {
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --fs-h2: 22px;
+    --fs-h3: 17px;
+    --fs-h4: 15px;
+    --fs-lede: 16px;
+    --fs-body: 15px;
+  }
+  .featured-secondary {
+    grid-template-columns: 1fr;
+  }
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
