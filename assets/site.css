@@ -3241,22 +3241,31 @@ section h2:not(:first-child) {
 }
 
 /* ===== HUB V2.2: VISUAL HERO, COVER GUIDES & INTERACTIVE WORKSPACE ===== */
-/* Game Hub Hero with real key art & dark showcase panel */
+/* Balanced 2-column Hub Hero */
 .hub-hero {
-  gap: 28px;
-  padding: 20px 0 28px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
+  gap: 24px;
+  padding: 18px 0 24px;
   align-items: stretch;
 }
 .hub-hero-main {
   background: var(--paper);
   border: 1px solid var(--line);
+  border-top: 3px solid var(--teal);
   border-radius: 16px;
-  padding: 28px 30px;
+  padding: 26px 28px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-shadow: var(--shadow-sm);
 }
+.hub-hero-main.poe { border-top-color: var(--poe); }
+.hub-hero-main.gta { border-top-color: var(--gta); }
+.hub-hero-main.rob { border-top-color: var(--rob); }
+.hub-hero-main.dps { border-top-color: var(--dps); }
+.hub-hero-main.aion { border-top-color: var(--aion); }
+
 .hub-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -3280,17 +3289,19 @@ section h2:not(:first-child) {
 .hub-hero-main.aion .hub-eyebrow { background: var(--aion-wash); color: var(--aion-deep); }
 
 .hub-hero-main h1 {
-  font-size: clamp(1.9rem, 3.1vw, 2.65rem);
+  font-size: clamp(1.85rem, 2.9vw, 2.5rem);
   line-height: 1.12;
   letter-spacing: -.028em;
-  margin: 0 0 14px;
+  margin: 0 0 12px;
 }
 .hub-lede {
   font-size: 15.5px;
   line-height: 1.62;
   color: var(--body);
-  margin: 0 0 22px;
+  margin: 0 0 20px;
 }
+
+/* Right Dark Visual Showcase Card (compact cover + clean 1-row dark-glass stats) */
 .hub-stat {
   background: #14181F;
   color: #F3F4F6;
@@ -3301,12 +3312,12 @@ section h2:not(:first-child) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 14px 34px rgba(17,24,39,.14);
+  box-shadow: 0 12px 28px rgba(17,24,39,.12);
 }
 .hub-stat::before, .hub-stat::after { display: none !important; }
 .hub-stat-media {
   position: relative;
-  height: 185px;
+  height: 152px;
   overflow: hidden;
   background: #0B0F17;
 }
@@ -3314,30 +3325,31 @@ section h2:not(:first-child) {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 28%;
+  object-position: center 25%;
   display: block;
-  transition: transform .45s ease;
+  transition: transform .4s ease;
 }
 .hub-stat:hover .hub-stat-media img { transform: scale(1.04); }
 .hub-stat-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(20,24,31,.12) 0%, rgba(20,24,31,.58) 65%, #14181F 100%);
+  background: linear-gradient(180deg, rgba(20,24,31,.08) 0%, rgba(20,24,31,.55) 62%, #14181F 100%);
 }
 .hub-stat-media .hub-pill {
   position: absolute;
-  top: 12px;
-  left: 14px;
+  top: 10px;
+  left: 12px;
   z-index: 2;
-  background: rgba(17,24,39,.82);
+  background: rgba(17,24,39,.84);
   color: #F8FAFC;
   border: 1px solid rgba(255,255,255,.18);
   backdrop-filter: blur(5px);
   margin: 0;
+  font-size: 11px;
 }
 .hub-stat-body {
-  padding: 16px 22px 20px;
+  padding: 14px 20px 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -3345,27 +3357,46 @@ section h2:not(:first-child) {
 }
 .hub-stat h2 {
   color: #FFFFFF;
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1.28;
   margin: 0 0 8px;
 }
 .hub-stat p {
   color: #CBD5E1;
   font-size: 14.5px;
-  line-height: 1.56;
-  margin: 0 0 16px;
+  line-height: 1.54;
+  margin: 0 0 14px;
 }
 .hub-stat .hub-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  gap: 8px;
   border-top: 1px solid rgba(255,255,255,.12);
-  padding-top: 14px;
-  gap: 18px;
+  padding-top: 12px;
+  margin-top: 0;
+}
+.hub-stat .hub-meta > div {
+  background: rgba(255,255,255,.06) !important;
+  border: 1px solid rgba(255,255,255,.11) !important;
+  border-radius: 10px;
+  padding: 9px 11px;
 }
 .hub-stat .hub-meta strong {
-  color: #FFFFFF;
+  display: block;
+  color: #FFFFFF !important;
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
+  font-size: 20px;
+  line-height: 1.15;
+  margin-bottom: 2px;
 }
-.hub-stat .hub-meta span { color: #94A3B8; }
+.hub-stat .hub-meta span {
+  display: block;
+  color: #CBD5E1 !important;
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
 
 /* Sticky Jump Bar + Cross-Game Switcher */
 .hub-jump-bar {
@@ -3377,13 +3408,13 @@ section h2:not(:first-child) {
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
-  background: rgba(255,255,255,.92);
+  background: rgba(255,255,255,.94);
   backdrop-filter: blur(8px);
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 8px 12px;
   margin: 0 0 28px;
-  box-shadow: 0 6px 20px rgba(17,24,39,.05);
+  box-shadow: 0 6px 18px rgba(17,24,39,.05);
 }
 .hub-jump-bar .hub-jump {
   margin: 0;
@@ -3482,11 +3513,14 @@ section h2:not(:first-child) {
   font-size: 13.5px;
 }
 
-/* Visual Guide Cards on Hub Pages (16:9 covers + 15.5px readable text) */
+/* Guide Cards: Horizontal Editorial Card when 1 guide; compact 2-col grid when 2+ guides */
 .hub-guides-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
+}
+.hub-guides-grid.single {
+  grid-template-columns: 1fr;
 }
 .hub-guide-card {
   display: flex;
@@ -3504,9 +3538,10 @@ section h2:not(:first-child) {
 .hub-guide-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
 .hub-guide-cover {
   position: relative;
-  aspect-ratio: 16 / 9;
+  height: 195px;
   overflow: hidden;
   background: #14181F;
+  flex-shrink: 0;
 }
 .hub-guide-cover img {
   width: 100%;
@@ -3517,14 +3552,26 @@ section h2:not(:first-child) {
 }
 .hub-guide-card:hover .hub-guide-cover img { transform: scale(1.04); }
 .hub-guide-body {
-  padding: 18px 20px 20px;
+  padding: 18px 22px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
 }
-.hub-guide-card h3 { font-size: 18.5px; line-height: 1.3; margin: 0 0 9px; color: var(--ink); }
+.hub-guide-card h3 { font-size: 19px; line-height: 1.3; margin: 0 0 9px; color: var(--ink); }
 .hub-guide-card p { font-size: 15.5px; line-height: 1.6; color: var(--body); margin: 0 0 16px; }
+
+/* Single-guide horizontal editorial layout (never blows up image to full width!) */
+.hub-guides-grid.single .hub-guide-card {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  align-items: stretch;
+}
+.hub-guides-grid.single .hub-guide-cover {
+  height: 100%;
+  min-height: 200px;
+  max-height: 240px;
+}
 
 /* Quick inline filter bar above #tools */
 .hub-quick-filter {
@@ -3598,12 +3645,16 @@ section h2:not(:first-child) {
 .hub-side-item span { font-size: 14.5px; line-height: 1.56; color: var(--body); }
 .hub-suggest p, .hub-faq p { font-size: 15.5px; line-height: 1.62; color: var(--body); }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
+  .hub-hero { grid-template-columns: 1fr; }
   .hub-jump-bar { position: static; }
   .hub-switcher { display: none; }
+  .hub-guides-grid.single .hub-guide-card { grid-template-columns: 1fr; }
+  .hub-guides-grid.single .hub-guide-cover { max-height: 200px; }
 }
-@media (max-width: 600px) {
+@media (max-width: 680px) {
+  .hub-guides-grid { grid-template-columns: 1fr; }
   .hub-hero-main { padding: 20px; }
-  .hub-stat-media { height: 155px; }
+  .hub-stat-media { height: 140px; }
   .hub-quick-filter input, .hub-searchbox input, .hub-field input { font-size: 16px; }
 }

@@ -2577,8 +2577,8 @@ def hub_page(game_id, lang):
             '<section class="hub-section" id="guides">'
             '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
             '<h2>%s</h2></div></div>'
-            '<div class="hub-guides-grid">%s</div></section>'
-            % (ui["guides_kicker"], b["guides_h"], cards)
+            '<div class="hub-guides-grid%s">%s</div></section>'
+            % (ui["guides_kicker"], b["guides_h"], " single" if len(guides) == 1 else "", cards)
         )
 
     # Explore: client-side search over this hub's real tools + FAQ, and a
