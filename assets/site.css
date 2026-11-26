@@ -3043,3 +3043,199 @@ section h2:not(:first-child) {
   .bf-reset-row { grid-template-columns: 1fr; }
   .bf-cmd input { font-size: 16px; }
 }
+
+/* ===== HOME V2.2.1: VISUAL COVERS & READABLE TYPOGRAPHY ===== */
+/* Larger, higher-contrast description typography across all homepage cards */
+.bf-sec-sub { font-size: 16px; line-height: 1.58; color: var(--body); }
+.bf-spot-card h3 { font-size: 17px; line-height: 1.3; margin: 0 0 6px; }
+.bf-spot-card p { font-size: 15px; line-height: 1.55; color: var(--body); margin: 0 0 10px; }
+.bf-hub-tile h3 { font-size: 17px; line-height: 1.28; margin: 0 0 7px; }
+.bf-hub-tile p { font-size: 15px; line-height: 1.52; color: var(--body); margin: 0 0 14px; }
+.bf-dir-card h3 { font-size: 16.5px; line-height: 1.32; margin: 0 0 8px; }
+.bf-dir-card p { font-size: 15px; line-height: 1.58; color: var(--body); margin: 0 0 14px; }
+.bf-guide-card h3 { font-size: 18.5px; line-height: 1.3; margin: 10px 0 9px; }
+.bf-guide-card p { font-size: 15.5px; line-height: 1.6; color: var(--body); margin: 0 0 16px; }
+.bf-trust-card h3 { font-size: 17px; margin: 0 0 8px; }
+.bf-trust-card p { font-size: 15px; line-height: 1.6; color: var(--body); }
+
+/* Flagship card with real PoE 2 key art backdrop */
+.bf-flagship {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background: #14181F;
+}
+.bf-flag-media {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+.bf-flag-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  transition: transform .4s ease;
+}
+.bf-flagship:hover .bf-flag-media img { transform: scale(1.03); }
+.bf-flag-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,24,31,.15) 0%, rgba(20,24,31,.55) 60%, #14181F 100%);
+}
+.bf-flag-body {
+  position: relative;
+  padding: 18px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+.bf-flagship p { font-size: 15.5px; line-height: 1.6; color: #E2E8F0; }
+
+/* Spotlight right-stack cards with real game cover thumbnails */
+.bf-spot-card {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 16px;
+  padding: 14px 16px;
+}
+.bf-spot-thumb {
+  width: 88px;
+  min-width: 88px;
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--bg-elev);
+  align-self: stretch;
+}
+.bf-spot-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s ease;
+}
+.bf-spot-card:hover .bf-spot-thumb img { transform: scale(1.06); }
+.bf-spot-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 5-Game Hub cards with 16:9 game cover banners */
+.bf-hub-tile {
+  padding: 0;
+  overflow: hidden;
+}
+.bf-hub-cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #14181F;
+}
+.bf-hub-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+}
+.bf-hub-tile:hover .bf-hub-cover img { transform: scale(1.05); }
+.bf-hub-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17,24,39,.05) 40%, rgba(17,24,39,.52) 100%);
+}
+.bf-hub-cover .bf-hub-count {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  z-index: 2;
+  background: rgba(17,24,39,.82);
+  color: #FFFFFF;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,.16);
+  font-weight: 600;
+}
+.bf-hub-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+/* Directory cards with crisp icon badge + empty state */
+.bf-dir-head-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-bottom: 8px;
+}
+.bf-dir-ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--teal);
+}
+.bf-dir-ico.poe { background: var(--poe-wash); color: var(--poe-deep); border-color: rgba(140,29,24,.18); }
+.bf-dir-ico.gta { background: var(--gta-wash); color: var(--gta-deep); border-color: rgba(14,122,114,.18); }
+.bf-dir-ico.rob { background: var(--rob-wash); color: var(--rob-deep); border-color: rgba(122,62,50,.18); }
+.bf-dir-ico.dps { background: var(--dps-wash); color: var(--dps-deep); border-color: rgba(12,112,108,.18); }
+.bf-dir-ico.aion { background: var(--aion-wash); color: var(--aion-deep); border-color: rgba(138,103,16,.18); }
+.bf-dir-ico svg { width: 17px; height: 17px; }
+.bf-dir-empty {
+  display: none;
+  grid-column: 1 / -1;
+  background: var(--bg);
+  border: 1px dashed var(--line-strong);
+  border-radius: 14px;
+  padding: 28px 20px;
+  text-align: center;
+}
+.bf-dir-empty.show { display: block; }
+.bf-dir-empty p { font-size: 15.5px; color: var(--body); margin: 0 0 12px; }
+
+/* Latest Guides editorial cards with 16:9 real cover imagery */
+.bf-guide-card {
+  padding: 0;
+  overflow: hidden;
+  border-top: 0;
+}
+.bf-guide-cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #14181F;
+}
+.bf-guide-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+}
+.bf-guide-card:hover .bf-guide-cover img { transform: scale(1.04); }
+.bf-guide-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .bf-flag-media { height: 165px; }
+  .bf-spot-thumb { width: 72px; min-width: 72px; }
+}

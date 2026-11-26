@@ -609,51 +609,71 @@ def home_page(lang):
     )
     feats = featured_for(lang)[:3]
     spot_cards = []
+    GUIDE_COVERS = {
+        "poe2-1-0-full-release-guide": "/assets/games/path-of-exile-2-wide.jpg",
+        "gta-6-ps5-frame-interpolation": "/assets/games/gta-6-wide.jpg",
+        "rob-run-kak-ubrat-lagi": "/assets/rob-run/lag-hero.webp",
+        "rob-run-failed-to-enter-location": "/assets/rob-run/fel-hero.webp",
+    }
+
     for t in feats:
         g = GAMES_DATA[t["game"]]
         cls = GAME_CLS[t["game"]]
         title = (t.get("cardTitle") or {}).get(lang) or t["title"][lang]
         blurb = (t.get("cardBlurb") or {}).get(lang) or t["blurb"][lang]
         rev = t.get("updated") or t.get("dataReviewed") or ""
+        thumb = "/assets/games/%s-cover.jpg" % g["slug"]
         spot_cards.append(
             '<a class="bf-spot-card %s" href="%s">'
+            '<div class="bf-spot-thumb"><img src="%s" alt="%s" loading="lazy"></div>'
+            '<div class="bf-spot-content">'
             '<div><div class="bf-spot-meta"><span>%s</span><span>%s</span></div>'
             '<h3>%s</h3><p>%s</p></div>'
-            '<span class="bf-spot-go">%s %s</span></a>'
-            % (cls, tool_url(lang, t), g["name"][lang], rev, title, blurb,
+            '<span class="bf-spot-go">%s %s</span></div></a>'
+            % (cls, tool_url(lang, t), thumb, _html.escape(g["name"][lang], quote=True),
+               g["name"][lang], rev, title, blurb,
                GO_LABELS.get(t["id"], {}).get(lang, ui["open_short"]), ARROW_SVG)
         )
 
     bento_html = (
         '<div class="bf-bento">'
         '<article class="bf-flagship">'
+        '<div class="bf-flag-media"><img src="/assets/games/path-of-exile-2-wide.jpg" alt="Path of Exile 2 1.0 Full Release"></div>'
+        '<div class="bf-flag-body">'
         '<div><div class="bf-flag-top"><span class="bf-flag-badge">%s</span>'
         '<span class="bf-flag-cd" data-live="poe-short">--d --h --m</span></div>'
         '<h3>%s</h3><p>%s</p>'
         '<div class="bf-flag-links">%s</div></div>'
         '<a class="bf-flag-cta" href="%s/path-of-exile-2/1-0-full-release-guide/">%s %s</a>'
-        '</article>'
+        '</div></article>'
         '<div class="bf-bento-stack">%s</div>'
         '</div>'
         % (ui["flag_badge"], ui["flag_title"], ui["flag_desc"], flag_chips,
            prefix, ui["flag_cta"], ARROW_SVG, "".join(spot_cards))
     )
 
-    # 5-Game Hub Strip
+    # 5-Game Hub Strip with real wide game covers
     hub_tiles = []
     for g in games_sorted:
         cls = GAME_CLS[g["id"]]
         t_cnt = len(tools_for(g["id"]))
         g_cnt = len(guides_for(g["id"], lang))
-        cnt_lbl = ("%dT · %dG" % (t_cnt, g_cnt)) if g_cnt else ("%d %s" % (t_cnt, "tools" if not is_ru else "инстр."))
+        if g_cnt:
+            cnt_lbl = "%dT · %dG" % (t_cnt, g_cnt)
+        else:
+            unit = ("tool" if t_cnt == 1 else "tools") if not is_ru else "инстр."
+            cnt_lbl = "%d %s" % (t_cnt, unit)
         hub_href = "/%s/" % g["slug"] if not is_ru else "/ru/%s/" % g["slug"]
+        cover_src = "/assets/games/%s-wide.jpg" % g["slug"]
         hub_tiles.append(
             '<a class="bf-hub-tile %s" href="%s">'
-            '<div><div class="bf-hub-top"><span class="bf-hub-dot"></span>'
+            '<div class="bf-hub-cover"><img src="%s" alt="%s" loading="lazy">'
             '<span class="bf-hub-count">%s</span></div>'
-            '<h3>%s</h3><p>%s</p></div>'
-            '<span class="bf-hub-link">%s</span></a>'
-            % (cls, hub_href, cnt_lbl, g["name"][lang], g["tagline"][lang], ui["hub_open"])
+            '<div class="bf-hub-body">'
+            '<div><h3>%s</h3><p>%s</p></div>'
+            '<span class="bf-hub-link">%s</span></div></a>'
+            % (cls, hub_href, cover_src, _html.escape(g["name"][lang], quote=True),
+               cnt_lbl, g["name"][lang], g["tagline"][lang], ui["hub_open"])
         )
 
     # Interactive Filterable Directory (all tools + all guides)
@@ -680,15 +700,18 @@ def home_page(lang):
         search_index.append({
             "t": title, "g": g["name"][lang], "k": kind_lbl, "u": href, "q": search_txt
         })
+        ico_svg = ICONS.get(item.get("id", ""), ICONS["dps-wiki-search"] if kind == "guide" else ICONS["dps-fuse-salvage-calculator"])
         dir_cards.append(
             '<a class="bf-dir-card" href="%s" data-game="%s" data-kind="%s" data-q="%s">'
             '<div><div class="bf-dir-top">'
             '<span class="bf-dir-game %s">%s</span>'
             '<span class="bf-dir-kind %s">%s</span></div>'
-            '<h3>%s</h3><p>%s</p></div>'
+            '<div class="bf-dir-head-row"><span class="bf-dir-ico %s" aria-hidden="true">%s</span>'
+            '<h3>%s</h3></div><p>%s</p></div>'
             '<div class="bf-dir-foot"><span>%s</span><b>%s</b></div></a>'
             % (href, g["id"], kind, _html.escape(search_txt, quote=True),
                cls, g["name"][lang], kind, kind_lbl,
+               cls, ico_svg,
                title, blurb, ("%s %s" % (ui["reviewed_prefix"], rev)) if rev else "", action_lbl)
         )
 
@@ -706,14 +729,18 @@ def home_page(lang):
     for gd in guides_sorted:
         g = GAMES_DATA[gd["game"]]
         cls = GAME_CLS[gd["game"]]
+        gcover = GUIDE_COVERS.get(gd.get("id", ""), "/assets/games/%s-wide.jpg" % g["slug"])
         guide_cards.append(
             '<a class="bf-guide-card %s" href="%s">'
+            '<div class="bf-guide-cover"><img src="%s" alt="%s" loading="lazy"></div>'
+            '<div class="bf-guide-body">'
             '<div><div class="bf-dir-top">'
             '<span class="bf-dir-game %s">%s</span>'
             '<span class="bf-dir-kind guide">%s</span></div>'
             '<h3>%s</h3><p>%s</p></div>'
-            '<div class="bf-dir-foot"><span>%s</span><b>%s</b></div></a>'
-            % (cls, guide_url(lang, gd), cls, g["name"][lang], ui["kind_guide"],
+            '<div class="bf-dir-foot"><span>%s</span><b>%s</b></div></div></a>'
+            % (cls, guide_url(lang, gd), gcover, _html.escape(gd["title"][lang], quote=True),
+               cls, g["name"][lang], ui["kind_guide"],
                gd["title"][lang], gd["blurb"][lang], gd.get("updated", ""), ui["read_short"])
         )
 
@@ -799,12 +826,20 @@ def home_page(lang):
         'var inp=document.getElementById("bf-cmd-input"),res=document.getElementById("bf-cmd-results");'
         'var curGame="all",curKind="all",curQ="";'
         'function applyDir(){'
+        'var vis=0;'
         'document.querySelectorAll(".bf-dir-card").forEach(function(card){'
         'var okG=curGame==="all"||card.getAttribute("data-game")===curGame;'
         'var okK=curKind==="all"||card.getAttribute("data-kind")===curKind;'
         'var okQ=!curQ||card.getAttribute("data-q").indexOf(curQ)!==-1;'
-        'card.classList.toggle("hidden",!(okG&&okK&&okQ));'
-        '});}'
+        'var show=okG&&okK&&okQ;if(show)vis++;'
+        'card.classList.toggle("hidden",!show);'
+        '});'
+        'var emp=document.getElementById("bf-dir-empty");if(emp)emp.classList.toggle("show",vis===0);'
+        '}'
+        'var rst=document.getElementById("bf-dir-reset");'
+        'if(rst){rst.addEventListener("click",function(){curKind="all";curQ="";if(inp)inp.value="";'
+        'document.querySelectorAll(".bf-type-btn").forEach(function(x){x.classList.toggle("active",x.getAttribute("data-kind")==="all");});'
+        'applyDir();});}'
         'document.querySelectorAll(".bf-pill").forEach(function(p){p.addEventListener("click",function(){'
         'curGame=p.getAttribute("data-game");'
         'document.querySelectorAll(".bf-pill").forEach(function(x){x.classList.toggle("active",x===p);});'
@@ -859,7 +894,7 @@ def home_page(lang):
         '<button class="bf-type-btn" type="button" data-kind="tool">%s (%d)</button>'
         '<button class="bf-type-btn" type="button" data-kind="guide">%s (%d)</button>'
         '</div></div>'
-        '<div class="bf-dir-grid">%s</div>'
+        '<div class="bf-dir-grid">%s''<div class="bf-dir-empty" id="bf-dir-empty"><p>%s</p><button class="btn btn-secondary" type="button" id="bf-dir-reset">%s</button></div></div>'
         '</div></section>'
         '<section class="bf-sec" id="guides"><div class="wrap">'
         '<div class="bf-sec-head"><div><p class="sec-label">%s</p><h2>%s</h2><p class="bf-sec-sub">%s</p></div></div>'
@@ -885,7 +920,7 @@ def home_page(lang):
             ui["spot_label"], ui["spot_h"], ui["spot_sub"], bento_html,
             ui["hubs_label"], ui["hubs_h"], ui["hubs_sub"], "".join(hub_tiles),
             "".join(filter_pills), ui["type_all"], ui["type_tools"], len(live_tools),
-            ui["type_guides"], len(live_guides), "".join(dir_cards),
+            ui["type_guides"], len(live_guides), "".join(dir_cards), ui["no_hits"], ("Show all tools & guides" if not is_ru else "Показать все инструменты и гайды"),
             ui["guides_label"], ui["guides_h"], ui["guides_sub"], "".join(guide_cards),
             ui["trust_label"], ui["trust_h"], trust_cards,
             c["faq_label"], c["faq_h"], faq_items,
