@@ -1951,29 +1951,49 @@ def tool_by_id(tool_id):
     raise KeyError(tool_id)
 
 
+HUB_GUIDE_COVERS = {
+    "poe2-1-0-full-release-guide": "/assets/games/path-of-exile-2-wide.jpg",
+    "gta-6-ps5-frame-interpolation": "/assets/games/gta-6-wide.jpg",
+    "rob-run-kak-ubrat-lagi": "/assets/rob-run/lag-hero.webp",
+    "rob-run-failed-to-enter-location": "/assets/rob-run/fel-hero.webp",
+}
+
+
 def hub_card(lang, game, t):
+    import html as _html
     ui = HUB_UI[lang]
+    cls = GAME_CLS.get(game["id"], "dps")
+    rev = t.get("updated") or t.get("dataReviewed") or ""
+    rev_html = '<span class="hub-tool-rev">%s</span>' % rev if rev else ""
+    q = _html.escape((t["title"][lang] + " " + t["blurb"][lang]).lower(), quote=True)
     return (
-        '<a class="hub-tool" href="%s">'
-        '<span class="hub-tool-ico" aria-hidden="true">%s</span>'
+        '<a class="hub-tool %s" href="%s" data-hub-q="%s">'
+        '<div class="hub-tool-top"><span class="hub-tool-ico" aria-hidden="true">%s</span>%s</div>'
         '<h3>%s</h3><p>%s</p>'
         '<span class="hub-tool-bottom">%s<span>%s</span></span></a>'
-        % (tool_url(lang, t),
-           ICONS.get(t["id"], ICONS["dps-fuse-salvage-calculator"]),
+        % (cls, tool_url(lang, t), q,
+           ICONS.get(t["id"], ICONS["dps-fuse-salvage-calculator"]), rev_html,
            t["title"][lang], t["blurb"][lang], badge(lang, t), ui["open_tool"])
     )
 
 
 def guide_card(lang, g):
+    import html as _html
     ui = HUB_UI[lang]
+    cover = HUB_GUIDE_COVERS.get(g.get("id", ""), "/assets/games/%s-wide.jpg" % g["game"])
+    upd = g.get("updated") or ""
+    upd_html = '<span class="hub-tool-rev">%s</span>' % upd if upd else ""
     return (
-        '<a class="hub-tool" href="%s">'
-        '<span class="hub-tool-ico" aria-hidden="true">%s</span>'
-        '<h3>%s</h3><p>%s</p>'
-        '<span class="hub-tool-bottom">%s<span>%s</span></span></a>'
-        % (guide_url(lang, g),
-           ICONS.get(g["id"], ICONS["dps-fuse-salvage-calculator"]),
-           g["title"][lang], g["blurb"][lang], badge(lang, g), ui["open_guide"])
+        '<a class="hub-guide-card" href="%s">'
+        '<div class="hub-guide-cover"><img src="%s" alt="%s" loading="lazy"></div>'
+        '<div class="hub-guide-body">'
+        '<div><div class="hub-tool-top">%s%s</div>'
+        '<h3>%s</h3><p>%s</p></div>'
+        '<span class="hub-tool-bottom"><span>%s</span><span>%s</span></span></div></a>'
+        % (guide_url(lang, g), cover, _html.escape(g["title"][lang], quote=True),
+           badge(lang, g), upd_html,
+           g["title"][lang], g["blurb"][lang],
+           "Guide" if lang == "en" else "Гайд", ui["open_guide"])
     )
 
 
@@ -2381,6 +2401,35 @@ def hub_js(game_id, lang):
         wstr = json.dumps({"leftoverOne": pv["leftover_one"],
                            "leftoverMany": pv["leftover_many"]}, ensure_ascii=False)
         js += HUB_WIDGET_DPS.replace("__WIDGET_STR__", wstr)
+    js += """
+(function(){
+  var qf = document.getElementById('hub-tool-filter');
+  if (qf) {
+    qf.addEventListener('input', function(){
+      var v = qf.value.trim().toLowerCase();
+      document.querySelectorAll('#tools .hub-tool').forEach(function(c){
+        var hay = c.getAttribute('data-hub-q') || c.textContent.toLowerCase();
+        c.classList.toggle('hub-hidden', !!v && hay.indexOf(v) === -1);
+      });
+    });
+  }
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.hub-jump a[href^="#"]'));
+  if (navLinks.length && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          var id = '#' + e.target.id;
+          navLinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === id); });
+        }
+      });
+    }, { rootMargin: '-20% 0px -65% 0px' });
+    navLinks.forEach(function(a){
+      var sec = document.querySelector(a.getAttribute('href'));
+      if (sec) obs.observe(sec);
+    });
+  }
+})();
+"""
     return "<script>\n" + js + "\n</script>"
 
 
@@ -2419,22 +2468,47 @@ def hub_page(game_id, lang):
         jump_items.insert(1, (b["guides_h"], "#guides"))
     jump = "".join(
         '<a href="%s">%s</a>' % (href, label) for label, href in jump_items)
+    gcls = GAME_CLS.get(game_id, "dps")
+    cover_img = "/assets/games/%s-wide.jpg" % game["slug"]
+    guides_cta = ""
+    if guides:
+        g_btn = ("Read %s" % ("1.0 Guide" if game_id == "path-of-exile-2" else b["guides_h"])) if lang == "en" else ("Гайды" if game_id != "path-of-exile-2" else "Гайд по 1.0")
+        guides_cta = '<a class="btn btn-secondary" href="%s">%s ↗</a>' % (guide_url(lang, guides[0]), g_btn)
+    else:
+        guides_cta = '<a class="btn btn-secondary" href="#faq">%s</a>' % ui["cta_faq"]
+
+    guides_meta = ""
+    if guides:
+        g_lbl = ("Guide" if len(guides) == 1 else "Guides") if lang == "en" else ("Гайд" if len(guides) == 1 else "Гайда")
+        guides_meta = '<div><strong>%d</strong><span>%s</span></div>' % (len(guides), g_lbl)
+
+    sw_order = [("path-of-exile-2", "PoE 2"), ("gta-6", "GTA 6"), ("rob-run", "ROB RUN"), ("desktop-pension-squad", "DPS"), ("aion-2", "AION 2")]
+    sw_links = "".join(
+        '<a class="hub-sw-pill%s" href="%s/%s/">%s</a>'
+        % (" current" if gid == game_id else "", "" if lang == "en" else "/ru", gid, lbl)
+        for gid, lbl in sw_order
+    )
+
     hero_html = (
-        '<section class="hub-hero"><div class="hub-hero-main">'
+        '<section class="hub-hero"><div class="hub-hero-main %s">'
         '<p class="hub-eyebrow">%s</p><h1>%s</h1>'
         '<p class="hub-lede">%s</p>'
-        '<div class="cta"><a class="btn btn-primary" href="#tools">%s</a>'
-        '<a class="btn btn-secondary" href="#faq">%s</a></div></div>'
-        '<aside class="hub-stat %s"><div>'
-        '<span class="hub-pill"><span class="dot"></span>%s</span>'
-        '<h2>%s</h2><p>%s</p></div>'
+        '<div class="cta"><a class="btn btn-primary" href="#tools">%s %s</a>'
+        '%s</div></div>'
+        '<aside class="hub-stat %s">'
+        '<div class="hub-stat-media"><img src="%s" alt="%s">'
+        '<span class="hub-pill"><span class="dot"></span>%s</span></div>'
+        '<div class="hub-stat-body"><div><h2>%s</h2><p>%s</p></div>'
         '<div class="hub-meta"><div><strong>%d</strong><span>%s</span></div>'
-        '<div><strong>2</strong><span>%s</span></div></div></aside></section>'
-        '<nav class="hub-jump" aria-label="%s">%s</nav>'
-        % (ui["eyebrow"], c["h1"], c["lede"], ui["cta_tools"], ui["cta_faq"],
-           hero["wm"], hero["pill"], hero["h2"], hero["para"],
-           len(tools), tools_meta_label(lang, len(tools)), ui["langs_meta"],
-           ui["jump_label"], jump)
+        '%s<div><strong>2</strong><span>%s</span></div></div></div></aside></section>'
+        '<div class="hub-jump-bar"><nav class="hub-jump" aria-label="%s">%s</nav>'
+        '<div class="hub-switcher" aria-label="Switch game">%s</div></div>'
+        % (gcls, ui["eyebrow"], c["h1"], c["lede"], ui["cta_tools"], ARROW_SVG,
+           guides_cta,
+           hero["wm"], cover_img, game["name"][lang], hero["pill"],
+           hero["h2"], hero["para"],
+           len(tools), tools_meta_label(lang, len(tools)), guides_meta, ui["langs_meta"],
+           ui["jump_label"], jump, sw_links)
     )
 
     # Tools: one card per real tool page (live + pre-launch in one grid).
@@ -2443,14 +2517,23 @@ def hub_page(game_id, lang):
     note = ""
     if any(t["status"] == "pre-launch" for t in tools) and b.get("prelaunch_note"):
         note = '<p class="intro-note">%s</p>' % b["prelaunch_note"]
+    qfilter_html = ""
+    if len(tools) >= 4:
+        qf_ph = ("Filter %s tools..." % short) if lang == "en" else ("Фильтр инструментов %s..." % short)
+        qfilter_html = (
+            '<div class="hub-quick-filter">'
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'
+            '<input id="hub-tool-filter" type="search" placeholder="%s" aria-label="%s"></div>'
+            % (qf_ph, qf_ph)
+        )
     tools_html = (
         '<section class="hub-section" id="tools">'
         '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
         '<h2>%s</h2><p class="hub-sub">%s</p></div>'
         '<a class="hub-more" href="#explore">%s %s</a></div>'
-        '<div class="hub-tools">%s</div>%s</section>'
+        '%s<div class="hub-tools">%s</div>%s</section>'
         % (ui["tools_kicker"], ui["tools_h"], ui["tools_sub"],
-           ui["tools_more"], ARROW_SVG, cards, note)
+           ui["tools_more"], ARROW_SVG, qfilter_html, cards, note)
     )
 
     # Preview: one real working mini-widget + honest bullets. The AION 2
@@ -2465,6 +2548,13 @@ def hub_page(game_id, lang):
         widget = preview_widget_poe2(lang, ui, pv)
     else:
         widget = preview_widget_dps(lang, ui, pv)
+    if widget.startswith('<div class="hub-calc">'):
+        chrome_lbl = "Interactive Workbench" if lang == "en" else "Интерактивный инструмент"
+        widget = (
+            '<div class="hub-calc"><div class="hub-calc-chrome"><span>%s · %s</span>'
+            '<span class="live-pill"><i></i>LIVE</span></div><div class="hub-calc-inner">'
+            % (short, chrome_lbl)
+        ) + widget[len('<div class="hub-calc">'):-len('</div>')] + '</div></div>'
     preview_html = (
         '<section class="hub-section" id="preview">'
         '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
@@ -2487,7 +2577,7 @@ def hub_page(game_id, lang):
             '<section class="hub-section" id="guides">'
             '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
             '<h2>%s</h2></div></div>'
-            '<div class="hub-tools">%s</div></section>'
+            '<div class="hub-guides-grid">%s</div></section>'
             % (ui["guides_kicker"], b["guides_h"], cards)
         )
 

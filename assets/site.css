@@ -3239,3 +3239,371 @@ section h2:not(:first-child) {
   .bf-flag-media { height: 165px; }
   .bf-spot-thumb { width: 72px; min-width: 72px; }
 }
+
+/* ===== HUB V2.2: VISUAL HERO, COVER GUIDES & INTERACTIVE WORKSPACE ===== */
+/* Game Hub Hero with real key art & dark showcase panel */
+.hub-hero {
+  gap: 28px;
+  padding: 20px 0 28px;
+  align-items: stretch;
+}
+.hub-hero-main {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+.hub-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--teal-dim);
+  color: var(--teal-deep);
+  margin: 0 0 14px;
+}
+.hub-hero-main.poe .hub-eyebrow { background: var(--poe-wash); color: var(--poe-deep); }
+.hub-hero-main.gta .hub-eyebrow { background: var(--gta-wash); color: var(--gta-deep); }
+.hub-hero-main.rob .hub-eyebrow { background: var(--rob-wash); color: var(--rob-deep); }
+.hub-hero-main.dps .hub-eyebrow { background: var(--dps-wash); color: var(--dps-deep); }
+.hub-hero-main.aion .hub-eyebrow { background: var(--aion-wash); color: var(--aion-deep); }
+
+.hub-hero-main h1 {
+  font-size: clamp(1.9rem, 3.1vw, 2.65rem);
+  line-height: 1.12;
+  letter-spacing: -.028em;
+  margin: 0 0 14px;
+}
+.hub-lede {
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: var(--body);
+  margin: 0 0 22px;
+}
+.hub-stat {
+  background: #14181F;
+  color: #F3F4F6;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 14px 34px rgba(17,24,39,.14);
+}
+.hub-stat::before, .hub-stat::after { display: none !important; }
+.hub-stat-media {
+  position: relative;
+  height: 185px;
+  overflow: hidden;
+  background: #0B0F17;
+}
+.hub-stat-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  display: block;
+  transition: transform .45s ease;
+}
+.hub-stat:hover .hub-stat-media img { transform: scale(1.04); }
+.hub-stat-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,24,31,.12) 0%, rgba(20,24,31,.58) 65%, #14181F 100%);
+}
+.hub-stat-media .hub-pill {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  z-index: 2;
+  background: rgba(17,24,39,.82);
+  color: #F8FAFC;
+  border: 1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(5px);
+  margin: 0;
+}
+.hub-stat-body {
+  padding: 16px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+.hub-stat h2 {
+  color: #FFFFFF;
+  font-size: 19px;
+  line-height: 1.28;
+  margin: 0 0 8px;
+}
+.hub-stat p {
+  color: #CBD5E1;
+  font-size: 14.5px;
+  line-height: 1.56;
+  margin: 0 0 16px;
+}
+.hub-stat .hub-meta {
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: 14px;
+  gap: 18px;
+}
+.hub-stat .hub-meta strong {
+  color: #FFFFFF;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.hub-stat .hub-meta span { color: #94A3B8; }
+
+/* Sticky Jump Bar + Cross-Game Switcher */
+.hub-jump-bar {
+  position: sticky;
+  top: calc(var(--header-h) + 6px);
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 0 0 28px;
+  box-shadow: 0 6px 20px rgba(17,24,39,.05);
+}
+.hub-jump-bar .hub-jump {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.hub-jump-bar .hub-jump a {
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: var(--body);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all .15s ease;
+}
+.hub-jump-bar .hub-jump a:hover,
+.hub-jump-bar .hub-jump a.active {
+  background: var(--ink);
+  color: #FFFFFF;
+}
+.hub-switcher {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.hub-sw-pill {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  transition: all .14s ease;
+}
+.hub-sw-pill:hover { color: var(--ink); border-color: var(--line-strong); }
+.hub-sw-pill.current { background: var(--teal-dim); color: var(--teal-deep); border-color: rgba(12,112,108,.28); }
+
+/* Enhanced Tool Cards with color accent, icon badge, & readable 15px body */
+.hub-sub { font-size: 15.5px; line-height: 1.56; color: var(--body); }
+.hub-tool {
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--teal);
+  padding: 20px 20px 18px;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.hub-tool:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.hub-tool.poe { border-top-color: var(--poe); }
+.hub-tool.gta { border-top-color: var(--gta); }
+.hub-tool.rob { border-top-color: var(--rob); }
+.hub-tool.dps { border-top-color: var(--dps); }
+.hub-tool.aion { border-top-color: var(--aion); }
+
+.hub-tool-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.hub-tool-ico {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  margin: 0;
+}
+.hub-tool.poe .hub-tool-ico { background: var(--poe-wash); color: var(--poe-deep); }
+.hub-tool.gta .hub-tool-ico { background: var(--gta-wash); color: var(--gta-deep); }
+.hub-tool.rob .hub-tool-ico { background: var(--rob-wash); color: var(--rob-deep); }
+.hub-tool.dps .hub-tool-ico { background: var(--dps-wash); color: var(--dps-deep); }
+.hub-tool.aion .hub-tool-ico { background: var(--aion-wash); color: var(--aion-deep); }
+.hub-tool-rev {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  background: var(--bg);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.hub-tool h3 { font-size: 17.5px; line-height: 1.3; margin: 0 0 8px; color: var(--ink); }
+.hub-tool p { font-size: 15px; line-height: 1.58; color: var(--body); margin: 0 0 16px; }
+.hub-tool-bottom {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  font-size: 13.5px;
+}
+
+/* Visual Guide Cards on Hub Pages (16:9 covers + 15.5px readable text) */
+.hub-guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+.hub-guide-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.hub-guide-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.hub-guide-cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #14181F;
+}
+.hub-guide-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+}
+.hub-guide-card:hover .hub-guide-cover img { transform: scale(1.04); }
+.hub-guide-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+.hub-guide-card h3 { font-size: 18.5px; line-height: 1.3; margin: 0 0 9px; color: var(--ink); }
+.hub-guide-card p { font-size: 15.5px; line-height: 1.6; color: var(--body); margin: 0 0 16px; }
+
+/* Quick inline filter bar above #tools */
+.hub-quick-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 420px;
+  background: var(--paper);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 4px 12px;
+  margin: 0 0 18px;
+}
+.hub-quick-filter:focus-within {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(12,112,108,.12);
+}
+.hub-quick-filter svg { width: 16px; height: 16px; color: var(--muted); flex-shrink: 0; }
+.hub-quick-filter input {
+  border: 0;
+  background: transparent;
+  width: 100%;
+  font-family: var(--font);
+  font-size: 15px;
+  color: var(--ink);
+  padding: 6px 0;
+  outline: none;
+}
+.hub-tool.hub-hidden { display: none; }
+
+/* Upgraded Interactive Preview Workbench Frame */
+.hub-calc {
+  border-radius: 16px;
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 12px 30px rgba(17,24,39,.07);
+  overflow: hidden;
+  padding: 0;
+}
+.hub-calc-chrome {
+  background: #14181F;
+  color: #E5E7EB;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.hub-calc-chrome .live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #34D399;
+}
+.hub-calc-chrome .live-pill i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34D399;
+  display: inline-block;
+}
+.hub-calc-inner { padding: 22px 24px 24px; }
+.hub-side {
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  padding: 24px;
+}
+.hub-side-item strong { font-size: 15.5px; color: var(--ink); }
+.hub-side-item span { font-size: 14.5px; line-height: 1.56; color: var(--body); }
+.hub-suggest p, .hub-faq p { font-size: 15.5px; line-height: 1.62; color: var(--body); }
+
+@media (max-width: 900px) {
+  .hub-jump-bar { position: static; }
+  .hub-switcher { display: none; }
+}
+@media (max-width: 600px) {
+  .hub-hero-main { padding: 20px; }
+  .hub-stat-media { height: 155px; }
+  .hub-quick-filter input, .hub-searchbox input, .hub-field input { font-size: 16px; }
+}
