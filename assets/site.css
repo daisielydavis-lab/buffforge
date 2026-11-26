@@ -2015,8 +2015,9 @@ table.jt-table { width: 100%; min-width: 680px; border-collapse: collapse; font-
 .poe-flow > .note-box { margin: 0; }
 .poe-flow > .faq { padding-top: 0; }
 .poe-flow > .related { margin-top: 0; }
-.poe-flow .sec-head h2,
+.poe-flow .sec-head h2 { margin: 0; font-size: var(--fs-h4); font-weight: 600; line-height: 1.4; letter-spacing: -.01em; }
 .poe-flow .panel-title h2 { margin: 0; }
+.poe-flow .sec-head { margin-bottom: 14px; }
 .poe-flow .faq > h2 { margin: 0 0 8px; }
 .poe-reward { display: flex; align-items: flex-start; gap: 14px; border-bottom: 1px solid var(--line); padding: 12px 0; }
 .poe-reward:last-child { border-bottom: 0; }
