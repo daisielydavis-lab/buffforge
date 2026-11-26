@@ -128,7 +128,7 @@ def head(lang, title, desc, canon_path=None, alternates=None, jsonld=None, noind
         '<meta property="og:locale" content="%s">' % ("en_US" if lang == "en" else "ru_RU"),
         '<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">',
         '<link rel="stylesheet" href="/assets/fonts.css">',
-        '<link rel="stylesheet" href="/assets/site.css?v=bd6960f">',
+        '<link rel="stylesheet" href="/assets/site.css?v=125540b">',
     ]
     if alternates:
         for hl, p in sorted(alternates.items()):
