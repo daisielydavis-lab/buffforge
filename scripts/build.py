@@ -354,332 +354,307 @@ def home_page(lang):
     is_ru = (lang == "ru")
     prefix = "/ru" if is_ru else ""
 
-    # Gather live tools & guides
     live_tools = [t for t in TOOLS if t.get("status") == "live"]
-    live_guides = []
-    for g in GUIDES:
-        if g.get("status") != "live":
-            continue
-        langs = g.get("langs")
-        if langs is not None and lang not in langs:
-            continue
-        if lang not in (g.get("title") or {}):
-            continue
-        live_guides.append(g)
+    live_guides = [
+        g for g in GUIDES
+        if g.get("status") == "live"
+        and (g.get("langs") is None or lang in g.get("langs"))
+        and lang in (g.get("title") or {})
+    ]
 
-    # Sort games with Path of Exile 2 promoted first for 1.0 launch window
     preferred_order = ["path-of-exile-2", "gta-6", "rob-run", "desktop-pension-squad", "aion-2"]
     games_sorted = sorted(
         game_order(lang),
         key=lambda g: preferred_order.index(g["id"]) if g["id"] in preferred_order else 99
     )
 
-    # Bilingual UI strings for v2.2 workbench & sections
     ui = {
         "en": {
-            "pulse_poe": "PoE 2 1.0 Launch",
-            "pulse_aion": "AION 2 Daily Reset",
-            "pulse_gta": "GTA 6 Live",
-            "pulse_days_out": "days out",
-            "eyebrow": "Independent · Sourced · Zero Ads",
-            "h1": 'Game tools built from <em>checked numbers</em>.',
-            "lede": "Live timers, calculators, and sourced guides — organized by game. Every figure cites a public source and review date, with zero logins and zero ads.",
-            "search_ph": "Search 18 tools & guides (e.g. PoE 2, resistance, wipe, fuse, GTA 6)...",
-            "stat_games": "Games",
-            "stat_tools": "Live tools",
-            "stat_guides": "Guides",
-            "stat_ads": "Ads or logins",
-            "tab_poe": "PoE 2 1.0",
-            "tab_aion": "AION 2 Reset",
-            "tab_gta": "GTA 6 Space",
-            "wb_live": "Live",
-            "poe_kicker": "Dec 11, 2026 (PST) · Free-to-Play Launch",
-            "poe_title": "Path of Exile 2 — 1.0 Release Countdown",
-            "poe_days": "Days", "poe_hrs": "Hrs", "poe_min": "Min", "poe_sec": "Sec",
-            "poe_pills": ["10 Classes (Duelist & Shadow)", "Acts 5–6 Campaign", "Conquerors League"],
-            "poe_cta1": "Read 1.0 Full Guide",
-            "poe_cta2": "Open Countdown",
-            "aion_kicker": "Global Servers · Auto-Resets at 07:00 UTC",
-            "aion_title": "AION 2 Daily & Weekly Reset Clock",
-            "aion_daily": "Next daily reset (07:00 UTC)",
-            "aion_weekly": "Next weekly reset (Wed)",
-            "aion_checks": ["Daily quests & contracts cleared", "Daily dungeon entries used", "Weekly raid / boss progress checked"],
-            "aion_cta": "Open Full Duty Tracker",
-            "gta_kicker": "PS5 & Xbox Series X|S · Official 212 GB Minimum",
-            "gta_title": "GTA 6 Quick Free-Space Checker",
-            "gta_label": "Your console free space",
-            "gta_cta1": "Full Storage Check",
-            "gta_cta2": "DPS Fuse Calculator",
-            "spot_label": "Spotlight",
-            "spot_h": "Hot right now",
-            "spot_sub": "Launch-window essentials and our most-used calculators.",
-            "flag_badge": "NEW · PILLAR GUIDE · UPDATED NOV 26",
-            "flag_title": "Path of Exile 2 1.0 Full Release Guide (Dec 11, 2026)",
-            "flag_desc": "Complete Free-to-Play launch breakdown: all 10 classes & 26 ascendancies, Duelist & Shadow weapons, Acts 5–6, Conquerors of Wraeclast endgame, EA wipe rules, and pre-launch checklist.",
-            "flag_cta": "Read the complete 1.0 guide",
-            "flag_tools": [
-                ("Launch Countdown", "/path-of-exile-2/launch-countdown/"),
-                ("Class Selector", "/path-of-exile-2/class-selector/"),
-                ("Resistance Calc", "/path-of-exile-2/resistance-calculator/"),
-                ("Campaign Checklist", "/path-of-exile-2/campaign-checklist/"),
-            ],
-            "hubs_label": "Directory",
-            "hubs_h": "Explore by game or filter everything",
-            "hubs_sub": "Jump into a dedicated game hub, or filter all live tools and guides instantly.",
-            "hub_open": "Open hub →",
+            "crest": "BuffForge Gaming Portal",
+            "crest_live": "● 1.0 LAUNCH WINDOW",
+            "h1": 'Game Tools, Stats &amp; <em>Sourced Guides</em>',
+            "sub": "Live timers, calculators, and verified guides organized by game — zero ads, zero logins, every figure backed by a public source.",
+            "search_ph": "Search 18 tools & guides (PoE 2, resistance, wipe, fuse, GTA 6)...",
+            "search_btn": "Search",
+            "m_poe": "PoE 2 1.0 Launch",
+            "m_tools": "Live Tools",
+            "m_guides": "Guides",
+            "m_aion": "AION 2 Reset",
+            "spot_hd": "Featured Spotlight",
+            "chart_hd": "PoE 2 1.0 · 26 Ascendancies",
+            "chart_note": "Breakdown of all 26 Path of Exile 2 1.0 ascendancies across attribute archetypes, including Duelist and Shadow.",
+            "lb_hd": "Top Tools & Guides",
+            "sc_h": "What's Inside BuffForge",
+            "sc_sub": "Click any tool on the left to preview its live focus and jump straight in.",
+            "sc_open": "Open tool →",
+            "lab_q_hd": "Quick Matcher · Pick Your PoE 2 1.0 Starter",
+            "lab_q_p": "Pick your preferred combat feel for an instant 1.0 class match:",
+            "lab_g_hd": "Quick Check · GTA 6 Console Free Space",
+            "lab_g_p": "Slide your console free space (PlayStation 212 GB minimum):",
+            "dir_h": "Browse All Tools & Guides",
+            "dir_sub": "Filter by game or type — every page is free and requires no login.",
             "all_games": "All games",
-            "type_all": "All",
-            "type_tools": "Tools",
-            "type_guides": "Guides",
-            "kind_tool": "Tool",
-            "kind_guide": "Guide",
-            "reviewed_prefix": "Reviewed",
-            "open_short": "Open ↗",
-            "read_short": "Read guide ↗",
-            "guides_label": "Editorial Guides",
-            "guides_h": "Latest sourced guides",
-            "guides_sub": "Deep-dive guides written only when every figure can be verified against official announcements or public tests.",
-            "trust_label": "The method",
-            "trust_h": "How we check every number",
-            "no_hits": "No matching tools or guides. Try another keyword.",
+            "t_all": "All", "t_tools": "Tools", "t_guides": "Guides",
+            "k_tool": "Tool", "k_guide": "Guide",
+            "open_short": "Open ↗", "read_short": "Read ↗",
+            "no_hits": "No matching tools or guides.",
+            "reset_btn": "Show all items",
             "gta_ok": "Ready to install — comfortable headroom above 230 GB.",
             "gta_warn": "Meets the 212 GB minimum, but tight for patches (230 GB+ recommended).",
-            "gta_bad": "Not enough space — free up at least {need} GB to meet the 212 GB minimum.",
+            "gta_bad": "Not enough space — free up at least {need} GB to meet 212 GB.",
         },
         "ru": {
-            "pulse_poe": "Релиз PoE 2 1.0",
-            "pulse_aion": "Сброс AION 2",
-            "pulse_gta": "GTA 6 вышла",
-            "pulse_days_out": "дн. с релиза",
-            "eyebrow": "Независимо · С источниками · Без рекламы",
-            "h1": 'Игровые инструменты на <em>проверенных цифрах</em>.',
-            "lede": "Живые таймеры, калькуляторы и гайды по играм. У каждой цифры указан открытый источник и дата проверки — без регистрации и рекламы.",
-            "search_ph": "Поиск по 18 инструментам и гайдам (PoE 2, вайп, слияние, GTA 6)...",
-            "stat_games": "Игр",
-            "stat_tools": "Инструментов",
-            "stat_guides": "Гайдов",
-            "stat_ads": "Рекламы",
-            "tab_poe": "PoE 2 1.0",
-            "tab_aion": "Сброс AION 2",
-            "tab_gta": "Место GTA 6",
-            "wb_live": "Live",
-            "poe_kicker": "11 декабря 2026 (PST) · Переход на Free-to-Play",
-            "poe_title": "Path of Exile 2 — обратный отсчёт до 1.0",
-            "poe_days": "Дн", "poe_hrs": "Час", "poe_min": "Мин", "poe_sec": "Сек",
-            "poe_pills": ["10 классов (Дуэлянт и Тень)", "Акты 5–6", "Лига Conquerors"],
-            "poe_cta1": "Читать гайд по 1.0",
-            "poe_cta2": "Открыть отсчёт",
-            "aion_kicker": "Глобальные серверы · Сброс в 10:00 МСК (07:00 UTC)",
-            "aion_title": "Таймер сброса AION 2 (ежедневный и недельный)",
-            "aion_daily": "До ежедневного сброса",
-            "aion_weekly": "До сброса в среду",
-            "aion_checks": ["Ежедневные задания выполнены", "Попытки в подземелья использованы", "Недельные боссы проверены"],
-            "aion_cta": "Открыть полный трекер",
-            "gta_kicker": "PS5 и Xbox Series X|S · Минимум 212 ГБ",
-            "gta_title": "Быстрая проверка места под GTA 6",
-            "gta_label": "Свободно на консоли",
-            "gta_cta1": "Подробная проверка",
-            "gta_cta2": "Калькулятор DPS",
-            "spot_label": "В фокусе",
-            "spot_h": "Актуально сейчас",
-            "spot_sub": "Главные материалы к релизу и самые востребованные калькуляторы.",
-            "flag_badge": "НОВОЕ · ПОЛНЫЙ ГАЙД · ОБНОВЛЕНО 26 НОЯ",
-            "flag_title": "Гайд по релизу Path of Exile 2 1.0 (11 декабря 2026)",
-            "flag_desc": "Полный разбор выхода на Free-to-Play: все 10 классов и 26 восхождений, Дуэлянт и Тень, акты 5–6, лига Conquerors of Wraeclast, правила переноса из EA и чек-лист.",
-            "flag_cta": "Читать полный гайд по 1.0",
-            "flag_tools": [
-                ("Отсчёт до 1.0", "/ru/path-of-exile-2/launch-countdown/"),
-                ("Подбор класса", "/ru/path-of-exile-2/class-selector/"),
-                ("Калькулятор резистов", "/ru/path-of-exile-2/resistance-calculator/"),
-                ("Чек-лист кампании", "/ru/path-of-exile-2/campaign-checklist/"),
-            ],
-            "hubs_label": "Каталог",
-            "hubs_h": "Выберите игру или отфильтруйте всё",
-            "hubs_sub": "Откройте хаб нужной игры или мгновенно отфильтруйте инструменты и гайды.",
-            "hub_open": "Открыть хаб →",
+            "crest": "Игровой портал BuffForge",
+            "crest_live": "● РЕЛИЗ 1.0",
+            "h1": 'Игровые инструменты и <em>проверенные гайды</em>',
+            "sub": "Живые таймеры, калькуляторы и гайды по играм — без рекламы и регистрации, каждая цифра подтверждена открытым источником.",
+            "search_ph": "Поиск по инструментам и гайдам (PoE 2, вайп, слияние, GTA 6)...",
+            "search_btn": "Найти",
+            "m_poe": "Релиз PoE 2 1.0",
+            "m_tools": "Инструментов",
+            "m_guides": "Гайдов",
+            "m_aion": "Сброс AION 2",
+            "spot_hd": "В фокусе · Карусель",
+            "chart_hd": "PoE 2 1.0 · 26 восхождений",
+            "chart_note": "Распределение всех 26 восхождений Path of Exile 2 1.0 по характеристикам, включая Дуэлянта и Тень.",
+            "lb_hd": "Популярные инструменты",
+            "sc_h": "Что внутри BuffForge",
+            "sc_sub": "Нажмите на любой инструмент слева, чтобы посмотреть детали и перейти к нему.",
+            "sc_open": "Открыть →",
+            "lab_q_hd": "Быстрый подбор · Старт в PoE 2 1.0",
+            "lab_q_p": "Выберите удобный стиль боя для рекомендации класса в 1.0:",
+            "lab_g_hd": "Быстрая проверка · Место под GTA 6",
+            "lab_g_p": "Укажите свободное место на консоли (минимум PlayStation 212 ГБ):",
+            "dir_h": "Все инструменты и гайды",
+            "dir_sub": "Фильтруйте по игре или типу — всё бесплатно и без входа.",
             "all_games": "Все игры",
-            "type_all": "Всё",
-            "type_tools": "Инструменты",
-            "type_guides": "Гайды",
-            "kind_tool": "Инструмент",
-            "kind_guide": "Гайд",
-            "reviewed_prefix": "Проверено",
-            "open_short": "Открыть ↗",
-            "read_short": "Читать ↗",
-            "guides_label": "Редакционные гайды",
-            "guides_h": "Свежие проверенные гайды",
-            "guides_sub": "Подробные руководства только по тем играм, где каждую цифру можно подтвердить официальными источниками.",
-            "trust_label": "Метод",
-            "trust_h": "Как мы проверяем каждую цифру",
-            "no_hits": "Ничего не найдено. Попробуйте другой запрос.",
-            "gta_ok": "Места достаточно — есть комфортный запас свыше 230 ГБ.",
+            "t_all": "Всё", "t_tools": "Инструменты", "t_guides": "Гайды",
+            "k_tool": "Инструмент", "k_guide": "Гайд",
+            "open_short": "Открыть ↗", "read_short": "Читать ↗",
+            "no_hits": "Ничего не найдено.",
+            "reset_btn": "Показать всё",
+            "gta_ok": "Места достаточно — есть запас свыше 230 ГБ.",
             "gta_warn": "Проходит минимум 212 ГБ, но впритык для патчей (лучше 230+ ГБ).",
             "gta_bad": "Не хватает места — освободите минимум {need} ГБ до порога 212 ГБ.",
         },
     }[lang]
 
-    # Top live pulse bar
-    pulse_html = (
-        '<div class="bf-pulse" role="region" aria-label="Live game timers"><div class="bf-pulse-inner">'
-        '<a class="bf-pulse-item" href="%s/path-of-exile-2/launch-countdown/">'
-        '<span class="bf-pulse-dot poe" aria-hidden="true"></span>'
-        '<span class="bf-pulse-label">%s</span>'
-        '<span class="bf-pulse-val" data-live="poe-short">--d --h --m</span></a>'
-        '<span class="bf-pulse-sep" aria-hidden="true"></span>'
-        '<a class="bf-pulse-item" href="%s/aion-2/daily-tracker/">'
-        '<span class="bf-pulse-dot" aria-hidden="true"></span>'
-        '<span class="bf-pulse-label">%s</span>'
-        '<span class="bf-pulse-val" data-live="aion-daily">--:--:--</span></a>'
-        '<span class="bf-pulse-sep" aria-hidden="true"></span>'
-        '<a class="bf-pulse-item" href="%s/gta-6/">'
-        '<span class="bf-pulse-label">%s</span>'
-        '<span class="bf-pulse-val" data-live="gta-days">-- %s</span></a>'
-        '</div></div>'
-        % (prefix, ui["pulse_poe"], prefix, ui["pulse_aion"], prefix, ui["pulse_gta"], ui["pulse_days_out"])
+    # Top Game Switcher Strip
+    gtabs_html = "".join(
+        '<a class="v3-gtab%s" href="%s/%s/"><img src="/assets/games/%s-cover.jpg" alt="">%s</a>'
+        % (" active" if i == 0 else "", prefix, g["slug"], g["slug"], g["name"][lang])
+        for i, g in enumerate(games_sorted)
+    )
+    gstrip_html = (
+        '<div class="v3-gstrip-wrap"><div class="v3-gstrip">'
+        '<div class="v3-gtabs">%s</div>'
+        '<div class="v3-gstrip-meta"><span>PoE 2 1.0: <b data-live="poe-short">--d --h</b></span></div>'
+        '</div></div>' % gtabs_html
     )
 
-    # Interactive 3-tab hero workbench
-    poe_pills_html = "".join('<span class="bf-wb-pill">%s</span>' % p for p in ui["poe_pills"])
-    aion_checks_html = "".join(
-        '<label class="bf-mini-check"><input type="checkbox" data-aion-chk="%d"><span>%s</span></label>'
-        % (idx, txt) for idx, txt in enumerate(ui["aion_checks"])
+    # Centered Bright Hero
+    search_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'
+    hero_html = (
+        '<section class="v3-hero">'
+        '<img class="v3-hero-art" src="/assets/games/path-of-exile-2-wide.jpg" alt="">'
+        '<div class="v3-hero-in">'
+        '<div class="v3-crest"><img src="/assets/games/path-of-exile-2-cover.jpg" alt="">'
+        '<span>%s</span><span class="live">%s</span></div>'
+        '<h1>%s</h1><p class="v3-hero-sub">%s</p>'
+        '<div class="v3-search-wrap"><div class="v3-search">%s'
+        '<input id="v3-q" type="search" placeholder="%s" autocomplete="off" aria-label="%s">'
+        '<button id="v3-q-btn" type="button">%s</button></div>'
+        '<div class="v3-search-drop" id="v3-drop"></div></div>'
+        '<div class="v3-metrics">'
+        '<a class="v3-mpill" href="%s/path-of-exile-2/launch-countdown/"><span>%s</span><strong class="hot" data-live="poe-short">--d --h --m</strong></a>'
+        '<a class="v3-mpill" href="#games"><span>%s</span><strong>%d Live</strong></a>'
+        '<a class="v3-mpill" href="#games"><span>%s</span><strong>%d</strong></a>'
+        '<a class="v3-mpill" href="%s/aion-2/daily-tracker/"><span>%s</span><strong data-live="aion-daily">--:--:--</strong></a>'
+        '</div></div></section>'
+        % (ui["crest"], ui["crest_live"], ui["h1"], ui["sub"],
+           search_svg, ui["search_ph"], ui["search_ph"], ui["search_btn"],
+           prefix, ui["m_poe"], ui["m_tools"], len(live_tools),
+           ui["m_guides"], len(live_guides), prefix, ui["m_aion"])
     )
-    wb_html = (
-        '<div class="bf-wb" id="bf-workbench">'
-        '<div class="bf-wb-bar">'
-        '<div class="bf-wb-tabs" role="tablist">'
-        '<button class="bf-wb-tab" role="tab" type="button" data-tab="poe" aria-selected="true"><span class="dot"></span>%s</button>'
-        '<button class="bf-wb-tab" role="tab" type="button" data-tab="aion" aria-selected="false"><span class="dot"></span>%s</button>'
-        '<button class="bf-wb-tab" role="tab" type="button" data-tab="gta" aria-selected="false"><span class="dot"></span>%s</button>'
-        '</div><span class="bf-wb-live">%s</span></div>'
-        # Pane 1: PoE 2
-        '<div class="bf-wb-pane active" data-pane="poe" role="tabpanel">'
-        '<p class="bf-wb-kicker">%s</p><h2 class="bf-wb-title">%s</h2>'
-        '<div class="bf-clock-grid">'
-        '<div class="bf-clock-box"><strong data-live="poe-d">--</strong><span>%s</span></div>'
-        '<div class="bf-clock-box"><strong data-live="poe-h">--</strong><span>%s</span></div>'
-        '<div class="bf-clock-box"><strong data-live="poe-m">--</strong><span>%s</span></div>'
-        '<div class="bf-clock-box"><strong data-live="poe-s">--</strong><span>%s</span></div>'
-        '</div>'
-        '<div class="bf-wb-meta">%s</div>'
-        '<div class="bf-wb-actions">'
-        '<a class="btn btn-primary" href="%s/path-of-exile-2/1-0-full-release-guide/">%s %s</a>'
-        '<a class="btn btn-secondary" href="%s/path-of-exile-2/launch-countdown/">%s</a>'
-        '</div></div>'
-        # Pane 2: AION 2
-        '<div class="bf-wb-pane" data-pane="aion" role="tabpanel">'
-        '<p class="bf-wb-kicker">%s</p><h2 class="bf-wb-title">%s</h2>'
-        '<div class="bf-reset-row">'
-        '<div class="bf-reset-box"><small>%s</small><strong data-live="aion-daily">--:--:--</strong></div>'
-        '<div class="bf-reset-box"><small>%s</small><strong data-live="aion-weekly">--d --h</strong></div>'
-        '</div>'
-        '<div class="bf-mini-checks">%s</div>'
-        '<div class="bf-wb-actions">'
-        '<a class="btn btn-primary" href="%s/aion-2/daily-tracker/">%s %s</a>'
-        '</div></div>'
-        # Pane 3: GTA 6 interactive storage slider
-        '<div class="bf-wb-pane" data-pane="gta" role="tabpanel">'
-        '<p class="bf-wb-kicker">%s</p><h2 class="bf-wb-title">%s</h2>'
-        '<div class="bf-slider-box">'
-        '<div class="bf-slider-top"><label for="bf-gta-range">%s</label>'
-        '<span class="bf-slider-val" id="bf-gta-gb">240 GB</span></div>'
-        '<input class="bf-range" id="bf-gta-range" type="range" min="100" max="400" step="5" value="240">'
-        '<p class="bf-verdict ok" id="bf-gta-verdict">%s</p></div>'
-        '<div class="bf-wb-actions">'
-        '<a class="btn btn-primary" href="%s/gta-6/storage-check/">%s %s</a>'
-        '<a class="btn btn-secondary" href="%s/desktop-pension-squad/fuse-salvage-calculator/">%s</a>'
-        '</div></div>'
-        '</div>'
-        % (
-            ui["tab_poe"], ui["tab_aion"], ui["tab_gta"], ui["wb_live"],
-            ui["poe_kicker"], ui["poe_title"],
-            ui["poe_days"], ui["poe_hrs"], ui["poe_min"], ui["poe_sec"],
-            poe_pills_html, prefix, ui["poe_cta1"], ARROW_SVG, prefix, ui["poe_cta2"],
-            ui["aion_kicker"], ui["aion_title"], ui["aion_daily"], ui["aion_weekly"],
-            aion_checks_html, prefix, ui["aion_cta"], ARROW_SVG,
-            ui["gta_kicker"], ui["gta_title"], ui["gta_label"], ui["gta_ok"],
-            prefix, ui["gta_cta1"], ARROW_SVG, prefix, ui["gta_cta2"],
+
+    # ExitLag-style Continuous Game Cover Marquee
+    mq_cards = []
+    for g in games_sorted:
+        tc = len(tools_for(g["id"]))
+        gc = len(guides_for(g["id"], lang))
+        badge_txt = ("%dT · %dG" % (tc, gc)) if gc else ("%d %s" % (tc, ("Tool" if tc == 1 else "Tools") if not is_ru else "инстр."))
+        mq_cards.append(
+            '<a class="v3-mq-card" href="%s/%s/"><img src="/assets/games/%s-wide.jpg" alt="%s" loading="lazy">'
+            '<div class="v3-mq-b"><strong>%s</strong><span>%s</span></div></a>'
+            % (prefix, g["slug"], g["slug"], _html.escape(g["name"][lang], quote=True), g["name"][lang], badge_txt)
         )
+    mq_html = '<div class="v3-marquee" aria-label="Games"><div class="v3-mq-track">%s%s</div></div>' % ("".join(mq_cards), "".join(mq_cards))
+
+    # Bento Row: Spotlight Carousel + Data Distribution Bar Chart + Ranked Top Tools Leaderboard
+    spots = [
+        {
+            "img": "/assets/games/path-of-exile-2-wide.jpg",
+            "tag": "PILLAR GUIDE" if not is_ru else "ПОЛНЫЙ ГАЙД",
+            "t": "Path of Exile 2 1.0 Full Release Guide (Dec 11)" if not is_ru else "Гайд по релизу Path of Exile 2 1.0 (11 декабря)",
+            "d": "All 10 classes & 26 ascendancies, Duelist & Shadow, Acts 5–6, Conquerors league, and EA wipe rules." if not is_ru else "Все 10 классов и 26 восхождений, Дуэлянт и Тень, акты 5–6, лига Conquerors и правила переноса.",
+            "u": "%s/path-of-exile-2/1-0-full-release-guide/" % prefix,
+        },
+        {
+            "img": "/assets/rob-run/lag-hero.webp",
+            "tag": "FIELD GUIDE" if not is_ru else "ПРАКТИКА",
+            "t": "ROB RUN Lag & High Ping Guide" if not is_ru else "ROB RUN: как убрать лаги и высокий пинг",
+            "d": "EU region routing, free fixes to try first, and how game boosters differ in real matches." if not is_ru else "Регион EU, что сделать бесплатно и чем отличаются ускорители на практике.",
+            "u": "%s/rob-run/%s/" % (prefix, "kak-ubrat-lagi" if is_ru else "lag-and-high-ping"),
+        },
+        {
+            "img": "/assets/games/gta-6-wide.jpg",
+            "tag": "TECH GUIDE" if not is_ru else "ГАЙД PS5",
+            "t": "GTA 6 60 FPS on PS5 via Remote Play" if not is_ru else "60 FPS в GTA 6 на PS5 через Remote Play",
+            "d": "No native 60 FPS mode on PS5 — how a free Windows frame-interpolation app smooths PC play." if not is_ru else "На PS5 нет режима 60 FPS — как бесплатная программа на Windows сглаживает картинку.",
+            "u": "%s/gta-6/60-fps-ps5/" % prefix,
+        },
+    ]
+
+    chart_bars = [
+        ("STR / DEX", 5, 100),
+        ("DEX / INT", 5, 100),
+        ("DEX", 5, 100),
+        ("INT", 5, 100),
+        ("STR", 4, 80),
+        ("STR / INT", 2, 40),
+    ]
+    bars_html = "".join(
+        '<div class="v3-bar-row"><span>%s</span><div class="v3-bar-track"><div class="v3-bar-fill" style="width:%d%%"></div></div><b>%d</b></div>'
+        % (lbl, pct, val) for lbl, val, pct in chart_bars
     )
 
-    # Spotlight Bento: Flagship PoE 2 1.0 Guide + Top 3 featured tools
-    flag_chips = "".join(
-        '<a class="bf-flag-chip" href="%s">%s ↗</a>' % (u, lbl)
-        for lbl, u in ui["flag_tools"]
+    lb_items = [
+        ("#1", "/assets/games/path-of-exile-2-cover.jpg", "PoE 2 1.0 Full Guide" if not is_ru else "Гайд PoE 2 1.0", "Path of Exile 2", "NEW", "%s/path-of-exile-2/1-0-full-release-guide/" % prefix),
+        ("#2", "/assets/games/desktop-pension-squad-cover.jpg", "DPS Fuse Calculator" if not is_ru else "Калькулятор слияния DPS", "Workshop v1.0.2–v1.0.6", "50.12%", "%s/desktop-pension-squad/fuse-salvage-calculator/" % prefix),
+        ("#3", "/assets/games/rob-run-cover.jpg", "ROB RUN Wipe Planner" if not is_ru else "Планировщик вайпа ROB RUN", "7-day Federal Raid" if not is_ru else "Облава раз в 7 дней", "7D", "%s/rob-run/wipe-planner/" % prefix),
+        ("#4", "/assets/games/gta-6-cover.jpg", "GTA 6 Storage Check" if not is_ru else "Проверка места GTA 6", "PS5 & Xbox Series X|S", "212 GB", "%s/gta-6/storage-check/" % prefix),
+    ]
+    lb_html = "".join(
+        '<a class="v3-lb-item" href="%s"><span class="v3-rank">%s</span><img src="%s" alt="" loading="lazy">'
+        '<span><strong>%s</strong><small>%s</small></span><span class="v3-lb-tag">%s</span></a>'
+        % (u, r, img, t, s, tag) for r, img, t, s, tag, u in lb_items
     )
-    feats = featured_for(lang)[:3]
-    spot_cards = []
-    GUIDE_COVERS = {
-        "poe2-1-0-full-release-guide": "/assets/games/path-of-exile-2-wide.jpg",
-        "gta-6-ps5-frame-interpolation": "/assets/games/gta-6-wide.jpg",
-        "rob-run-kak-ubrat-lagi": "/assets/rob-run/lag-hero.webp",
-        "rob-run-failed-to-enter-location": "/assets/rob-run/fel-hero.webp",
-    }
-
-    for t in feats:
-        g = GAMES_DATA[t["game"]]
-        cls = GAME_CLS[t["game"]]
-        title = (t.get("cardTitle") or {}).get(lang) or t["title"][lang]
-        blurb = (t.get("cardBlurb") or {}).get(lang) or t["blurb"][lang]
-        rev = t.get("updated") or t.get("dataReviewed") or ""
-        thumb = "/assets/games/%s-cover.jpg" % g["slug"]
-        spot_cards.append(
-            '<a class="bf-spot-card %s" href="%s">'
-            '<div class="bf-spot-thumb"><img src="%s" alt="%s" loading="lazy"></div>'
-            '<div class="bf-spot-content">'
-            '<div><div class="bf-spot-meta"><span>%s</span><span>%s</span></div>'
-            '<h3>%s</h3><p>%s</p></div>'
-            '<span class="bf-spot-go">%s %s</span></div></a>'
-            % (cls, tool_url(lang, t), thumb, _html.escape(g["name"][lang], quote=True),
-               g["name"][lang], rev, title, blurb,
-               GO_LABELS.get(t["id"], {}).get(lang, ui["open_short"]), ARROW_SVG)
-        )
 
     bento_html = (
-        '<div class="bf-bento">'
-        '<article class="bf-flagship">'
-        '<div class="bf-flag-media"><img src="/assets/games/path-of-exile-2-wide.jpg" alt="Path of Exile 2 1.0 Full Release"></div>'
-        '<div class="bf-flag-body">'
-        '<div><div class="bf-flag-top"><span class="bf-flag-badge">%s</span>'
-        '<span class="bf-flag-cd" data-live="poe-short">--d --h --m</span></div>'
-        '<h3>%s</h3><p>%s</p>'
-        '<div class="bf-flag-links">%s</div></div>'
-        '<a class="bf-flag-cta" href="%s/path-of-exile-2/1-0-full-release-guide/">%s %s</a>'
-        '</div></article>'
-        '<div class="bf-bento-stack">%s</div>'
-        '</div>'
-        % (ui["flag_badge"], ui["flag_title"], ui["flag_desc"], flag_chips,
-           prefix, ui["flag_cta"], ARROW_SVG, "".join(spot_cards))
+        '<section class="v3-bento" id="featured">'
+        '<article class="v3-card"><div class="v3-card-hd"><h2>%s</h2><span class="sub" id="v3-sidx">01 / 03</span></div>'
+        '<div class="v3-spot-media"><img id="v3-simg" src="%s" alt=""><span class="v3-spot-tag" id="v3-stag">%s</span>'
+        '<div class="v3-spot-nav"><button type="button" id="v3-sprev" aria-label="Prev">‹</button><button type="button" id="v3-snext" aria-label="Next">›</button></div></div>'
+        '<div class="v3-spot-body"><div><h3 id="v3-stitle">%s</h3><p id="v3-sdesc">%s</p></div>'
+        '<div class="v3-spot-foot"><div class="v3-dots" id="v3-dots">'
+        '<button class="v3-dot active" type="button" data-si="0" aria-label="1"></button>'
+        '<button class="v3-dot" type="button" data-si="1" aria-label="2"></button>'
+        '<button class="v3-dot" type="button" data-si="2" aria-label="3"></button>'
+        '</div><a class="v3-link" id="v3-slink" href="%s">%s</a></div></div></article>'
+        '<article class="v3-card"><div class="v3-card-hd"><h2>%s</h2><span class="sub">DATA</span></div>'
+        '<div class="v3-chart-body"><div class="v3-bars">%s</div><p class="v3-chart-note">%s</p></div></article>'
+        '<article class="v3-card"><div class="v3-card-hd"><h2>%s</h2><span class="sub">RANKED</span></div>'
+        '<div class="v3-lb">%s</div></article>'
+        '</section>'
+        % (ui["spot_hd"], spots[0]["img"], spots[0]["tag"], spots[0]["t"], spots[0]["d"], spots[0]["u"], ui["read_short"],
+           ui["chart_hd"], bars_html, ui["chart_note"], ui["lb_hd"], lb_html)
     )
 
-    # 5-Game Hub Strip with real wide game covers
-    hub_tiles = []
-    for g in games_sorted:
-        cls = GAME_CLS[g["id"]]
-        t_cnt = len(tools_for(g["id"]))
-        g_cnt = len(guides_for(g["id"], lang))
-        if g_cnt:
-            cnt_lbl = "%dT · %dG" % (t_cnt, g_cnt)
-        else:
-            unit = ("tool" if t_cnt == 1 else "tools") if not is_ru else "инстр."
-            cnt_lbl = "%d %s" % (t_cnt, unit)
-        hub_href = "/%s/" % g["slug"] if not is_ru else "/ru/%s/" % g["slug"]
-        cover_src = "/assets/games/%s-wide.jpg" % g["slug"]
-        hub_tiles.append(
-            '<a class="bf-hub-tile %s" href="%s">'
-            '<div class="bf-hub-cover"><img src="%s" alt="%s" loading="lazy">'
-            '<span class="bf-hub-count">%s</span></div>'
-            '<div class="bf-hub-body">'
-            '<div><h3>%s</h3><p>%s</p></div>'
-            '<span class="bf-hub-link">%s</span></div></a>'
-            % (cls, hub_href, cover_src, _html.escape(g["name"][lang], quote=True),
-               cnt_lbl, g["name"][lang], g["tagline"][lang], ui["hub_open"])
-        )
+    # Interactive "What's Inside" Split Showcase
+    sc_items = [
+        {
+            "tab": "01. PoE 2 Class Selector" if not is_ru else "01. Подборщик классов PoE 2",
+            "badge": "PoE 2",
+            "desc": "Match your combat style across Early Access classes & 1.0 Duelist/Shadow." if not is_ru else "Подбор класса по стилю игры с учётом Дуэлянта и Тени из 1.0.",
+            "img": "/assets/games/path-of-exile-2-wide.jpg",
+            "ov_t": "PoE 2 Class Selector · 10 Classes" if not is_ru else "Подборщик классов PoE 2 · 10 классов",
+            "ov_s": "Reviewed 2026-11-26 · No login" if not is_ru else "Проверено 26.11.2026 · Без входа",
+            "chips": ["Melee / Ranged / Minion", "1.0 Duelist & Shadow"] if not is_ru else ["Ближний / Дальний / Призыв", "Дуэлянт и Тень 1.0"],
+            "u": "%s/path-of-exile-2/class-selector/" % prefix,
+        },
+        {
+            "tab": "02. PoE 2 Resistance Calculator" if not is_ru else "02. Калькулятор резистов PoE 2",
+            "badge": "PoE 2",
+            "desc": "Compare uncapped gear swaps and campaign penalties without double-counting." if not is_ru else "Расчёт сопротивлений и замены вещей с учётом штрафов кампании.",
+            "img": "/assets/games/path-of-exile-2-wide.jpg",
+            "ov_t": "PoE 2 Resistance Calculator" if not is_ru else "Калькулятор сопротивлений PoE 2",
+            "ov_s": "Fire / Cold / Lightning / Chaos caps" if not is_ru else "Капы огня, холода, молнии и хаоса",
+            "chips": ["Campaign penalties", "Instant gear swap diff"] if not is_ru else ["Штрафы кампании", "Сравнение замены вещей"],
+            "u": "%s/path-of-exile-2/resistance-calculator/" % prefix,
+        },
+        {
+            "tab": "03. ROB RUN Wipe & Lag Suite" if not is_ru else "03. ROB RUN: вайп и лаги",
+            "badge": "ROB RUN",
+            "desc": "7-day Federal Raid countdown, wipe checklist, jail calculator & EU ping guide." if not is_ru else "Таймер облавы, чек-лист вайпа, калькулятор срока и гайд по пингу.",
+            "img": "/assets/rob-run/lag-hero.webp",
+            "ov_t": "ROB RUN Wipe Planner & Lag Guide" if not is_ru else "Планировщик вайпа и гайд по лагам",
+            "ov_s": "Kefir official FAQ & real EU tests" if not is_ru else "Официальный FAQ Kefir и тесты EU",
+            "chips": ["7-day raid cycle", "EU low-ping fixes"] if not is_ru else ["Цикл 7 дней", "Оптимизация EU пинга"],
+            "u": "%s/rob-run/wipe-planner/" % prefix,
+        },
+        {
+            "tab": "04. GTA 6 Storage & 60 FPS" if not is_ru else "04. GTA 6: место и 60 FPS",
+            "badge": "GTA 6",
+            "desc": "Check the official 212 GB PlayStation minimum and Remote Play 60 FPS setup." if not is_ru else "Проверка официального минимума 212 ГБ и настройка 60 FPS на ПК.",
+            "img": "/assets/games/gta-6-wide.jpg",
+            "ov_t": "GTA 6 Storage Check & 60 FPS Guide" if not is_ru else "Проверка места GTA 6 и 60 FPS",
+            "ov_s": "Out since 19 Nov 2026 · PS5 / Xbox" if not is_ru else "Вышла 19 ноя 2026 · PS5 / Xbox",
+            "chips": ["212 GB minimum check", "PS5 Remote Play 60 FPS"] if not is_ru else ["Минимум 212 ГБ", "Remote Play 60 FPS"],
+            "u": "%s/gta-6/storage-check/" % prefix,
+        },
+    ]
+    sc_tabs_html = "".join(
+        '<button class="v3-sc-tab%s" type="button" data-sc="%d"><div class="v3-sc-top"><strong>%s</strong><span class="v3-sc-badge">%s</span></div><p>%s</p></button>'
+        % (" active" if i == 0 else "", i, it["tab"], it["badge"], it["desc"])
+        for i, it in enumerate(sc_items)
+    )
+    showcase_html = (
+        '<div class="v3-sec-hd"><div><p class="sec-label">SHOWCASE</p><h2>%s</h2><p>%s</p></div></div>'
+        '<section class="v3-showcase">'
+        '<div class="v3-sc-tabs" id="v3-sc-tabs">%s</div>'
+        '<div class="v3-sc-stage"><div class="v3-sc-img"><img id="v3-sc-img" src="%s" alt="">'
+        '<div class="v3-sc-ov"><div><strong id="v3-sc-ovt">%s</strong><span id="v3-sc-ovs">%s</span></div>'
+        '<span class="badge live">LIVE</span></div></div>'
+        '<div class="v3-sc-foot"><div class="v3-sc-chips" id="v3-sc-chips">%s</div>'
+        '<a class="btn btn-primary" id="v3-sc-cta" href="%s">%s</a></div></div>'
+        '</section>'
+        % (ui["sc_h"], ui["sc_sub"], sc_tabs_html, sc_items[0]["img"], sc_items[0]["ov_t"], sc_items[0]["ov_s"],
+           "".join('<span class="v3-sc-chip">%s</span>' % ch for ch in sc_items[0]["chips"]),
+           sc_items[0]["u"], ui["sc_open"])
+    )
 
-    # Interactive Filterable Directory (all tools + all guides)
-    dir_cards = []
-    search_index = []
-    # Put guides first or interleaved by game order so PoE 2 shines right away
+    # Interactive Mini-Lab (PoE 2 Quick Class Matcher + GTA 6 Storage Slider)
+    q_opts = [
+        ("melee", "⚔️ Agile Melee / Swords" if not is_ru else "⚔️ Быстрый ближний бой / Мечи"),
+        ("assassin", "🗡️ Stealth / Daggers & Traps" if not is_ru else "🗡️ Кинжалы и ловушки"),
+        ("ranged", "🏹 Fast Ranged / Clear Speed" if not is_ru else "🏹 Дальний бой и скорость"),
+        ("safe", "🛡️ Tanky / Beginner-Friendly" if not is_ru else "🛡️ Танковость и простота"),
+    ]
+    q_map = {
+        "melee": ("<strong>Pick: Duelist (New in 1.0)</strong> — Swords, parries, and fluid melee mobility." if not is_ru else "<strong>Выбор: Дуэлянт (новинка 1.0)</strong> — мечи, парирование и высокая мобильность."),
+        "assassin": ("<strong>Pick: Shadow (New in 1.0)</strong> — Daggers, traps, and high-crit stealth bursts." if not is_ru else "<strong>Выбор: Тень (новинка 1.0)</strong> — кинжалы, ловушки и взрывной крит-урон."),
+        "ranged": ("<strong>Pick: Ranger or Mercenary</strong> — Top-tier kiting and ranged clear speed." if not is_ru else "<strong>Выбор: Охотница или Наёмник</strong> — быстрая зачистка на дистанции."),
+        "safe": ("<strong>Pick: Warrior or Witch</strong> — High armor slams or minion meat-shields." if not is_ru else "<strong>Выбор: Воин или Ведьма</strong> — максимальная выживаемость для старта."),
+    }
+    lab_html = (
+        '<section class="v3-lab-grid">'
+        '<article class="v3-card"><div class="v3-card-hd"><h2>%s</h2><span class="sub">INTERACTIVE</span></div>'
+        '<div class="v3-lab-body"><p style="margin:0 0 8px;font-size:15px;color:var(--body)">%s</p>'
+        '<div class="v3-qopts" id="v3-qopts">%s</div>'
+        '<div class="v3-qres" id="v3-qres">%s</div></div></article>'
+        '<article class="v3-card"><div class="v3-card-hd"><h2>%s</h2><span class="sub">212 GB MIN</span></div>'
+        '<div class="v3-lab-body"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">'
+        '<span style="font-size:15px;color:var(--body)">%s</span>'
+        '<strong id="v3-gval" style="font-family:var(--mono);font-size:20px;color:var(--ink)">240 GB</strong></div>'
+        '<input id="v3-grng" type="range" min="100" max="400" step="5" value="240" style="width:100%%;accent-color:#E11D48;cursor:pointer;margin:6px 0 14px">'
+        '<div class="v3-qres" id="v3-gres">%s</div></div></article>'
+        '</section>'
+        % (ui["lab_q_hd"], ui["lab_q_p"],
+           "".join('<button class="v3-qbtn%s" type="button" data-q="%s">%s</button>' % (" active" if i == 0 else "", k, l) for i, (k, l) in enumerate(q_opts)),
+           q_map["melee"], ui["lab_g_hd"], ui["lab_g_p"], ui["gta_ok"])
+    )
+
+    # Full Filterable Directory
     ordered_items = []
     for g in games_sorted:
         for gd in guides_for(g["id"], lang):
@@ -688,249 +663,114 @@ def home_page(lang):
             if tl.get("status") == "live":
                 ordered_items.append(("tool", g, tl))
 
+    dir_cards, search_index = [], []
     for kind, g, item in ordered_items:
-        cls = GAME_CLS[g["id"]]
         href = guide_url(lang, item) if kind == "guide" else tool_url(lang, item)
         title = item["title"][lang] if kind == "guide" else ((item.get("cardTitle") or {}).get(lang) or item["title"][lang])
         blurb = item["blurb"][lang] if kind == "guide" else ((item.get("cardBlurb") or {}).get(lang) or item["blurb"][lang])
         rev = item.get("updated") or item.get("dataReviewed") or ""
-        kind_lbl = ui["kind_guide"] if kind == "guide" else ui["kind_tool"]
-        action_lbl = ui["read_short"] if kind == "guide" else ui["open_short"]
-        search_txt = ("%s %s %s %s" % (g["name"][lang], title, blurb, kind_lbl)).lower()
-        search_index.append({
-            "t": title, "g": g["name"][lang], "k": kind_lbl, "u": href, "q": search_txt
-        })
-        ico_svg = ICONS.get(item.get("id", ""), ICONS["dps-wiki-search"] if kind == "guide" else ICONS["dps-fuse-salvage-calculator"])
+        klbl = ui["k_guide"] if kind == "guide" else ui["k_tool"]
+        albl = ui["read_short"] if kind == "guide" else ui["open_short"]
+        qtxt = ("%s %s %s %s" % (g["name"][lang], title, blurb, klbl)).lower()
+        search_index.append({"t": title, "g": g["name"][lang], "k": klbl, "u": href, "q": qtxt})
         dir_cards.append(
-            '<a class="bf-dir-card" href="%s" data-game="%s" data-kind="%s" data-q="%s">'
-            '<div><div class="bf-dir-top">'
-            '<span class="bf-dir-game %s">%s</span>'
-            '<span class="bf-dir-kind %s">%s</span></div>'
-            '<div class="bf-dir-head-row"><span class="bf-dir-ico %s" aria-hidden="true">%s</span>'
-            '<h3>%s</h3></div><p>%s</p></div>'
-            '<div class="bf-dir-foot"><span>%s</span><b>%s</b></div></a>'
-            % (href, g["id"], kind, _html.escape(search_txt, quote=True),
-               cls, g["name"][lang], kind, kind_lbl,
-               cls, ico_svg,
-               title, blurb, ("%s %s" % (ui["reviewed_prefix"], rev)) if rev else "", action_lbl)
+            '<a class="v3-dir-card" href="%s" data-game="%s" data-kind="%s" data-q="%s">'
+            '<div><div class="v3-dir-top"><span class="v3-dir-game">%s</span><span class="v3-dir-kind">%s</span></div>'
+            '<h3>%s</h3><p>%s</p></div>'
+            '<div class="v3-dir-foot"><span>%s</span><b>%s</b></div></a>'
+            % (href, g["id"], kind, _html.escape(qtxt, quote=True), g["name"][lang], klbl, title, blurb, rev, albl)
         )
 
-    filter_pills = ['<button class="bf-pill active" type="button" data-game="all">%s (%d)</button>' % (ui["all_games"], len(ordered_items))]
+    pills = ['<button class="v3-pill active" type="button" data-game="all">%s (%d)</button>' % (ui["all_games"], len(ordered_items))]
     for g in games_sorted:
         cnt = len([x for x in ordered_items if x[1]["id"] == g["id"]])
-        filter_pills.append(
-            '<button class="bf-pill" type="button" data-game="%s"><span class="gdot"></span>%s (%d)</button>'
-            % (g["id"], g["name"][lang], cnt)
-        )
+        pills.append('<button class="v3-pill" type="button" data-game="%s">%s (%d)</button>' % (g["id"], g["name"][lang], cnt))
 
-    # Latest Guides Editorial Shelf
-    guides_sorted = sorted(live_guides, key=lambda x: x.get("updated", ""), reverse=True)
-    guide_cards = []
-    for gd in guides_sorted:
-        g = GAMES_DATA[gd["game"]]
-        cls = GAME_CLS[gd["game"]]
-        gcover = GUIDE_COVERS.get(gd.get("id", ""), "/assets/games/%s-wide.jpg" % g["slug"])
-        guide_cards.append(
-            '<a class="bf-guide-card %s" href="%s">'
-            '<div class="bf-guide-cover"><img src="%s" alt="%s" loading="lazy"></div>'
-            '<div class="bf-guide-body">'
-            '<div><div class="bf-dir-top">'
-            '<span class="bf-dir-game %s">%s</span>'
-            '<span class="bf-dir-kind guide">%s</span></div>'
-            '<h3>%s</h3><p>%s</p></div>'
-            '<div class="bf-dir-foot"><span>%s</span><b>%s</b></div></div></a>'
-            % (cls, guide_url(lang, gd), gcover, _html.escape(gd["title"][lang], quote=True),
-               cls, g["name"][lang], ui["kind_guide"],
-               gd["title"][lang], gd["blurb"][lang], gd.get("updated", ""), ui["read_short"])
-        )
-
-    # Trust 3-col cards & FAQ
-    trust_cards = "".join(
-        '<article class="bf-trust-card"><div class="bf-trust-num">0%d / VERIFIED</div>'
-        '<h3>%s</h3><p>%s</p></article>' % (i + 1, t, d)
-        for i, (t, d) in enumerate(c["trust"])
+    dir_html = (
+        '<section id="games"><div class="v3-sec-hd"><div><p class="sec-label">DIRECTORY</p><h2>%s</h2><p>%s</p></div></div>'
+        '<div class="v3-filter-bar"><div class="v3-pills">%s</div>'
+        '<div class="v3-seg"><button class="v3-seg-btn active" type="button" data-kind="all">%s</button>'
+        '<button class="v3-seg-btn" type="button" data-kind="tool">%s (%d)</button>'
+        '<button class="v3-seg-btn" type="button" data-kind="guide">%s (%d)</button></div></div>'
+        '<div class="v3-dir-grid">%s<div class="v3-dir-empty" id="v3-dir-empty"><p>%s</p>'
+        '<button class="btn btn-secondary" type="button" id="v3-dir-reset">%s</button></div></div></section>'
+        % (ui["dir_h"], ui["dir_sub"], "".join(pills), ui["t_all"], ui["t_tools"], len(live_tools),
+           ui["t_guides"], len(live_guides), "".join(dir_cards), ui["no_hits"], ui["reset_btn"])
     )
+
     faq_items = "".join(
         '<details%s><summary><h3>%s</h3><span class="plus" aria-hidden="true">'
         '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6">'
         '<path d="M6 1v10M1 6h10"/></svg></span></summary><p>%s</p></details>'
-        % (" open" if i == 0 else "", q, a)
-        for i, (q, a) in enumerate(c["faq"])
+        % (" open" if i == 0 else "", q, a) for i, (q, a) in enumerate(c["faq"])
     )
 
-    search_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'
-
-    # Compact interactive JS for timers, tabs, AION checklist, GTA slider, search & directory filters
-    js_cfg = _json.dumps({
-        "items": search_index,
-        "noHits": ui["no_hits"],
-        "daysOut": ui["pulse_days_out"],
-        "gtaOk": ui["gta_ok"],
-        "gtaWarn": ui["gta_warn"],
-        "gtaBad": ui["gta_bad"],
+    cfg = _json.dumps({
+        "items": search_index, "spots": spots, "sc": sc_items, "qmap": q_map,
+        "noHits": ui["no_hits"], "gtaOk": ui["gta_ok"], "gtaWarn": ui["gta_warn"], "gtaBad": ui["gta_bad"],
     }, ensure_ascii=False)
 
     script_html = (
-        '<script>(function(){'
-        'var CFG=%s;'
-        'var POE_TARGET=Date.UTC(2026,11,11,8,0,0);'
-        'var GTA_LAUNCH=Date.UTC(2026,10,19,0,0,0);'
+        '<script>(function(){var C=%s,POE=Date.UTC(2026,11,11,8,0,0);'
         'function pad(n){return n<10?"0"+n:""+n;}'
-        'function tick(){'
-        'var now=Date.now();'
-        'var diff=Math.max(0,POE_TARGET-now);'
-        'var d=Math.floor(diff/86400000),h=Math.floor((diff%%86400000)/3600000),m=Math.floor((diff%%3600000)/60000),s=Math.floor((diff%%60000)/1000);'
-        'document.querySelectorAll("[data-live=poe-d]").forEach(function(e){e.textContent=pad(d);});'
-        'document.querySelectorAll("[data-live=poe-h]").forEach(function(e){e.textContent=pad(h);});'
-        'document.querySelectorAll("[data-live=poe-m]").forEach(function(e){e.textContent=pad(m);});'
-        'document.querySelectorAll("[data-live=poe-s]").forEach(function(e){e.textContent=pad(s);});'
-        'var pShort=d+"d "+pad(h)+"h "+pad(m)+"m";'
-        'document.querySelectorAll("[data-live=poe-short]").forEach(function(e){e.textContent=pShort;});'
-        'var dt=new Date(now);'
-        'var nextDaily=Date.UTC(dt.getUTCFullYear(),dt.getUTCMonth(),dt.getUTCDate(),7,0,0);'
-        'if(nextDaily<=now)nextDaily+=86400000;'
-        'var ad=nextDaily-now;'
-        'var ah=Math.floor(ad/3600000),am=Math.floor((ad%%3600000)/60000),as=Math.floor((ad%%60000)/1000);'
-        'var aStr=pad(ah)+":"+pad(am)+":"+pad(as);'
-        'document.querySelectorAll("[data-live=aion-daily]").forEach(function(e){e.textContent=aStr;});'
-        'var dayOfWeek=dt.getUTCDay(),daysToWed=(3-dayOfWeek+7)%%7;'
-        'var nextWed=Date.UTC(dt.getUTCFullYear(),dt.getUTCMonth(),dt.getUTCDate()+daysToWed,7,0,0);'
-        'if(nextWed<=now)nextWed+=7*86400000;'
-        'var aw=nextWed-now,awd=Math.floor(aw/86400000),awh=Math.floor((aw%%86400000)/3600000);'
-        'document.querySelectorAll("[data-live=aion-weekly]").forEach(function(e){e.textContent=awd+"d "+pad(awh)+"h";});'
-        'var gDays=Math.max(0,Math.floor((now-GTA_LAUNCH)/86400000));'
-        'document.querySelectorAll("[data-live=gta-days]").forEach(function(e){e.textContent=gDays+" "+CFG.daysOut;});'
-        '}'
+        'function tick(){var now=Date.now(),d1=Math.max(0,POE-now);'
+        'var p=Math.floor(d1/86400000)+"d "+pad(Math.floor((d1%%86400000)/3600000))+"h "+pad(Math.floor((d1%%3600000)/60000))+"m";'
+        'document.querySelectorAll("[data-live=poe-short]").forEach(function(e){e.textContent=p;});'
+        'var dt=new Date(now),nxt=Date.UTC(dt.getUTCFullYear(),dt.getUTCMonth(),dt.getUTCDate(),7,0,0);if(nxt<=now)nxt+=86400000;'
+        'var ad=nxt-now,as=pad(Math.floor(ad/3600000))+":"+pad(Math.floor((ad%%3600000)/60000))+":"+pad(Math.floor((ad%%60000)/1000));'
+        'document.querySelectorAll("[data-live=aion-daily]").forEach(function(e){e.textContent=as;});}'
         'tick();setInterval(tick,1000);'
-        'var wb=document.getElementById("bf-workbench");'
-        'if(wb){wb.querySelectorAll(".bf-wb-tab").forEach(function(btn){btn.addEventListener("click",function(){'
-        'var t=btn.getAttribute("data-tab");'
-        'wb.querySelectorAll(".bf-wb-tab").forEach(function(b){b.setAttribute("aria-selected",b===btn?"true":"false");});'
-        'wb.querySelectorAll(".bf-wb-pane").forEach(function(p){p.classList.toggle("active",p.getAttribute("data-pane")===t);});'
-        '});});}'
-        'var dayKey="bf_aion_"+new Date().toISOString().slice(0,10);'
-        'var saved={};try{saved=JSON.parse(localStorage.getItem(dayKey)||"{}");}catch(e){}'
-        'document.querySelectorAll("[data-aion-chk]").forEach(function(cb){'
-        'var k=cb.getAttribute("data-aion-chk");'
-        'if(saved[k]){cb.checked=true;cb.parentElement.classList.add("done");}'
-        'cb.addEventListener("change",function(){'
-        'saved[k]=cb.checked;cb.parentElement.classList.toggle("done",cb.checked);'
-        'try{localStorage.setItem(dayKey,JSON.stringify(saved));}catch(e){}'
-        '});});'
-        'var rng=document.getElementById("bf-gta-range"),gb=document.getElementById("bf-gta-gb"),vd=document.getElementById("bf-gta-verdict");'
-        'if(rng&&gb&&vd){function updGta(){var v=parseInt(rng.value,10);gb.textContent=v+" GB";'
-        'if(v>=230){vd.className="bf-verdict ok";vd.textContent=CFG.gtaOk;}'
-        'else if(v>=212){vd.className="bf-verdict warn";vd.textContent=CFG.gtaWarn;}'
-        'else{vd.className="bf-verdict bad";vd.textContent=CFG.gtaBad.replace("{need}",212-v);}}'
-        'rng.addEventListener("input",updGta);updGta();}'
-        'var inp=document.getElementById("bf-cmd-input"),res=document.getElementById("bf-cmd-results");'
-        'var curGame="all",curKind="all",curQ="";'
-        'function applyDir(){'
-        'var vis=0;'
-        'document.querySelectorAll(".bf-dir-card").forEach(function(card){'
-        'var okG=curGame==="all"||card.getAttribute("data-game")===curGame;'
-        'var okK=curKind==="all"||card.getAttribute("data-kind")===curKind;'
-        'var okQ=!curQ||card.getAttribute("data-q").indexOf(curQ)!==-1;'
-        'var show=okG&&okK&&okQ;if(show)vis++;'
-        'card.classList.toggle("hidden",!show);'
-        '});'
-        'var emp=document.getElementById("bf-dir-empty");if(emp)emp.classList.toggle("show",vis===0);'
-        '}'
-        'var rst=document.getElementById("bf-dir-reset");'
-        'if(rst){rst.addEventListener("click",function(){curKind="all";curQ="";if(inp)inp.value="";'
-        'document.querySelectorAll(".bf-type-btn").forEach(function(x){x.classList.toggle("active",x.getAttribute("data-kind")==="all");});'
-        'applyDir();});}'
-        'document.querySelectorAll(".bf-pill").forEach(function(p){p.addEventListener("click",function(){'
-        'curGame=p.getAttribute("data-game");'
-        'document.querySelectorAll(".bf-pill").forEach(function(x){x.classList.toggle("active",x===p);});'
-        'applyDir();});});'
-        'document.querySelectorAll(".bf-type-btn").forEach(function(b){b.addEventListener("click",function(){'
-        'curKind=b.getAttribute("data-kind");'
-        'document.querySelectorAll(".bf-type-btn").forEach(function(x){x.classList.toggle("active",x===b);});'
-        'applyDir();});});'
-        'if(inp&&res){'
-        'function renderDrop(){var q=inp.value.trim().toLowerCase();curQ=q;applyDir();'
-        'if(!q){res.classList.remove("open");res.innerHTML="";return;}'
-        'var hits=CFG.items.filter(function(it){return it.q.indexOf(q)!==-1;}).slice(0,7);'
-        'if(!hits.length){res.innerHTML=\'<div class="bf-cmd-empty">\'+CFG.noHits+\'</div>\';}'
-        'else{res.innerHTML=hits.map(function(h){return \'<a class="bf-cmd-hit" href="\'+h.u+\'"><span><strong>\'+h.t+\'</strong><small>\'+h.g+\' · \'+h.k+\'</small></span><span>↗</span></a>\';}).join("");}'
-        'res.classList.add("open");}'
-        'inp.addEventListener("input",renderDrop);'
-        'document.addEventListener("click",function(e){if(!e.target.closest(".bf-cmd-wrap"))res.classList.remove("open");});'
-        'document.addEventListener("keydown",function(e){if(e.key==="/"&&document.activeElement.tagName!=="INPUT"&&document.activeElement.tagName!=="TEXTAREA"){e.preventDefault();inp.focus();}});'
-        '}'
-        '})();</script>'
-        % js_cfg
+        'var si=0;function setS(i){si=(i+C.spots.length)%%C.spots.length;var s=C.spots[si];'
+        'document.getElementById("v3-simg").src=s.img;document.getElementById("v3-stag").textContent=s.tag;'
+        'document.getElementById("v3-stitle").textContent=s.t;document.getElementById("v3-sdesc").textContent=s.d;'
+        'document.getElementById("v3-slink").href=s.u;document.getElementById("v3-sidx").textContent="0"+(si+1)+" / 0"+C.spots.length;'
+        'document.querySelectorAll("#v3-dots .v3-dot").forEach(function(d,k){d.classList.toggle("active",k===si);});}'
+        'document.getElementById("v3-sprev").addEventListener("click",function(){setS(si-1);});'
+        'document.getElementById("v3-snext").addEventListener("click",function(){setS(si+1);});'
+        'document.querySelectorAll("#v3-dots .v3-dot").forEach(function(d){d.addEventListener("click",function(){setS(parseInt(d.getAttribute("data-si"),10));});});'
+        'document.querySelectorAll("#v3-sc-tabs .v3-sc-tab").forEach(function(b){b.addEventListener("click",function(){'
+        'var d=C.sc[parseInt(b.getAttribute("data-sc"),10)];'
+        'document.querySelectorAll("#v3-sc-tabs .v3-sc-tab").forEach(function(x){x.classList.toggle("active",x===b);});'
+        'document.getElementById("v3-sc-img").src=d.img;document.getElementById("v3-sc-ovt").textContent=d.ov_t;'
+        'document.getElementById("v3-sc-ovs").textContent=d.ov_s;document.getElementById("v3-sc-cta").href=d.u;'
+        r'document.getElementById("v3-sc-chips").innerHTML=d.chips.map(function(c){return "<span class=\"v3-sc-chip\">"+c+"</span>";}).join("");});});'
+        'document.querySelectorAll("#v3-qopts .v3-qbtn").forEach(function(b){b.addEventListener("click",function(){'
+        'document.querySelectorAll("#v3-qopts .v3-qbtn").forEach(function(x){x.classList.toggle("active",x===b);});'
+        'document.getElementById("v3-qres").innerHTML=C.qmap[b.getAttribute("data-q")];});});'
+        'var rng=document.getElementById("v3-grng"),gv=document.getElementById("v3-gval"),gr=document.getElementById("v3-gres");'
+        'if(rng){rng.addEventListener("input",function(){var v=parseInt(rng.value,10);gv.textContent=v+" GB";'
+        'if(v>=230){gr.style.background="#F0FDFA";gr.style.color="#115E59";gr.textContent=C.gtaOk;}'
+        'else if(v>=212){gr.style.background="#FFFBEB";gr.style.color="#92400E";gr.textContent=C.gtaWarn;}'
+        'else{gr.style.background="#FFF1F2";gr.style.color="#BE123C";gr.textContent=C.gtaBad.replace("{need}",212-v);}});}'
+        'var cG="all",cK="all",cQ="",qi=document.getElementById("v3-q"),qd=document.getElementById("v3-drop");'
+        'function applyD(){var vis=0;document.querySelectorAll(".v3-dir-card").forEach(function(el){'
+        'var ok=(cG==="all"||el.getAttribute("data-game")===cG)&&(cK==="all"||el.getAttribute("data-kind")===cK)&&(!cQ||el.getAttribute("data-q").indexOf(cQ)!==-1);'
+        'if(ok)vis++;el.classList.toggle("hidden",!ok);});'
+        'var em=document.getElementById("v3-dir-empty");if(em)em.classList.toggle("show",vis===0);}'
+        'document.querySelectorAll(".v3-pill").forEach(function(p){p.addEventListener("click",function(){cG=p.getAttribute("data-game");'
+        'document.querySelectorAll(".v3-pill").forEach(function(x){x.classList.toggle("active",x===p);});applyD();});});'
+        'document.querySelectorAll(".v3-seg-btn").forEach(function(b){b.addEventListener("click",function(){cK=b.getAttribute("data-kind");'
+        'document.querySelectorAll(".v3-seg-btn").forEach(function(x){x.classList.toggle("active",x===b);});applyD();});});'
+        'var rst=document.getElementById("v3-dir-reset");if(rst){rst.addEventListener("click",function(){cK="all";cQ="";if(qi)qi.value="";'
+        'document.querySelectorAll(".v3-seg-btn").forEach(function(x){x.classList.toggle("active",x.getAttribute("data-kind")==="all");});applyD();});}'
+        'function runQ(){var v=qi.value.trim().toLowerCase();cQ=v;applyD();if(!v){qd.classList.remove("open");qd.innerHTML="";return;}'
+        'var hits=C.items.filter(function(i){return i.q.indexOf(v)!==-1;}).slice(0,7);'
+        r'qd.innerHTML=hits.length?hits.map(function(h){return "<a class=\"v3-hit\" href=\""+h.u+"\"><span><strong>"+h.t+"</strong><small>"+h.g+" · "+h.k+"</small></span><span>↗</span></a>";}).join(""):("<div class=\"v3-hit\"><small>"+C.noHits+"</small></div>");'
+        'qd.classList.add("open");}'
+        'if(qi){qi.addEventListener("input",runQ);document.getElementById("v3-q-btn").addEventListener("click",runQ);'
+        'document.addEventListener("click",function(e){if(!e.target.closest(".v3-search-wrap"))qd.classList.remove("open");});}'
+        '})();</script>' % cfg
     )
 
     body = (
-        '<main id="main">'
-        '%s'
-        '<section class="bf-hero"><div class="wrap bf-hero-grid">'
-        '<div>'
-        '<p class="bf-eyebrow">%s</p>'
-        '<h1>%s</h1>'
-        '<p class="bf-hero-lede">%s</p>'
-        '<div class="bf-cmd-wrap"><div class="bf-cmd">%s'
-        '<input id="bf-cmd-input" type="search" placeholder="%s" autocomplete="off" aria-label="%s">'
-        '<kbd>/</kbd></div><div class="bf-cmd-results" id="bf-cmd-results"></div></div>'
-        '<div class="bf-stats">'
-        '<span class="bf-stat"><strong>%d</strong> %s</span>'
-        '<span class="bf-stat"><strong>%d</strong> %s</span>'
-        '<span class="bf-stat"><strong>%d</strong> %s</span>'
-        '<span class="bf-stat"><strong>0</strong> %s</span>'
-        '</div></div>'
-        '%s'
-        '</div></section>'
-        '<section class="bf-sec" id="featured"><div class="wrap">'
-        '<div class="bf-sec-head"><div><p class="sec-label">%s</p><h2>%s</h2><p class="bf-sec-sub">%s</p></div></div>'
-        '%s</div></section>'
-        '<section class="bf-sec alt" id="games"><div class="wrap">'
-        '<div class="bf-sec-head"><div><p class="sec-label">%s</p><h2>%s</h2><p class="bf-sec-sub">%s</p></div></div>'
-        '<div class="bf-hubs-grid">%s</div>'
-        '<div class="bf-filter-bar"><div class="bf-pills">%s</div>'
-        '<div class="bf-type-seg" role="group">'
-        '<button class="bf-type-btn active" type="button" data-kind="all">%s</button>'
-        '<button class="bf-type-btn" type="button" data-kind="tool">%s (%d)</button>'
-        '<button class="bf-type-btn" type="button" data-kind="guide">%s (%d)</button>'
-        '</div></div>'
-        '<div class="bf-dir-grid">%s''<div class="bf-dir-empty" id="bf-dir-empty"><p>%s</p><button class="btn btn-secondary" type="button" id="bf-dir-reset">%s</button></div></div>'
-        '</div></section>'
-        '<section class="bf-sec" id="guides"><div class="wrap">'
-        '<div class="bf-sec-head"><div><p class="sec-label">%s</p><h2>%s</h2><p class="bf-sec-sub">%s</p></div></div>'
-        '<div class="bf-guides-grid">%s</div>'
-        '</div></section>'
-        '<section class="bf-sec alt" id="how"><div class="wrap">'
-        '<div class="bf-sec-head"><div><p class="sec-label">%s</p><h2>%s</h2></div></div>'
-        '<div class="bf-trust-grid">%s</div>'
-        '</div></section>'
-        '<section class="faq wrap" id="faq">'
-        '<p class="sec-label">%s</p><h2>%s</h2>%s</section>'
-        '%s'
-        '</main>'
-        % (
-            pulse_html,
-            ui["eyebrow"], ui["h1"], ui["lede"],
-            search_svg, ui["search_ph"], ui["search_ph"],
-            len(games_sorted), ui["stat_games"],
-            len(live_tools), ui["stat_tools"],
-            len(live_guides), ui["stat_guides"],
-            ui["stat_ads"],
-            wb_html,
-            ui["spot_label"], ui["spot_h"], ui["spot_sub"], bento_html,
-            ui["hubs_label"], ui["hubs_h"], ui["hubs_sub"], "".join(hub_tiles),
-            "".join(filter_pills), ui["type_all"], ui["type_tools"], len(live_tools),
-            ui["type_guides"], len(live_guides), "".join(dir_cards), ui["no_hits"], ("Show all tools & guides" if not is_ru else "Показать все инструменты и гайды"),
-            ui["guides_label"], ui["guides_h"], ui["guides_sub"], "".join(guide_cards),
-            ui["trust_label"], ui["trust_h"], trust_cards,
-            c["faq_label"], c["faq_h"], faq_items,
-            script_html,
-        )
+        '<main id="main">%s%s<div class="wrap">%s%s%s%s%s</div>'
+        '<section class="faq wrap" id="faq"><p class="sec-label">%s</p><h2>%s</h2>%s</section>%s</main>'
+        % (gstrip_html, hero_html, mq_html, bento_html, showcase_html, lab_html, dir_html,
+           c["faq_label"], c["faq_h"], faq_items, script_html)
     )
     canon = "/" if lang == "en" else "/ru/"
     alt = {"en": "/", "ru": "/ru/"}
-    return page(lang, c["title"], c["desc"], canon, alt, body,
-                jsonld=org_website_jsonld(lang))
+    return page(lang, c["title"], c["desc"], canon, alt, body, jsonld=org_website_jsonld(lang))
 
 # ---------------------------------------------------------------- about
 ABOUT_COPY = {
@@ -1951,29 +1791,49 @@ def tool_by_id(tool_id):
     raise KeyError(tool_id)
 
 
+HUB_GUIDE_COVERS = {
+    "poe2-1-0-full-release-guide": "/assets/games/path-of-exile-2-wide.jpg",
+    "gta-6-ps5-frame-interpolation": "/assets/games/gta-6-wide.jpg",
+    "rob-run-kak-ubrat-lagi": "/assets/rob-run/lag-hero.webp",
+    "rob-run-failed-to-enter-location": "/assets/rob-run/fel-hero.webp",
+}
+
+
 def hub_card(lang, game, t):
+    import html as _html
     ui = HUB_UI[lang]
+    cls = GAME_CLS.get(game["id"], "dps")
+    rev = t.get("updated") or t.get("dataReviewed") or ""
+    rev_html = '<span class="hub-tool-rev">%s</span>' % rev if rev else ""
+    q = _html.escape((t["title"][lang] + " " + t["blurb"][lang]).lower(), quote=True)
     return (
-        '<a class="hub-tool" href="%s">'
-        '<span class="hub-tool-ico" aria-hidden="true">%s</span>'
+        '<a class="hub-tool %s" href="%s" data-hub-q="%s">'
+        '<div class="hub-tool-top"><span class="hub-tool-ico" aria-hidden="true">%s</span>%s</div>'
         '<h3>%s</h3><p>%s</p>'
         '<span class="hub-tool-bottom">%s<span>%s</span></span></a>'
-        % (tool_url(lang, t),
-           ICONS.get(t["id"], ICONS["dps-fuse-salvage-calculator"]),
+        % (cls, tool_url(lang, t), q,
+           ICONS.get(t["id"], ICONS["dps-fuse-salvage-calculator"]), rev_html,
            t["title"][lang], t["blurb"][lang], badge(lang, t), ui["open_tool"])
     )
 
 
 def guide_card(lang, g):
+    import html as _html
     ui = HUB_UI[lang]
+    cover = HUB_GUIDE_COVERS.get(g.get("id", ""), "/assets/games/%s-wide.jpg" % g["game"])
+    upd = g.get("updated") or ""
+    upd_html = '<span class="hub-tool-rev">%s</span>' % upd if upd else ""
     return (
-        '<a class="hub-tool" href="%s">'
-        '<span class="hub-tool-ico" aria-hidden="true">%s</span>'
-        '<h3>%s</h3><p>%s</p>'
-        '<span class="hub-tool-bottom">%s<span>%s</span></span></a>'
-        % (guide_url(lang, g),
-           ICONS.get(g["id"], ICONS["dps-fuse-salvage-calculator"]),
-           g["title"][lang], g["blurb"][lang], badge(lang, g), ui["open_guide"])
+        '<a class="hub-guide-card" href="%s">'
+        '<div class="hub-guide-cover"><img src="%s" alt="%s" loading="lazy"></div>'
+        '<div class="hub-guide-body">'
+        '<div><div class="hub-tool-top">%s%s</div>'
+        '<h3>%s</h3><p>%s</p></div>'
+        '<span class="hub-tool-bottom"><span>%s</span><span>%s</span></span></div></a>'
+        % (guide_url(lang, g), cover, _html.escape(g["title"][lang], quote=True),
+           badge(lang, g), upd_html,
+           g["title"][lang], g["blurb"][lang],
+           "Guide" if lang == "en" else "Гайд", ui["open_guide"])
     )
 
 
@@ -2381,6 +2241,35 @@ def hub_js(game_id, lang):
         wstr = json.dumps({"leftoverOne": pv["leftover_one"],
                            "leftoverMany": pv["leftover_many"]}, ensure_ascii=False)
         js += HUB_WIDGET_DPS.replace("__WIDGET_STR__", wstr)
+    js += """
+(function(){
+  var qf = document.getElementById('hub-tool-filter');
+  if (qf) {
+    qf.addEventListener('input', function(){
+      var v = qf.value.trim().toLowerCase();
+      document.querySelectorAll('#tools .hub-tool').forEach(function(c){
+        var hay = c.getAttribute('data-hub-q') || c.textContent.toLowerCase();
+        c.classList.toggle('hub-hidden', !!v && hay.indexOf(v) === -1);
+      });
+    });
+  }
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.hub-jump a[href^="#"]'));
+  if (navLinks.length && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          var id = '#' + e.target.id;
+          navLinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === id); });
+        }
+      });
+    }, { rootMargin: '-20% 0px -65% 0px' });
+    navLinks.forEach(function(a){
+      var sec = document.querySelector(a.getAttribute('href'));
+      if (sec) obs.observe(sec);
+    });
+  }
+})();
+"""
     return "<script>\n" + js + "\n</script>"
 
 
@@ -2419,21 +2308,50 @@ def hub_page(game_id, lang):
         jump_items.insert(1, (b["guides_h"], "#guides"))
     jump = "".join(
         '<a href="%s">%s</a>' % (href, label) for label, href in jump_items)
+    gcls = GAME_CLS.get(game_id, "dps")
+    cover_img = "/assets/games/%s-wide.jpg" % game["slug"]
+    thumb_img = "/assets/games/%s-cover.jpg" % game["slug"]
+    prefix = "" if lang == "en" else "/ru"
+    sw_order = [("path-of-exile-2", "Path of Exile 2"), ("gta-6", "GTA 6"), ("rob-run", "ROB RUN"), ("desktop-pension-squad", "DPS"), ("aion-2", "AION 2")]
+    gtabs = "".join(
+        '<a class="v3-gtab%s" href="%s/%s/"><img src="/assets/games/%s-cover.jpg" alt="">%s</a>'
+        % (" active" if gid == game_id else "", prefix, gid, gid, lbl)
+        for gid, lbl in sw_order
+    )
+    guides_cta = ""
+    if guides:
+        g_btn = ("Read %s" % ("1.0 Guide" if game_id == "path-of-exile-2" else b["guides_h"])) if lang == "en" else ("Гайд по 1.0" if game_id == "path-of-exile-2" else "Гайды")
+        guides_cta = '<a class="v3-mpill" style="background:var(--coral);color:#FFF;border-color:var(--coral)" href="%s"><strong style="color:#FFF">%s →</strong></a>' % (guide_url(lang, guides[0]), g_btn)
+    guides_pill = ""
+    if guides:
+        g_lbl = ("Guide" if len(guides) == 1 else "Guides") if lang == "en" else ("Гайд" if len(guides) == 1 else "Гайда")
+        guides_pill = '<a class="v3-mpill" href="#guides"><span>%s</span><strong>%d</strong></a>' % (g_lbl, len(guides))
+
     hero_html = (
-        '<section class="hub-hero"><div class="hub-hero-main">'
-        '<p class="hub-eyebrow">%s</p><h1>%s</h1>'
-        '<p class="hub-lede">%s</p>'
-        '<div class="cta"><a class="btn btn-primary" href="#tools">%s</a>'
-        '<a class="btn btn-secondary" href="#faq">%s</a></div></div>'
-        '<aside class="hub-stat %s"><div>'
-        '<span class="hub-pill"><span class="dot"></span>%s</span>'
-        '<h2>%s</h2><p>%s</p></div>'
-        '<div class="hub-meta"><div><strong>%d</strong><span>%s</span></div>'
-        '<div><strong>2</strong><span>%s</span></div></div></aside></section>'
-        '<nav class="hub-jump" aria-label="%s">%s</nav>'
-        % (ui["eyebrow"], c["h1"], c["lede"], ui["cta_tools"], ui["cta_faq"],
-           hero["wm"], hero["pill"], hero["h2"], hero["para"],
-           len(tools), tools_meta_label(lang, len(tools)), ui["langs_meta"],
+        '<div class="v3-gstrip-wrap"><div class="v3-gstrip"><div class="v3-gtabs">%s</div></div></div>'
+        '<section class="v3-hub-hero">'
+        '<img class="v3-hub-hero-bg" src="%s" alt="">'
+        '<div class="v3-hub-hero-grid">'
+        '<div class="v3-hub-hero-left">'
+        '<div class="v3-crest"><img src="%s" alt=""><span>%s</span><span class="live">● %s</span></div>'
+        '<h1>%s</h1><p class="v3-hero-sub">%s</p>'
+        '<div class="v3-metrics">'
+        '<a class="v3-mpill" href="#tools"><span>%s</span><strong class="hot">%d</strong></a>'
+        '%s'
+        '<span class="v3-mpill"><span>%s</span><strong>2</strong></span>'
+        '%s'
+        '</div></div>'
+        '<div class="v3-hub-hero-artcard">'
+        '<img src="%s" alt="%s">'
+        '<div class="v3-hub-hero-artcap"><strong>%s</strong><span>LIVE</span></div>'
+        '</div>'
+        '</div></section>'
+        '<nav class="v3-hub-subnav" aria-label="%s"><div class="v3-hub-subnav-in">%s</div></nav>'
+        % (gtabs, cover_img, thumb_img, game["name"][lang], hero["pill"],
+           c["h1"], c["lede"],
+           tools_meta_label(lang, len(tools)), len(tools),
+           guides_pill, ui["langs_meta"], guides_cta,
+           cover_img, game["name"][lang], hero["h2"],
            ui["jump_label"], jump)
     )
 
@@ -2443,14 +2361,23 @@ def hub_page(game_id, lang):
     note = ""
     if any(t["status"] == "pre-launch" for t in tools) and b.get("prelaunch_note"):
         note = '<p class="intro-note">%s</p>' % b["prelaunch_note"]
+    qfilter_html = ""
+    if len(tools) >= 4:
+        qf_ph = ("Filter %s tools..." % short) if lang == "en" else ("Фильтр инструментов %s..." % short)
+        qfilter_html = (
+            '<div class="hub-quick-filter">'
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'
+            '<input id="hub-tool-filter" type="search" placeholder="%s" aria-label="%s"></div>'
+            % (qf_ph, qf_ph)
+        )
     tools_html = (
         '<section class="hub-section" id="tools">'
         '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
         '<h2>%s</h2><p class="hub-sub">%s</p></div>'
         '<a class="hub-more" href="#explore">%s %s</a></div>'
-        '<div class="hub-tools">%s</div>%s</section>'
+        '%s<div class="hub-tools">%s</div>%s</section>'
         % (ui["tools_kicker"], ui["tools_h"], ui["tools_sub"],
-           ui["tools_more"], ARROW_SVG, cards, note)
+           ui["tools_more"], ARROW_SVG, qfilter_html, cards, note)
     )
 
     # Preview: one real working mini-widget + honest bullets. The AION 2
@@ -2465,6 +2392,13 @@ def hub_page(game_id, lang):
         widget = preview_widget_poe2(lang, ui, pv)
     else:
         widget = preview_widget_dps(lang, ui, pv)
+    if widget.startswith('<div class="hub-calc">'):
+        chrome_lbl = "Interactive Workbench" if lang == "en" else "Интерактивный инструмент"
+        widget = (
+            '<div class="hub-calc"><div class="hub-calc-chrome"><span>%s · %s</span>'
+            '<span class="live-pill"><i></i>LIVE</span></div><div class="hub-calc-inner">'
+            % (short, chrome_lbl)
+        ) + widget[len('<div class="hub-calc">'):-len('</div>')] + '</div></div>'
     preview_html = (
         '<section class="hub-section" id="preview">'
         '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
@@ -2487,8 +2421,8 @@ def hub_page(game_id, lang):
             '<section class="hub-section" id="guides">'
             '<div class="hub-sec-head"><div><p class="sec-label">%s</p>'
             '<h2>%s</h2></div></div>'
-            '<div class="hub-tools">%s</div></section>'
-            % (ui["guides_kicker"], b["guides_h"], cards)
+            '<div class="hub-guides-grid%s">%s</div></section>'
+            % (ui["guides_kicker"], b["guides_h"], " single" if len(guides) == 1 else "", cards)
         )
 
     # Explore: client-side search over this hub's real tools + FAQ, and a
@@ -2541,10 +2475,9 @@ def hub_page(game_id, lang):
     )
 
     body = (
-        '<main id="main" class="wrap">%s%s%s%s%s%s%s</main>'
-        % (crumbs_html(lang, [(game["name"][lang], None)]),
-           hero_html, tools_html, preview_html, guides_html, explore_html,
-           faq_html)
+        '<main id="main">%s<div class="wrap">%s%s%s%s%s%s</div></main>'
+        % (hero_html, crumbs_html(lang, [(game["name"][lang], None)]),
+           tools_html, preview_html, guides_html, explore_html, faq_html)
     )
     jl = breadcrumb_jsonld(lang, [(home_label, home_path), (game["name"][lang], hub_path)])
     return page(lang, c["title"], c["desc"], hub_path, alt, body,
