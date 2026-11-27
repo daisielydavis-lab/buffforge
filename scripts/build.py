@@ -733,7 +733,7 @@ def home_page(lang):
         'document.querySelectorAll("#v3-sc-tabs .v3-sc-tab").forEach(function(x){x.classList.toggle("active",x===b);});'
         'document.getElementById("v3-sc-img").src=d.img;document.getElementById("v3-sc-ovt").textContent=d.ov_t;'
         'document.getElementById("v3-sc-ovs").textContent=d.ov_s;document.getElementById("v3-sc-cta").href=d.u;'
-        'document.getElementById("v3-sc-chips").innerHTML=d.chips.map(function(c){return "<span class=\"v3-sc-chip\">"+c+"</span>";}).join("");});});'
+        r'document.getElementById("v3-sc-chips").innerHTML=d.chips.map(function(c){return "<span class=\"v3-sc-chip\">"+c+"</span>";}).join("");});});'
         'document.querySelectorAll("#v3-qopts .v3-qbtn").forEach(function(b){b.addEventListener("click",function(){'
         'document.querySelectorAll("#v3-qopts .v3-qbtn").forEach(function(x){x.classList.toggle("active",x===b);});'
         'document.getElementById("v3-qres").innerHTML=C.qmap[b.getAttribute("data-q")];});});'
@@ -755,7 +755,7 @@ def home_page(lang):
         'document.querySelectorAll(".v3-seg-btn").forEach(function(x){x.classList.toggle("active",x.getAttribute("data-kind")==="all");});applyD();});}'
         'function runQ(){var v=qi.value.trim().toLowerCase();cQ=v;applyD();if(!v){qd.classList.remove("open");qd.innerHTML="";return;}'
         'var hits=C.items.filter(function(i){return i.q.indexOf(v)!==-1;}).slice(0,7);'
-        'qd.innerHTML=hits.length?hits.map(function(h){return "<a class=\"v3-hit\" href=\""+h.u+"\"><span><strong>"+h.t+"</strong><small>"+h.g+" · "+h.k+"</small></span><span>↗</span></a>";}).join(""):("<div class=\"v3-hit\"><small>"+C.noHits+"</small></div>");'
+        r'qd.innerHTML=hits.length?hits.map(function(h){return "<a class=\"v3-hit\" href=\""+h.u+"\"><span><strong>"+h.t+"</strong><small>"+h.g+" · "+h.k+"</small></span><span>↗</span></a>";}).join(""):("<div class=\"v3-hit\"><small>"+C.noHits+"</small></div>");'
         'qd.classList.add("open");}'
         'if(qi){qi.addEventListener("input",runQ);document.getElementById("v3-q-btn").addEventListener("click",runQ);'
         'document.addEventListener("click",function(e){if(!e.target.closest(".v3-search-wrap"))qd.classList.remove("open");});}'
@@ -2329,9 +2329,10 @@ def hub_page(game_id, lang):
 
     hero_html = (
         '<div class="v3-gstrip-wrap"><div class="v3-gstrip"><div class="v3-gtabs">%s</div></div></div>'
-        '<section class="v3-hero">'
-        '<img class="v3-hero-art" src="%s" alt="">'
-        '<div class="v3-hero-in">'
+        '<section class="v3-hub-hero">'
+        '<img class="v3-hub-hero-bg" src="%s" alt="">'
+        '<div class="v3-hub-hero-grid">'
+        '<div class="v3-hub-hero-left">'
         '<div class="v3-crest"><img src="%s" alt=""><span>%s</span><span class="live">● %s</span></div>'
         '<h1>%s</h1><p class="v3-hero-sub">%s</p>'
         '<div class="v3-metrics">'
@@ -2339,12 +2340,18 @@ def hub_page(game_id, lang):
         '%s'
         '<span class="v3-mpill"><span>%s</span><strong>2</strong></span>'
         '%s'
-        '</div></div></section>'
+        '</div></div>'
+        '<div class="v3-hub-hero-artcard">'
+        '<img src="%s" alt="%s">'
+        '<div class="v3-hub-hero-artcap"><strong>%s</strong><span>LIVE</span></div>'
+        '</div>'
+        '</div></section>'
         '<nav class="v3-hub-subnav" aria-label="%s"><div class="v3-hub-subnav-in">%s</div></nav>'
         % (gtabs, cover_img, thumb_img, game["name"][lang], hero["pill"],
            c["h1"], c["lede"],
            tools_meta_label(lang, len(tools)), len(tools),
            guides_pill, ui["langs_meta"], guides_cta,
+           cover_img, game["name"][lang], hero["h2"],
            ui["jump_label"], jump)
     )
 

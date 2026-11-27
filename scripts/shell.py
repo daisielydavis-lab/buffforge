@@ -61,10 +61,7 @@ GAMES = {
 }
 
 ANVIL_SVG = (
-    '<svg class="mark" viewBox="0 0 32 32" aria-hidden="true">'
-    '<rect width="32" height="32" rx="8" fill="#0C706C"/>'
-    '<path d="M8 13.5h16v2.2H19.5V23h-7V15.7H8V13.5zm4.2-5.2h7.6l1.6 3.4'
-    'H10.6l1.6-3.4z" fill="#FFFFFF"/></svg>'
+    '<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="bfg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F43F5E"/><stop offset="100%" stop-color="#BE123C"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bfg)"/><path d="M16 6.2 21.6 11.4h-3.4v2.4H24v2.6h-4.4l-.8 7.4h-5.6l-.8-7.4H8v-2.6h5.8v-2.4h-3.4L16 6.2z" fill="#FFFFFF"/></svg>'
 )
 
 COPY = {
@@ -128,7 +125,7 @@ def head(lang, title, desc, canon_path=None, alternates=None, jsonld=None, noind
         '<meta property="og:locale" content="%s">' % ("en_US" if lang == "en" else "ru_RU"),
         '<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">',
         '<link rel="stylesheet" href="/assets/fonts.css">',
-        '<link rel="stylesheet" href="/assets/site.css?v=304dbec">',
+        '<link rel="stylesheet" href="/assets/site.css?v=58986bd">',
     ]
     if alternates:
         for hl, p in sorted(alternates.items()):
@@ -246,7 +243,7 @@ def footer_html(lang, games):
     return (
         '<footer class="site-footer"><div class="wrap">'
         '<div class="foot-grid">'
-        '<div class="foot-brand">%s<div class="word">BuffForge</div><p>%s</p></div>'
+        '<div class="foot-brand">%s<div class="word">Buff<em class="bf-accent">Forge</em></div><p>%s</p></div>'
         '<div><h2>%s</h2><div class="links"><a href="%s">%s</a><a href="%s">%s</a><a href="mailto:%s">%s</a></div></div>'
         '<div><h2>%s</h2><div class="links">%s</div></div>'
         '<div><h2>%s</h2><div class="links">%s</div></div>'
